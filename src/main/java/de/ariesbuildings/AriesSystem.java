@@ -8,6 +8,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class AriesSystem extends JavaPlugin {
 
+    private I18n i18n;
+
     @Override
     public void onEnable() {
         PaperLib.suggestPaper(this);
