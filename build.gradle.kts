@@ -1,0 +1,63 @@
+import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
+import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.apache.tools.ant.filters.ReplaceTokens
+
+plugins {
+    id("java")
+    id("com.github.johnrengelman.shadow") version "7.1.2"
+}
+
+group = "de.ariesbuildings"
+version = project.property("version")!!
+
+repositories {
+    mavenLocal()
+    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+}
+
+dependencies {
+    implementation("io.papermc:paperlib:1.0.7")
+
+    compileOnly("org.spigotmc:minecraft-server:1.16.5-SNAPSHOT")
+    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
+
+    compileOnly("org.projectlombok:lombok:1.18.24")
+    annotationProcessor("org.projectlombok:lombok:1.18.24")
+}
+
+task<ConfigureShadowRelocation>("relocateShadowJar") {
+    target = tasks["shadowJar"] as ShadowJar
+    prefix = "de.ariesbuildings.dep"
+}
+
+tasks.named<ShadowJar>("shadowJar").configure {
+    dependsOn(tasks["relocateShadowJar"])
+}
+
+java {
+    toolchain.languageVersion.set(JavaLanguageVersion.of(17))
+}
+
+tasks {
+    shadowJar {
+        archiveFileName.set("${project.property("plugin.name")}-${project.property("plugin.version")}.jar")
+    }
+
+    compileJava {
+        options.encoding = Charsets.UTF_8.name()
+    }
+
+    processResources {
+        filter<ReplaceTokens>(
+            "beginToken" to "\${",
+            "endToken" to "}",
+            "tokens" to mapOf(
+                "plugin.name" to project.property("plugin.name"),
+                "plugin.version" to project.property("plugin.version"),
+                "plugin.main" to project.property("plugin.main"),
+                "plugin.authors" to project.property("plugin.authors")
+            )
+        )
+    }
+}
+

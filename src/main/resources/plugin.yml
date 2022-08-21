@@ -1,0 +1,5 @@
+name: ${plugin.name}
+version: ${plugin.version}
+main: ${plugin.main}
+author: ${plugin.authors}
+api-version: 1.16
