@@ -6,7 +6,7 @@ import java.util.ResourceBundle;
 
 public class I18n {
 
-    private static final String BUNDLE_NAME = "messages";
+    private static final String BUNDLE_NAME = "locales.messages";
     private static I18n instance;
 
     private ResourceBundle defaultBundle;
