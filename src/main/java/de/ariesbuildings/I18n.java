@@ -26,6 +26,11 @@ public class I18n {
         return instance.translate("prefix");
     }
 
+    public static String noPermission() {
+        if (instance == null) return "";
+        return instance.translate("noPermission");
+    }
+
     public void disable() {
         instance = null;
     }
