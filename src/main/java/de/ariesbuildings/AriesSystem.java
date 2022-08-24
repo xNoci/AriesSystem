@@ -6,6 +6,7 @@ import de.ariesbuildings.listener.PlayerJoinListener;
 import de.ariesbuildings.listener.PlayerQuitListener;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
+import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -16,6 +17,8 @@ public class AriesSystem extends JavaPlugin {
 
     @Override
     public void onEnable() {
+        PaperLib.suggestPaper(this);
+
         instance = this;
         PaperLib.suggestPaper(this);
 
@@ -27,6 +30,8 @@ public class AriesSystem extends JavaPlugin {
 
     @Override
     public void onDisable() {
+        Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(I18n.translate("serverRestart")));
+
         i18n.disable();
     }
 
