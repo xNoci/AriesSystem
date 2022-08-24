@@ -38,7 +38,7 @@ public class CommandManager {
         command.register();
 
         SimpleCommandMap commandMap = (SimpleCommandMap) COMMAND_MAP.invoke(Bukkit.getServer());
-        commandMap.register(command.getName(), new CommandContainer(command));
+        commandMap.register(command.getPlugin().getName(), new CommandContainer(command));
     }
 
     private static class CommandContainer extends org.bukkit.command.Command implements PluginIdentifiableCommand {
