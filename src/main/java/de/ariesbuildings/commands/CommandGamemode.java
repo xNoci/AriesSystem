@@ -62,7 +62,13 @@ public class CommandGamemode extends BaseCommand {
     }
 
     @UnknownCommand
+    //TODO Work with permission annotation
     private void unknownCommand(CommandSender sender) {
+        if (!sender.hasPermission("aries.gamemode") && !sender.hasPermission("aries.gamemode.other")) {
+            sender.sendMessage(I18n.noPermission());
+            return;
+        }
+
         if (sender instanceof Player player)
             player.sendMessage(I18n.translate("command.unknown", "gamemode", "<type> [player]"));
         else
