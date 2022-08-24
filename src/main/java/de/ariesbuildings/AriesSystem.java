@@ -1,5 +1,7 @@
 package de.ariesbuildings;
 
+import de.ariesbuildings.commands.CommandGamemode;
+import de.ariesbuildings.commands.system.CommandManager;
 import de.ariesbuildings.listener.PlayerJoinListener;
 import de.ariesbuildings.listener.PlayerQuitListener;
 import io.papermc.lib.PaperLib;
@@ -20,6 +22,7 @@ public class AriesSystem extends JavaPlugin {
         this.i18n = new I18n();
 
         registerListener();
+        registerCommands();
     }
 
     @Override
@@ -27,10 +30,14 @@ public class AriesSystem extends JavaPlugin {
         i18n.disable();
     }
 
-    public void registerListener() {
+    private void registerListener() {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerJoinListener(), this);
         pluginManager.registerEvents(new PlayerQuitListener(), this);
+    }
+
+    private void registerCommands() {
+        CommandManager.register(new CommandGamemode(this));
     }
 
 }
