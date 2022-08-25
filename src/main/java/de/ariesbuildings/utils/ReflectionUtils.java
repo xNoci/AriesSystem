@@ -69,23 +69,4 @@ public final class ReflectionUtils {
             throw new IllegalArgumentException("Cannot find " + canonicalName, e);
         }
     }
-
-    @FunctionalInterface
-    public interface ConstructorInvoker {
-        Object invoke(Object... arguments);
-    }
-
-    @FunctionalInterface
-    public interface MethodInvoker {
-        Object invoke(Object target, Object... arguments);
-    }
-
-    public interface FieldAccessor<T> {
-        T get(Object target);
-
-        void set(Object target, Object value);
-
-        boolean hasField(Object target);
-    }
-
 }
