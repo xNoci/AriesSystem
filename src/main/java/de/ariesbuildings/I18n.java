@@ -17,6 +17,8 @@ public class I18n {
     }
 
     public static String translate(String key, Object... params) {
+        if (StringUtils.isBlank(key))
+            return "{Error: empty or null translation key}";
         if (instance == null) return key;
         return instance.format(key, params);
     }
