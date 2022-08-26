@@ -1,6 +1,8 @@
 package de.ariesbuildings.commands.system.commandmethod;
 
+import com.google.common.collect.Lists;
 import de.ariesbuildings.commands.system.BaseCommand;
+import de.ariesbuildings.commands.system.annotations.CommandPermission;
 import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.command.CommandSender;
@@ -9,18 +11,23 @@ import org.jetbrains.annotations.NotNull;
 
 import java.lang.reflect.Method;
 import java.lang.reflect.Parameter;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 public abstract class CommandMethod<T extends CommandMethod<?>> {
 
     protected final Method method;
-    protected final String permission;
+    protected final CommandPermission permissionNode;
     protected final int commandArgs;
     protected final boolean requiresPlayer;
 
-
-    protected CommandMethod(Method method, String permission, int commandArgs, boolean requiresPlayer) {
+    protected CommandMethod(Method method, CommandPermission permissionNode, int commandArgs, boolean requiresPlayer) {
         this.method = method;
-        this.permission = permission;
+        this.permissionNode = permissionNode;
         this.commandArgs = commandArgs;
         this.requiresPlayer = requiresPlayer;
     }
@@ -45,11 +52,21 @@ public abstract class CommandMethod<T extends CommandMethod<?>> {
 
     public boolean hasPermission(CommandSender sender) {
         if (!needsPermission()) return true;
-        return sender.hasPermission(permission);
+        Stream<String> permissions = filteredPermissions().stream();
+
+        return permissionNode.strict() ? permissions.allMatch(sender::hasPermission) : permissions.anyMatch(sender::hasPermission);
     }
 
     public boolean needsPermission() {
-        return permission != null && !StringUtils.isBlank(permission);
+        return permissionNode != null && filteredPermissions().size() > 0;
+    }
+
+    private List<String> filteredPermissions() {
+        if (permissionNode.value() == null) return Lists.newArrayList();
+        return Arrays.stream(permissionNode.value())
+                .filter(Objects::nonNull)
+                .filter(StringUtils::isNotBlank)
+                .collect(Collectors.toCollection(ArrayList::new));
     }
 
     public boolean matches(CommandSender sender, String[] args) {

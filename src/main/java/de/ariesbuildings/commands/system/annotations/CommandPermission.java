@@ -9,6 +9,18 @@ import java.lang.annotation.Target;
 @Target({ElementType.TYPE, ElementType.METHOD})
 public @interface CommandPermission {
 
-    String value();
+    /**
+     * If set to true, every given permission is needed otherwise only one of the permissions is needed
+     *
+     * @return
+     */
+    boolean strict() default false;
+
+    /**
+     * Empty or null Strings will be ignored
+     *
+     * @return
+     */
+    String[] value();
 
 }

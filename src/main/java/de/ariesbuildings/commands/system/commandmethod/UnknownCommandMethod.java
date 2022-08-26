@@ -1,5 +1,6 @@
 package de.ariesbuildings.commands.system.commandmethod;
 
+import de.ariesbuildings.commands.system.annotations.CommandPermission;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 
@@ -8,7 +9,7 @@ import java.lang.reflect.Method;
 public class UnknownCommandMethod extends CommandMethod<UnknownCommandMethod> {
 
     public static UnknownCommandMethod create(Method method) {
-        String permission = CommandMethodFactory.parseCommandPermission(method, null);
+        CommandPermission permission = CommandMethodFactory.getCommandPermission(method, null);
         int commandArgs = CommandMethodFactory.parseCommandArgs(method, -1);
         boolean requirePlayer = CommandMethodFactory.methodRequirePlayer(method);
 
@@ -16,7 +17,7 @@ public class UnknownCommandMethod extends CommandMethod<UnknownCommandMethod> {
         return new UnknownCommandMethod(method, permission, commandArgs, requirePlayer);
     }
 
-    protected UnknownCommandMethod(Method method, String permission, int commandArgs, boolean requiresPlayer) {
+    protected UnknownCommandMethod(Method method, CommandPermission permission, int commandArgs, boolean requiresPlayer) {
         super(method, permission, commandArgs, requiresPlayer);
     }
 

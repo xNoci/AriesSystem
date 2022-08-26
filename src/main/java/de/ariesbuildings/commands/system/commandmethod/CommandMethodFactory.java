@@ -51,9 +51,9 @@ public class CommandMethodFactory {
         return method.getDeclaredAnnotation(CommandArgs.class).value();
     }
 
-    public static String parseCommandPermission(Method method, String def) {
-        if (!method.isAnnotationPresent(CommandPermission.class)) return def;
-        return method.getDeclaredAnnotation(CommandPermission.class).value();
+    public static CommandPermission getCommandPermission(Method method, String def) {
+        if (!method.isAnnotationPresent(CommandPermission.class)) return null;
+        return method.getDeclaredAnnotation(CommandPermission.class);
     }
 
     public static String[] parseSubcommandNames(Method method, String[] def) {

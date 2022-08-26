@@ -1,5 +1,6 @@
 package de.ariesbuildings.commands.system.commandmethod;
 
+import de.ariesbuildings.commands.system.annotations.CommandPermission;
 import org.bukkit.command.CommandSender;
 
 import java.lang.reflect.Method;
@@ -8,7 +9,7 @@ import java.util.Arrays;
 public class SubcommandMethod extends CommandMethod<SubcommandMethod> {
 
     public static SubcommandMethod create(Method method) {
-        String permission = CommandMethodFactory.parseCommandPermission(method, null);
+        CommandPermission permission = CommandMethodFactory.getCommandPermission(method, null);
         String[] subcommandNames = CommandMethodFactory.parseSubcommandNames(method, null);
         int commandArgs = CommandMethodFactory.parseCommandArgs(method, -1);
         boolean requirePlayer = CommandMethodFactory.methodRequirePlayer(method);
@@ -19,7 +20,7 @@ public class SubcommandMethod extends CommandMethod<SubcommandMethod> {
 
     private final String[] subcommandNames;
 
-    protected SubcommandMethod(Method method, String permission, String[] subcommandNames, int commandArgs, boolean requiresPlayer) {
+    protected SubcommandMethod(Method method, CommandPermission permission, String[] subcommandNames, int commandArgs, boolean requiresPlayer) {
         super(method, permission, commandArgs, requiresPlayer);
         this.subcommandNames = subcommandNames;
     }
