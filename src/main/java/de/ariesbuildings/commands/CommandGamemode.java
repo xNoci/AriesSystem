@@ -21,7 +21,7 @@ public class CommandGamemode extends BaseCommand {
 
     @DefaultCommand
     @CommandArgs(1)
-    @CommandPermission("aries.gamemode")
+    @CommandPermission({"aries.gamemode", "aries.gamemode.other"})
     private void onGamemodeChange(Player player, String[] args) {
         Optional<GameMode> gameMode = parseGamemode(args[0]);
 
