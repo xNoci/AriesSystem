@@ -26,7 +26,7 @@ public class CommandGamemode extends BaseCommand {
         Optional<GameMode> gameMode = parseGamemode(args[0]);
 
         if (gameMode.isEmpty()) {
-            unknownCommand(player);
+            playerFallback(player);
             return;
         }
 
@@ -41,7 +41,7 @@ public class CommandGamemode extends BaseCommand {
         Optional<GameMode> gameMode = parseGamemode(args[0]);
 
         if (gameMode.isEmpty()) {
-            unknownCommand(player);
+            playerFallback(player);
             return;
         }
 
@@ -62,18 +62,25 @@ public class CommandGamemode extends BaseCommand {
     }
 
     @UnknownCommand
-    //TODO Work with permission annotation
-    private void unknownCommand(CommandSender sender) {
-        if (!sender.hasPermission("aries.gamemode") && !sender.hasPermission("aries.gamemode.other")) {
-            sender.sendMessage(I18n.noPermission());
+    private void notForConsole(CommandSender sender) {
+        sender.sendMessage(I18n.translate("command.only_for_player"));
+    }
+
+    @UnknownCommand
+    public void playerFallback(Player player) {
+        if (!player.hasPermission("aries.gamemode") && !player.hasPermission("aries.gamemode.other")) {
+            player.sendMessage(I18n.noPermission());
             return;
         }
 
-        if (sender instanceof Player player)
+        if (player.hasPermission("aries.gamemode.other")) {
             player.sendMessage(I18n.translate("command.unknown", "gamemode", "<type> [player]"));
-        else
-            sender.sendMessage(I18n.translate("command.only_for_player"));
+            return;
+        }
+
+        player.sendMessage(I18n.translate("command.unknown", "gamemode", "<type>"));
     }
+
 
     private Optional<GameMode> parseGamemode(String string) {
         int gamemodeID = 999;
