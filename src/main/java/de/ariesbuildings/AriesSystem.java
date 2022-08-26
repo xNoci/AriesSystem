@@ -2,10 +2,7 @@ package de.ariesbuildings;
 
 import de.ariesbuildings.commands.CommandGamemode;
 import de.ariesbuildings.commands.system.CommandManager;
-import de.ariesbuildings.listener.PlayerJoinListener;
-import de.ariesbuildings.listener.PlayerQuitListener;
-import de.ariesbuildings.listener.ServerListPingBukkitListener;
-import de.ariesbuildings.listener.ServerListPingPaperListener;
+import de.ariesbuildings.listener.*;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -39,6 +36,7 @@ public class AriesSystem extends JavaPlugin {
         PluginManager pluginManager = getServer().getPluginManager();
         pluginManager.registerEvents(new PlayerJoinListener(), this);
         pluginManager.registerEvents(new PlayerQuitListener(), this);
+        pluginManager.registerEvents(new PlayerLoginListener(), this);
         pluginManager.registerEvents(PaperLib.isPaper() ? new ServerListPingPaperListener() : new ServerListPingBukkitListener(), this);
     }
 
