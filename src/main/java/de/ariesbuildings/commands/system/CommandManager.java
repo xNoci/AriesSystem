@@ -1,12 +1,13 @@
 package de.ariesbuildings.commands.system;
 
 import lombok.SneakyThrows;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.command.CommandSender;
 import org.bukkit.command.PluginIdentifiableCommand;
 import org.bukkit.command.SimpleCommandMap;
 import org.bukkit.plugin.Plugin;
+import org.jetbrains.annotations.NotNull;
 
 import java.lang.invoke.MethodHandle;
 import java.lang.invoke.MethodHandles;
@@ -35,14 +36,12 @@ public class CommandManager {
         if (command.getName() == null || StringUtils.isBlank(command.getName()))
             throw new IllegalArgumentException("Command name cannot be null or empty");
 
-        command.register();
-
         SimpleCommandMap commandMap = (SimpleCommandMap) COMMAND_MAP.invoke(Bukkit.getServer());
         commandMap.register(command.getPlugin().getName(), new CommandContainer(command));
     }
 
     private static class CommandContainer extends org.bukkit.command.Command implements PluginIdentifiableCommand {
-        private BaseCommand command;
+        private final BaseCommand command;
 
         public CommandContainer(BaseCommand command) {
             super(command.getName(), command.getDescription(), command.getUsage(), command.getAliases());
@@ -50,8 +49,8 @@ public class CommandManager {
         }
 
         @Override
-        public boolean execute(CommandSender commandSender, String s, String[] strings) {
-            return command.execute(commandSender, strings);
+        public boolean execute(@NotNull CommandSender commandSender, @NotNull String commandLabel, String[] args) {
+            return command.execute(commandSender, commandLabel, args);
         }
 
         @Override

@@ -1,17 +1,20 @@
 package de.ariesbuildings.commands.system;
 
 import com.google.common.collect.Lists;
+import com.google.common.collect.ObjectArrays;
 import com.google.common.collect.Sets;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.commands.system.annotations.DefaultCommand;
 import de.ariesbuildings.commands.system.annotations.Subcommand;
 import de.ariesbuildings.commands.system.annotations.UnknownCommand;
+import de.ariesbuildings.commands.system.commandmethod.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
 import java.util.Collections;
 import java.util.List;
@@ -20,113 +23,86 @@ import java.util.Set;
 
 public class BaseCommand {
 
-    @Getter private JavaPlugin plugin;
-    @Getter private String name;
+    @Getter private final JavaPlugin plugin;
+    @Getter private final String name;
+    @Getter private final List<String> aliases = Lists.newArrayList();
     @Getter @Setter(AccessLevel.PROTECTED) private String description = "";
     @Getter @Setter(AccessLevel.PROTECTED) private String usage = "";
-    @Getter private List<String> aliases = Lists.newArrayList();
 
-    private List<RegisteredCommandMethod> defaultCommands = Lists.newArrayList();
-    private final List<RegisteredCommandMethod> subcommands = Lists.newArrayList();
-    private RegisteredCommandMethod unknownCommand;
+    private final List<DefaultCommandMethod> defaultCommands = Lists.newArrayList();
+    private final List<SubcommandMethod> subcommands = Lists.newArrayList();
+    private final List<UnknownCommandMethod> unknownCommands = Lists.newArrayList();
 
     public BaseCommand(JavaPlugin plugin, String name, String... aliases) {
         this.plugin = plugin;
         this.name = name;
         this.aliases.addAll(List.of(aliases));
+
+        loadCommandMethods();
     }
 
-    protected boolean execute(CommandSender sender, String[] args) {
-        RegisteredCommandMethod bestMatch = findCommand(sender, args);
+    protected boolean execute(CommandSender sender, String commandName, String[] args) {
+        CommandMethod<?> command = matchCommand(sender, args);
 
-        if (bestMatch != null) {
-
-            if (!bestMatch.hasPermission(sender)) {
+        if (command != null) {
+            if (!command.hasPermission(sender)) {
                 sender.sendMessage(I18n.noPermission());
                 return true;
             }
-
-            bestMatch.execute(this, sender, args);
+            command.execute(this, sender, args);
             return true;
         }
 
-        if (unknownCommand != null) {
-            unknownCommand.execute(this, sender, args);
-            return true;
-        }
-
+        sender.sendMessage(I18n.translate("command.failed_to_find_command", String.join(" ", ObjectArrays.concat(commandName, args))));
         return false;
     }
 
-    public void register() {
-        registerDefaultCommand();
-        registerUnknownCommand();
-        registerSubcommands();
-    }
-
-    private RegisteredCommandMethod findCommand(CommandSender sender, String[] args) {
-        Optional<RegisteredCommandMethod> subcommand = subcommands.stream()
-                .filter(command -> command.matches(sender, args))
-                .min((o1, o2) -> o1.bestMatch(o2, sender, args));
-
-
+    private CommandMethod<?> matchCommand(CommandSender sender, String[] args) {
+        Optional<SubcommandMethod> subcommand = bestMatch(subcommands, sender, args);
         if (subcommand.isPresent()) return subcommand.get();
 
-        Optional<RegisteredCommandMethod> defaultCommand = defaultCommands.stream()
-                .filter(command -> command.matches(sender, args))
-                .min((o1, o2) -> o1.bestMatch(o2, sender, args));
+        Optional<DefaultCommandMethod> defaultCommand = bestMatch(defaultCommands, sender, args);
+        if (defaultCommand.isPresent()) return defaultCommand.get();
 
-        return defaultCommand.orElse(null);
+        Optional<UnknownCommandMethod> unknownCommandMethod = bestMatch(unknownCommands, sender, args);
+        return unknownCommandMethod.orElse(null);
     }
 
+    private <T extends CommandMethod<T>> Optional<T> bestMatch(List<T> commands, CommandSender sender, String[] args) {
+        return commands.stream().filter(command -> command.matches(sender, args))
+                .min((o1, o2) -> o1.findBestMatch(o2, sender, args));
+    }
 
-    private void registerDefaultCommand() {
+    private void loadCommandMethods() {
+        loadCommands(DefaultCommand.class, defaultCommands);
+        loadCommands(Subcommand.class, subcommands);
+        loadCommands(UnknownCommand.class, unknownCommands);
+
+
+        if (defaultCommands.size() == 0) {
+            plugin.getLogger().warning("No 'DefaultCommand' method found for %s".formatted(getClass().getName()));
+        }
+
+        if (unknownCommands.size() == 0) {
+            plugin.getLogger().warning("No 'UnknownCommand' method found for %s".formatted(getClass().getName()));
+        }
+    }
+
+    @SuppressWarnings({"rawtypes", "unchecked"})
+    private <T extends CommandMethod<T>> void loadCommands(Class<? extends Annotation> type, List<T> commands) {
         Set<Method> methods = getMethods();
 
         for (Method method : methods) {
-            if (!method.isAnnotationPresent(DefaultCommand.class)) continue;
+            if (!method.isAnnotationPresent(type)) continue;
             try {
-                RegisteredCommandMethod defaultCommand = RegisteredCommandMethod.create(method);
-                defaultCommands.add(defaultCommand);
+                CommandMethod commandMethod = CommandMethodFactory.createMethod(method);
+                if (commandMethod == null) continue;
+                commands.add((T) commandMethod);
             } catch (Exception e) {
                 e.printStackTrace();
             }
         }
 
-        if (defaultCommands.size() == 0)
-            throw new RuntimeException("No 'DefaultCommand' method found for %s".formatted(getClass().getName()));
-    }
-
-    private void registerSubcommands() {
-        Set<Method> methods = getMethods();
-
-        for (Method method : methods) {
-            if (!method.isAnnotationPresent(Subcommand.class)) continue;
-            try {
-                RegisteredCommandMethod subcommand = RegisteredCommandMethod.create(method);
-                subcommands.add(subcommand);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-
-    }
-
-    private void registerUnknownCommand() {
-        Set<Method> methods = getMethods();
-
-        for (Method method : methods) {
-            if (!method.isAnnotationPresent(UnknownCommand.class)) continue;
-            try {
-                unknownCommand = RegisteredCommandMethod.create(method);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
-        }
-
-        if (unknownCommand == null)
-            throw new RuntimeException("No 'UnknownCommand' method found for %s".formatted(getClass().getName()));
     }
 
     private Set<Method> getMethods() {
