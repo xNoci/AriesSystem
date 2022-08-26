@@ -18,9 +18,7 @@ public class AriesSystem extends JavaPlugin {
     @Override
     public void onEnable() {
         PaperLib.suggestPaper(this);
-
         instance = this;
-        PaperLib.suggestPaper(this);
 
         this.i18n = new I18n();
 
