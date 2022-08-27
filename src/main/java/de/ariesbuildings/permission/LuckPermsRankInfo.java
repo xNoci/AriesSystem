@@ -57,7 +57,7 @@ public class LuckPermsRankInfo extends DefaultRankInfo {
 
     private <T> T getGroupValue(Function<Group, T> group, T def) {
         Group g = getHighestGroup();
-        return group != null ? group.apply(g) : def;
+        return g != null ? group.apply(g) : def;
     }
 
     private <T> T getMetaDataValue(String key, Function<String, T> valueTransformer, T def) {
