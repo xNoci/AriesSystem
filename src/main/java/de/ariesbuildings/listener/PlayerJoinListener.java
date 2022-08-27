@@ -17,6 +17,8 @@ public class PlayerJoinListener implements Listener {
         ChatColor color = rankInfo.getColor();
         String displayName = rankInfo.getDisplayname();
 
+        player.setPlayerListHeaderFooter(I18n.translate("tab_list.header"), I18n.translate("tab_list.footer"));
+
         //Check whether player has vanished enabled, only show join message if he isn't vanish
         event.setJoinMessage(I18n.translate("playerJoin", color + displayName + color + " §8| " + color + player.getName()));
     }
