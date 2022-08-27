@@ -12,7 +12,7 @@ version = project.property("version")!!
 
 repositories {
     mavenLocal()
-    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+    maven { url = uri("https://repo.papermc.io/repository/maven-public/") } //PaperMC
 }
 
 dependencies {
@@ -21,6 +21,8 @@ dependencies {
 
     compileOnly("org.spigotmc:minecraft-server:1.16.5-SNAPSHOT")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
+
+    compileOnly("net.luckperms:api:5.4")
 
     compileOnly("org.projectlombok:lombok:1.18.24")
     annotationProcessor("org.projectlombok:lombok:1.18.24")
