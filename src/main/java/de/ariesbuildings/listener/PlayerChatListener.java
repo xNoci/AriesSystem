@@ -1,5 +1,6 @@
 package de.ariesbuildings.listener;
 
+import de.ariesbuildings.permission.Permission;
 import de.ariesbuildings.permission.RankInfo;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -23,7 +24,7 @@ public class PlayerChatListener implements Listener {
     private String replaceMessage(Player player, String message) {
         message = message.replace("%", "%%");
         message = message.replace("\\", "\\\\");
-        if (player.hasPermission("aries.chatcolor")) {
+        if (player.hasPermission(Permission.CHAT_USE_COLOR)) {
             message = message.replace("&", "§");
         }
 

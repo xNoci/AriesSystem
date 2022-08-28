@@ -3,6 +3,7 @@ package de.ariesbuildings.commands;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.commands.system.BaseCommand;
 import de.ariesbuildings.commands.system.annotations.*;
+import de.ariesbuildings.permission.Permission;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
@@ -21,7 +22,7 @@ public class CommandGamemode extends BaseCommand {
 
     @DefaultCommand
     @CommandArgs(1)
-    @CommandPermission({"aries.gamemode", "aries.gamemode.other"})
+    @CommandPermission({Permission.COMMAND_GAMEMODE, Permission.COMMAND_GAMEMODE_OTHER})
     private void onGamemodeChange(Player player, String[] args) {
         Optional<GameMode> gameMode = parseGamemode(args[0]);
 
@@ -36,7 +37,7 @@ public class CommandGamemode extends BaseCommand {
 
     @Subcommand("*")
     @CommandArgs(1)
-    @CommandPermission("aries.gamemode.other")
+    @CommandPermission(Permission.COMMAND_GAMEMODE_OTHER)
     private void onGamemodeChangeOther(Player player, String[] args) {
         Optional<GameMode> gameMode = parseGamemode(args[0]);
 
@@ -68,12 +69,12 @@ public class CommandGamemode extends BaseCommand {
 
     @UnknownCommand
     public void playerFallback(Player player) {
-        if (!player.hasPermission("aries.gamemode") && !player.hasPermission("aries.gamemode.other")) {
+        if (!player.hasPermission(Permission.COMMAND_GAMEMODE) && !player.hasPermission(Permission.COMMAND_GAMEMODE_OTHER)) {
             player.sendMessage(I18n.noPermission());
             return;
         }
 
-        if (player.hasPermission("aries.gamemode.other")) {
+        if (player.hasPermission(Permission.COMMAND_GAMEMODE_OTHER)) {
             player.sendMessage(I18n.translate("command.unknown", "gamemode", "<type> [player]"));
             return;
         }
