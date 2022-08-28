@@ -21,6 +21,8 @@ public class PlayerJoinListener implements Listener {
 
         //Check whether player has vanished enabled, only show join message if he isn't vanish
         event.setJoinMessage(I18n.translate("playerJoin", color + displayName + color + " §8| " + color + player.getName()));
+
+        player.setGlowing(true); //TODO Make this to a player option/setting
     }
 
 }
