@@ -8,6 +8,13 @@ import java.util.Arrays;
 
 public class SubcommandMethod extends CommandMethod<SubcommandMethod> {
 
+    private final String[] subcommandNames;
+
+    protected SubcommandMethod(Method method, CommandPermission permission, String[] subcommandNames, int commandArgs, boolean requiresPlayer) {
+        super(method, permission, commandArgs, requiresPlayer);
+        this.subcommandNames = subcommandNames;
+    }
+
     public static SubcommandMethod create(Method method) {
         CommandPermission permission = CommandMethodFactory.getCommandPermission(method, null);
         String[] subcommandNames = CommandMethodFactory.parseSubcommandNames(method, null);
@@ -18,22 +25,15 @@ public class SubcommandMethod extends CommandMethod<SubcommandMethod> {
         return new SubcommandMethod(method, permission, subcommandNames, commandArgs, requirePlayer);
     }
 
-    private final String[] subcommandNames;
-
-    protected SubcommandMethod(Method method, CommandPermission permission, String[] subcommandNames, int commandArgs, boolean requiresPlayer) {
-        super(method, permission, commandArgs, requiresPlayer);
-        this.subcommandNames = subcommandNames;
-    }
-
     @Override
     protected boolean doesCommandMatch(CommandSender sender, String[] args) {
         String[] trimmedArgs = trimSubcommandArgs(args);
-        if (hasFixedArgCount() && commandArgs != trimmedArgs.length) return false;
+        if(hasFixedArgCount() && commandArgs != trimmedArgs.length) return false;
 
-        if (args.length < subcommandNames.length) return false;
-        for (int i = 0; i < subcommandNames.length; i++) {
-            if (subcommandNames[i].equalsIgnoreCase("*")) continue;
-            if (!subcommandNames[i].equalsIgnoreCase(args[i])) return false;
+        if(args.length < subcommandNames.length) return false;
+        for(int i = 0; i < subcommandNames.length; i++) {
+            if(subcommandNames[i].equalsIgnoreCase("*")) continue;
+            if(!subcommandNames[i].equalsIgnoreCase(args[i])) return false;
         }
 
         return true;
@@ -42,22 +42,22 @@ public class SubcommandMethod extends CommandMethod<SubcommandMethod> {
 
     @Override
     protected MatchPriority calculatePriority(SubcommandMethod other, CommandSender sender, String[] args) {
-        if (this.subcommandNames.length < args.length && other.subcommandNames.length < args.length)
+        if(this.subcommandNames.length < args.length && other.subcommandNames.length < args.length)
             return MatchPriority.EQUAL;
-        if (this.subcommandNames.length < args.length) return MatchPriority.OTHER;
-        if (other.subcommandNames.length < args.length) return MatchPriority.THIS;
+        if(this.subcommandNames.length < args.length) return MatchPriority.OTHER;
+        if(other.subcommandNames.length < args.length) return MatchPriority.THIS;
 
         int minArgs = Math.min(this.subcommandNames.length, other.subcommandNames.length);
 
-        for (int i = 0; i < minArgs; i++) {
+        for(int i = 0; i < minArgs; i++) {
             String arg = args[i];
             String thisArg = this.subcommandNames[i];
             String otherArg = other.subcommandNames[i];
 
-            if ((thisArg.equalsIgnoreCase("*") && otherArg.equalsIgnoreCase("*")) || ((thisArg.equalsIgnoreCase(arg) && otherArg.equalsIgnoreCase(arg))))
+            if((thisArg.equalsIgnoreCase("*") && otherArg.equalsIgnoreCase("*")) || ((thisArg.equalsIgnoreCase(arg) && otherArg.equalsIgnoreCase(arg))))
                 continue;
-            if (thisArg.equalsIgnoreCase(arg)) return MatchPriority.THIS;
-            if (otherArg.equalsIgnoreCase(arg)) return MatchPriority.OTHER;
+            if(thisArg.equalsIgnoreCase(arg)) return MatchPriority.THIS;
+            if(otherArg.equalsIgnoreCase(arg)) return MatchPriority.OTHER;
         }
 
         return MatchPriority.EQUAL;
@@ -66,7 +66,7 @@ public class SubcommandMethod extends CommandMethod<SubcommandMethod> {
     private String[] trimSubcommandArgs(String[] args) {
         int argsToRemove = subcommandNames.length;
         int newArrayLength = args.length - argsToRemove;
-        if (newArrayLength <= 0) return new String[0];
+        if(newArrayLength <= 0) return new String[0];
         return Arrays.copyOfRange(args, argsToRemove, args.length);
     }
 }

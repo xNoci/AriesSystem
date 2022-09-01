@@ -24,29 +24,29 @@ public class LuckPermsHook {
     private static boolean checktPlugin = false;
 
     public static boolean isEnabled() {
-        if (!checktPlugin) {
+        if(!checktPlugin) {
             checktPlugin = true;
             plugin = Bukkit.getPluginManager().getPlugin("LuckPerms");
         }
-        if (plugin == null) return false;
+        if(plugin == null) return false;
         return plugin.isEnabled();
     }
 
     public static <T extends LuckPermsEvent> void subscribe(JavaPlugin plugin, Class<T> eventClass, Consumer<? super T> handler) {
-        if (!isEnabled()) return;
+        if(!isEnabled()) return;
         EventBus eventBus = LuckPermsProvider.get().getEventBus();
         eventBus.subscribe(plugin, eventClass, handler);
     }
 
     @Nullable
     public static Group getUserGroup(UUID uuid) {
-        if (!isEnabled()) return null;
+        if(!isEnabled()) return null;
 
         LuckPerms luckPerms = LuckPermsProvider.get();
         User user = luckPerms.getUserManager().getUser(uuid);
         List<Group> groups = getGroupsSorted();
 
-        if (user == null) {
+        if(user == null) {
             return groups.get(0);
         }
 

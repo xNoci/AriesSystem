@@ -26,7 +26,7 @@ public class CommandGamemode extends BaseCommand {
     private void onGamemodeChange(Player player, String[] args) {
         Optional<GameMode> gameMode = parseGamemode(args[0]);
 
-        if (gameMode.isEmpty()) {
+        if(gameMode.isEmpty()) {
             playerFallback(player);
             return;
         }
@@ -41,18 +41,18 @@ public class CommandGamemode extends BaseCommand {
     private void onGamemodeChangeOther(Player player, String[] args) {
         Optional<GameMode> gameMode = parseGamemode(args[0]);
 
-        if (gameMode.isEmpty()) {
+        if(gameMode.isEmpty()) {
             playerFallback(player);
             return;
         }
 
         Player target = Bukkit.getPlayer(args[1]);
-        if (target == null) {
+        if(target == null) {
             player.sendMessage(I18n.translate("command.player_not_found", args[1]));
             return;
         }
 
-        if (player.getUniqueId().equals(target.getUniqueId())) {
+        if(player.getUniqueId().equals(target.getUniqueId())) {
             player.sendMessage(I18n.translate("command.cannot_target_yourself", args[1]));
             return;
         }
@@ -69,12 +69,12 @@ public class CommandGamemode extends BaseCommand {
 
     @UnknownCommand
     public void playerFallback(Player player) {
-        if (!player.hasPermission(Permission.COMMAND_GAMEMODE) && !player.hasPermission(Permission.COMMAND_GAMEMODE_OTHER)) {
+        if(!player.hasPermission(Permission.COMMAND_GAMEMODE) && !player.hasPermission(Permission.COMMAND_GAMEMODE_OTHER)) {
             player.sendMessage(I18n.noPermission());
             return;
         }
 
-        if (player.hasPermission(Permission.COMMAND_GAMEMODE_OTHER)) {
+        if(player.hasPermission(Permission.COMMAND_GAMEMODE_OTHER)) {
             player.sendMessage(I18n.translate("command.unknown", "gamemode", "<type> [player]"));
             return;
         }
@@ -88,16 +88,16 @@ public class CommandGamemode extends BaseCommand {
 
         try {
             gamemodeID = Integer.parseInt(string);
-            if (gamemodeID <= -1)
+            if(gamemodeID <= -1)
                 gamemodeID = 999;
-        } catch (NumberFormatException ignored) {
+        } catch(NumberFormatException ignored) {
         }
 
         GameMode output = GameMode.getByValue(gamemodeID);
-        if (output != null)
+        if(output != null)
             return Optional.of(output);
 
-        switch (string.toLowerCase()) {
+        switch(string.toLowerCase()) {
             case "s", "survival" -> output = GameMode.SURVIVAL;
             case "c", "creative" -> output = GameMode.CREATIVE;
             case "a", "adventure" -> output = GameMode.ADVENTURE;

@@ -23,15 +23,21 @@ import java.util.Set;
 
 public class BaseCommand {
 
-    @Getter private final JavaPlugin plugin;
-    @Getter private final String name;
-    @Getter private final List<String> aliases = Lists.newArrayList();
-    @Getter @Setter(AccessLevel.PROTECTED) private String description = "";
-    @Getter @Setter(AccessLevel.PROTECTED) private String usage = "";
-
+    @Getter
+    private final JavaPlugin plugin;
+    @Getter
+    private final String name;
+    @Getter
+    private final List<String> aliases = Lists.newArrayList();
     private final List<DefaultCommandMethod> defaultCommands = Lists.newArrayList();
     private final List<SubcommandMethod> subcommands = Lists.newArrayList();
     private final List<UnknownCommandMethod> unknownCommands = Lists.newArrayList();
+    @Getter
+    @Setter(AccessLevel.PROTECTED)
+    private String description = "";
+    @Getter
+    @Setter(AccessLevel.PROTECTED)
+    private String usage = "";
 
     public BaseCommand(JavaPlugin plugin, String name, String... aliases) {
         this.plugin = plugin;
@@ -44,8 +50,8 @@ public class BaseCommand {
     protected boolean execute(CommandSender sender, String commandName, String[] args) {
         CommandMethod<?> command = matchCommand(sender, args);
 
-        if (command != null) {
-            if (!command.hasPermission(sender)) {
+        if(command != null) {
+            if(!command.hasPermission(sender)) {
                 sender.sendMessage(I18n.noPermission());
                 return true;
             }
@@ -59,10 +65,10 @@ public class BaseCommand {
 
     private CommandMethod<?> matchCommand(CommandSender sender, String[] args) {
         Optional<SubcommandMethod> subcommand = bestMatch(subcommands, sender, args);
-        if (subcommand.isPresent()) return subcommand.get();
+        if(subcommand.isPresent()) return subcommand.get();
 
         Optional<DefaultCommandMethod> defaultCommand = bestMatch(defaultCommands, sender, args);
-        if (defaultCommand.isPresent()) return defaultCommand.get();
+        if(defaultCommand.isPresent()) return defaultCommand.get();
 
         Optional<UnknownCommandMethod> unknownCommandMethod = bestMatch(unknownCommands, sender, args);
         return unknownCommandMethod.orElse(null);
@@ -79,11 +85,11 @@ public class BaseCommand {
         loadCommands(UnknownCommand.class, unknownCommands);
 
 
-        if (defaultCommands.size() == 0) {
+        if(defaultCommands.size() == 0) {
             plugin.getLogger().warning("No 'DefaultCommand' method found for %s".formatted(getClass().getName()));
         }
 
-        if (unknownCommands.size() == 0) {
+        if(unknownCommands.size() == 0) {
             plugin.getLogger().warning("No 'UnknownCommand' method found for %s".formatted(getClass().getName()));
         }
     }
@@ -92,13 +98,13 @@ public class BaseCommand {
     private <T extends CommandMethod<T>> void loadCommands(Class<? extends Annotation> type, List<T> commands) {
         Set<Method> methods = getMethods();
 
-        for (Method method : methods) {
-            if (!method.isAnnotationPresent(type)) continue;
+        for(Method method : methods) {
+            if(!method.isAnnotationPresent(type)) continue;
             try {
                 CommandMethod commandMethod = CommandMethodFactory.createMethod(method);
-                if (commandMethod == null) continue;
+                if(commandMethod == null) continue;
                 commands.add((T) commandMethod);
-            } catch (Exception e) {
+            } catch(Exception e) {
                 e.printStackTrace();
             }
         }

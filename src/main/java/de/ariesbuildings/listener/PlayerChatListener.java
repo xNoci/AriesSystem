@@ -24,7 +24,7 @@ public class PlayerChatListener implements Listener {
     private String replaceMessage(Player player, String message) {
         message = message.replace("%", "%%");
         message = message.replace("\\", "\\\\");
-        if (player.hasPermission(Permission.CHAT_USE_COLOR)) {
+        if(player.hasPermission(Permission.CHAT_USE_COLOR)) {
             message = message.replace("&", "§");
         }
 

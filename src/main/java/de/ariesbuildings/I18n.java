@@ -19,19 +19,19 @@ public class I18n {
     }
 
     public static String translate(String key, Object... params) {
-        if (StringUtils.isBlank(key))
+        if(StringUtils.isBlank(key))
             return "{Error: empty or null translation key}";
-        if (instance == null) return key;
+        if(instance == null) return key;
         return instance.format(key, params);
     }
 
     public static String prefix() {
-        if (instance == null) return "";
+        if(instance == null) return "";
         return instance.translate("prefix");
     }
 
     public static String noPermission() {
-        if (instance == null) return "";
+        if(instance == null) return "";
         return instance.translate("noPermission");
     }
 
@@ -40,7 +40,7 @@ public class I18n {
     }
 
     private String translate(String key) {
-        if (!defaultBundle.containsKey(key)) return key;
+        if(!defaultBundle.containsKey(key)) return key;
         return defaultBundle.getString(key);
     }
 

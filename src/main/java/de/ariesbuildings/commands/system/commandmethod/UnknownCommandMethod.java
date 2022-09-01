@@ -8,6 +8,10 @@ import java.lang.reflect.Method;
 
 public class UnknownCommandMethod extends CommandMethod<UnknownCommandMethod> {
 
+    protected UnknownCommandMethod(Method method, CommandPermission permission, int commandArgs, boolean requiresPlayer) {
+        super(method, permission, commandArgs, requiresPlayer);
+    }
+
     public static UnknownCommandMethod create(Method method) {
         CommandPermission permission = CommandMethodFactory.getCommandPermission(method, null);
         int commandArgs = CommandMethodFactory.parseCommandArgs(method, -1);
@@ -15,10 +19,6 @@ public class UnknownCommandMethod extends CommandMethod<UnknownCommandMethod> {
 
 
         return new UnknownCommandMethod(method, permission, commandArgs, requirePlayer);
-    }
-
-    protected UnknownCommandMethod(Method method, CommandPermission permission, int commandArgs, boolean requiresPlayer) {
-        super(method, permission, commandArgs, requiresPlayer);
     }
 
     @Override
@@ -36,11 +36,11 @@ public class UnknownCommandMethod extends CommandMethod<UnknownCommandMethod> {
         boolean needsPlayerAsSender = sender instanceof Player;
         boolean sameCommandSenderType = (this.requiresPlayer && other.requiresPlayer) || (!this.requiresPlayer && !other.requiresPlayer);
 
-        if (sameCommandSenderType) {
+        if(sameCommandSenderType) {
             return MatchPriority.EQUAL;
         }
 
-        if (needsPlayerAsSender) {
+        if(needsPlayerAsSender) {
             return this.requiresPlayer ? MatchPriority.THIS : MatchPriority.OTHER;
         } else {
             return !this.requiresPlayer ? MatchPriority.THIS : MatchPriority.OTHER;

@@ -29,7 +29,7 @@ public class LuckPermsRankInfo extends DefaultRankInfo {
     @Override
     public ChatColor getColor() {
         return getMetaDataValue("color", value -> {
-            if (value.startsWith("§") && value.length() >= 2) {
+            if(value.startsWith("§") && value.length() >= 2) {
                 return ChatColor.getByChar(value.charAt(1));
             } else {
                 return ChatColor.valueOf(value);
@@ -62,13 +62,13 @@ public class LuckPermsRankInfo extends DefaultRankInfo {
 
     private <T> T getMetaDataValue(String key, Function<String, T> valueTransformer, T def) {
         CachedMetaData metaData = getMetaData();
-        if (metaData == null) return def;
+        if(metaData == null) return def;
         return metaData.getMetaValue(key, valueTransformer).orElse(def);
     }
 
     private <T> T getMetaData(Function<CachedMetaData, T> data, Predicate<T> tester, T def) {
         CachedMetaData metaData = getMetaData();
-        if (metaData == null) return def;
+        if(metaData == null) return def;
         T query = data.apply(metaData);
         return tester.test(query) ? query : def;
     }

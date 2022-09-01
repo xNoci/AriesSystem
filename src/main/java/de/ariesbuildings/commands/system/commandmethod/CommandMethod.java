@@ -36,10 +36,10 @@ public abstract class CommandMethod<T extends CommandMethod<?>> {
     public void execute(BaseCommand command, CommandSender sender, String[] args) {
         Object[] params = new Object[method.getParameterCount()];
 
-        for (int i = 0; i < params.length; i++) {
+        for(int i = 0; i < params.length; i++) {
             Parameter param = method.getParameters()[i];
-            if (param.getType().equals(String[].class)) params[i] = args;
-            if (CommandSender.class.isAssignableFrom(param.getType())) params[i] = sender;
+            if(param.getType().equals(String[].class)) params[i] = args;
+            if(CommandSender.class.isAssignableFrom(param.getType())) params[i] = sender;
         }
 
         method.setAccessible(true);
@@ -51,7 +51,7 @@ public abstract class CommandMethod<T extends CommandMethod<?>> {
     }
 
     public boolean hasPermission(CommandSender sender) {
-        if (!needsPermission()) return true;
+        if(!needsPermission()) return true;
         Stream<String> permissions = filteredPermissions().stream();
 
         return permissionNode.strict() ? permissions.allMatch(sender::hasPermission) : permissions.anyMatch(sender::hasPermission);
@@ -62,7 +62,7 @@ public abstract class CommandMethod<T extends CommandMethod<?>> {
     }
 
     private List<String> filteredPermissions() {
-        if (permissionNode.value() == null) return Lists.newArrayList();
+        if(permissionNode.value() == null) return Lists.newArrayList();
         return Arrays.stream(permissionNode.value())
                 .filter(Objects::nonNull)
                 .filter(StringUtils::isNotBlank)
@@ -70,7 +70,7 @@ public abstract class CommandMethod<T extends CommandMethod<?>> {
     }
 
     public boolean matches(CommandSender sender, String[] args) {
-        if (requiresPlayer && !(sender instanceof Player)) return false;
+        if(requiresPlayer && !(sender instanceof Player)) return false;
         return doesCommandMatch(sender, args);
     }
 

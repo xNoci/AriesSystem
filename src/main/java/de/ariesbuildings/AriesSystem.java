@@ -11,7 +11,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 public class AriesSystem extends JavaPlugin {
 
-    @Getter private static AriesSystem instance;
+    @Getter
+    private static AriesSystem instance;
     private I18n i18n;
 
     @Override
@@ -39,6 +40,7 @@ public class AriesSystem extends JavaPlugin {
         pluginManager.registerEvents(new PlayerLoginListener(), this);
         pluginManager.registerEvents(new PlayerDamageListener(), this);
         pluginManager.registerEvents(new PlayerChatListener(), this);
+        pluginManager.registerEvents(new OptionChangeListener(), this);
         pluginManager.registerEvents(PaperLib.isPaper() ? new ServerListPingPaperListener() : new ServerListPingBukkitListener(), this);
     }
 

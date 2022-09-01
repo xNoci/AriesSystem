@@ -8,6 +8,10 @@ import java.lang.reflect.Method;
 
 public class DefaultCommandMethod extends CommandMethod<DefaultCommandMethod> {
 
+    protected DefaultCommandMethod(Method method, CommandPermission permission, int commandArgs, boolean requiresPlayer) {
+        super(method, permission, commandArgs, requiresPlayer);
+    }
+
     public static DefaultCommandMethod create(Method method) {
         CommandPermission permission = CommandMethodFactory.getCommandPermission(method, null);
         int commandArgs = CommandMethodFactory.parseCommandArgs(method, -1);
@@ -17,13 +21,9 @@ public class DefaultCommandMethod extends CommandMethod<DefaultCommandMethod> {
         return new DefaultCommandMethod(method, permission, commandArgs, requirePlayer);
     }
 
-    protected DefaultCommandMethod(Method method, CommandPermission permission, int commandArgs, boolean requiresPlayer) {
-        super(method, permission, commandArgs, requiresPlayer);
-    }
-
     @Override
     protected boolean doesCommandMatch(CommandSender sender, String[] args) {
-        if (!hasFixedArgCount()) return true;
+        if(!hasFixedArgCount()) return true;
         return commandArgs == args.length;
     }
 
@@ -32,11 +32,11 @@ public class DefaultCommandMethod extends CommandMethod<DefaultCommandMethod> {
         boolean playerProvided = sender instanceof Player;
         boolean sameCommandSenderType = (this.requiresPlayer && other.requiresPlayer) || (!this.requiresPlayer && !other.requiresPlayer);
 
-        if (sameCommandSenderType) {
+        if(sameCommandSenderType) {
             return MatchPriority.EQUAL;
         }
 
-        if (!playerProvided) {
+        if(!playerProvided) {
             return this.requiresPlayer ? MatchPriority.THIS : MatchPriority.OTHER;
         } else {
             return !this.requiresPlayer ? MatchPriority.THIS : MatchPriority.OTHER;

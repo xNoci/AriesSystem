@@ -19,7 +19,7 @@ public final class ReflectionUtils {
             CRAFTBUKKIT = "org.bukkit.craftbukkit" + VERSION + ".";
             NMS = supports(17) ? "net.minecraft." : "net.minecraft.server." + VERSION + ".";
 
-        } catch (Exception e) {
+        } catch(Exception e) {
             throw new IllegalArgumentException("Failed to parse server version.", e);
         }
     }
@@ -50,7 +50,7 @@ public final class ReflectionUtils {
     }
 
     public static Class<?> getMinecraftClass(String newPackage, String name) {
-        if (supports(17)) name = newPackage + "." + name;
+        if(supports(17)) name = newPackage + "." + name;
         return getMinecraftClass(name);
     }
 
@@ -65,7 +65,7 @@ public final class ReflectionUtils {
     private static Class<?> getCanonicalClass(String canonicalName) {
         try {
             return Class.forName(canonicalName);
-        } catch (ClassNotFoundException e) {
+        } catch(ClassNotFoundException e) {
             throw new IllegalArgumentException("Cannot find " + canonicalName, e);
         }
     }
