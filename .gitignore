@@ -45,3 +45,6 @@ gradle-app.setting
 
 # Cache of project
 .gradletasknamecache
+
+#Powershell
+*.ps1
