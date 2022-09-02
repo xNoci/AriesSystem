@@ -1,5 +1,6 @@
 package de.ariesbuildings;
 
+import de.ariesbuildings.commands.CommandAntiBlockUpdate;
 import de.ariesbuildings.commands.CommandGamemode;
 import de.ariesbuildings.commands.system.CommandManager;
 import de.ariesbuildings.listener.*;
@@ -46,6 +47,7 @@ public class AriesSystem extends JavaPlugin {
 
     private void registerCommands() {
         CommandManager.register(new CommandGamemode(this));
+        CommandManager.register(new CommandAntiBlockUpdate(this));
     }
 
 }

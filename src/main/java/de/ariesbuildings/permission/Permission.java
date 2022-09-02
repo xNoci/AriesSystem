@@ -9,4 +9,6 @@ public class Permission {
 
     public static final String CHAT_USE_COLOR = PERMISSION_PREFIX + "chatcolor"; //Player can write colored text in chat
 
+    public static final String ANTI_BLOCK_UPDATE = PERMISSION_PREFIX + "antiblockupdate"; //Player can toggle block updates with /abu and /antiblockupdate
+
 }

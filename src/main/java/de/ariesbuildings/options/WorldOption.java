@@ -5,7 +5,7 @@ import de.ariesbuildings.objects.AriesWorld;
 import org.bukkit.Bukkit;
 
 public enum WorldOption implements Option {
-    ANTI_BLOCK_UPDATES("AntiBlockUpdates");
+    ANTI_BLOCK_UPDATE("AntiBlockUpdate");
 
     private final String name;
 
