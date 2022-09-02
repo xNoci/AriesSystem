@@ -40,7 +40,7 @@ public class CommandAntiBlockUpdate extends BaseCommand {
 
     @UnknownCommand
     private void notForConsole(CommandSender sender) {
-        sender.sendMessage("Only for players");
+        sender.sendMessage(I18n.translate("command.only_for_player"));
     }
 
     @UnknownCommand
