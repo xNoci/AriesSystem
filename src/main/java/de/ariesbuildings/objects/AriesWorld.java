@@ -8,9 +8,9 @@ import java.util.HashSet;
 
 public class AriesWorld {
     private final World world;
-    private AriesPlayer owner;
     private final HashMap<Option, String> options;
     private final HashSet<AriesPlayer> trusted;
+    private AriesPlayer owner;
 
     public AriesWorld(World world) {
         this.world = world;
@@ -35,12 +35,11 @@ public class AriesWorld {
         return owner;
     }
 
-    public HashSet<AriesPlayer> getTrusted() {
-        return trusted;
-    }
-
-
     public void setOwner(AriesPlayer owner) {
         this.owner = owner;
+    }
+
+    public HashSet<AriesPlayer> getTrusted() {
+        return trusted;
     }
 }

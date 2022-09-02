@@ -34,7 +34,7 @@ public enum WorldOption implements Option {
     public int getValueAsInt(AriesWorld world) {
         try {
             return Integer.parseInt(world.getOptions().get(this));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
@@ -42,7 +42,7 @@ public enum WorldOption implements Option {
     public double getValueAsDouble(AriesWorld world) {
         try {
             return Double.parseDouble(world.getOptions().get(this));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return 0.0;
         }
     }

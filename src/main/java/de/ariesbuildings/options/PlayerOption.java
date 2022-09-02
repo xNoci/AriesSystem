@@ -34,7 +34,7 @@ public enum PlayerOption implements Option {
     public int getValueAsInt(AriesPlayer player) {
         try {
             return Integer.parseInt(player.getOptions().get(this));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return 0;
         }
     }
@@ -42,7 +42,7 @@ public enum PlayerOption implements Option {
     public double getValueAsDouble(AriesPlayer player) {
         try {
             return Double.parseDouble(player.getOptions().get(this));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return 0.0;
         }
     }

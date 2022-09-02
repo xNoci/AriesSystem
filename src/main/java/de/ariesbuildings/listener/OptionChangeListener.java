@@ -15,7 +15,7 @@ import org.bukkit.event.Listener;
 public class OptionChangeListener implements Listener {
     @EventHandler
     public void handleOptionChange(OptionChangeEvent event) {
-        if(event.getOption().getType() == Option.OptionType.PLAYER_OPTION) {
+        if (event.getOption().getType() == Option.OptionType.PLAYER_OPTION) {
             Player player = event.getPlayer();
             PlayerOption option = (PlayerOption) event.getOption();
             player.sendMessage(I18n.translate("option.player.changed", option.getName(), option.getValueAsString(AriesPlayer.getAriesPlayer(player))));
@@ -23,7 +23,7 @@ public class OptionChangeListener implements Listener {
         }
         World world = event.getWorld();
         WorldOption option = (WorldOption) event.getOption();
-        for(Player inWorld : world.getPlayers()) {
+        for (Player inWorld : world.getPlayers()) {
             inWorld.sendMessage(I18n.translate("option.world.changed", option.getName(), option.getValueAsString(AriesWorld.getAriesWorld(world))));
         }
     }

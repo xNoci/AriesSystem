@@ -11,11 +11,11 @@ public class PlayerDamageListener implements Listener {
 
     @EventHandler
     public void handlePlayerDamage(EntityDamageEvent event) {
-        if(!(event.getEntity() instanceof Player player)) return;
+        if (!(event.getEntity() instanceof Player player)) return;
         event.setCancelled(true); //TODO Should be a aries world option/setting
 
         //TODO Maybe make this to a player option/setting
-        if(event.getCause() == EntityDamageEvent.DamageCause.VOID && player.getLocation().getY() < 0) {
+        if (event.getCause() == EntityDamageEvent.DamageCause.VOID && player.getLocation().getY() < 0) {
             Location location = player.getLocation().clone();
             location.setY(100);
             player.teleport(location);

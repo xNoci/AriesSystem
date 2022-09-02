@@ -9,7 +9,7 @@ public class PlayerLoginListener implements Listener {
 
     @EventHandler(priority = EventPriority.HIGHEST)
     public void handlePlayerLogin(PlayerLoginEvent event) {
-        if(event.getResult() == PlayerLoginEvent.Result.KICK_FULL) event.allow();
+        if (event.getResult() == PlayerLoginEvent.Result.KICK_FULL) event.allow();
     }
 
 }

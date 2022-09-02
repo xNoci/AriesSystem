@@ -14,7 +14,7 @@ public abstract class RankInfo {
     }
 
     public static RankInfo getInfo(UUID uuid) {
-        if(LuckPermsHook.isEnabled()) {
+        if (LuckPermsHook.isEnabled()) {
             return new LuckPermsRankInfo(uuid);
         }
         return new DefaultRankInfo(uuid);
@@ -33,7 +33,7 @@ public abstract class RankInfo {
     public int getSortID() {
         try {
             return Integer.parseInt("%03d".formatted(sortID()));
-        } catch(NumberFormatException e) {
+        } catch (NumberFormatException e) {
             return sortID();
         }
     }
