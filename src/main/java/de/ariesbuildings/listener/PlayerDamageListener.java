@@ -1,6 +1,12 @@
 package de.ariesbuildings.listener;
 
 import de.ariesbuildings.I18n;
+import de.ariesbuildings.objects.AriesPlayer;
+import de.ariesbuildings.objects.AriesPlayerManager;
+import de.ariesbuildings.objects.AriesWorld;
+import de.ariesbuildings.objects.AriesWorldManager;
+import de.ariesbuildings.options.PlayerOption;
+import de.ariesbuildings.options.WorldOption;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
@@ -12,15 +18,21 @@ public class PlayerDamageListener implements Listener {
     @EventHandler
     public void handlePlayerDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
-        event.setCancelled(true); //TODO Should be a aries world option/setting
+        AriesPlayer ariesPlayer = AriesPlayerManager.getPlayer(player);
+        AriesWorld ariesWorld = AriesWorldManager.getWorld(player.getWorld());
 
-        //TODO Maybe make this to a player option/setting
-        if (event.getCause() == EntityDamageEvent.DamageCause.VOID && player.getLocation().getY() < 0) {
+        if (ariesPlayer.isOptionEnabled(PlayerOption.VOID_DAMAGE_TELEPORT) &&
+                event.getCause() == EntityDamageEvent.DamageCause.VOID && player.getLocation().getY() < 0) {
             Location location = player.getLocation().clone();
             location.setY(100);
             player.teleport(location);
             player.sendMessage(I18n.translate("teleport.out_of_void.reason"));
             player.sendMessage(I18n.translate("teleport.out_of_void.help"));
+        }
+
+
+        if (ariesWorld != null) {
+            event.setCancelled(!ariesWorld.isOptionEnabled(WorldOption.PLAYER_DAMAGE));
         }
     }
 }
