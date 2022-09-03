@@ -24,7 +24,8 @@ public class AriesWorld extends OptionHolder<WorldOption> {
     }
 
     public boolean isBuilder(UUID uuid) {
-        return builders.contains(uuid);
+        return builders.contains(uuid) || worldCreator.equals(uuid);
+    }
     }
 
     @Override
