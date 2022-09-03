@@ -23,6 +23,7 @@ public class CommandAntiBlockUpdate extends BaseCommand {
 
     @DefaultCommand
     @CommandPermission(Permission.ANTI_BLOCK_UPDATE)
+    @CommandPermission(Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)
     private void onUsage(Player player) {
         AriesWorld playerWorld = AriesWorldManager.getWorld(player.getWorld());
 
@@ -44,7 +45,7 @@ public class CommandAntiBlockUpdate extends BaseCommand {
 
     @UnknownCommand
     private void onUnknown(Player player) {
-        if (!player.hasPermission(Permission.ANTI_BLOCK_UPDATE)) {
+        if (!player.hasPermission(Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)) {
             player.sendMessage(I18n.noPermission());
             return;
         }
