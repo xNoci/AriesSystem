@@ -8,6 +8,14 @@ public abstract class OptionHolder<T extends Option> {
 
     private final OptionMap<T> options = new OptionMap<>();
 
+    public boolean isOptionEnabled(T option) {
+        try {
+            return  (boolean) getOption(option);
+        } catch (ClassCastException e) {
+            throw new UnsupportedOperationException("Cannot check if option '%s' is enabled, because it is not a boolean option.".formatted(option.getEnum().name()));
+        }
+    }
+
     public Object getOption(T option) {
         return getOption(option, option.getValueType());
     }
