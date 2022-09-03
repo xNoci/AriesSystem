@@ -24,6 +24,6 @@ public class AriesPlayer extends OptionHolder<PlayerOption> {
 
     @Override
     protected OptionChangeEvent createOptionChangeEvent(PlayerOption option, Object oldValue, Object newValue) {
-        return new OptionChangeEvent(option, oldValue, newValue, player);
+        return new OptionChangeEvent(option, oldValue, newValue, this);
     }
 }

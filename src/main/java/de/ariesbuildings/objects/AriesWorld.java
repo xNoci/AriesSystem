@@ -34,6 +34,6 @@ public class AriesWorld extends OptionHolder<WorldOption> {
 
     @Override
     protected OptionChangeEvent createOptionChangeEvent(WorldOption option, Object oldValue, Object newValue) {
-        return new OptionChangeEvent(option, oldValue, newValue, world);
+        return new OptionChangeEvent(option, oldValue, newValue, this);
     }
 }

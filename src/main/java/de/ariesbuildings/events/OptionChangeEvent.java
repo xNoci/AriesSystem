@@ -1,5 +1,7 @@
 package de.ariesbuildings.events;
 
+import de.ariesbuildings.objects.AriesPlayer;
+import de.ariesbuildings.objects.AriesWorld;
 import de.ariesbuildings.options.Option;
 import lombok.Getter;
 import org.bukkit.World;
@@ -11,18 +13,18 @@ public class OptionChangeEvent extends CoreCancellableEvent {
     @Getter private final Option option;
     @Getter private final Object oldValue;
     @Getter private final Object newValue;
-    @Getter private final Player player;
-    @Getter private final World world;
+    @Getter private final AriesPlayer player;
+    @Getter private final AriesWorld world;
 
-    public OptionChangeEvent(Option option, Object oldValue, Object newValue, Player player) {
+    public OptionChangeEvent(Option option, Object oldValue, Object newValue, AriesPlayer player) {
         this(option, oldValue, newValue, player, null);
     }
 
-    public OptionChangeEvent(Option option, Object oldValue, Object newValue, World world) {
+    public OptionChangeEvent(Option option, Object oldValue, Object newValue, AriesWorld world) {
         this(option, oldValue, newValue, null, world);
     }
 
-    public OptionChangeEvent(Option option, Object oldValue, Object newValue, Player player, World world) {
+    public OptionChangeEvent(Option option, Object oldValue, Object newValue, AriesPlayer player, AriesWorld world) {
         super(false);
         this.option = option;
         this.oldValue = oldValue;
