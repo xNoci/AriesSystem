@@ -7,7 +7,8 @@ public enum PlayerOption implements Option {
 
     DEFAULT_GAMEMODE("Default gamemode", GameMode.ADVENTURE, GameMode.class),
     GLOW("Glow", true, boolean.class),
-    VOID_DAMAGE_TELEPORT("Void Damage Teleport", true, boolean.class);
+    VOID_DAMAGE_TELEPORT("Void Damage Teleport", true, boolean.class),
+    VANISH("Vanish", false, boolean.class);
 
     @Getter private final String name;
     @Getter private final Object defaultValue;
