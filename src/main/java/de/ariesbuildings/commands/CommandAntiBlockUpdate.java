@@ -2,10 +2,7 @@ package de.ariesbuildings.commands;
 
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.commands.system.BaseCommand;
-import de.ariesbuildings.commands.system.annotations.CommandPermission;
-import de.ariesbuildings.commands.system.annotations.DefaultCommand;
-import de.ariesbuildings.commands.system.annotations.Subcommand;
-import de.ariesbuildings.commands.system.annotations.UnknownCommand;
+import de.ariesbuildings.commands.system.annotations.*;
 import de.ariesbuildings.objects.AriesWorld;
 import de.ariesbuildings.objects.AriesWorldManager;
 import de.ariesbuildings.options.WorldOption;
@@ -22,7 +19,7 @@ public class CommandAntiBlockUpdate extends BaseCommand {
     }
 
     @DefaultCommand
-    @CommandPermission(Permission.ANTI_BLOCK_UPDATE)
+    @CommandArgs(0)
     @CommandPermission(Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)
     private void onUsage(Player player) {
         AriesWorld playerWorld = AriesWorldManager.getWorld(player.getWorld());
@@ -32,6 +29,7 @@ public class CommandAntiBlockUpdate extends BaseCommand {
     }
 
     @Subcommand("current")
+    @CommandArgs(0)
     private void onCheckCurrent(Player player) {
         AriesWorld playerWorld = AriesWorldManager.getWorld(player.getWorld());
         player.sendMessage(I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), playerWorld.getOption(WorldOption.ANTI_BLOCK_UPDATE, boolean.class)));
