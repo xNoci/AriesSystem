@@ -97,12 +97,13 @@ public class CommandGamemode extends BaseCommand {
         if (output != null)
             return Optional.of(output);
 
-        switch (string.toLowerCase()) {
-            case "s", "survival" -> output = GameMode.SURVIVAL;
-            case "c", "creative" -> output = GameMode.CREATIVE;
-            case "a", "adventure" -> output = GameMode.ADVENTURE;
-            case "sp", "spec", "spectator" -> output = GameMode.SPECTATOR;
-        }
+        output = switch (string.toLowerCase()) {
+            case "s", "survival" -> GameMode.SURVIVAL;
+            case "c", "creative" -> GameMode.CREATIVE;
+            case "a", "adventure" -> GameMode.ADVENTURE;
+            case "sp", "spec", "spectator" -> GameMode.SPECTATOR;
+            default -> null;
+        };
 
         return Optional.ofNullable(output);
     }
