@@ -32,7 +32,6 @@ public class CommandAntiBlockUpdate extends BaseCommand {
     }
 
     @Subcommand("current")
-    @CommandPermission(Permission.ANTI_BLOCK_UPDATE)
     private void onCheckCurrent(Player player) {
         AriesWorld playerWorld = AriesWorldManager.getWorld(player.getWorld());
         player.sendMessage(I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), playerWorld.getOption(WorldOption.ANTI_BLOCK_UPDATE, boolean.class)));
