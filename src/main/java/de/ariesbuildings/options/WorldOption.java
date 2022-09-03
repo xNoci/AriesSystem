@@ -1,21 +1,21 @@
 package de.ariesbuildings.options;
 
-import de.ariesbuildings.events.OptionChangeEvent;
-import de.ariesbuildings.objects.AriesWorld;
-import org.bukkit.Bukkit;
+import lombok.Getter;
 
 public enum WorldOption implements Option {
-    ANTI_BLOCK_UPDATE("AntiBlockUpdate");
 
-    private final String name;
+    ANTI_BLOCK_UPDATE("AntiBlockUpdate", true, boolean.class),
+    PLAYER_DAMAGE("Player Damager", false, boolean.class);
 
-    WorldOption(String name) {
+
+    @Getter private final String name;
+    @Getter private final Object defaultValue;
+    @Getter private final Class<?> valueType;
+
+    WorldOption(String name, Object defaultValue, Class<?> valueType) {
         this.name = name;
-    }
-
-    @Override
-    public String getName() {
-        return name;
+        this.valueType = valueType;
+        this.defaultValue = defaultValue;
     }
 
     @Override
@@ -23,48 +23,9 @@ public enum WorldOption implements Option {
         return OptionType.WORLD_OPTION;
     }
 
-    public String getValueAsString(AriesWorld world) {
-        return world.getOptions().get(this);
-    }
-
-    public boolean getValueAsBoolean(AriesWorld world) {
-        return world.getOptions().get(this).equals("true");
-    }
-
-    public int getValueAsInt(AriesWorld world) {
-        try {
-            return Integer.parseInt(world.getOptions().get(this));
-        } catch (NumberFormatException e) {
-            return 0;
-        }
-    }
-
-    public double getValueAsDouble(AriesWorld world) {
-        try {
-            return Double.parseDouble(world.getOptions().get(this));
-        } catch (NumberFormatException e) {
-            return 0.0;
-        }
-    }
-
-    public void setValue(AriesWorld world, String value) {
-        world.getOptions().put(this, value);
-        Bukkit.getPluginManager().callEvent(new OptionChangeEvent(this, world.getWorld()));
-    }
-
-    public void setValue(AriesWorld world, boolean value) {
-        world.getOptions().put(this, String.valueOf(value));
-        Bukkit.getPluginManager().callEvent(new OptionChangeEvent(this, world.getWorld()));
-    }
-
-    public void setValue(AriesWorld world, int value) {
-        world.getOptions().put(this, String.valueOf(value));
-        Bukkit.getPluginManager().callEvent(new OptionChangeEvent(this, world.getWorld()));
-    }
-
-    public void setValue(AriesWorld world, double value) {
-        world.getOptions().put(this, String.valueOf(value));
-        Bukkit.getPluginManager().callEvent(new OptionChangeEvent(this, world.getWorld()));
+    @Override
+    public Enum<? extends Option> getEnum() {
+        return this;
     }
 
 }
