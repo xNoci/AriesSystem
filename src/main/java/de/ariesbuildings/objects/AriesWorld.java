@@ -27,6 +27,11 @@ public class AriesWorld extends OptionHolder<WorldOption> {
     public boolean isBuilder(UUID uuid) {
         return builders.contains(uuid) || worldCreator.equals(uuid);
     }
+
+    public boolean hasWorldPermission(Player player) {
+        return isBuilder(player.getUniqueId()) /*TODO or if his rank is high enough*/;
+    }
+
     public void broadcast(String message) {
         if (world == null) return;
         world.getPlayers().forEach(player -> player.sendMessage(message));
