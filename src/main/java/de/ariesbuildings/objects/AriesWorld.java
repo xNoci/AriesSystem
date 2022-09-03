@@ -3,43 +3,25 @@ package de.ariesbuildings.objects;
 import de.ariesbuildings.options.Option;
 import org.bukkit.World;
 
-import java.util.HashMap;
 import java.util.HashSet;
+import java.util.UUID;
 
 public class AriesWorld {
     private final World world;
-    private final HashMap<Option, String> options;
-    private final HashSet<AriesPlayer> trusted;
-    private AriesPlayer owner;
+    private UUID worldCreator;  //TODO Aus Config holen
+    private final HashSet<UUID> builders = Sets.newHashSet();//TODO Aus Config holen
 
-    public AriesWorld(World world) {
+    protected AriesWorld(World world) {
         this.world = world;
-        this.owner = null; //TODO Aus Config holen
-        this.options = new HashMap<>(); //TODO Aus Config holen
-        this.trusted = new HashSet<>(); //TODO Aus Config holen
-    }
-
-    public static AriesWorld getAriesWorld(World world) {
-        return new AriesWorld(world);
     }
 
     public World getWorld() {
         return world;
     }
 
-    public HashMap<Option, String> getOptions() {
-        return options;
+    public boolean isBuilder(UUID uuid) {
+        return builders.contains(uuid);
     }
 
-    public AriesPlayer getOwner() {
-        return owner;
-    }
-
-    public void setOwner(AriesPlayer owner) {
-        this.owner = owner;
-    }
-
-    public HashSet<AriesPlayer> getTrusted() {
-        return trusted;
     }
 }
