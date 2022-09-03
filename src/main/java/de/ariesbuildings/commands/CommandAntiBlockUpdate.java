@@ -24,6 +24,11 @@ public class CommandAntiBlockUpdate extends BaseCommand {
     private void onUsage(Player player) {
         AriesWorld playerWorld = AriesWorldManager.getWorld(player.getWorld());
 
+        if (!playerWorld.hasWorldPermission(player)) {
+            player.sendMessage(I18n.translate("noPermission.not_a_builder"));
+            return;
+        }
+
         boolean currentValue = playerWorld.isOptionEnabled(WorldOption.ANTI_BLOCK_UPDATE);
         playerWorld.setOption(WorldOption.ANTI_BLOCK_UPDATE, !currentValue);
     }
