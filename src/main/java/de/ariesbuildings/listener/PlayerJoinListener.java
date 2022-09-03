@@ -25,11 +25,13 @@ public class PlayerJoinListener implements Listener {
 
         player.setPlayerListHeaderFooter(I18n.translate("tab_list.header"), I18n.translate("tab_list.footer"));
 
-        //Check whether player has vanished enabled, only show join message if he isn't vanish
-        event.setJoinMessage(I18n.translate("playerJoin", color + displayName + color + " §8| " + color + player.getName()));
-
         player.setGlowing(ariesPlayer.isOptionEnabled(PlayerOption.GLOW));
         player.setGameMode(ariesPlayer.getOption(PlayerOption.DEFAULT_GAMEMODE, GameMode.class));
+
+
+        if (!ariesPlayer.isOptionEnabled(PlayerOption.VANISH)) {
+            event.setJoinMessage(I18n.translate("playerJoin", color + displayName + color + " §8| " + color + player.getName()));
+        }
     }
 
 }
