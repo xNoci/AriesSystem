@@ -41,6 +41,7 @@ public class AriesSystem extends JavaPlugin {
         pluginManager.registerEvents(new PlayerLoginListener(), this);
         pluginManager.registerEvents(new PlayerDamageListener(), this);
         pluginManager.registerEvents(new PlayerChatListener(), this);
+        pluginManager.registerEvents(new EntityTargetEntityListener(), this);
         pluginManager.registerEvents(new OptionChangeListener(), this);
         pluginManager.registerEvents(PaperLib.isPaper() ? new ServerListPingPaperListener() : new ServerListPingBukkitListener(), this);
     }
