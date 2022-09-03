@@ -1,8 +1,12 @@
 package de.ariesbuildings.listener;
 
 import de.ariesbuildings.I18n;
+import de.ariesbuildings.objects.AriesPlayer;
+import de.ariesbuildings.objects.AriesPlayerManager;
+import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
 import org.bukkit.ChatColor;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -13,7 +17,9 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void handlePlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
+        AriesPlayer ariesPlayer = AriesPlayerManager.getPlayer(player);
         RankInfo rankInfo = RankInfo.getInfo(player.getUniqueId());
+
         ChatColor color = rankInfo.getColor();
         String displayName = rankInfo.getDisplayname();
 
@@ -22,7 +28,8 @@ public class PlayerJoinListener implements Listener {
         //Check whether player has vanished enabled, only show join message if he isn't vanish
         event.setJoinMessage(I18n.translate("playerJoin", color + displayName + color + " §8| " + color + player.getName()));
 
-        player.setGlowing(true); //TODO Make this to a player option/setting
+        player.setGlowing(ariesPlayer.isOptionEnabled(PlayerOption.GLOW));
+        player.setGameMode(ariesPlayer.getOption(PlayerOption.DEFAULT_GAMEMODE, GameMode.class));
     }
 
 }
