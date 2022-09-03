@@ -5,6 +5,7 @@ import de.ariesbuildings.events.OptionChangeEvent;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.utils.OptionHolder;
 import org.bukkit.World;
+import org.bukkit.entity.Player;
 
 import java.util.HashSet;
 import java.util.UUID;
@@ -26,6 +27,9 @@ public class AriesWorld extends OptionHolder<WorldOption> {
     public boolean isBuilder(UUID uuid) {
         return builders.contains(uuid) || worldCreator.equals(uuid);
     }
+    public void broadcast(String message) {
+        if (world == null) return;
+        world.getPlayers().forEach(player -> player.sendMessage(message));
     }
 
     @Override
