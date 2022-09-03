@@ -7,6 +7,7 @@ import de.ariesbuildings.commands.system.annotations.DefaultCommand;
 import de.ariesbuildings.commands.system.annotations.Subcommand;
 import de.ariesbuildings.commands.system.annotations.UnknownCommand;
 import de.ariesbuildings.objects.AriesWorld;
+import de.ariesbuildings.objects.AriesWorldManager;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
 import org.bukkit.command.CommandSender;
@@ -23,19 +24,17 @@ public class CommandAntiBlockUpdate extends BaseCommand {
     @DefaultCommand
     @CommandPermission(Permission.ANTI_BLOCK_UPDATE)
     private void onUsage(Player player) {
-        AriesWorld playerWorld = AriesWorld.getAriesWorld(player.getWorld());
-        if (WorldOption.ANTI_BLOCK_UPDATE.getValueAsBoolean(playerWorld)) {
-            WorldOption.ANTI_BLOCK_UPDATE.setValue(playerWorld, false);
-            return;
-        }
-        WorldOption.ANTI_BLOCK_UPDATE.setValue(playerWorld, true);
+        AriesWorld playerWorld = AriesWorldManager.getWorld(player.getWorld());
+
+        boolean currentValue = playerWorld.isOptionEnabled(WorldOption.ANTI_BLOCK_UPDATE);
+        playerWorld.setOption(WorldOption.ANTI_BLOCK_UPDATE, !currentValue);
     }
 
     @Subcommand("current")
     @CommandPermission(Permission.ANTI_BLOCK_UPDATE)
     private void onCheckCurrent(Player player) {
-        AriesWorld playerWorld = AriesWorld.getAriesWorld(player.getWorld());
-        player.sendMessage(I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), WorldOption.ANTI_BLOCK_UPDATE.getValueAsString(playerWorld)));
+        AriesWorld playerWorld = AriesWorldManager.getWorld(player.getWorld());
+        player.sendMessage(I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), playerWorld.getOption(WorldOption.ANTI_BLOCK_UPDATE, boolean.class)));
     }
 
     @UnknownCommand
