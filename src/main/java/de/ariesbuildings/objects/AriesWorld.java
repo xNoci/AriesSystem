@@ -1,12 +1,16 @@
 package de.ariesbuildings.objects;
 
-import de.ariesbuildings.options.Option;
+import com.google.common.collect.Sets;
+import de.ariesbuildings.events.OptionChangeEvent;
+import de.ariesbuildings.options.WorldOption;
+import de.ariesbuildings.utils.OptionHolder;
 import org.bukkit.World;
 
 import java.util.HashSet;
 import java.util.UUID;
 
-public class AriesWorld {
+public class AriesWorld extends OptionHolder<WorldOption> {
+
     private final World world;
     private UUID worldCreator;  //TODO Aus Config holen
     private final HashSet<UUID> builders = Sets.newHashSet();//TODO Aus Config holen
@@ -23,5 +27,8 @@ public class AriesWorld {
         return builders.contains(uuid);
     }
 
+    @Override
+    protected OptionChangeEvent createOptionChangeEvent(WorldOption option, Object oldValue, Object newValue) {
+        return new OptionChangeEvent(option, oldValue, newValue, world);
     }
 }
