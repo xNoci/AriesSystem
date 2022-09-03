@@ -2,9 +2,9 @@ package de.ariesbuildings.listener;
 
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.events.OptionChangeEvent;
+import de.ariesbuildings.objects.AriesWorld;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.options.WorldOption;
-import org.bukkit.World;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -21,13 +21,11 @@ public class OptionChangeListener implements Listener {
         }
 
         if (event.isWorldOption()) {
-            World world = event.getWorld();
+            AriesWorld world = event.getWorld();
             WorldOption option = (WorldOption) event.getOption();
+            world.broadcast(I18n.translate("option.world.changed", option.getName(), event.getNewValue()));
+        }
 
-            for (Player inWorld : world.getPlayers()) {
-                inWorld.sendMessage(I18n.translate("option.world.changed", option.getName(), event.getNewValue()));
-            }
-            return;
         }
 
     }
