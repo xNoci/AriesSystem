@@ -1,59 +1,42 @@
 package de.ariesbuildings.events;
 
 import de.ariesbuildings.options.Option;
+import lombok.Getter;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
-import org.bukkit.event.Cancellable;
-import org.bukkit.event.Event;
-import org.bukkit.event.HandlerList;
-import org.jetbrains.annotations.NotNull;
 
-public class OptionChangeEvent extends Event implements Cancellable {
+public class OptionChangeEvent extends CoreCancellableEvent {
 
-    private static final HandlerList HANDLERS = new HandlerList();
-    private final Option option;
-    private final Player player;
-    private final World world;
-    private boolean cancelled;
 
-    public OptionChangeEvent(Option option, Player player) {
+    @Getter private final Option option;
+    @Getter private final Object oldValue;
+    @Getter private final Object newValue;
+    @Getter private final Player player;
+    @Getter private final World world;
+
+    public OptionChangeEvent(Option option, Object oldValue, Object newValue, Player player) {
+        this(option, oldValue, newValue, player, null);
+    }
+
+    public OptionChangeEvent(Option option, Object oldValue, Object newValue, World world) {
+        this(option, oldValue, newValue, null, world);
+    }
+
+    public OptionChangeEvent(Option option, Object oldValue, Object newValue, Player player, World world) {
+        super(false);
         this.option = option;
+        this.oldValue = oldValue;
+        this.newValue = newValue;
         this.player = player;
-        this.world = null;
-        cancelled = false;
-    }
-
-    public OptionChangeEvent(Option option, World world) {
-        this.option = option;
         this.world = world;
-        this.player = null;
-        cancelled = false;
     }
 
-    public Option getOption() {
-        return option;
+    public boolean isWorldOption() {
+        return this.option.getType() == Option.OptionType.WORLD_OPTION;
     }
 
-    public Player getPlayer() {
-        return player;
+    public boolean isPlayerOption() {
+        return this.option.getType() == Option.OptionType.PLAYER_OPTION;
     }
 
-    public World getWorld() {
-        return world;
-    }
-
-    @Override
-    public boolean isCancelled() {
-        return cancelled;
-    }
-
-    @Override
-    public void setCancelled(boolean cancel) {
-        cancelled = cancel;
-    }
-
-    @Override
-    public @NotNull HandlerList getHandlers() {
-        return HANDLERS;
-    }
 }
