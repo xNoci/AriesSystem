@@ -2,6 +2,7 @@ package de.ariesbuildings;
 
 import de.ariesbuildings.commands.CommandAntiBlockUpdate;
 import de.ariesbuildings.commands.CommandGamemode;
+import de.ariesbuildings.commands.CommandVanish;
 import de.ariesbuildings.commands.system.CommandManager;
 import de.ariesbuildings.listener.*;
 import io.papermc.lib.PaperLib;
@@ -50,6 +51,7 @@ public class AriesSystem extends JavaPlugin {
     private void registerCommands() {
         CommandManager.register(new CommandGamemode(this));
         CommandManager.register(new CommandAntiBlockUpdate(this));
+        CommandManager.register(new CommandVanish(this));
     }
 
 }
