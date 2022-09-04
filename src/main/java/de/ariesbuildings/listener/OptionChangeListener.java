@@ -13,6 +13,10 @@ public class OptionChangeListener implements Listener {
 
     @EventHandler
     public void handleOptionChange(OptionChangeEvent event) {
+        if (event.getOption() == PlayerOption.VANISH) {
+            return;
+        }
+
         if (event.isPlayerOption()) {
             AriesPlayer player = event.getPlayer();
             PlayerOption option = (PlayerOption) event.getOption();
@@ -24,8 +28,5 @@ public class OptionChangeListener implements Listener {
             WorldOption option = (WorldOption) event.getOption();
             world.broadcast(I18n.translate("option.world.changed", option.getName(), event.getNewValue()));
         }
-
-        }
-
     }
 }
