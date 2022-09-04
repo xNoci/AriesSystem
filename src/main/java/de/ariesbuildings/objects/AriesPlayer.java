@@ -15,7 +15,7 @@ public class AriesPlayer extends OptionHolder<PlayerOption> {
     @Getter private final Player base;
     private final UUID uuid;
 
-    protected AriesPlayer(Player player) {
+    public AriesPlayer(Player player) {
         this.base = player;
         this.uuid = player.getUniqueId();
         player.sendActionBar();

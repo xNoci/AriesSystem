@@ -17,7 +17,7 @@ public class AriesWorld extends OptionHolder<WorldOption> {
     private final HashSet<UUID> builders = Sets.newHashSet();//TODO Aus Config holen
     private UUID worldCreator;  //TODO Aus Config holen
 
-    protected AriesWorld(World world) {
+    public AriesWorld(World world) {
         this.world = world;
     }
 

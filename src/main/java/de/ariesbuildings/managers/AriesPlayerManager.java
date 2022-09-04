@@ -1,6 +1,7 @@
-package de.ariesbuildings.objects;
+package de.ariesbuildings.managers;
 
 import com.google.common.collect.Maps;
+import de.ariesbuildings.objects.AriesPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

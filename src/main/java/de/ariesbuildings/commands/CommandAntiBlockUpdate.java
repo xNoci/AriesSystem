@@ -4,7 +4,7 @@ import de.ariesbuildings.I18n;
 import de.ariesbuildings.commands.system.BaseCommand;
 import de.ariesbuildings.commands.system.annotations.*;
 import de.ariesbuildings.objects.AriesWorld;
-import de.ariesbuildings.objects.AriesWorldManager;
+import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
 import org.bukkit.command.CommandSender;

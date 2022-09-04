@@ -4,7 +4,7 @@ import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.objects.AriesPlayer;
 import de.ariesbuildings.objects.AriesWorld;
-import de.ariesbuildings.objects.AriesWorldManager;
+import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.options.WorldOption;
 import org.bukkit.Location;

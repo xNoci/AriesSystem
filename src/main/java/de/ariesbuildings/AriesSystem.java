@@ -6,7 +6,7 @@ import de.ariesbuildings.commands.CommandVanish;
 import de.ariesbuildings.commands.system.CommandManager;
 import de.ariesbuildings.listener.*;
 import de.ariesbuildings.managers.VanishManager;
-import de.ariesbuildings.objects.AriesPlayerManager;
+import de.ariesbuildings.managers.AriesPlayerManager;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import org.bukkit.Bukkit;
