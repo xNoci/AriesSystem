@@ -1,6 +1,8 @@
 package de.ariesbuildings.options;
 
 import com.google.common.collect.Maps;
+import lombok.Getter;
+import lombok.Setter;
 
 import java.util.Map;
 
@@ -26,12 +28,14 @@ public class OptionMap<K> {
     private <T> Value<T> getCached(K key, Class<T> type) {
         if (DATA.containsKey(key)) return DATA.get(key);
         Value<T> value = new Value<>();
+        value.setType(type);
         DATA.put(key, value);
         return value;
     }
-
+    
     private static class Value<T> {
         @Getter @Setter private T value = null;
+        @Getter @Setter private Class<T> type;
     }
 
 }
