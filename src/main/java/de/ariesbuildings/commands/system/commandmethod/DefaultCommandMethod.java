@@ -23,7 +23,7 @@ public class DefaultCommandMethod extends CommandMethod<DefaultCommandMethod> {
 
     @Override
     protected boolean doesCommandMatch(CommandSender sender, String[] args) {
-        if(!hasFixedArgCount()) return true;
+        if (!hasFixedArgCount()) return true;
         return commandArgs == args.length;
     }
 
@@ -32,11 +32,11 @@ public class DefaultCommandMethod extends CommandMethod<DefaultCommandMethod> {
         boolean playerProvided = sender instanceof Player;
         boolean sameCommandSenderType = (this.requiresPlayer && other.requiresPlayer) || (!this.requiresPlayer && !other.requiresPlayer);
 
-        if(sameCommandSenderType) {
+        if (sameCommandSenderType) {
             return MatchPriority.EQUAL;
         }
 
-        if(!playerProvided) {
+        if (!playerProvided) {
             return this.requiresPlayer ? MatchPriority.THIS : MatchPriority.OTHER;
         } else {
             return !this.requiresPlayer ? MatchPriority.THIS : MatchPriority.OTHER;

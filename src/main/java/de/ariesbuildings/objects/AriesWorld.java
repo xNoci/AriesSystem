@@ -13,8 +13,8 @@ import java.util.UUID;
 public class AriesWorld extends OptionHolder<WorldOption> {
 
     private final World world;
-    private UUID worldCreator;  //TODO Aus Config holen
     private final HashSet<UUID> builders = Sets.newHashSet();//TODO Aus Config holen
+    private UUID worldCreator;  //TODO Aus Config holen
 
     protected AriesWorld(World world) {
         this.world = world;

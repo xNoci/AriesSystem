@@ -23,7 +23,7 @@ public class CommandManager {
 
         try {
             commandMap = lookup.findVirtual(Bukkit.getServer().getClass(), "getCommandMap", MethodType.methodType(SimpleCommandMap.class));
-        } catch(NoSuchMethodException | IllegalAccessException e) {
+        } catch (NoSuchMethodException | IllegalAccessException e) {
             e.printStackTrace();
         }
 
@@ -32,8 +32,8 @@ public class CommandManager {
 
     @SneakyThrows
     public static void register(BaseCommand command) {
-        if(command.getPlugin() == null) throw new IllegalArgumentException("Plugin cannot be null.");
-        if(command.getName() == null || StringUtils.isBlank(command.getName()))
+        if (command.getPlugin() == null) throw new IllegalArgumentException("Plugin cannot be null.");
+        if (command.getName() == null || StringUtils.isBlank(command.getName()))
             throw new IllegalArgumentException("Command name cannot be null or empty");
 
         SimpleCommandMap commandMap = (SimpleCommandMap) COMMAND_MAP.invoke(Bukkit.getServer());

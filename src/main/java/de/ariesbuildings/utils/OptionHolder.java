@@ -10,7 +10,7 @@ public abstract class OptionHolder<T extends Option> {
 
     public boolean isOptionEnabled(T option) {
         try {
-            return  (boolean) getOption(option);
+            return (boolean) getOption(option);
         } catch (ClassCastException e) {
             throw new UnsupportedOperationException("Cannot check if option '%s' is enabled, because it is not a boolean option.".formatted(option.getEnum().name()));
         }

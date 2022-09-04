@@ -2,12 +2,8 @@ package de.ariesbuildings.objects;
 
 import de.ariesbuildings.events.OptionChangeEvent;
 import de.ariesbuildings.options.PlayerOption;
-import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.utils.OptionHolder;
-import it.unimi.dsi.fastutil.objects.ObjectOpenHashSet;
 import lombok.Getter;
-import org.bukkit.Bukkit;
-import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;

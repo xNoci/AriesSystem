@@ -36,11 +36,11 @@ public class UnknownCommandMethod extends CommandMethod<UnknownCommandMethod> {
         boolean needsPlayerAsSender = sender instanceof Player;
         boolean sameCommandSenderType = (this.requiresPlayer && other.requiresPlayer) || (!this.requiresPlayer && !other.requiresPlayer);
 
-        if(sameCommandSenderType) {
+        if (sameCommandSenderType) {
             return MatchPriority.EQUAL;
         }
 
-        if(needsPlayerAsSender) {
+        if (needsPlayerAsSender) {
             return this.requiresPlayer ? MatchPriority.THIS : MatchPriority.OTHER;
         } else {
             return !this.requiresPlayer ? MatchPriority.THIS : MatchPriority.OTHER;

@@ -4,8 +4,6 @@ import de.ariesbuildings.objects.AriesPlayer;
 import de.ariesbuildings.objects.AriesWorld;
 import de.ariesbuildings.options.Option;
 import lombok.Getter;
-import org.bukkit.World;
-import org.bukkit.entity.Player;
 
 public class OptionChangeEvent extends CoreCancellableEvent {
 
