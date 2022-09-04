@@ -10,11 +10,11 @@ import java.util.UUID;
 
 public class AriesPlayer extends OptionHolder<PlayerOption> {
 
-    @Getter private final Player player;
+    @Getter private final Player base;
     @Getter private final UUID uuid;
 
     protected AriesPlayer(Player player) {
-        this.player = player;
+        this.base = player;
         this.uuid = player.getUniqueId();
     }
 

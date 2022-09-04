@@ -16,7 +16,7 @@ public class OptionChangeListener implements Listener {
         if (event.isPlayerOption()) {
             AriesPlayer player = event.getPlayer();
             PlayerOption option = (PlayerOption) event.getOption();
-            player.getPlayer().sendMessage(I18n.translate("option.player.changed", option.getName(), event.getNewValue()));
+            player.getBase().sendMessage(I18n.translate("option.player.changed", option.getName(), event.getNewValue()));
         }
 
         if (event.isWorldOption()) {
