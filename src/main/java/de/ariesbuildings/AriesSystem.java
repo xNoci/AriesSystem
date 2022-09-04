@@ -5,6 +5,7 @@ import de.ariesbuildings.commands.CommandGamemode;
 import de.ariesbuildings.commands.CommandVanish;
 import de.ariesbuildings.commands.system.CommandManager;
 import de.ariesbuildings.listener.*;
+import de.ariesbuildings.managers.VanishManager;
 import de.ariesbuildings.objects.AriesPlayerManager;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class AriesSystem extends JavaPlugin {
 
     private I18n i18n;
     @Getter private AriesPlayerManager playerManager;
+    @Getter private VanishManager vanishManager;
 
     @Override
     public void onEnable() {
@@ -27,6 +29,7 @@ public class AriesSystem extends JavaPlugin {
 
         this.i18n = new I18n();
         this.playerManager = new AriesPlayerManager();
+        this.vanishManager = new VanishManager();
 
         registerListener();
         registerCommands();
@@ -36,7 +39,8 @@ public class AriesSystem extends JavaPlugin {
     public void onDisable() {
         Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(I18n.translate("serverRestart")));
 
-        i18n.disable();
+        this.vanishManager.stopTask();
+        this.i18n.disable();
     }
 
     private void registerListener() {
