@@ -2,9 +2,9 @@ package de.ariesbuildings.objects;
 
 import de.ariesbuildings.events.OptionChangeEvent;
 import de.ariesbuildings.events.PostOptionChangeEvent;
+import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
-import de.ariesbuildings.utils.OptionHolder;
 import lombok.Getter;
 import org.bukkit.entity.Player;
 

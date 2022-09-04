@@ -1,8 +1,7 @@
-package de.ariesbuildings.utils;
+package de.ariesbuildings.options;
 
 import de.ariesbuildings.events.OptionChangeEvent;
 import de.ariesbuildings.events.PostOptionChangeEvent;
-import de.ariesbuildings.options.Option;
 import org.bukkit.Bukkit;
 
 public abstract class OptionHolder<T extends Option> {

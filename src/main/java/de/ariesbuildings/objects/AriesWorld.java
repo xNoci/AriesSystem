@@ -3,8 +3,8 @@ package de.ariesbuildings.objects;
 import com.google.common.collect.Sets;
 import de.ariesbuildings.events.OptionChangeEvent;
 import de.ariesbuildings.events.PostOptionChangeEvent;
+import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.WorldOption;
-import de.ariesbuildings.utils.OptionHolder;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 

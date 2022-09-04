@@ -1,4 +1,4 @@
-package de.ariesbuildings.utils;
+package de.ariesbuildings.options;
 
 import com.google.common.collect.Maps;
 
