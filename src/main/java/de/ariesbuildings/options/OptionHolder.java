@@ -2,11 +2,12 @@ package de.ariesbuildings.options;
 
 import de.ariesbuildings.events.OptionChangeEvent;
 import de.ariesbuildings.events.PostOptionChangeEvent;
+import lombok.Getter;
 import org.bukkit.Bukkit;
 
 public abstract class OptionHolder<T extends Option> {
 
-    private final OptionMap<T> options = new OptionMap<>();
+    @Getter private final OptionMap<T> options = new OptionMap<>();
 
     public boolean isOptionEnabled(T option) {
         try {
