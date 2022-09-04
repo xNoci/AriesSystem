@@ -6,7 +6,6 @@ import de.ariesbuildings.objects.AriesPlayer;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
 import org.bukkit.ChatColor;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
 import org.bukkit.event.Listener;
@@ -14,20 +13,24 @@ import org.bukkit.event.player.PlayerQuitEvent;
 
 public class PlayerQuitListener implements Listener {
 
-    @EventHandler
-    public void handlePlayerQuit(PlayerQuitEvent event) {
-        Player player = event.getPlayer();
-        AriesPlayer ariesPlayer = AriesSystem.getInstance().getPlayerManager().getPlayer(player);
-        RankInfo rankInfo = RankInfo.getInfo(player.getUniqueId());
+    public static String getQuitMessage(AriesPlayer player) {
+        RankInfo rankInfo = RankInfo.getInfo(player.getUUID());
 
         ChatColor color = rankInfo.getColor();
         String displayName = rankInfo.getDisplayname();
 
+        return I18n.translate("playerQuit", color + displayName + color + " §8| " + color + player.getBase().getName());
+    }
+
+    @EventHandler
+    public void handlePlayerQuit(PlayerQuitEvent event) {
+        AriesPlayer ariesPlayer = AriesSystem.getInstance().getPlayerManager().getPlayer(event.getPlayer());
+
 
         if (ariesPlayer.isOptionDisabled(PlayerOption.VANISH)) {
-            event.setQuitMessage(I18n.translate("playerQuit", color + displayName + color + " §8| " + color + player.getName()));
+            event.setQuitMessage(getQuitMessage(ariesPlayer));
         } else {
-            event.quitMessage(null);
+            event.setQuitMessage(null);
         }
     }
 
