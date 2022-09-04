@@ -39,6 +39,8 @@ public class PlayerJoinListener implements Listener {
         } else {
             event.setJoinMessage(null);
         }
+
+        VanishManager.updatePlayerVisibility();
     }
 
 }
