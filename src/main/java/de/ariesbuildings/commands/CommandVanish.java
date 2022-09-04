@@ -1,5 +1,6 @@
 package de.ariesbuildings.commands;
 
+import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.commands.system.BaseCommand;
 import de.ariesbuildings.commands.system.annotations.CommandArgs;
@@ -7,7 +8,6 @@ import de.ariesbuildings.commands.system.annotations.CommandPermission;
 import de.ariesbuildings.commands.system.annotations.DefaultCommand;
 import de.ariesbuildings.commands.system.annotations.UnknownCommand;
 import de.ariesbuildings.objects.AriesPlayer;
-import de.ariesbuildings.objects.AriesPlayerManager;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.Permission;
 import org.bukkit.command.CommandSender;
@@ -25,7 +25,7 @@ public class CommandVanish extends BaseCommand {
     @CommandArgs(0)
     @CommandPermission(Permission.PLAYER_OPTION_VANISH)
     private void onUsage(Player player) {
-        AriesPlayer playerWorld = AriesPlayerManager.getPlayer(player);
+        AriesPlayer playerWorld = AriesSystem.getInstance().getPlayerManager().getPlayer(player);
 
         boolean currentValue = playerWorld.isOptionEnabled(PlayerOption.VANISH);
         playerWorld.setOption(PlayerOption.VANISH, !currentValue);

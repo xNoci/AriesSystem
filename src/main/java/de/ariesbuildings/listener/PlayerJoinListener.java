@@ -1,8 +1,8 @@
 package de.ariesbuildings.listener;
 
+import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.objects.AriesPlayer;
-import de.ariesbuildings.objects.AriesPlayerManager;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
 import org.bukkit.ChatColor;
@@ -17,7 +17,7 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void handlePlayerJoin(PlayerJoinEvent event) {
         Player player = event.getPlayer();
-        AriesPlayer ariesPlayer = AriesPlayerManager.getPlayer(player);
+        AriesPlayer ariesPlayer = AriesSystem.getInstance().getPlayerManager().getPlayer(player);
         RankInfo rankInfo = RankInfo.getInfo(player.getUniqueId());
 
         ChatColor color = rankInfo.getColor();

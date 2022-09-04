@@ -5,6 +5,7 @@ import de.ariesbuildings.commands.CommandGamemode;
 import de.ariesbuildings.commands.CommandVanish;
 import de.ariesbuildings.commands.system.CommandManager;
 import de.ariesbuildings.listener.*;
+import de.ariesbuildings.objects.AriesPlayerManager;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import org.bukkit.Bukkit;
@@ -15,7 +16,9 @@ public class AriesSystem extends JavaPlugin {
 
     @Getter
     private static AriesSystem instance;
+
     private I18n i18n;
+    @Getter private AriesPlayerManager playerManager;
 
     @Override
     public void onEnable() {
@@ -23,6 +26,7 @@ public class AriesSystem extends JavaPlugin {
         instance = this;
 
         this.i18n = new I18n();
+        this.playerManager = new AriesPlayerManager();
 
         registerListener();
         registerCommands();

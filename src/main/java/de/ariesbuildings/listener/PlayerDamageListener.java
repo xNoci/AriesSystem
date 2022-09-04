@@ -1,8 +1,8 @@
 package de.ariesbuildings.listener;
 
+import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.objects.AriesPlayer;
-import de.ariesbuildings.objects.AriesPlayerManager;
 import de.ariesbuildings.objects.AriesWorld;
 import de.ariesbuildings.objects.AriesWorldManager;
 import de.ariesbuildings.options.PlayerOption;
@@ -18,7 +18,7 @@ public class PlayerDamageListener implements Listener {
     @EventHandler
     public void handlePlayerDamage(EntityDamageEvent event) {
         if (!(event.getEntity() instanceof Player player)) return;
-        AriesPlayer ariesPlayer = AriesPlayerManager.getPlayer(player);
+        AriesPlayer ariesPlayer = AriesSystem.getInstance().getPlayerManager().getPlayer(player);
         AriesWorld ariesWorld = AriesWorldManager.getWorld(player.getWorld());
 
         if (ariesPlayer.isOptionEnabled(PlayerOption.VOID_DAMAGE_TELEPORT) &&
