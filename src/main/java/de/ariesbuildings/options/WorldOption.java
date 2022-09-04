@@ -22,9 +22,5 @@ public enum WorldOption implements Option {
         return OptionType.WORLD_OPTION;
     }
 
-    @Override
-    public Enum<? extends Option> getEnum() {
-        return this;
-    }
 
 }

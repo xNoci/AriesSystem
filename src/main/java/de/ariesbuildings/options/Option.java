@@ -10,8 +10,6 @@ sealed public interface Option permits PlayerOption, WorldOption {
 
     OptionType getType();
 
-    Enum<? extends Option> getEnum();
-
     enum OptionType {
         WORLD_OPTION,
         PLAYER_OPTION

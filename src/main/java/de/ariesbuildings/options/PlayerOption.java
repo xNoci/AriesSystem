@@ -25,9 +25,4 @@ public enum PlayerOption implements Option {
         return OptionType.PLAYER_OPTION;
     }
 
-    @Override
-    public Enum<? extends Option> getEnum() {
-        return this;
-    }
-
 }
