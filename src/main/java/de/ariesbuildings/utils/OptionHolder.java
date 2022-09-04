@@ -16,6 +16,10 @@ public abstract class OptionHolder<T extends Option> {
         }
     }
 
+    public boolean isOptionDisabled(T option) {
+        return !isOptionEnabled(option);
+    }
+
     public Object getOption(T option) {
         return getOption(option, option.getValueType());
     }
