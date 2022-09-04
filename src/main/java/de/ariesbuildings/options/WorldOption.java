@@ -5,7 +5,7 @@ import lombok.Getter;
 public enum WorldOption implements Option {
 
     ANTI_BLOCK_UPDATE("AntiBlockUpdate", true, boolean.class),
-    PLAYER_DAMAGE("Player Damager", false, boolean.class);
+    PLAYER_DAMAGE("Player Damage", false, boolean.class);
 
 
     @Getter private final String name;
