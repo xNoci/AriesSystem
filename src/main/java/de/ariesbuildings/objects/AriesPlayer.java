@@ -1,6 +1,7 @@
 package de.ariesbuildings.objects;
 
 import de.ariesbuildings.events.OptionChangeEvent;
+import de.ariesbuildings.events.PostOptionChangeEvent;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.utils.OptionHolder;
 import lombok.Getter;
@@ -21,5 +22,10 @@ public class AriesPlayer extends OptionHolder<PlayerOption> {
     @Override
     protected OptionChangeEvent createOptionChangeEvent(PlayerOption option, Object oldValue, Object newValue) {
         return new OptionChangeEvent(option, oldValue, newValue, this);
+    }
+
+    @Override
+    protected PostOptionChangeEvent createPostOptionChangeEvent(PlayerOption option, Object oldValue, Object newValue) {
+        return new PostOptionChangeEvent(option, oldValue, newValue, this);
     }
 }

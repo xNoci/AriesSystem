@@ -1,6 +1,7 @@
 package de.ariesbuildings.utils;
 
 import de.ariesbuildings.events.OptionChangeEvent;
+import de.ariesbuildings.events.PostOptionChangeEvent;
 import de.ariesbuildings.options.Option;
 import org.bukkit.Bukkit;
 
@@ -33,15 +34,23 @@ public abstract class OptionHolder<T extends Option> {
     public <V> void setOption(T option, V newValue) {
         V oldValue = (V) getOption(option, option.getValueType());
 
-        OptionChangeEvent event = createOptionChangeEvent(option, oldValue, newValue);
-        if (event != null) {
-            Bukkit.getPluginManager().callEvent(event);
-            if (event.isCancelled()) return;
+
+        OptionChangeEvent changeEvent = createOptionChangeEvent(option, oldValue, newValue);
+        if (changeEvent != null) {
+            Bukkit.getPluginManager().callEvent(changeEvent);
+            if (changeEvent.isCancelled()) return;
 
             options.set(option, newValue);
+        }
+
+        PostOptionChangeEvent postChangeEvent = createPostOptionChangeEvent(option, oldValue, newValue);
+        if (postChangeEvent != null) {
+            Bukkit.getPluginManager().callEvent(postChangeEvent);
         }
     }
 
     protected abstract OptionChangeEvent createOptionChangeEvent(T option, Object oldValue, Object newValue);
+
+    protected abstract PostOptionChangeEvent createPostOptionChangeEvent(T option, Object oldValue, Object newValue);
 
 }

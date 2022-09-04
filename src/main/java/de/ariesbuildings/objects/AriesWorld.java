@@ -2,6 +2,7 @@ package de.ariesbuildings.objects;
 
 import com.google.common.collect.Sets;
 import de.ariesbuildings.events.OptionChangeEvent;
+import de.ariesbuildings.events.PostOptionChangeEvent;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.utils.OptionHolder;
 import org.bukkit.World;
@@ -40,5 +41,10 @@ public class AriesWorld extends OptionHolder<WorldOption> {
     @Override
     protected OptionChangeEvent createOptionChangeEvent(WorldOption option, Object oldValue, Object newValue) {
         return new OptionChangeEvent(option, oldValue, newValue, this);
+    }
+
+    @Override
+    protected PostOptionChangeEvent createPostOptionChangeEvent(WorldOption option, Object oldValue, Object newValue) {
+        return new PostOptionChangeEvent(option, oldValue, newValue, this);
     }
 }
