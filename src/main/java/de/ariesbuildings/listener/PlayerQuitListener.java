@@ -24,8 +24,10 @@ public class PlayerQuitListener implements Listener {
         String displayName = rankInfo.getDisplayname();
 
 
-        if (!ariesPlayer.isOptionEnabled(PlayerOption.VANISH)) {
+        if (ariesPlayer.isOptionDisabled(PlayerOption.VANISH)) {
             event.setQuitMessage(I18n.translate("playerQuit", color + displayName + color + " §8| " + color + player.getName()));
+        } else {
+            event.quitMessage(null);
         }
     }
 

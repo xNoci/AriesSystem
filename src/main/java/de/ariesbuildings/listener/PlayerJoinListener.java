@@ -29,8 +29,10 @@ public class PlayerJoinListener implements Listener {
         player.setGameMode(ariesPlayer.getOption(PlayerOption.DEFAULT_GAMEMODE, GameMode.class));
 
 
-        if (!ariesPlayer.isOptionEnabled(PlayerOption.VANISH)) {
+        if (ariesPlayer.isOptionDisabled(PlayerOption.VANISH)) {
             event.setJoinMessage(I18n.translate("playerJoin", color + displayName + color + " §8| " + color + player.getName()));
+        } else {
+            event.joinMessage(null);
         }
     }
 
