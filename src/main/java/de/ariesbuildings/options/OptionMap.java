@@ -31,15 +31,7 @@ public class OptionMap<K> {
     }
 
     private static class Value<T> {
-        private T value = null;
-
-        public T getValue() {
-            return this.value;
-        }
-
-        public void setValue(T value) {
-            this.value = value;
-        }
+        @Getter @Setter private T value = null;
     }
 
 }
