@@ -3,6 +3,7 @@ package de.ariesbuildings.objects;
 import de.ariesbuildings.events.OptionChangeEvent;
 import de.ariesbuildings.events.PostOptionChangeEvent;
 import de.ariesbuildings.options.PlayerOption;
+import de.ariesbuildings.permission.RankInfo;
 import de.ariesbuildings.utils.OptionHolder;
 import lombok.Getter;
 import org.bukkit.entity.Player;
@@ -12,11 +13,20 @@ import java.util.UUID;
 public class AriesPlayer extends OptionHolder<PlayerOption> {
 
     @Getter private final Player base;
-    @Getter private final UUID uuid;
+    private final UUID uuid;
 
     protected AriesPlayer(Player player) {
         this.base = player;
         this.uuid = player.getUniqueId();
+        player.sendActionBar();
+    }
+
+    public UUID getUUID() {
+        return this.uuid;
+    }
+
+    public RankInfo getRankInfo() {
+        return RankInfo.getInfo(uuid);
     }
 
     @Override
