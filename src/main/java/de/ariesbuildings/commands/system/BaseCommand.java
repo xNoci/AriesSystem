@@ -23,21 +23,14 @@ import java.util.Set;
 
 public class BaseCommand {
 
-    @Getter
-    private final JavaPlugin plugin;
-    @Getter
-    private final String name;
-    @Getter
-    private final List<String> aliases = Lists.newArrayList();
+    @Getter private final JavaPlugin plugin;
+    @Getter private final String name;
+    @Getter private final List<String> aliases = Lists.newArrayList();
     private final List<DefaultCommandMethod> defaultCommands = Lists.newArrayList();
     private final List<SubcommandMethod> subcommands = Lists.newArrayList();
     private final List<UnknownCommandMethod> unknownCommands = Lists.newArrayList();
-    @Getter
-    @Setter(AccessLevel.PROTECTED)
-    private String description = "";
-    @Getter
-    @Setter(AccessLevel.PROTECTED)
-    private String usage = "";
+    @Getter @Setter(AccessLevel.PROTECTED) private String description = "";
+    @Getter @Setter(AccessLevel.PROTECTED) private String usage = "";
 
     public BaseCommand(JavaPlugin plugin, String name, String... aliases) {
         this.plugin = plugin;

@@ -17,7 +17,6 @@ public class DefaultCommandMethod extends CommandMethod<DefaultCommandMethod> {
         int commandArgs = CommandMethodFactory.parseCommandArgs(method, -1);
         boolean requirePlayer = CommandMethodFactory.methodRequirePlayer(method);
 
-
         return new DefaultCommandMethod(method, permission, commandArgs, requirePlayer);
     }
 

@@ -7,7 +7,6 @@ import lombok.Getter;
 
 public class OptionChangeEvent extends CoreCancellableEvent {
 
-
     @Getter private final Option option;
     @Getter private final Object oldValue;
     @Getter private final Object newValue;

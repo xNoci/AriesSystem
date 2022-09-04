@@ -17,4 +17,5 @@ public class PostOptionChangeEvent extends OptionChangeEvent {
     public PostOptionChangeEvent(Option option, Object oldValue, Object newValue, AriesPlayer player, AriesWorld world) {
         super(option, oldValue, newValue, player, world);
     }
+
 }

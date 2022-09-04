@@ -30,7 +30,6 @@ public class PlayerDamageListener implements Listener {
             player.sendMessage(I18n.translate("teleport.out_of_void.help"));
         }
 
-
         if (ariesWorld != null) {
             event.setCancelled(!ariesWorld.isOptionEnabled(WorldOption.PLAYER_DAMAGE));
         }

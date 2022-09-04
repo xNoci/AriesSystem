@@ -21,7 +21,6 @@ public class SubcommandMethod extends CommandMethod<SubcommandMethod> {
         int commandArgs = CommandMethodFactory.parseCommandArgs(method, -1);
         boolean requirePlayer = CommandMethodFactory.methodRequirePlayer(method);
 
-
         return new SubcommandMethod(method, permission, subcommandNames, commandArgs, requirePlayer);
     }
 

@@ -17,7 +17,6 @@ public class UnknownCommandMethod extends CommandMethod<UnknownCommandMethod> {
         int commandArgs = CommandMethodFactory.parseCommandArgs(method, -1);
         boolean requirePlayer = CommandMethodFactory.methodRequirePlayer(method);
 
-
         return new UnknownCommandMethod(method, permission, commandArgs, requirePlayer);
     }
 

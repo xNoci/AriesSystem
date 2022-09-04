@@ -53,7 +53,6 @@ public class PlayerChatListener implements Listener {
 
         private final String replace;
 
-
         Format(String replace) {
             this.replace = replace;
         }

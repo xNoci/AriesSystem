@@ -34,7 +34,6 @@ public class CommandMethodFactory {
             throw new IllegalArgumentException("Command method cannot have more than 2 arguments.");
         }
 
-
         Stream<Class<?>> parameterTypes = Arrays.stream(method.getParameters()).map(Parameter::getType);
 
         //Check if one of the parameter type isn't valid

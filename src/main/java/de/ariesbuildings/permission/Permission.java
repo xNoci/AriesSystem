@@ -2,6 +2,7 @@ package de.ariesbuildings.permission;
 
 public class Permission {
 
+    //PERMISSION PREFIX
     private static final String PERMISSION_PREFIX = "aries."; //Default permission prefix to use
 
     //COMANDS
