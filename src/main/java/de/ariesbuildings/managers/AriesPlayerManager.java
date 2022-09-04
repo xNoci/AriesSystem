@@ -12,7 +12,7 @@ import java.util.UUID;
 
 public class AriesPlayerManager {
 
-    private HashMap<UUID, AriesPlayer> PLAYER_MAP = Maps.newHashMap();
+    private final HashMap<UUID, AriesPlayer> playerMap = Maps.newHashMap();
 
     public AriesPlayerManager() {
         Bukkit.getOnlinePlayers().forEach(this::getOrCreatePlayer);
@@ -28,18 +28,18 @@ public class AriesPlayerManager {
     }
 
     public void removeUser(UUID uuid) {
-        PLAYER_MAP.remove(uuid);
+        playerMap.remove(uuid);
     }
 
     public Collection<AriesPlayer> getPlayers() {
-        return new ArrayList<>(PLAYER_MAP.values());
+        return new ArrayList<>(playerMap.values());
     }
 
     private AriesPlayer getOrCreatePlayer(Player player) {
         if (player == null) return null;
-        if (PLAYER_MAP.containsKey(player.getUniqueId())) return PLAYER_MAP.get(player.getUniqueId());
+        if (playerMap.containsKey(player.getUniqueId())) return playerMap.get(player.getUniqueId());
         AriesPlayer ariesPlayer = new AriesPlayer(player);
-        PLAYER_MAP.put(player.getUniqueId(), ariesPlayer);
+        playerMap.put(player.getUniqueId(), ariesPlayer);
         return ariesPlayer;
     }
 
