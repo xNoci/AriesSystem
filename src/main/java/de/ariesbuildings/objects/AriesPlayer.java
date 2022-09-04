@@ -18,7 +18,6 @@ public class AriesPlayer extends OptionHolder<PlayerOption> {
     public AriesPlayer(Player player) {
         this.base = player;
         this.uuid = player.getUniqueId();
-        player.sendActionBar();
     }
 
     public UUID getUUID() {
