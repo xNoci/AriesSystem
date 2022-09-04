@@ -53,6 +53,7 @@ public class AriesSystem extends JavaPlugin {
         pluginManager.registerEvents(new EntityTargetEntityListener(), this);
         pluginManager.registerEvents(new FoodLevelChangeListener(), this);
         pluginManager.registerEvents(new OptionChangeListener(), this);
+        pluginManager.registerEvents(new PostOptionChangeListener(), this);
         pluginManager.registerEvents(PaperLib.isPaper() ? new ServerListPingPaperListener() : new ServerListPingBukkitListener(), this);
     }
 
