@@ -11,7 +11,6 @@ public class ServerListPingBukkitListener implements Listener {
     public void handleServerList(ServerListPingEvent event) {
         event.setMotd(I18n.translate("serverlist.motd"));
 
-        //TODO Remove vanished players from count
         event.setMaxPlayers(event.getNumPlayers() + 1);
     }
 
