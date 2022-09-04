@@ -5,19 +5,21 @@ import org.bukkit.GameMode;
 
 public enum PlayerOption implements Option {
 
-    DEFAULT_GAMEMODE("Default gamemode", GameMode.ADVENTURE, GameMode.class),
-    GLOW("Glow", true, boolean.class),
-    VOID_DAMAGE_TELEPORT("Void Damage Teleport", true, boolean.class),
-    VANISH("Vanish", false, boolean.class);
+    DEFAULT_GAMEMODE(0, "Default gamemode", GameMode.ADVENTURE, GameMode.class),
+    GLOW(1, "Glow", true, boolean.class),
+    VOID_DAMAGE_TELEPORT(2, "Void Damage Teleport", true, boolean.class),
+    VANISH(3, "Vanish", false, boolean.class);
 
+    @Getter private final int id;
     @Getter private final String name;
     @Getter private final Object defaultValue;
     @Getter private final Class<?> valueType;
 
-    PlayerOption(String name, Object defaultValue, Class<?> valueType) {
+    PlayerOption(int id, String name, Object defaultValue, Class<?> valueType) {
+        this.id = id;
         this.name = name;
-        this.valueType = valueType;
         this.defaultValue = defaultValue;
+        this.valueType = valueType;
     }
 
     @Override

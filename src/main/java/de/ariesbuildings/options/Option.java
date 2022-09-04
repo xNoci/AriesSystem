@@ -2,6 +2,8 @@ package de.ariesbuildings.options;
 
 sealed public interface Option permits PlayerOption, WorldOption {
 
+    int getId();
+
     String getName();
 
     Class<?> getValueType();
