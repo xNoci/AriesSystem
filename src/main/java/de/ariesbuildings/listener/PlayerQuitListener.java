@@ -14,7 +14,7 @@ import org.bukkit.event.player.PlayerQuitEvent;
 public class PlayerQuitListener implements Listener {
 
     public static String getQuitMessage(AriesPlayer player) {
-        RankInfo rankInfo = RankInfo.getInfo(player.getUUID());
+        RankInfo rankInfo = player.getRankInfo();
 
         ChatColor color = rankInfo.getColor();
         String displayName = rankInfo.getDisplayname();
@@ -25,7 +25,6 @@ public class PlayerQuitListener implements Listener {
     @EventHandler
     public void handlePlayerQuit(PlayerQuitEvent event) {
         AriesPlayer ariesPlayer = AriesSystem.getInstance().getPlayerManager().getPlayer(event.getPlayer());
-
 
         if (ariesPlayer.isOptionDisabled(PlayerOption.VANISH)) {
             event.setQuitMessage(getQuitMessage(ariesPlayer));

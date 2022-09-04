@@ -15,7 +15,7 @@ import org.bukkit.event.player.PlayerJoinEvent;
 public class PlayerJoinListener implements Listener {
 
     public static String getJoinMessage(AriesPlayer player) {
-        RankInfo rankInfo = RankInfo.getInfo(player.getUUID());
+        RankInfo rankInfo = player.getRankInfo();
 
         ChatColor color = rankInfo.getColor();
         String displayName = rankInfo.getDisplayname();
@@ -26,7 +26,6 @@ public class PlayerJoinListener implements Listener {
     @EventHandler
     public void handlePlayerJoin(PlayerJoinEvent event) {
         AriesPlayer player = AriesSystem.getInstance().getPlayerManager().getPlayer(event.getPlayer());
-
 
         player.getBase().setPlayerListHeaderFooter(I18n.translate("tab_list.header"), I18n.translate("tab_list.footer"));
 
