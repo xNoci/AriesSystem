@@ -29,7 +29,7 @@ public class AriesPlayerManager {
         return getOrCreatePlayer(player);
     }
 
-    public void removeUser(UUID uuid) {
+    public void removePlayer(UUID uuid) {
         if (!playerMap.containsKey(uuid)) return;
         AriesPlayer player = playerMap.get(uuid);
 

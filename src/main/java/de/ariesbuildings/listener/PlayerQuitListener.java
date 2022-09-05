@@ -35,7 +35,7 @@ public class PlayerQuitListener implements Listener {
 
     @EventHandler(priority = EventPriority.MONITOR)
     public void monitorPlayerQuit(PlayerQuitEvent event) {
-        AriesSystem.getInstance().getPlayerManager().removeUser(event.getPlayer().getUniqueId());
+        AriesSystem.getInstance().getPlayerManager().removePlayer(event.getPlayer().getUniqueId());
     }
 
 }

@@ -21,7 +21,7 @@ public class PlayerLoginListener implements Listener {
     @EventHandler(priority = EventPriority.MONITOR)
     public void monitorPlayerLogin(PlayerLoginEvent event) {
         if (event.getResult() == PlayerLoginEvent.Result.ALLOWED) return;
-        AriesSystem.getInstance().getPlayerManager().removeUser(event.getPlayer().getUniqueId());
+        AriesSystem.getInstance().getPlayerManager().removePlayer(event.getPlayer().getUniqueId());
     }
 
 }
