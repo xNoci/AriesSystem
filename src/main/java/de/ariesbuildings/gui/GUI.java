@@ -27,6 +27,11 @@ public class GUI {
         return this;
     }
 
+    public GUI addItem(ClickableItem ci) {
+        inv.addItem(ci.getIs());
+        return this;
+    }
+
     public GUI addItemFromTo(ItemStack is, int fromSlot, int toSlot) {
         for (int i = fromSlot; i <= toSlot; i++) {
             inv.setItem(i, is);
