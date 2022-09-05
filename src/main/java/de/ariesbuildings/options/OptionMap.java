@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.util.Map;
+import java.util.Set;
 
 public class OptionMap<K> {
 
@@ -32,7 +33,17 @@ public class OptionMap<K> {
         DATA.put(key, value);
         return value;
     }
-    
+
+    public Class<?> getType(K key) {
+        if (!DATA.containsKey(key)) return null;
+        Value<?> value = DATA.get(key);
+        return value.getType();
+    }
+
+    public Set<K> getKeys() {
+        return DATA.keySet();
+    }
+
     private static class Value<T> {
         @Getter @Setter private T value = null;
         @Getter @Setter private Class<T> type;
