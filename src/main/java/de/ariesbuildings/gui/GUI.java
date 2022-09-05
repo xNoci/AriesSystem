@@ -28,7 +28,7 @@ public class GUI {
     }
 
     public GUI addItemFromTo(ItemStack is, int fromSlot, int toSlot) {
-        for(int i = fromSlot; i <= toSlot; i++) {
+        for (int i = fromSlot; i <= toSlot; i++) {
             inv.setItem(i, is);
         }
         return this;
