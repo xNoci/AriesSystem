@@ -34,7 +34,6 @@ public abstract class OptionHolder<T extends Option> {
     public <V> void setOption(T option, V newValue) {
         V oldValue = (V) getOption(option, option.getValueType());
 
-
         OptionChangeEvent changeEvent = createOptionChangeEvent(option, oldValue, newValue);
         if (changeEvent != null) {
             Bukkit.getPluginManager().callEvent(changeEvent);
