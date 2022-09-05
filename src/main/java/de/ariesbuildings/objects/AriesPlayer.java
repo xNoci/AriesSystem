@@ -14,10 +14,12 @@ public class AriesPlayer extends OptionHolder<PlayerOption> {
 
     @Getter private final Player base;
     private final UUID uuid;
+    @Getter private final String name;
 
     public AriesPlayer(Player player) {
         this.base = player;
         this.uuid = player.getUniqueId();
+        this.name = player.getName();
     }
 
     public UUID getUUID() {
