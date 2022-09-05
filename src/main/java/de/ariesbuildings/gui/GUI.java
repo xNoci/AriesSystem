@@ -28,7 +28,7 @@ public class GUI {
     }
 
     public GUI addItem(ClickableItem ci) {
-        inv.addItem(ci.getIs());
+        inv.addItem(ci.getItemStack());
         return this;
     }
 
