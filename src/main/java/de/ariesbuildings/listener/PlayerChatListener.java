@@ -41,7 +41,6 @@ public class PlayerChatListener implements Listener {
         format = format.replaceAll(Format.MESSAGE.toString(), message);
 
         return format;
-
     }
 
     private enum Format {
@@ -62,6 +61,5 @@ public class PlayerChatListener implements Listener {
             return replace;
         }
     }
-
 
 }
