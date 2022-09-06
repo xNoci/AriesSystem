@@ -9,13 +9,15 @@ import java.util.UUID;
 
 public class AriesWorldManager {
 
-    private static HashMap<UUID, AriesWorld> WORLD_MAP = Maps.newHashMap();
+    private final HashMap<UUID, AriesWorld> worldMap = Maps.newHashMap();
 
+    public AriesWorldManager() {
+    }
 
-    public static AriesWorld getWorld(World world) {
-        if (WORLD_MAP.containsKey(world.getUID())) return WORLD_MAP.get(world.getUID());
+    public AriesWorld getWorld(World world) {
+        if (worldMap.containsKey(world.getUID())) return worldMap.get(world.getUID());
         AriesWorld ariesWorld = new AriesWorld(world);
-        WORLD_MAP.put(world.getUID(), ariesWorld);
+        worldMap.put(world.getUID(), ariesWorld);
         return ariesWorld;
     }
 

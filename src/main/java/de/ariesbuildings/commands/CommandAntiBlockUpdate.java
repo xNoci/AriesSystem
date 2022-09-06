@@ -1,9 +1,9 @@
 package de.ariesbuildings.commands;
 
+import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.commands.system.BaseCommand;
 import de.ariesbuildings.commands.system.annotations.*;
-import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.objects.AriesWorld;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
@@ -22,7 +22,7 @@ public class CommandAntiBlockUpdate extends BaseCommand {
     @CommandArgs(0)
     @CommandPermission(Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)
     private void onUsage(Player player) {
-        AriesWorld playerWorld = AriesWorldManager.getWorld(player.getWorld());
+        AriesWorld playerWorld = AriesSystem.getInstance().getWorldManager().getWorld(player.getWorld());
 
         if (!playerWorld.hasWorldPermission(player)) {
             player.sendMessage(I18n.translate("noPermission.not_a_builder"));
@@ -36,7 +36,7 @@ public class CommandAntiBlockUpdate extends BaseCommand {
     @Subcommand("current")
     @CommandArgs(0)
     private void onCheckCurrent(Player player) {
-        AriesWorld playerWorld = AriesWorldManager.getWorld(player.getWorld());
+        AriesWorld playerWorld = AriesSystem.getInstance().getWorldManager().getWorld(player.getWorld());
         player.sendMessage(I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), playerWorld.getOption(WorldOption.ANTI_BLOCK_UPDATE, boolean.class)));
     }
 

@@ -6,6 +6,7 @@ import de.ariesbuildings.commands.CommandVanish;
 import de.ariesbuildings.commands.system.CommandManager;
 import de.ariesbuildings.listener.*;
 import de.ariesbuildings.managers.AriesPlayerManager;
+import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.managers.VanishManager;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
@@ -19,6 +20,7 @@ public class AriesSystem extends JavaPlugin {
     private static AriesSystem instance;
 
     private I18n i18n;
+    @Getter private AriesWorldManager worldManager;
     @Getter private AriesPlayerManager playerManager;
     @Getter private VanishManager vanishManager;
 
@@ -28,6 +30,7 @@ public class AriesSystem extends JavaPlugin {
         instance = this;
 
         this.i18n = new I18n();
+        this.worldManager = new AriesWorldManager();
         this.playerManager = new AriesPlayerManager();
         this.vanishManager = new VanishManager();
 
