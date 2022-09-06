@@ -4,6 +4,7 @@ import de.ariesbuildings.commands.CommandAntiBlockUpdate;
 import de.ariesbuildings.commands.CommandGamemode;
 import de.ariesbuildings.commands.CommandVanish;
 import de.ariesbuildings.commands.system.CommandManager;
+import de.ariesbuildings.gui.ClickableItemListener;
 import de.ariesbuildings.listener.*;
 import de.ariesbuildings.managers.AriesPlayerManager;
 import de.ariesbuildings.managers.AriesWorldManager;
@@ -57,6 +58,10 @@ public class AriesSystem extends JavaPlugin {
         pluginManager.registerEvents(new FoodLevelChangeListener(), this);
         pluginManager.registerEvents(new OptionChangeListener(), this);
         pluginManager.registerEvents(new PostOptionChangeListener(), this);
+        pluginManager.registerEvents(new BlockFromToListener(), this);
+        pluginManager.registerEvents(new BlockPhysicsListener(), this);
+        pluginManager.registerEvents(new EntityChangeBlockListener(), this);
+        pluginManager.registerEvents(new ClickableItemListener(), this);
         pluginManager.registerEvents(PaperLib.isPaper() ? new ServerListPingPaperListener() : new ServerListPingBukkitListener(), this);
     }
 
