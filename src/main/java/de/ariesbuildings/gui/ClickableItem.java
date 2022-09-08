@@ -17,7 +17,6 @@ public class ClickableItem {
     @Getter private final int stackSize;
     @Getter private final Consumer<ClickableItem> usage;
     @Getter private final List<String> lore;
-    @Getter private final ItemStack itemStack;
 
     public ClickableItem(String name, Material material, int stackSize, Consumer<ClickableItem> usage, String... lore) {
         this.name = name;
@@ -26,18 +25,22 @@ public class ClickableItem {
         this.usage = usage;
         this.lore = List.of(lore);
         items.add(this);
-        itemStack = new ItemStack(material, stackSize);
-        ItemMeta im = itemStack.getItemMeta();
-        im.setDisplayName(name);
-        im.setLore(this.lore);
-        itemStack.setItemMeta(im);
     }
 
     public static ClickableItem checkItem(ItemStack is) {
         if (is == null) return null;
         for (ClickableItem item : items) {
-            if (is.isSimilar(item.getItemStack())) return item;
+            if (is.isSimilar(item.getAsItemStack())) return item;
         }
         return null;
+    }
+
+    public ItemStack getAsItemStack() {
+        ItemStack itemStack = new ItemStack(material, stackSize);
+        ItemMeta im = itemStack.getItemMeta();
+        im.setDisplayName(name);
+        im.setLore(this.lore);
+        itemStack.setItemMeta(im);
+        return itemStack;
     }
 }
