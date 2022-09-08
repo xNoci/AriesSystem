@@ -48,8 +48,12 @@ public abstract class OptionHolder<T extends Option> {
         }
     }
 
-    protected abstract OptionChangeEvent createOptionChangeEvent(T option, Object oldValue, Object newValue);
+    protected OptionChangeEvent createOptionChangeEvent(T option, Object oldValue, Object newValue) {
+        return new OptionChangeEvent(option, oldValue, newValue, null, null);
+    }
 
-    protected abstract PostOptionChangeEvent createPostOptionChangeEvent(T option, Object oldValue, Object newValue);
+    protected PostOptionChangeEvent createPostOptionChangeEvent(T option, Object oldValue, Object newValue) {
+        return new PostOptionChangeEvent(option, oldValue, newValue, null, null);
+    }
 
 }
