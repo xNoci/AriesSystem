@@ -2,6 +2,7 @@ package de.ariesbuildings.events;
 
 import org.bukkit.event.Event;
 import org.bukkit.event.HandlerList;
+import org.jetbrains.annotations.NotNull;
 
 public class CoreEvent extends Event {
 
@@ -20,7 +21,7 @@ public class CoreEvent extends Event {
     }
 
     @Override
-    public HandlerList getHandlers() {
+    public @NotNull HandlerList getHandlers() {
         return HANDLERS;
     }
 

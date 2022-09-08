@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class OptionMap<K> {
 
-    private Map<K, Value> DATA = Maps.newHashMap();
+    private final Map<K, Value> DATA = Maps.newHashMap();
 
     public <T> void set(K key, T value) {
         Value<T> cache = (Value<T>) getCached(key, value.getClass());
