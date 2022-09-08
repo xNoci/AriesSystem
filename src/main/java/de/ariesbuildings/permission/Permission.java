@@ -10,6 +10,7 @@ public class Permission {
     public static final String COMMAND_GAMEMODE_OTHER = PERMISSION_PREFIX + "gamemode.other"; //Player can use /gamemode <type> [Player] and /gm <type> [Player]
 
     //WORLD OPTIONS
+    public static final String WORLD_BYPASS_BUILDER = PERMISSION_PREFIX + "world.bypass_builder"; //This allows a player to bypass the builder role to change settings and use world commands
     public static final String WORLD_OPTION_ANTI_BLOCK_UPDATE = PERMISSION_PREFIX + "world.physics"; //Player can toggle block updates with /abu and /antiblockupdate
 
     //PLAYER OPTIONS

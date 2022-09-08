@@ -5,6 +5,7 @@ import de.ariesbuildings.events.OptionChangeEvent;
 import de.ariesbuildings.events.PostOptionChangeEvent;
 import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.WorldOption;
+import de.ariesbuildings.permission.Permission;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -30,7 +31,7 @@ public class AriesWorld extends OptionHolder<WorldOption> {
     }
 
     public boolean hasWorldPermission(Player player) {
-        return isBuilder(player.getUniqueId()) /*TODO or if his rank is high enough*/;
+        return isBuilder(player.getUniqueId()) || player.hasPermission(Permission.WORLD_BYPASS_BUILDER);
     }
 
     public void broadcast(String message) {
