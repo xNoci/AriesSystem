@@ -17,7 +17,7 @@ public class AriesPlayersConfig extends AbstractObjectConfig<AriesPlayer> {
     @SneakyThrows
     void onSerialize(ConfigurationNode objectNode, AriesPlayer player) {
         objectNode.node("name").set(player.getName());
-        objectNode.node("options").set(player.getOptions());
+        objectNode.node("options").set(AriesSerializers.PLAYER_OPTION_TYPE, player.getOptions());
     }
 
     @Override
