@@ -20,6 +20,7 @@ dependencies {
     implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("org.spongepowered:configurate-gson:4.1.2")
 
+    compileOnly(files("libs/QuickUtils.jar"))
     compileOnly("org.spigotmc:minecraft-server:1.16.5-SNAPSHOT")
     compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
 
