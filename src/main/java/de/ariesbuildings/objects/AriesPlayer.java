@@ -13,13 +13,13 @@ import java.util.UUID;
 public class AriesPlayer extends OptionHolder<PlayerOption> {
 
     @Getter private final Player base;
-    private final UUID uuid;
     @Getter private final String name;
+    private final UUID uuid;
 
     public AriesPlayer(Player player) {
         this.base = player;
-        this.uuid = player.getUniqueId();
         this.name = player.getName();
+        this.uuid = player.getUniqueId();
     }
 
     public UUID getUUID() {
