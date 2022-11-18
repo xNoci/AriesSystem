@@ -10,7 +10,7 @@ import org.spongepowered.configurate.ConfigurationNode;
 public class AriesPlayersConfig extends AbstractObjectConfig<AriesPlayer> {
 
     public AriesPlayersConfig() {
-        super("player_data.json");
+        super("player_data.json", 1);
     }
 
     @Override

@@ -16,7 +16,7 @@ import java.util.stream.Collectors;
 public class AriesWorldsConfig extends AbstractObjectConfig<AriesWorld> {
 
     public AriesWorldsConfig() {
-        super("worlds.json");
+        super("worlds.json", 1);
     }
 
     public List<String> getSavedWorlds() {

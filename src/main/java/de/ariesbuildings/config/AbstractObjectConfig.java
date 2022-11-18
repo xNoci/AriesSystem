@@ -4,8 +4,8 @@ import org.spongepowered.configurate.ConfigurationNode;
 
 public abstract class AbstractObjectConfig<T> extends AbstractConfig {
 
-    public AbstractObjectConfig(String path) {
-        super(path);
+    public AbstractObjectConfig(String path, int configVersion) {
+        super(path, configVersion);
     }
 
     public void serialize(String path, T object) {
