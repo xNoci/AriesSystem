@@ -4,6 +4,7 @@ import de.ariesbuildings.objects.AriesPlayer;
 import de.ariesbuildings.objects.AriesWorld;
 import de.ariesbuildings.options.Option;
 import lombok.Getter;
+import me.noci.quickutilities.events.core.CoreEvent;
 
 public class PostOptionChangeEvent extends CoreEvent {
 
