@@ -2,7 +2,6 @@ package de.ariesbuildings.commands;
 
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.permission.Permission;
-import me.noci.quickutilities.quickcommand.QuickCommand;
 import me.noci.quickutilities.quickcommand.annotations.*;
 import org.bukkit.Bukkit;
 import org.bukkit.GameMode;
@@ -12,7 +11,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Optional;
 
-public class CommandGamemode extends QuickCommand {
+public class CommandGamemode extends AriesCommand {
 
     public CommandGamemode(JavaPlugin plugin) {
         super(plugin, "gamemode", "gm");

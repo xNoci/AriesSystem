@@ -5,13 +5,12 @@ import de.ariesbuildings.I18n;
 import de.ariesbuildings.objects.AriesWorld;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
-import me.noci.quickutilities.quickcommand.QuickCommand;
 import me.noci.quickutilities.quickcommand.annotations.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CommandAntiBlockUpdate extends QuickCommand {
+public class CommandAntiBlockUpdate extends AriesCommand {
 
     public CommandAntiBlockUpdate(JavaPlugin plugin) {
         super(plugin, "antiblockupdate", "abu");
