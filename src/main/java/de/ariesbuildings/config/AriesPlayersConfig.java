@@ -10,7 +10,7 @@ import org.spongepowered.configurate.ConfigurationNode;
 public class AriesPlayersConfig extends AbstractObjectConfig<AriesPlayer> {
 
     public AriesPlayersConfig() {
-        super("player_settings.json");
+        super("player_data.json");
     }
 
     @Override
@@ -20,10 +20,11 @@ public class AriesPlayersConfig extends AbstractObjectConfig<AriesPlayer> {
         objectNode.node("options").set(player.getOptions());
     }
 
-    @Override @SneakyThrows
+    @Override
+    @SneakyThrows
     void onDeserialize(ConfigurationNode objectNode, AriesPlayer player) {
         OptionMap<PlayerOption> options = objectNode.node("options").get(AriesSerializers.PLAYER_OPTION_TYPE);
-        if(options != null) {
+        if (options != null) {
             for (PlayerOption key : options.getKeys()) {
                 player.setOption(key, options.get(key));
             }
