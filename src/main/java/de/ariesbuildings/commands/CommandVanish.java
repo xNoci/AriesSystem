@@ -2,19 +2,19 @@ package de.ariesbuildings.commands;
 
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
-import de.ariesbuildings.commands.system.BaseCommand;
-import de.ariesbuildings.commands.system.annotations.CommandArgs;
-import de.ariesbuildings.commands.system.annotations.CommandPermission;
-import de.ariesbuildings.commands.system.annotations.DefaultCommand;
-import de.ariesbuildings.commands.system.annotations.UnknownCommand;
 import de.ariesbuildings.objects.AriesPlayer;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.Permission;
+import me.noci.quickutilities.quickcommand.QuickCommand;
+import me.noci.quickutilities.quickcommand.annotations.CommandArgs;
+import me.noci.quickutilities.quickcommand.annotations.CommandPermission;
+import me.noci.quickutilities.quickcommand.annotations.DefaultCommand;
+import me.noci.quickutilities.quickcommand.annotations.UnknownCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-public class CommandVanish extends BaseCommand {
+public class CommandVanish extends QuickCommand {
 
     public CommandVanish(JavaPlugin plugin) {
         super(plugin, "vanish", "v");
