@@ -4,5 +4,5 @@ main: ${plugin.main}
 author: ${plugin.authors}
 api-version: 1.16
 
-softdepend:
-  - LuckPerms
+depend: [QuickUtils]
+softdepend: [LuckPerms]
