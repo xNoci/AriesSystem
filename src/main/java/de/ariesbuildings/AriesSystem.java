@@ -3,14 +3,13 @@ package de.ariesbuildings;
 import de.ariesbuildings.commands.CommandAntiBlockUpdate;
 import de.ariesbuildings.commands.CommandGamemode;
 import de.ariesbuildings.commands.CommandVanish;
-import de.ariesbuildings.commands.system.CommandManager;
-import de.ariesbuildings.gui.ClickableItemListener;
 import de.ariesbuildings.listener.*;
 import de.ariesbuildings.managers.AriesPlayerManager;
 import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.managers.VanishManager;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
+import me.noci.quickutilities.quickcommand.CommandManager;
 import org.bukkit.Bukkit;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -61,7 +60,6 @@ public class AriesSystem extends JavaPlugin {
         pluginManager.registerEvents(new BlockFromToListener(), this);
         pluginManager.registerEvents(new BlockPhysicsListener(), this);
         pluginManager.registerEvents(new EntityChangeBlockListener(), this);
-        pluginManager.registerEvents(new ClickableItemListener(), this);
         pluginManager.registerEvents(PaperLib.isPaper() ? new ServerListPingPaperListener() : new ServerListPingBukkitListener(), this);
     }
 
