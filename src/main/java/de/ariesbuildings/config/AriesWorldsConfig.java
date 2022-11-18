@@ -1,0 +1,64 @@
+package de.ariesbuildings.config;
+
+import de.ariesbuildings.objects.AriesWorld;
+import de.ariesbuildings.options.OptionMap;
+import de.ariesbuildings.options.WorldOption;
+import de.ariesbuildings.serializers.AriesSerializers;
+import lombok.SneakyThrows;
+import org.spongepowered.configurate.ConfigurationNode;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Objects;
+import java.util.UUID;
+import java.util.stream.Collectors;
+
+public class AriesWorldsConfig extends AbstractObjectConfig<AriesWorld> {
+
+    public AriesWorldsConfig() {
+        super("worlds.json");
+    }
+
+    public List<String> getSavedWorlds() {
+        return config().childrenMap().keySet().stream()
+                .filter(Objects::nonNull)
+                .map(Object::toString)
+                .collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    @Override
+    @SneakyThrows
+    void onSerialize(ConfigurationNode objectNode, AriesWorld world) {
+        objectNode.node("creator").set(world.getWorldCreator());
+        objectNode.node("builders").set(AriesSerializers.UUID_LIST_TYPE, world.getBuilders());
+        objectNode.node("creationTime").set(world.getCreationTime());
+        objectNode.node("options").set(AriesSerializers.WORLD_OPTION_TYPE, world.getOptions());
+    }
+
+    @Override
+    @SneakyThrows
+    void onDeserialize(ConfigurationNode objectNode, AriesWorld world) {
+        UUID worldCreator = objectNode.node("creator").get(UUID.class);
+        if (worldCreator != null) {
+            world.setWorldCreator(worldCreator);
+        }
+
+        ArrayList<UUID> builders = (ArrayList<UUID>) objectNode.node("builders").getList(UUID.class);
+        if (builders != null) {
+            world.setBuilders(builders);
+        }
+
+        Long creationTime = objectNode.node("creationTime").get(Long.class);
+        if (creationTime != null) {
+            world.setCreationTime(creationTime);
+        }
+
+        OptionMap<WorldOption> options = objectNode.node("options").get(AriesSerializers.WORLD_OPTION_TYPE);
+        if (options != null) {
+            for (WorldOption key : options.getKeys()) {
+                world.setOption(key, options.get(key));
+            }
+        }
+
+    }
+}
