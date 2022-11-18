@@ -7,12 +7,18 @@ import io.leangen.geantyref.TypeToken;
 import org.bukkit.GameMode;
 import org.spongepowered.configurate.serialize.TypeSerializerCollection;
 
+import java.util.List;
+import java.util.UUID;
+
 public class AriesSerializers {
 
     public static TypeToken<OptionMap<PlayerOption>> PLAYER_OPTION_TYPE = new TypeToken<>() {
     };
 
     public static TypeToken<OptionMap<WorldOption>> WORLD_OPTION_TYPE = new TypeToken<>() {
+    };
+
+    public static TypeToken<List<UUID>> UUID_LIST_TYPE = new TypeToken<>() {
     };
 
     public static TypeSerializerCollection SERIALIZERS = TypeSerializerCollection
