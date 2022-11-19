@@ -55,9 +55,7 @@ public class AriesWorldsConfig extends AbstractObjectConfig<AriesWorld> {
 
         OptionMap<WorldOption> options = objectNode.node("options").get(AriesSerializers.WORLD_OPTION_TYPE);
         if (options != null) {
-            for (WorldOption key : options.getKeys()) {
-                world.setOption(key, options.get(key));
-            }
+            world.setOptions(options);
         }
 
     }

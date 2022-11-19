@@ -48,6 +48,12 @@ public abstract class OptionHolder<T extends Option> {
         }
     }
 
+    public void setOptions(OptionMap<T> options) {
+        for (T key : options.getKeys()) {
+            this.options.set(key, options.get(key));
+        }
+    }
+
     protected OptionChangeEvent createOptionChangeEvent(T option, Object oldValue, Object newValue) {
         return new OptionChangeEvent(option, oldValue, newValue, null, null);
     }

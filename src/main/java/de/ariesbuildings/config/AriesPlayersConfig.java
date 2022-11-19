@@ -25,9 +25,7 @@ public class AriesPlayersConfig extends AbstractObjectConfig<AriesPlayer> {
     void onDeserialize(ConfigurationNode objectNode, AriesPlayer player) {
         OptionMap<PlayerOption> options = objectNode.node("options").get(AriesSerializers.PLAYER_OPTION_TYPE);
         if (options != null) {
-            for (PlayerOption key : options.getKeys()) {
-                player.setOption(key, options.get(key));
-            }
+            player.setOptions(options);
         }
     }
 
