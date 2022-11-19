@@ -16,10 +16,12 @@ public class AntiBlockUpdateListeners implements Listener {
     @EventHandler
     private void handleEntityChangeBlock(EntityChangeBlockEvent event) {
         AriesWorld world = AriesSystem.getInstance().getWorldManager().getWorld(event.getBlock().getWorld());
-        if (world == null) return;
-        if (world.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE)) {
+
+        if (world == null || world.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE)) {
+
             if (event.getEntityType() != EntityType.FALLING_BLOCK || event.getTo() != Material.AIR) return;
             if (event.getBlock().getType() != Material.SAND) return;
+
             event.setCancelled(true);
             event.getBlock().getState().update(false, false);
         }
@@ -29,15 +31,19 @@ public class AntiBlockUpdateListeners implements Listener {
     @EventHandler
     public void handleBlockFromTo(BlockFromToEvent event) {
         AriesWorld world = AriesSystem.getInstance().getWorldManager().getWorld(event.getBlock().getWorld());
-        if (world == null) return;
-        if (world.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE)) event.setCancelled(true);
+
+        if (world == null || world.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE)) {
+            event.setCancelled(true);
+        }
     }
 
     @EventHandler
     public void handleBlockPhysics(BlockPhysicsEvent event) {
         AriesWorld world = AriesSystem.getInstance().getWorldManager().getWorld(event.getBlock().getWorld());
-        if (world == null) return;
-        if (world.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE)) event.setCancelled(true);
+
+        if (world == null || world.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE)) {
+            event.setCancelled(true);
+        }
     }
 
 }
