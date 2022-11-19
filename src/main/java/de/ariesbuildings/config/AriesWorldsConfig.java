@@ -30,9 +30,9 @@ public class AriesWorldsConfig extends AbstractObjectConfig<AriesWorld> {
     @SneakyThrows
     void onSerialize(ConfigurationNode objectNode, AriesWorld world) {
         objectNode.node("creator").set(world.getWorldCreator());
-        objectNode.node("builders").set(AriesSerializers.UUID_LIST_TYPE, world.getBuilders());
+        objectNode.node("builders").set(AriesSerializers.Type.UUID_LIST, world.getBuilders());
         objectNode.node("creationTime").set(world.getCreationTime());
-        objectNode.node("options").set(AriesSerializers.WORLD_OPTION_MAP_TYPE, world.getOptions().getOptions());
+        objectNode.node("options").set(AriesSerializers.Type.WORLD_OPTION_MAP, world.getOptions().getOptions());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class AriesWorldsConfig extends AbstractObjectConfig<AriesWorld> {
             world.setCreationTime(creationTime);
         }
 
-        OptionMap<WorldOption> options = objectNode.node("options").get(AriesSerializers.WORLD_OPTION_MAP_TYPE);
+        OptionMap<WorldOption> options = objectNode.node("options").get(AriesSerializers.Type.WORLD_OPTION_MAP);
         if (options != null) {
             world.getOptions().setOptions(options);
         }
