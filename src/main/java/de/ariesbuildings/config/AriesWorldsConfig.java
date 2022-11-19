@@ -32,7 +32,7 @@ public class AriesWorldsConfig extends AbstractObjectConfig<AriesWorld> {
         objectNode.node("creator").set(world.getWorldCreator());
         objectNode.node("builders").set(AriesSerializers.UUID_LIST_TYPE, world.getBuilders());
         objectNode.node("creationTime").set(world.getCreationTime());
-        objectNode.node("options").set(AriesSerializers.WORLD_OPTION_TYPE, world.getOptions().getOptions());
+        objectNode.node("options").set(AriesSerializers.WORLD_OPTION_MAP_TYPE, world.getOptions().getOptions());
     }
 
     @Override
@@ -53,7 +53,7 @@ public class AriesWorldsConfig extends AbstractObjectConfig<AriesWorld> {
             world.setCreationTime(creationTime);
         }
 
-        OptionMap<WorldOption> options = objectNode.node("options").get(AriesSerializers.WORLD_OPTION_TYPE);
+        OptionMap<WorldOption> options = objectNode.node("options").get(AriesSerializers.WORLD_OPTION_MAP_TYPE);
         if (options != null) {
             world.getOptions().setOptions(options);
         }

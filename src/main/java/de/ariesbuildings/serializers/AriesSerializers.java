@@ -12,10 +12,10 @@ import java.util.UUID;
 
 public class AriesSerializers {
 
-    public static TypeToken<OptionMap<PlayerOption>> PLAYER_OPTION_TYPE = new TypeToken<>() {
+    public static TypeToken<OptionMap<PlayerOption>> PLAYER_OPTION_MAP_TYPE = new TypeToken<>() {
     };
 
-    public static TypeToken<OptionMap<WorldOption>> WORLD_OPTION_TYPE = new TypeToken<>() {
+    public static TypeToken<OptionMap<WorldOption>> WORLD_OPTION_MAP_TYPE = new TypeToken<>() {
     };
 
     public static TypeToken<List<UUID>> UUID_LIST_TYPE = new TypeToken<>() {
@@ -24,8 +24,8 @@ public class AriesSerializers {
     public static TypeSerializerCollection SERIALIZERS = TypeSerializerCollection
             .builder()
             .register(GameMode.class, GameModeSerializer.INSTANCE)
-            .register(PLAYER_OPTION_TYPE, PlayerOptionHolderSerializer.INSTANCE)
-            .register(WORLD_OPTION_TYPE, WorldOptionHolderSerializer.INSTANCE)
+            .register(PLAYER_OPTION_MAP_TYPE, PlayerOptionMapSerializer.INSTANCE)
+            .register(WORLD_OPTION_MAP_TYPE, WorldOptionMapSerializer.INSTANCE)
             .build();
 
 }

@@ -17,13 +17,13 @@ public class AriesPlayersConfig extends AbstractObjectConfig<AriesPlayer> {
     @SneakyThrows
     void onSerialize(ConfigurationNode objectNode, AriesPlayer player) {
         objectNode.node("name").set(player.getName());
-        objectNode.node("options").set(AriesSerializers.PLAYER_OPTION_TYPE, player.getOptions().getOptions());
+        objectNode.node("options").set(AriesSerializers.PLAYER_OPTION_MAP_TYPE, player.getOptions().getOptions());
     }
 
     @Override
     @SneakyThrows
     void onDeserialize(ConfigurationNode objectNode, AriesPlayer player) {
-        OptionMap<PlayerOption> options = objectNode.node("options").get(AriesSerializers.PLAYER_OPTION_TYPE);
+        OptionMap<PlayerOption> options = objectNode.node("options").get(AriesSerializers.PLAYER_OPTION_MAP_TYPE);
         if (options != null) {
             player.getOptions().setOptions(options);
         }

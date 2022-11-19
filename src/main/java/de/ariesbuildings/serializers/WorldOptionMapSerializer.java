@@ -10,13 +10,13 @@ import org.spongepowered.configurate.serialize.TypeSerializer;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 
-public class WorldOptionHolderSerializer implements TypeSerializer<OptionMap<WorldOption>> {
+public class WorldOptionMapSerializer implements TypeSerializer<OptionMap<WorldOption>> {
 
-    static final WorldOptionHolderSerializer INSTANCE = new WorldOptionHolderSerializer();
+    static final WorldOptionMapSerializer INSTANCE = new WorldOptionMapSerializer();
 
     private static final String OPTIONS = "WorldOptions";
 
-    private WorldOptionHolderSerializer() {
+    private WorldOptionMapSerializer() {
     }
 
     private ConfigurationNode nonVirtualNode(final ConfigurationNode source, final Object... path) throws SerializationException {
