@@ -1,60 +1,118 @@
 package de.ariesbuildings.config;
 
 import de.ariesbuildings.AriesSystem;
-import de.ariesbuildings.serializers.AriesSerializers;
-import lombok.Getter;
 import lombok.SneakyThrows;
-import org.spongepowered.configurate.ConfigurationNode;
-import org.spongepowered.configurate.gson.GsonConfigurationLoader;
+import org.apache.commons.lang.StringUtils;
+import org.spongepowered.configurate.CommentedConfigurationNode;
+import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
 
+import java.lang.annotation.ElementType;
+import java.lang.annotation.Retention;
+import java.lang.annotation.RetentionPolicy;
+import java.lang.annotation.Target;
+import java.lang.reflect.Field;
+import java.nio.file.Files;
 import java.nio.file.Path;
 
 public abstract class AbstractConfig {
 
-    @Getter private final int configVersion;
+    private final int configVersion;
 
-    private final GsonConfigurationLoader configLoader;
-    private final ConfigurationNode config;
-
-    @SneakyThrows
     public AbstractConfig(String path, int configVersion) {
         this.configVersion = configVersion;
-        this.configLoader = GsonConfigurationLoader.builder()
-                .path(Path.of(AriesSystem.getInstance().getDataFolder().getPath(), path))
-                .defaultOptions(options -> options.serializers(builder -> builder.registerAll(AriesSerializers.SERIALIZERS)))
+
+        Path configPath = Path.of(AriesSystem.getInstance().getDataFolder().getPath(), path);
+
+        HoconConfigurationLoader loader = HoconConfigurationLoader.builder()
+                .path(configPath)
                 .build();
-        this.config = this.configLoader.load();
 
-        handleVersion();
-    }
-
-    @SneakyThrows
-    protected void save() {
-        this.configLoader.save(this.config);
-    }
-
-    protected ConfigurationNode config() {
-        return this.config.node("configData");
-    }
-
-    @SneakyThrows
-    private void handleVersion() {
-        ConfigurationNode versionNode = this.config.node("configVersion");
-        if (versionNode.virtual()) { //VERSION WAS NOT SET
-            versionNode.set(configVersion);
-            save();
+        if (!Files.exists(configPath)) {
+            createNewConfig(configPath, loader);
             return;
         }
 
-        int oldVersion = versionNode.getInt();
-        if (oldVersion == configVersion) {
-            //CONFIG VERSION DID NOT CHANGE
-            return;
+        loadConfig(loader);
+    }
+
+    @SneakyThrows
+    private void createNewConfig(Path path, HoconConfigurationLoader loader) {
+        CommentedConfigurationNode node = loader.createNode();
+
+        CommentedConfigurationNode configVersionNode = node.node("configVersion");
+        setConfigVersion(configVersionNode);
+
+        for (Field field : this.getClass().getDeclaredFields()) {
+            if (!field.isAnnotationPresent(ConfigEntry.class)) continue;
+            ConfigEntry entry = field.getAnnotation(ConfigEntry.class);
+            CommentedConfigurationNode entryNode = node.node((Object[]) entry.name().split("\\."));
+
+            String comment = entry.comment();
+            if (StringUtils.isNotBlank(comment)) {
+                entryNode.comment(entry.comment());
+            }
+
+            try {
+                entryNode.set(field.get(null));
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
         }
 
-        //NEW VERSION
-        this.config.node("configVersion").set(configVersion);
-        save();
+        Files.createDirectories(path.toAbsolutePath().getParent());
+        loader.save(node);
+    }
+
+    @SneakyThrows
+    private void loadConfig(HoconConfigurationLoader loader) {
+        CommentedConfigurationNode node = loader.load();
+
+        CommentedConfigurationNode configVersionNode = node.node("configVersion");
+        setConfigVersion(configVersionNode);
+
+        boolean modified = false;
+
+        for (Field field : this.getClass().getDeclaredFields()) {
+            if (!field.isAnnotationPresent(ConfigEntry.class)) continue;
+            ConfigEntry entry = field.getAnnotation(ConfigEntry.class);
+            CommentedConfigurationNode entryNode = node.node((Object[]) entry.name().split("\\."));
+
+            if (!entryNode.virtual()) {
+                try {
+                    field.set(null, entryNode.get(field.getType()));
+                } catch (IllegalArgumentException | IllegalAccessException e) {
+                    e.printStackTrace();
+                }
+                continue;
+            }
+
+            entryNode.comment(entry.comment());
+            try {
+                entryNode.set(field.get(null));
+            } catch (IllegalArgumentException | IllegalAccessException e) {
+                e.printStackTrace();
+            }
+
+            modified = true;
+        }
+
+        if (modified) {
+            loader.save(node);
+        }
+    }
+
+    @SneakyThrows
+    private void setConfigVersion(CommentedConfigurationNode configNode) {
+        configNode.comment("This indicates the current version of this config file. Do not change this manually!");
+        configNode.set(this.configVersion);
+    }
+
+    @Target(ElementType.FIELD)
+    @Retention(RetentionPolicy.RUNTIME)
+    protected @interface ConfigEntry {
+        String name();
+
+        String comment() default "";
     }
 
 }
