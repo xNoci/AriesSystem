@@ -4,6 +4,10 @@ import de.ariesbuildings.commands.CommandAntiBlockUpdate;
 import de.ariesbuildings.commands.CommandGamemode;
 import de.ariesbuildings.commands.CommandVanish;
 import de.ariesbuildings.listener.*;
+import de.ariesbuildings.listener.playeroptions.VoidDamageTeleportListener;
+import de.ariesbuildings.listener.worldoptions.AntiBlockUpdateListeners;
+import de.ariesbuildings.listener.worldoptions.EntityTargetPlayerListener;
+import de.ariesbuildings.listener.worldoptions.PlayerWorldDamageListener;
 import de.ariesbuildings.managers.AriesPlayerManager;
 import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.managers.VanishManager;
@@ -11,6 +15,7 @@ import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import me.noci.quickutilities.quickcommand.CommandManager;
 import org.bukkit.Bukkit;
+import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
 
@@ -34,7 +39,7 @@ public class AriesSystem extends JavaPlugin {
         this.playerManager = new AriesPlayerManager();
         this.vanishManager = new VanishManager();
 
-        registerListener();
+        registerListeners();
         registerCommands();
     }
 
@@ -46,27 +51,38 @@ public class AriesSystem extends JavaPlugin {
         this.i18n.disable();
     }
 
-    private void registerListener() {
+    private void registerListeners() {
         PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(new PlayerJoinListener(), this);
-        pluginManager.registerEvents(new PlayerQuitListener(), this);
-        pluginManager.registerEvents(new PlayerLoginListener(), this);
-        pluginManager.registerEvents(new PlayerDamageListener(), this);
-        pluginManager.registerEvents(new PlayerChatListener(), this);
-        pluginManager.registerEvents(new EntityTargetEntityListener(), this);
-        pluginManager.registerEvents(new FoodLevelChangeListener(), this);
-        pluginManager.registerEvents(new OptionChangeListener(), this);
-        pluginManager.registerEvents(new PostOptionChangeListener(), this);
-        pluginManager.registerEvents(new BlockFromToListener(), this);
-        pluginManager.registerEvents(new BlockPhysicsListener(), this);
-        pluginManager.registerEvents(new EntityChangeBlockListener(), this);
-        pluginManager.registerEvents(PaperLib.isPaper() ? new ServerListPingPaperListener() : new ServerListPingBukkitListener(), this);
+
+        //WORLD OPTIONS
+        registerListener(new AntiBlockUpdateListeners());
+        registerListener(new EntityTargetPlayerListener());
+        registerListener(new PlayerWorldDamageListener());
+
+        //PLAYER OPTIONS
+        registerListener(new VoidDamageTeleportListener());
+
+        //OTHER
+        registerListener(new PlayerJoinListener());
+        registerListener(new PlayerQuitListener());
+        registerListener(new PlayerLoginListener());
+        registerListener(new PlayerChatListener());
+        registerListener(new EntityTargetPlayerListener());
+        registerListener(new FoodLevelChangeListener());
+        registerListener(new OptionChangeListener());
+        registerListener(new PostOptionChangeListener());
+        registerListener(PaperLib.isPaper() ? new ServerListPingPaperListener() : new ServerListPingBukkitListener());
     }
 
     private void registerCommands() {
         CommandManager.register(new CommandGamemode(this));
         CommandManager.register(new CommandAntiBlockUpdate(this));
         CommandManager.register(new CommandVanish(this));
+    }
+
+    private void registerListener(Listener listener) {
+        PluginManager pluginManager = getServer().getPluginManager();
+        pluginManager.registerEvents(listener, this);
     }
 
 }
