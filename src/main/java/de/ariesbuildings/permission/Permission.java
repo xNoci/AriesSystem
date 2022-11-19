@@ -16,6 +16,10 @@ public class Permission {
     //PLAYER OPTIONS
     public static final String PLAYER_OPTION_VANISH = PERMISSION_PREFIX + "vanish"; //Player can use /vanish and also see vanish player
 
+    //CONFIG
+    public static final String CONFIG_RELOAD = PERMISSION_PREFIX + "config.reload"; //Allows the player to reload the config with /config reload or /cfg reload
+    public static final String CONFIG_DISPLAY = PERMISSION_PREFIX + "config.display"; //Allows the player to display the config with /config display or /cfg display
+
     //OTHER
     public static final String CHAT_USE_COLOR = PERMISSION_PREFIX + "chatcolor"; //Player can write colored text in chat
 
