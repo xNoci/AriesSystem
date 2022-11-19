@@ -16,7 +16,7 @@ public class ServerListPingPaperListener implements Listener {
 
         long visiblePlayers = AriesSystem.getInstance().getPlayerManager().getPlayers()
                 .stream()
-                .filter(ariesPlayer -> ariesPlayer.isOptionDisabled(PlayerOption.VANISH))
+                .filter(ariesPlayer -> ariesPlayer.getOptions().isDisabled(PlayerOption.VANISH))
                 .count();
 
         event.setNumPlayers(Math.toIntExact(visiblePlayers));
@@ -25,7 +25,7 @@ public class ServerListPingPaperListener implements Listener {
         event.getPlayerSample().removeIf(playerProfile -> {
             AriesPlayer player = AriesSystem.getInstance().getPlayerManager().getPlayer(playerProfile.getId());
             if (player == null) return false;
-            return player.isOptionEnabled(PlayerOption.VANISH);
+            return player.getOptions().isEnabled(PlayerOption.VANISH);
         });
     }
 

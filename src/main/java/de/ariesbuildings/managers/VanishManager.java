@@ -22,14 +22,14 @@ public class VanishManager {
 
     public static void sendActionbar() {
         AriesSystem.getInstance().getPlayerManager().getPlayers().forEach(player -> {
-            String actionBar = player.isOptionEnabled(PlayerOption.VANISH) ? I18n.translate("actionbar.vanish_enabled") : " ";
+            String actionBar = player.getOptions().isEnabled(PlayerOption.VANISH) ? I18n.translate("actionbar.vanish_enabled") : " ";
             player.getBase().sendActionBar(actionBar);
         });
     }
 
     public static void updatePlayerVisibility() {
         AriesSystem.getInstance().getPlayerManager().getPlayers().forEach(player -> {
-            boolean vanish = player.isOptionEnabled(PlayerOption.VANISH);
+            boolean vanish = player.getOptions().isEnabled(PlayerOption.VANISH);
 
             AriesSystem.getInstance().getPlayerManager().getPlayers().forEach(target -> {
                 if (target.getUUID().equals(player.getUUID())) return;

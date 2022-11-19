@@ -10,7 +10,9 @@ import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
-public class AriesPlayer extends OptionHolder<PlayerOption> {
+public class AriesPlayer {
+
+    @Getter private final OptionHolder<PlayerOption> options = new OptionHolder<>(this);
 
     @Getter private final Player base;
     @Getter private final String name;
@@ -30,13 +32,4 @@ public class AriesPlayer extends OptionHolder<PlayerOption> {
         return RankInfo.getInfo(uuid);
     }
 
-    @Override
-    protected OptionChangeEvent createOptionChangeEvent(PlayerOption option, Object oldValue, Object newValue) {
-        return new OptionChangeEvent(option, oldValue, newValue, this);
-    }
-
-    @Override
-    protected PostOptionChangeEvent createPostOptionChangeEvent(PlayerOption option, Object oldValue, Object newValue) {
-        return new PostOptionChangeEvent(option, oldValue, newValue, this);
-    }
 }

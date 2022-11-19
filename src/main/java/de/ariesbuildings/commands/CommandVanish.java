@@ -26,8 +26,8 @@ public class CommandVanish extends AriesCommand {
     private void onUsage(Player player) {
         AriesPlayer playerWorld = AriesSystem.getInstance().getPlayerManager().getPlayer(player);
 
-        boolean currentValue = playerWorld.isOptionEnabled(PlayerOption.VANISH);
-        playerWorld.setOption(PlayerOption.VANISH, !currentValue);
+        boolean currentValue = playerWorld.getOptions().isEnabled(PlayerOption.VANISH);
+        playerWorld.getOptions().set(PlayerOption.VANISH, !currentValue);
     }
 
     @UnknownCommand

@@ -29,11 +29,11 @@ public class PlayerJoinListener implements Listener {
 
         player.getBase().setPlayerListHeaderFooter(I18n.translate("tab_list.header"), I18n.translate("tab_list.footer"));
 
-        player.getBase().setGlowing(player.isOptionEnabled(PlayerOption.GLOW));
-        player.getBase().setGameMode(player.getOption(PlayerOption.DEFAULT_GAMEMODE, GameMode.class));
+        player.getBase().setGlowing(player.getOptions().isEnabled(PlayerOption.GLOW));
+        player.getBase().setGameMode(player.getOptions().get(PlayerOption.DEFAULT_GAMEMODE, GameMode.class));
 
 
-        if (player.isOptionDisabled(PlayerOption.VANISH)) {
+        if (player.getOptions().isDisabled(PlayerOption.VANISH)) {
             event.setJoinMessage(getJoinMessage(player));
         } else {
             event.setJoinMessage(null);

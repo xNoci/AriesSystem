@@ -12,11 +12,12 @@ import org.bukkit.entity.Player;
 import java.util.HashSet;
 import java.util.UUID;
 
-public class AriesWorld extends OptionHolder<WorldOption> {
+public class AriesWorld {
 
     private final World world;
     private final HashSet<UUID> builders = Sets.newHashSet();//TODO Aus Config holen
     private UUID worldCreator;  //TODO Aus Config holen
+    @Getter private final OptionHolder<WorldOption> options = new OptionHolder<>(this);
 
     public AriesWorld(World world) {
         this.world = world;
@@ -39,13 +40,4 @@ public class AriesWorld extends OptionHolder<WorldOption> {
         world.getPlayers().forEach(player -> player.sendMessage(message));
     }
 
-    @Override
-    protected OptionChangeEvent createOptionChangeEvent(WorldOption option, Object oldValue, Object newValue) {
-        return new OptionChangeEvent(option, oldValue, newValue, this);
-    }
-
-    @Override
-    protected PostOptionChangeEvent createPostOptionChangeEvent(WorldOption option, Object oldValue, Object newValue) {
-        return new PostOptionChangeEvent(option, oldValue, newValue, this);
-    }
 }

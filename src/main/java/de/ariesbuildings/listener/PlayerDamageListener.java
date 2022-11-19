@@ -20,7 +20,7 @@ public class PlayerDamageListener implements Listener {
         AriesPlayer ariesPlayer = AriesSystem.getInstance().getPlayerManager().getPlayer(player);
         AriesWorld ariesWorld = AriesSystem.getInstance().getWorldManager().getWorld(player.getWorld());
 
-        if (ariesPlayer.isOptionEnabled(PlayerOption.VOID_DAMAGE_TELEPORT) &&
+        if (ariesPlayer.getOptions().isEnabled(PlayerOption.VOID_DAMAGE_TELEPORT) &&
                 event.getCause() == EntityDamageEvent.DamageCause.VOID && player.getLocation().getY() < 0) {
             Location location = player.getLocation().clone();
             location.setY(100);
@@ -30,7 +30,7 @@ public class PlayerDamageListener implements Listener {
         }
 
         if (ariesWorld != null) {
-            event.setCancelled(!ariesWorld.isOptionEnabled(WorldOption.PLAYER_DAMAGE));
+            event.setCancelled(!ariesWorld.getOptions().isEnabled(WorldOption.PLAYER_DAMAGE));
         }
     }
 }

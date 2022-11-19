@@ -13,7 +13,7 @@ public class EntityChangeBlockListener implements Listener {
     @EventHandler
     private void handleEntityChangeBlock(EntityChangeBlockEvent event) {
         AriesWorld world = AriesSystem.getInstance().getWorldManager().getWorld(event.getBlock().getWorld());
-        if (world.isOptionEnabled(WorldOption.ANTI_BLOCK_UPDATE)) {
+        if (world.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE)) {
             if (event.getEntityType() != EntityType.FALLING_BLOCK || event.getTo() != Material.AIR) return;
             if (event.getBlock().getType() != Material.SAND) return;
             event.setCancelled(true);

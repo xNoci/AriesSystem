@@ -28,15 +28,15 @@ public class CommandAntiBlockUpdate extends AriesCommand {
             return;
         }
 
-        boolean currentValue = playerWorld.isOptionEnabled(WorldOption.ANTI_BLOCK_UPDATE);
-        playerWorld.setOption(WorldOption.ANTI_BLOCK_UPDATE, !currentValue);
+        boolean currentValue = playerWorld.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE);
+        playerWorld.getOptions().set(WorldOption.ANTI_BLOCK_UPDATE, !currentValue);
     }
 
     @Subcommand("current")
     @CommandArgs(0)
     private void onCheckCurrent(Player player) {
         AriesWorld playerWorld = AriesSystem.getInstance().getWorldManager().getWorld(player.getWorld());
-        player.sendMessage(I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), playerWorld.getOption(WorldOption.ANTI_BLOCK_UPDATE, boolean.class)));
+        player.sendMessage(I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), playerWorld.getOptions().get(WorldOption.ANTI_BLOCK_UPDATE, boolean.class)));
     }
 
     @UnknownCommand

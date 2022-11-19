@@ -26,7 +26,7 @@ public class PlayerQuitListener implements Listener {
     public void handlePlayerQuit(PlayerQuitEvent event) {
         AriesPlayer ariesPlayer = AriesSystem.getInstance().getPlayerManager().getPlayer(event.getPlayer());
 
-        if (ariesPlayer.isOptionDisabled(PlayerOption.VANISH)) {
+        if (ariesPlayer.getOptions().isDisabled(PlayerOption.VANISH)) {
             event.setQuitMessage(getQuitMessage(ariesPlayer));
         } else {
             event.setQuitMessage(null);
