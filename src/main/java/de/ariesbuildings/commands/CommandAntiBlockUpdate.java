@@ -13,7 +13,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CommandAntiBlockUpdate extends AriesCommand {
 
     public CommandAntiBlockUpdate(JavaPlugin plugin) {
-        super(plugin, "antiblockupdate", "abu");
+        super(plugin, "antiblockupdate", "abu", "physics");
         setDescription("Toggles block updates in a world");
     }
 
