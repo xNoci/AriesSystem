@@ -21,8 +21,7 @@ public class EntityTargetPlayerListener implements Listener {
             return;
         }
 
-        event.setCancelled(!world.getOptions().get(WorldOption.ENTITY_TARGET_PLAYER, boolean.class));
-
+        event.setCancelled(!world.getOptions().isEnabled(WorldOption.ENTITY_TARGET_PLAYER));
     }
 
 }
