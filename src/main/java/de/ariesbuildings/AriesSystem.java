@@ -3,6 +3,7 @@ package de.ariesbuildings;
 import de.ariesbuildings.commands.CommandAntiBlockUpdate;
 import de.ariesbuildings.commands.CommandGamemode;
 import de.ariesbuildings.commands.CommandVanish;
+import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.listener.*;
 import de.ariesbuildings.listener.playeroptions.VoidDamageTeleportListener;
 import de.ariesbuildings.listener.worldoptions.AntiBlockUpdateListeners;
@@ -33,6 +34,8 @@ public class AriesSystem extends JavaPlugin {
     public void onEnable() {
         PaperLib.suggestPaper(this);
         instance = this;
+
+        new AriesSystemConfig();
 
         this.i18n = new I18n();
         this.worldManager = new AriesWorldManager();
