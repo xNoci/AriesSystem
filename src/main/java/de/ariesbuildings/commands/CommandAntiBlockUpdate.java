@@ -10,6 +10,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Optional;
+
 public class CommandAntiBlockUpdate extends AriesCommand {
 
     public CommandAntiBlockUpdate(JavaPlugin plugin) {
@@ -22,6 +24,11 @@ public class CommandAntiBlockUpdate extends AriesCommand {
     @CommandPermission(Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)
     private void onUsage(Player player) {
         AriesWorld playerWorld = AriesSystem.getInstance().getWorldManager().getWorld(player.getWorld());
+
+        if(playerWorld == null) {
+            player.sendMessage(I18n.translate("world.not_found"));
+            return;
+        }
 
         if (!playerWorld.hasWorldPermission(player)) {
             player.sendMessage(I18n.translate("noPermission.not_a_builder"));
@@ -36,6 +43,12 @@ public class CommandAntiBlockUpdate extends AriesCommand {
     @CommandArgs(0)
     private void onCheckCurrent(Player player) {
         AriesWorld playerWorld = AriesSystem.getInstance().getWorldManager().getWorld(player.getWorld());
+
+        if(playerWorld == null) {
+            player.sendMessage(I18n.translate("world.not_found"));
+            return;
+        }
+
         player.sendMessage(I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), playerWorld.getOptions().get(WorldOption.ANTI_BLOCK_UPDATE, boolean.class)));
     }
 
