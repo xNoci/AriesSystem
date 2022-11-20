@@ -1,7 +1,7 @@
 package de.ariesbuildings.managers;
 
 import com.google.common.collect.Maps;
-import de.ariesbuildings.objects.AriesWorld;
+import de.ariesbuildings.world.AriesWorld;
 import org.bukkit.World;
 
 import java.util.HashMap;

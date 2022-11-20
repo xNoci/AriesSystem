@@ -1,7 +1,7 @@
 package de.ariesbuildings.listener.worldoptions;
 
 import de.ariesbuildings.AriesSystem;
-import de.ariesbuildings.objects.AriesWorld;
+import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.options.WorldOption;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;

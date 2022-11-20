@@ -1,6 +1,6 @@
 package de.ariesbuildings.config;
 
-import de.ariesbuildings.objects.AriesWorld;
+import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.options.OptionMap;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.serializers.AriesSerializers;

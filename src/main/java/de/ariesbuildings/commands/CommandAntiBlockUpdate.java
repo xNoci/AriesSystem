@@ -2,7 +2,7 @@ package de.ariesbuildings.commands;
 
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
-import de.ariesbuildings.objects.AriesWorld;
+import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
 import me.noci.quickutilities.quickcommand.annotations.*;

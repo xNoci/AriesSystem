@@ -3,7 +3,7 @@ package de.ariesbuildings.listener;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.events.OptionChangeEvent;
 import de.ariesbuildings.objects.AriesPlayer;
-import de.ariesbuildings.objects.AriesWorld;
+import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.options.WorldOption;
 import org.bukkit.event.EventHandler;
