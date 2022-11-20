@@ -18,7 +18,7 @@ public abstract class AbstractConfig {
 
     private final int configVersion;
 
-    public AbstractConfig(String path, int configVersion) {
+    protected AbstractConfig(String path, int configVersion) {
         this.configVersion = configVersion;
 
         Path configPath = Path.of(AriesSystem.getInstance().getDataFolder().getPath(), path);

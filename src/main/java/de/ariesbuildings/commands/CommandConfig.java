@@ -21,7 +21,7 @@ public class CommandConfig extends AriesCommand {
     @CommandArgs(0)
     @CommandPermission(Permission.CONFIG_RELOAD)
     public void reloadConfig(CommandSender sender) {
-        new AriesSystemConfig();
+        AriesSystemConfig.load();
         sender.sendMessage(I18n.translate("command.config.reload_successfully"));
     }
 

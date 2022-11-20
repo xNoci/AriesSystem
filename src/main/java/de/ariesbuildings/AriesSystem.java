@@ -36,7 +36,7 @@ public class AriesSystem extends JavaPlugin {
         PaperLib.suggestPaper(this);
         instance = this;
 
-        new AriesSystemConfig();
+        AriesSystemConfig.load();
 
         this.i18n = new I18n();
         this.worldManager = new AriesWorldManager();
@@ -56,8 +56,6 @@ public class AriesSystem extends JavaPlugin {
     }
 
     private void registerListeners() {
-        PluginManager pluginManager = getServer().getPluginManager();
-
         //WORLD OPTIONS
         registerListener(new AntiBlockUpdateListeners());
         registerListener(new EntityTargetPlayerListener());

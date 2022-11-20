@@ -12,8 +12,8 @@ public class AriesSystemConfig extends AbstractConfig {
     @ConfigEntry(name = "debug", comment = "When enabled the plugin will print various debug messages")
     public static boolean DEBUG = false;
 
-    public AriesSystemConfig() {
-        super("config.hocon", 1);
+    public static void load() {
+        new AriesSystemConfig();
     }
 
     @SneakyThrows
@@ -41,6 +41,8 @@ public class AriesSystemConfig extends AbstractConfig {
             entries.add(Triple.of(fieldName, configPath, configValue));
         }
         return entries;
+    protected AriesSystemConfig() {
+        super("config.hocon", 1);
     }
 
 }
