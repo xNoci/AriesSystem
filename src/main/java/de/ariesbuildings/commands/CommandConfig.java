@@ -53,7 +53,7 @@ public class CommandConfig extends AriesCommand {
             return;
         }
 
-        sender.sendMessage(I18n.translate("command.unknown", "config", ""));
+        sender.sendMessage(I18n.noPermission());
     }
 
 }
