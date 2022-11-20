@@ -55,6 +55,13 @@ public class AriesSystem extends JavaPlugin {
         this.i18n.disable();
     }
 
+    private void registerCommands() {
+        CommandManager.register(new CommandGamemode(this));
+        CommandManager.register(new CommandAntiBlockUpdate(this));
+        CommandManager.register(new CommandVanish(this));
+        CommandManager.register(new CommandConfig(this));
+    }
+
     private void registerListeners() {
         //WORLD OPTIONS
         registerListener(new AntiBlockUpdateListeners());
@@ -74,13 +81,6 @@ public class AriesSystem extends JavaPlugin {
         registerListener(new OptionChangeListener());
         registerListener(new PostOptionChangeListener());
         registerListener(PaperLib.isPaper() ? new ServerListPingPaperListener() : new ServerListPingBukkitListener());
-    }
-
-    private void registerCommands() {
-        CommandManager.register(new CommandGamemode(this));
-        CommandManager.register(new CommandAntiBlockUpdate(this));
-        CommandManager.register(new CommandVanish(this));
-        CommandManager.register(new CommandConfig(this));
     }
 
     private void registerListener(Listener listener) {
