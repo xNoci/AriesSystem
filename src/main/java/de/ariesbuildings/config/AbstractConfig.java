@@ -3,7 +3,7 @@ package de.ariesbuildings.config;
 import com.google.common.collect.Lists;
 import de.ariesbuildings.AriesSystem;
 import lombok.SneakyThrows;
-import org.apache.commons.lang.StringUtils;
+import org.apache.commons.lang3.StringUtils;
 import org.apache.commons.lang3.tuple.Triple;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.hocon.HoconConfigurationLoader;

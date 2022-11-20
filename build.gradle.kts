@@ -21,6 +21,7 @@ dependencies {
     implementation("org.spongepowered:configurate-gson:4.1.2")
     implementation("org.spongepowered:configurate-hocon:4.1.2")
     implementation("com.github.cryptomorin:XSeries:9.1.0")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
 
     compileOnly(files("libs/QuickUtils.jar"))
     compileOnly("org.spigotmc:minecraft-server:1.16.5-SNAPSHOT")
