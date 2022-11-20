@@ -23,7 +23,7 @@ public class VanishManager {
     public static void sendActionbar() {
         AriesSystem.getInstance().getPlayerManager().getPlayers().forEach(player -> {
             String actionBar = player.getOptions().isEnabled(PlayerOption.VANISH) ? I18n.translate("actionbar.vanish_enabled") : " ";
-            player.getBase().sendActionBar(actionBar);
+            player.sendActionBar(actionBar);
         });
     }
 

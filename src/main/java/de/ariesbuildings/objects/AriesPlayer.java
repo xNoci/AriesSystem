@@ -1,5 +1,7 @@
 package de.ariesbuildings.objects;
 
+import com.cryptomorin.xseries.messages.ActionBar;
+import com.cryptomorin.xseries.messages.Titles;
 import de.ariesbuildings.events.OptionChangeEvent;
 import de.ariesbuildings.events.PostOptionChangeEvent;
 import de.ariesbuildings.options.OptionHolder;
@@ -30,6 +32,16 @@ public class AriesPlayer {
 
     public RankInfo getRankInfo() {
         return RankInfo.getInfo(uuid);
+    }
+
+    public void clearActionBar() {
+        if(!base.isOnline()) return;
+        ActionBar.clearActionBar(this.base);
+    }
+
+    public void sendActionBar(String message) {
+        if(!base.isOnline()) return;
+        ActionBar.sendActionBar(base, message);
     }
 
 }
