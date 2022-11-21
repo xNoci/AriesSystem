@@ -12,14 +12,22 @@ version = project.property("version")!!
 
 repositories {
     mavenLocal()
-    maven { url = uri("https://repo.papermc.io/repository/maven-public/") }
+    maven { url = uri("https://repo.papermc.io/repository/maven-public/") } //PaperMC
 }
 
 dependencies {
     implementation("io.papermc:paperlib:1.0.7")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
+    implementation("org.spongepowered:configurate-gson:4.1.2")
+    implementation("org.spongepowered:configurate-hocon:4.1.2")
+    implementation("com.github.cryptomorin:XSeries:9.1.0")
+    implementation("org.apache.commons:commons-lang3:3.12.0")
 
-    compileOnly("org.spigotmc:minecraft-server:1.16.5-SNAPSHOT")
-    compileOnly("com.destroystokyo.paper:paper-api:1.16.5-R0.1-SNAPSHOT")
+    compileOnly(files("libs/QuickUtils.jar"))
+    compileOnly("org.spigotmc:minecraft-server:1.19.2-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
+
+    compileOnly("net.luckperms:api:5.4")
 
     compileOnly("org.projectlombok:lombok:1.18.24")
     annotationProcessor("org.projectlombok:lombok:1.18.24")

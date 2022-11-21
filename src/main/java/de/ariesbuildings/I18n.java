@@ -1,5 +1,7 @@
 package de.ariesbuildings;
 
+import org.apache.commons.lang3.StringUtils;
+
 import java.text.MessageFormat;
 import java.util.Locale;
 import java.util.ResourceBundle;
@@ -9,7 +11,7 @@ public class I18n {
     private static final String BUNDLE_NAME = "locales.messages";
     private static I18n instance;
 
-    private ResourceBundle defaultBundle;
+    private final ResourceBundle defaultBundle;
 
     public I18n() {
         instance = this;
@@ -17,6 +19,8 @@ public class I18n {
     }
 
     public static String translate(String key, Object... params) {
+        if (StringUtils.isBlank(key))
+            return "{Error: empty or null translation key}";
         if (instance == null) return key;
         return instance.format(key, params);
     }
@@ -36,6 +40,7 @@ public class I18n {
     }
 
     private String translate(String key) {
+        if (!defaultBundle.containsKey(key)) return key;
         return defaultBundle.getString(key);
     }
 
