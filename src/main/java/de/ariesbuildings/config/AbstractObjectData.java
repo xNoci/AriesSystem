@@ -9,7 +9,7 @@ import org.spongepowered.configurate.gson.GsonConfigurationLoader;
 
 import java.nio.file.Path;
 
-public abstract class AbstractObjectConfig<T> {
+public abstract class AbstractObjectData<T> {
 
     @Getter private final int configVersion;
 
@@ -17,7 +17,7 @@ public abstract class AbstractObjectConfig<T> {
     private final ConfigurationNode config;
 
     @SneakyThrows
-    public AbstractObjectConfig(String path, int configVersion) {
+    public AbstractObjectData(String path, int configVersion) {
         this.configVersion = configVersion;
         this.configLoader = GsonConfigurationLoader.builder()
                 .path(Path.of(AriesSystem.getInstance().getDataFolder().getPath(), path))

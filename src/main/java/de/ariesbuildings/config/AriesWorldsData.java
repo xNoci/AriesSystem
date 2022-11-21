@@ -14,10 +14,10 @@ import java.util.Objects;
 import java.util.UUID;
 import java.util.stream.Collectors;
 
-public class AriesWorldsConfig extends AbstractObjectConfig<AriesWorld> {
+public class AriesWorldsData extends AbstractObjectData<AriesWorld> {
 
-    public AriesWorldsConfig() {
-        super("worlds.json", 1);
+    public AriesWorldsData() {
+        super("worlds.data.json", 1);
     }
 
     public List<String> getSavedWorlds() {

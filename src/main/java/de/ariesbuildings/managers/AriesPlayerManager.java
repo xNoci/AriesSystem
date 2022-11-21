@@ -1,7 +1,7 @@
 package de.ariesbuildings.managers;
 
 import com.google.common.collect.Maps;
-import de.ariesbuildings.config.AriesPlayersConfig;
+import de.ariesbuildings.config.AriesPlayersData;
 import de.ariesbuildings.objects.AriesPlayer;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
@@ -14,7 +14,7 @@ import java.util.UUID;
 public class AriesPlayerManager {
 
     private final HashMap<UUID, AriesPlayer> playerMap = Maps.newHashMap();
-    private final AriesPlayersConfig playerConfig = new AriesPlayersConfig();
+    private final AriesPlayersData playerData = new AriesPlayersData();
 
     public AriesPlayerManager() {
         Bukkit.getOnlinePlayers().forEach(this::createPlayer);
@@ -33,7 +33,7 @@ public class AriesPlayerManager {
         if (!playerMap.containsKey(uuid)) return;
         AriesPlayer player = playerMap.get(uuid);
 
-        playerConfig.serialize(player.getUUID().toString(), player);
+        playerData.serialize(player.getUUID().toString(), player);
         playerMap.remove(uuid);
     }
 
@@ -46,7 +46,7 @@ public class AriesPlayerManager {
         if (playerMap.containsKey(player.getUniqueId())) return playerMap.get(player.getUniqueId());
 
         AriesPlayer ariesPlayer = new AriesPlayer(player);
-        playerConfig.deserialize(player.getUniqueId().toString(), ariesPlayer);
+        playerData.deserialize(player.getUniqueId().toString(), ariesPlayer);
 
         playerMap.put(player.getUniqueId(), ariesPlayer);
         return ariesPlayer;

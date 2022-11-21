@@ -7,10 +7,10 @@ import de.ariesbuildings.serializers.AriesSerializers;
 import lombok.SneakyThrows;
 import org.spongepowered.configurate.ConfigurationNode;
 
-public class AriesPlayersConfig extends AbstractObjectConfig<AriesPlayer> {
+public class AriesPlayersData extends AbstractObjectData<AriesPlayer> {
 
-    public AriesPlayersConfig() {
-        super("player_data.json", 1);
+    public AriesPlayersData() {
+        super("players.data.json", 1);
     }
 
     @Override
