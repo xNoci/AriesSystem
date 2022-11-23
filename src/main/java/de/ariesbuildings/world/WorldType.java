@@ -1,4 +1,9 @@
-package de.ariesbuildings.world.creator.types;
+package de.ariesbuildings.world;
+
+import de.ariesbuildings.world.creator.types.FlatWorldCreatorType;
+import de.ariesbuildings.world.creator.types.NormalWorldCreatorType;
+import de.ariesbuildings.world.creator.types.VoidWorldCreatorType;
+import de.ariesbuildings.world.creator.types.WorldCreatorType;
 
 public enum WorldType {
 

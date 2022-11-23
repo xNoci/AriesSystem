@@ -4,7 +4,7 @@ import com.google.common.collect.Lists;
 import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
-import de.ariesbuildings.world.creator.types.WorldType;
+import de.ariesbuildings.world.creator.WorldCreator;
 import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.World;

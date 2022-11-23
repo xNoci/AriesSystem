@@ -1,7 +1,7 @@
 package de.ariesbuildings.world.creator;
 
 import de.ariesbuildings.world.AriesWorld;
-import de.ariesbuildings.world.creator.types.WorldType;
+import de.ariesbuildings.world.WorldType;
 import org.bukkit.World;
 
 public class WorldCreator {
