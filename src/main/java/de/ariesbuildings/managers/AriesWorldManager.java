@@ -38,6 +38,12 @@ public class AriesWorldManager {
         }
         worlds.clear();
     }
+
+    public boolean existsWorld(String worldName) {
+        boolean worldExists = getWorld(worldName) != null;
+        File worldFile = new File(Bukkit.getWorldContainer(), worldName);
+        return worldExists || worldFile.exists();
+    }
     public AriesWorld getWorld(World world) {
         if (worldMap.containsKey(world.getUID())) return worldMap.get(world.getUID());
         AriesWorld ariesWorld = new AriesWorld(world);
