@@ -2,7 +2,7 @@ package de.ariesbuildings.listener;
 
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.events.OptionChangeEvent;
-import de.ariesbuildings.objects.AriesPlayer;
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.options.WorldOption;

@@ -1,4 +1,4 @@
-package de.ariesbuildings.objects;
+package de.ariesbuildings;
 
 import com.cryptomorin.xseries.messages.ActionBar;
 import com.cryptomorin.xseries.messages.Titles;

@@ -2,7 +2,7 @@ package de.ariesbuildings.commands;
 
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
-import de.ariesbuildings.objects.AriesPlayer;
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.Permission;
 import me.noci.quickutilities.quickcommand.annotations.CommandArgs;

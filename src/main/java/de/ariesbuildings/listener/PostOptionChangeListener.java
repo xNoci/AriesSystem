@@ -2,7 +2,7 @@ package de.ariesbuildings.listener;
 
 import de.ariesbuildings.events.PostOptionChangeEvent;
 import de.ariesbuildings.managers.VanishManager;
-import de.ariesbuildings.objects.AriesPlayer;
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.options.PlayerOption;
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;

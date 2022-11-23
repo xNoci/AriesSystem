@@ -1,6 +1,6 @@
 package de.ariesbuildings.config;
 
-import de.ariesbuildings.objects.AriesPlayer;
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.options.OptionMap;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.config.serializers.AriesSerializers;

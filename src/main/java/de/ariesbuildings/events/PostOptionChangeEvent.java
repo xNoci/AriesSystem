@@ -1,6 +1,6 @@
 package de.ariesbuildings.events;
 
-import de.ariesbuildings.objects.AriesPlayer;
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.options.Option;
 import lombok.Getter;
