@@ -1,9 +1,6 @@
 package de.ariesbuildings;
 
-import de.ariesbuildings.commands.CommandAntiBlockUpdate;
-import de.ariesbuildings.commands.CommandConfig;
-import de.ariesbuildings.commands.CommandGamemode;
-import de.ariesbuildings.commands.CommandVanish;
+import de.ariesbuildings.commands.*;
 import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.listener.*;
 import de.ariesbuildings.listener.playeroptions.VoidDamageTeleportListener;
@@ -63,6 +60,7 @@ public class AriesSystem extends JavaPlugin {
         CommandManager.register(new CommandAntiBlockUpdate(this));
         CommandManager.register(new CommandVanish(this));
         CommandManager.register(new CommandConfig(this));
+        CommandManager.register(new CommandWorld(this, this.worldManager));
     }
 
     private void registerListeners() {
