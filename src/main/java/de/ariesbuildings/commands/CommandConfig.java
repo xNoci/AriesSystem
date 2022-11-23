@@ -4,10 +4,7 @@ import de.ariesbuildings.I18n;
 import de.ariesbuildings.config.AbstractConfig;
 import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.permission.Permission;
-import me.noci.quickutilities.quickcommand.annotations.CommandArgs;
-import me.noci.quickutilities.quickcommand.annotations.CommandPermission;
-import me.noci.quickutilities.quickcommand.annotations.Subcommand;
-import me.noci.quickutilities.quickcommand.annotations.UnknownCommand;
+import me.noci.quickutilities.quickcommand.annotations.*;
 import org.apache.commons.lang3.tuple.Triple;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -37,6 +34,7 @@ public class CommandConfig extends AriesCommand {
         }
     }
 
+    @DefaultCommand
     @UnknownCommand
     public void unknownCommand(CommandSender sender) {
         if(sender.hasPermission(Permission.CONFIG_RELOAD) && sender.hasPermission("Permission.CONFIG_DISPLAY")) {
