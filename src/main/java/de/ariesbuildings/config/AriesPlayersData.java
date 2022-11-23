@@ -3,7 +3,7 @@ package de.ariesbuildings.config;
 import de.ariesbuildings.objects.AriesPlayer;
 import de.ariesbuildings.options.OptionMap;
 import de.ariesbuildings.options.PlayerOption;
-import de.ariesbuildings.serializers.AriesSerializers;
+import de.ariesbuildings.config.serializers.AriesSerializers;
 import lombok.SneakyThrows;
 import org.spongepowered.configurate.ConfigurationNode;
 

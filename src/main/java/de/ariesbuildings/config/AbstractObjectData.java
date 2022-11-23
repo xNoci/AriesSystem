@@ -1,7 +1,7 @@
 package de.ariesbuildings.config;
 
 import de.ariesbuildings.AriesSystem;
-import de.ariesbuildings.serializers.AriesSerializers;
+import de.ariesbuildings.config.serializers.AriesSerializers;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.spongepowered.configurate.ConfigurationNode;

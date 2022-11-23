@@ -1,7 +1,7 @@
-package de.ariesbuildings.serializers;
+package de.ariesbuildings.config.serializers;
 
 import de.ariesbuildings.options.OptionMap;
-import de.ariesbuildings.options.WorldOption;
+import de.ariesbuildings.options.PlayerOption;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.serialize.SerializationException;
@@ -10,13 +10,13 @@ import org.spongepowered.configurate.serialize.TypeSerializer;
 import java.lang.reflect.Type;
 import java.util.Arrays;
 
-public class WorldOptionMapSerializer implements TypeSerializer<OptionMap<WorldOption>> {
+public class PlayerOptionMapSerializer implements TypeSerializer<OptionMap<PlayerOption>> {
 
-    static final WorldOptionMapSerializer INSTANCE = new WorldOptionMapSerializer();
+    static final PlayerOptionMapSerializer INSTANCE = new PlayerOptionMapSerializer();
 
-    private static final String OPTIONS = "WorldOptions";
+    private static final String OPTIONS = "playerOptions";
 
-    private WorldOptionMapSerializer() {
+    private PlayerOptionMapSerializer() {
     }
 
     private ConfigurationNode nonVirtualNode(final ConfigurationNode source, final Object... path) throws SerializationException {
@@ -27,11 +27,11 @@ public class WorldOptionMapSerializer implements TypeSerializer<OptionMap<WorldO
     }
 
     @Override
-    public OptionMap<WorldOption> deserialize(Type type, ConfigurationNode source) throws SerializationException {
-        OptionMap<WorldOption> optionMap = new OptionMap<>();
+    public OptionMap<PlayerOption> deserialize(Type type, ConfigurationNode source) throws SerializationException {
+        OptionMap<PlayerOption> optionMap = new OptionMap<>();
         ConfigurationNode options = nonVirtualNode(source, OPTIONS);
 
-        for (WorldOption option : WorldOption.values()) {
+        for (PlayerOption option : PlayerOption.values()) {
             if (!options.hasChild(option.name())) continue;
             ConfigurationNode optionNode = options.node(option.name());
 
@@ -43,11 +43,11 @@ public class WorldOptionMapSerializer implements TypeSerializer<OptionMap<WorldO
     }
 
     @Override
-    public void serialize(Type type, @Nullable OptionMap<WorldOption> optionMap, ConfigurationNode target) throws SerializationException {
+    public void serialize(Type type, @Nullable OptionMap<PlayerOption> optionMap, ConfigurationNode target) throws SerializationException {
         if (optionMap == null) return;
         ConfigurationNode node = target.node(OPTIONS);
 
-        for (WorldOption option : optionMap.getKeys()) {
+        for (PlayerOption option : optionMap.getKeys()) {
             Class<?> optionType = optionMap.getType(option);
             ConfigurationNode optionNode = node.node(option.name());
 

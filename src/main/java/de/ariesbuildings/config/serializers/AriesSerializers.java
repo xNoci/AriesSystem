@@ -1,4 +1,4 @@
-package de.ariesbuildings.serializers;
+package de.ariesbuildings.config.serializers;
 
 import de.ariesbuildings.options.OptionMap;
 import de.ariesbuildings.options.PlayerOption;

@@ -1,4 +1,4 @@
-package de.ariesbuildings.serializers;
+package de.ariesbuildings.config.serializers;
 
 import org.bukkit.GameMode;
 import org.checkerframework.checker.nullness.qual.Nullable;
