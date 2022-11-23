@@ -44,11 +44,21 @@ public class AriesWorldManager {
         File worldFile = new File(Bukkit.getWorldContainer(), worldName);
         return worldExists || worldFile.exists();
     }
+    public AriesWorld getWorld(Entity entityInWorld) {
+        if (entityInWorld == null) return null;
+        return getWorld(entityInWorld.getWorld());
+    }
+
     public AriesWorld getWorld(World world) {
-        if (worldMap.containsKey(world.getUID())) return worldMap.get(world.getUID());
-        AriesWorld ariesWorld = new AriesWorld(world);
-        worldMap.put(world.getUID(), ariesWorld);
-        return ariesWorld;
+        if (world == null) return null;
+        return getWorld(world.getName());
+    }
+
+    public AriesWorld getWorld(String worldName) {
+        return worlds.stream()
+                .filter(world -> world.getWorldName().equalsIgnoreCase(worldName))
+                .findFirst()
+                .orElse(null);
     }
 
 }
