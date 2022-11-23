@@ -1,8 +1,8 @@
 package de.ariesbuildings.options;
 
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.events.OptionChangeEvent;
 import de.ariesbuildings.events.PostOptionChangeEvent;
-import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.world.AriesWorld;
 import lombok.Getter;
 import org.bukkit.Bukkit;

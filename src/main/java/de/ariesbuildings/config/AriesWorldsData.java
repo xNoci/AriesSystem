@@ -1,9 +1,9 @@
 package de.ariesbuildings.config;
 
-import de.ariesbuildings.world.AriesWorld;
+import de.ariesbuildings.config.serializers.AriesSerializers;
 import de.ariesbuildings.options.OptionMap;
 import de.ariesbuildings.options.WorldOption;
-import de.ariesbuildings.config.serializers.AriesSerializers;
+import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.WorldType;
 import lombok.SneakyThrows;
 import org.spongepowered.configurate.ConfigurationNode;

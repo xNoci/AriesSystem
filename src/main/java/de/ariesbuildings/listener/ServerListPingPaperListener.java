@@ -1,9 +1,9 @@
 package de.ariesbuildings.listener;
 
 import com.destroystokyo.paper.event.server.PaperServerListPingEvent;
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
-import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.options.PlayerOption;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;

@@ -1,11 +1,11 @@
 package de.ariesbuildings.listener;
 
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.events.OptionChangeEvent;
-import de.ariesbuildings.AriesPlayer;
-import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.options.WorldOption;
+import de.ariesbuildings.world.AriesWorld;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 

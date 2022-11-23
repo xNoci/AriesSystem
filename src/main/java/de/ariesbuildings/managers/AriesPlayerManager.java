@@ -1,8 +1,8 @@
 package de.ariesbuildings.managers;
 
 import com.google.common.collect.Maps;
-import de.ariesbuildings.config.AriesPlayersData;
 import de.ariesbuildings.AriesPlayer;
+import de.ariesbuildings.config.AriesPlayersData;
 import org.bukkit.Bukkit;
 import org.bukkit.entity.Player;
 

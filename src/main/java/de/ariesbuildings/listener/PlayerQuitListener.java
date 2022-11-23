@@ -1,8 +1,8 @@
 package de.ariesbuildings.listener;
 
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
-import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
 import org.bukkit.ChatColor;

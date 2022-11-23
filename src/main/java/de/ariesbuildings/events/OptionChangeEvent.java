@@ -1,8 +1,8 @@
 package de.ariesbuildings.events;
 
 import de.ariesbuildings.AriesPlayer;
-import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.options.Option;
+import de.ariesbuildings.world.AriesWorld;
 import lombok.Getter;
 import me.noci.quickutilities.events.core.CoreCancellableEvent;
 

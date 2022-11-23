@@ -1,8 +1,8 @@
 package de.ariesbuildings.listener.playeroptions;
 
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
-import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.options.PlayerOption;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;

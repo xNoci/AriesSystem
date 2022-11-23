@@ -2,9 +2,9 @@ package de.ariesbuildings.commands;
 
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
-import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
+import de.ariesbuildings.world.AriesWorld;
 import me.noci.quickutilities.quickcommand.annotations.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -23,7 +23,7 @@ public class CommandAntiBlockUpdate extends AriesCommand {
     private void onUsage(Player player) {
         AriesWorld playerWorld = AriesSystem.getInstance().getWorldManager().getWorld(player.getWorld());
 
-        if(playerWorld == null) {
+        if (playerWorld == null) {
             player.sendMessage(I18n.translate("world.not_found"));
             return;
         }
@@ -42,7 +42,7 @@ public class CommandAntiBlockUpdate extends AriesCommand {
     private void onCheckCurrent(Player player) {
         AriesWorld playerWorld = AriesSystem.getInstance().getWorldManager().getWorld(player.getWorld());
 
-        if(playerWorld == null) {
+        if (playerWorld == null) {
             player.sendMessage(I18n.translate("world.not_found"));
             return;
         }

@@ -20,7 +20,7 @@ import java.util.List;
 public abstract class AbstractConfig {
 
     @SneakyThrows
-    public static List<Triple<String, String, String>> getEntries(Class<? extends AbstractConfig> configClass ) {
+    public static List<Triple<String, String, String>> getEntries(Class<? extends AbstractConfig> configClass) {
         List<Triple<String, String, String>> entries = Lists.newLinkedList();
 
         for (Field field : configClass.getDeclaredFields()) {

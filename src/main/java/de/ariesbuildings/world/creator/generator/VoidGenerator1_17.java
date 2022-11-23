@@ -1,6 +1,5 @@
 package de.ariesbuildings.world.creator.generator;
 
-import org.bukkit.World;
 import org.bukkit.block.Biome;
 import org.bukkit.generator.BiomeProvider;
 import org.bukkit.generator.WorldInfo;
