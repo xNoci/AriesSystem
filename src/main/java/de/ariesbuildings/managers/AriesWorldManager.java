@@ -1,19 +1,43 @@
 package de.ariesbuildings.managers;
 
-import com.google.common.collect.Maps;
+import com.google.common.collect.Lists;
+import de.ariesbuildings.config.AriesWorldsData;
 import de.ariesbuildings.world.AriesWorld;
+import de.ariesbuildings.world.WorldImportResult;
+import de.ariesbuildings.world.WorldType;
+import de.ariesbuildings.world.creator.WorldCreator;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
+import org.bukkit.entity.Entity;
+import org.bukkit.entity.Player;
 
-import java.util.HashMap;
-import java.util.UUID;
+import java.io.File;
+import java.util.List;
 
 public class AriesWorldManager {
 
-    private final HashMap<UUID, AriesWorld> worldMap = Maps.newHashMap();
+    private final AriesWorldsData worldData = new AriesWorldsData();
+    private final List<AriesWorld> worlds = Lists.newArrayList();
 
     public AriesWorldManager() {
     }
 
+    public void loadSavedWorlds() {
+        for (String savedWorld : worldData.getSavedWorlds()) {
+            AriesWorld ariesWorld = new AriesWorld(savedWorld);
+            worldData.deserialize(savedWorld, ariesWorld);
+            ariesWorld.load();
+            worlds.add(ariesWorld);
+        }
+    }
+
+    public void saveWorlds() {
+        for (AriesWorld world : worlds) {
+            world.unload();
+            worldData.serialize(world.getWorldName(), world);
+        }
+        worlds.clear();
+    }
     public AriesWorld getWorld(World world) {
         if (worldMap.containsKey(world.getUID())) return worldMap.get(world.getUID());
         AriesWorld ariesWorld = new AriesWorld(world);

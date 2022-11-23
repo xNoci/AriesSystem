@@ -43,6 +43,8 @@ public class AriesSystem extends JavaPlugin {
         this.playerManager = new AriesPlayerManager();
         this.vanishManager = new VanishManager();
 
+        this.worldManager.loadSavedWorlds();
+
         registerListeners();
         registerCommands();
     }
@@ -51,6 +53,7 @@ public class AriesSystem extends JavaPlugin {
     public void onDisable() {
         Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(I18n.translate("serverRestart")));
 
+        this.worldManager.saveWorlds();
         this.vanishManager.stopTask();
         this.i18n.disable();
     }
