@@ -44,6 +44,34 @@ public class AriesWorldManager {
         File worldFile = new File(Bukkit.getWorldContainer(), worldName);
         return worldExists || worldFile.exists();
     }
+
+    public WorldImportResult importWorld(String worldName) {
+        File worldFile = new File(Bukkit.getWorldContainer(), worldName);
+
+        if (!worldFile.exists() || !worldFile.isDirectory()) return WorldImportResult.WORLD_NOT_EXIST;
+        if (getWorld(worldName) != null) return WorldImportResult.ALREADY_IMPORTED;
+
+        AriesWorld world = new AriesWorld(worldName);
+        world.setType(WorldType.IMPORTED);
+
+        World bukkitWorld = new WorldCreator(worldName).loadWorld();
+        world.setWorld(bukkitWorld);
+
+        worlds.add(world);
+        worldData.serialize(worldName, world);
+        return WorldImportResult.SUCCESS;
+    }
+
+    public WorldImportResult unimportWorld(String worldName) {
+        AriesWorld world = getWorld(worldName);
+        if (world == null) return WorldImportResult.NOT_IMPORTED;
+
+        world.unload();
+        worlds.remove(world);
+        worldData.removeObject(world.getWorldName());
+        return WorldImportResult.SUCCESS;
+    }
+
     public AriesWorld getWorld(Entity entityInWorld) {
         if (entityInWorld == null) return null;
         return getWorld(entityInWorld.getWorld());
