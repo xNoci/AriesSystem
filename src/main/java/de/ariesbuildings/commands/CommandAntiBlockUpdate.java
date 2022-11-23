@@ -10,8 +10,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
-import java.util.Optional;
-
 public class CommandAntiBlockUpdate extends AriesCommand {
 
     public CommandAntiBlockUpdate(JavaPlugin plugin) {
