@@ -72,6 +72,14 @@ public abstract class AbstractObjectData<T> {
         return object;
     }
 
+    @SneakyThrows
+    public void removeObject(String path) {
+        ConfigurationNode node = config().node(path);
+        if (node.virtual()) return;
+        config().removeChild(node.key());
+        save();
+    }
+
     abstract void onSerialize(ConfigurationNode objectNode, T object);
 
     abstract void onDeserialize(ConfigurationNode objectNode, T object);
