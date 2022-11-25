@@ -2,12 +2,10 @@ package de.ariesbuildings.commands;
 
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.managers.AriesWorldManager;
+import de.ariesbuildings.permission.Permission;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.WorldImportResult;
-import me.noci.quickutilities.quickcommand.annotations.CommandArgs;
-import me.noci.quickutilities.quickcommand.annotations.DefaultCommand;
-import me.noci.quickutilities.quickcommand.annotations.Subcommand;
-import me.noci.quickutilities.quickcommand.annotations.UnknownCommand;
+import me.noci.quickutilities.quickcommand.annotations.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -48,6 +46,7 @@ public class CommandWorld extends AriesCommand {
     }
 
     @Subcommand("import")
+    @CommandPermission(Permission.WORLD_IMPORT)
     @CommandArgs(1)
     public void importWorld(CommandSender sender, String[] args) {
         String worldName = args[1];
@@ -62,6 +61,7 @@ public class CommandWorld extends AriesCommand {
     }
 
     @Subcommand("unimport")
+    @CommandPermission(Permission.WORLD_UNIMPORT)
     @CommandArgs(1)
     public void unimportWorld(CommandSender sender, String[] args) {
         String worldName = args[1];

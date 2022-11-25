@@ -13,6 +13,9 @@ public class Permission {
     public static final String WORLD_BYPASS_BUILDER = PERMISSION_PREFIX + "world.bypass_builder"; //This allows a player to bypass the builder role to change settings and use world commands
     public static final String WORLD_OPTION_ANTI_BLOCK_UPDATE = PERMISSION_PREFIX + "world.physics"; //Player can toggle block updates with /abu, /antiblockupdate and /physics
 
+    public static final String WORLD_IMPORT = PERMISSION_PREFIX + "world.import";
+    public static final String WORLD_UNIMPORT = PERMISSION_PREFIX + "world.unimport";
+
     //PLAYER OPTIONS
     public static final String PLAYER_OPTION_VANISH = PERMISSION_PREFIX + "vanish"; //Player can use /vanish and also see vanish player
 
