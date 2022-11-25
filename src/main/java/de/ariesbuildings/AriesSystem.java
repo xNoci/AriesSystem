@@ -33,6 +33,7 @@ public class AriesSystem extends JavaPlugin {
         PaperLib.suggestPaper(this);
         instance = this;
 
+        AriesSystemConfig.setPlugin(this);
         AriesSystemConfig.load();
 
         this.i18n = new I18n();

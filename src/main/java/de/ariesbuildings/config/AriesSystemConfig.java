@@ -1,6 +1,7 @@
 package de.ariesbuildings.config;
 
 import org.bukkit.Difficulty;
+import org.bukkit.plugin.java.JavaPlugin;
 
 public class AriesSystemConfig extends AbstractConfig {
 
@@ -18,8 +19,37 @@ public class AriesSystemConfig extends AbstractConfig {
     public static String WORLD_VOID_BLOCK_TYPE = "STONE";
     //----------------------
 
+    private static JavaPlugin plugin;
+
     public static void load() {
+        info("Loading config values...");
         new AriesSystemConfig();
+        info("Loaded config values from 'config.hocon'.");
+    }
+
+    public static void setPlugin(JavaPlugin plugin) {
+        if (AriesSystemConfig.plugin != null) return;
+        AriesSystemConfig.plugin = plugin;
+    }
+
+    public static void debug(String message) {
+        if (!DEBUG) return;
+
+        if (plugin == null) {
+            System.out.println("[AriesSystem/DEBUG] " + message);
+            return;
+        }
+
+        plugin.getLogger().info("[DEBUG] " + message);
+    }
+
+    public static void info(String message) {
+        if (plugin == null) {
+            System.out.println("[AriesSystem/INFO] " + message);
+            return;
+        }
+
+        plugin.getLogger().info(message);
     }
 
     protected AriesSystemConfig() {
