@@ -5,7 +5,7 @@ import org.bukkit.Difficulty;
 public class AriesSystemConfig extends AbstractConfig {
 
     @ConfigEntry(name = "debug", comment = "When enabled the plugin will print various debug messages.")
-    public static boolean DEBUG = false;
+    public static boolean DEBUG = true;
 
     //DEFAULT WORLD SETTINGS
     @ConfigEntry(name = "world.difficulty", comment = "Default difficulty of a world.")
