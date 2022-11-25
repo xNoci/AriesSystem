@@ -1,9 +1,9 @@
 package de.ariesbuildings.listener.worldoptions;
 
+import com.cryptomorin.xseries.XMaterial;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.world.AriesWorld;
-import org.bukkit.Material;
 import org.bukkit.entity.EntityType;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
@@ -19,8 +19,9 @@ public class AntiBlockUpdateListeners implements Listener {
 
         if (world == null || world.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE)) {
 
-            if (event.getEntityType() != EntityType.FALLING_BLOCK || event.getTo() != Material.AIR) return;
-            if (event.getBlock().getType() != Material.SAND) return;
+            if (event.getEntityType() != EntityType.FALLING_BLOCK || event.getTo() != XMaterial.AIR.parseMaterial())
+                return;
+            if (event.getBlock().getType() != XMaterial.SAND.parseMaterial()) return;
 
             event.setCancelled(true);
             event.getBlock().getState().update(false, false);
