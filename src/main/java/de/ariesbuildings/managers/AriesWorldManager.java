@@ -1,6 +1,7 @@
 package de.ariesbuildings.managers;
 
 import com.google.common.collect.Lists;
+import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.config.AriesWorldsData;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.WorldImportResult;
@@ -23,20 +24,39 @@ public class AriesWorldManager {
     }
 
     public void loadSavedWorlds() {
+        int worldsLoaded = 0;
+        AriesSystemConfig.debug("Loading worlds...");
+
         for (String savedWorld : worldData.getSavedWorlds()) {
+            AriesSystemConfig.debug("Loading world '%s'...".formatted(savedWorld));
+
             AriesWorld ariesWorld = new AriesWorld(savedWorld);
             worldData.deserialize(savedWorld, ariesWorld);
             ariesWorld.load();
             worlds.add(ariesWorld);
+
+            AriesSystemConfig.debug("Loaded world '%s'.".formatted(savedWorld));
+            worldsLoaded++;
         }
+
+        AriesSystemConfig.debug("Worlds loaded. Loaded a total of %s worlds.".formatted(worldsLoaded));
     }
 
     public void saveWorlds() {
+        int worldsSaved = 0;
+        AriesSystemConfig.debug("Saving worlds...");
+
         for (AriesWorld world : worlds) {
+            AriesSystemConfig.debug("Saving world '%s'...".formatted(world.getWorldName()));
             world.unload();
             worldData.serialize(world.getWorldName(), world);
+
+            AriesSystemConfig.debug("Saved world '%s'.".formatted(world.getWorldName()));
+            worldsSaved++;
         }
         worlds.clear();
+
+        AriesSystemConfig.debug("Worlds saved. Saved a total of %s worlds.".formatted(worldsSaved));
     }
 
     public boolean existsWorld(String worldName) {
@@ -51,6 +71,9 @@ public class AriesWorldManager {
         if (!worldFile.exists() || !worldFile.isDirectory()) return WorldImportResult.WORLD_NOT_EXIST;
         if (getWorld(worldName) != null) return WorldImportResult.ALREADY_IMPORTED;
 
+        AriesSystemConfig.debug("Importing world %s...".formatted(worldName));
+
+
         AriesWorld world = new AriesWorld(worldName);
         world.setType(WorldType.IMPORTED);
 
@@ -59,6 +82,9 @@ public class AriesWorldManager {
 
         worlds.add(world);
         worldData.serialize(worldName, world);
+
+        AriesSystemConfig.debug("World %s successfully imported.".formatted(worldName));
+
         return WorldImportResult.SUCCESS;
     }
 
@@ -66,9 +92,14 @@ public class AriesWorldManager {
         AriesWorld world = getWorld(worldName);
         if (world == null) return WorldImportResult.NOT_IMPORTED;
 
+        AriesSystemConfig.debug("Unimporting world %s...".formatted(worldName));
+
         world.unload();
         worlds.remove(world);
         worldData.removeObject(world.getWorldName());
+
+        AriesSystemConfig.debug("World %s successfully unimported.".formatted(worldName));
+
         return WorldImportResult.SUCCESS;
     }
 
