@@ -17,6 +17,10 @@ public class AriesSystemConfig extends AbstractConfig {
     public static boolean WORLD_VOID_PLACE_SPAWN_BLOCK = true;
     @ConfigEntry(name = "world.void.blockType", comment = "Type of the spawn block.")
     public static String WORLD_VOID_BLOCK_TYPE = "STONE";
+
+    @ConfigEntry(name = "world.build.blockWorldEdit", comment = "When this is set to true, WorldEdit will be block for players who are not a builder of the current world")
+    public static boolean WORLD_BLOCK_WORLD_EDIT = true;
+
     //----------------------
 
     private static JavaPlugin plugin;

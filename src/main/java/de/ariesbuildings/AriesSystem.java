@@ -82,6 +82,7 @@ public class AriesSystem extends JavaPlugin {
         registerListener(new FoodLevelChangeListener());
         registerListener(new OptionChangeListener());
         registerListener(new PostOptionChangeListener());
+        registerListener(new PlayerCommandPreprocessListener());
         registerListener(PaperLib.isPaper() ? new ServerListPingPaperListener() : new ServerListPingBukkitListener());
     }
 
