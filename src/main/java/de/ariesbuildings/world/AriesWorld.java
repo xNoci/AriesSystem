@@ -1,5 +1,6 @@
 package de.ariesbuildings.world;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Lists;
 import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.WorldOption;
@@ -22,6 +23,7 @@ public class AriesWorld {
     @Getter private final String worldName;
     @Getter @Setter private UUID worldCreator;
     @Getter @Setter private long creationTime;
+    @Getter @Setter private XMaterial displayIcon;
     @Getter @Setter private WorldType type;
     @Getter @Setter private ArrayList<UUID> builders;
 
@@ -34,6 +36,7 @@ public class AriesWorld {
         this.options = new OptionHolder<>(this);
         this.worldCreator = null;
         this.creationTime = System.currentTimeMillis();
+        this.displayIcon = XMaterial.GRASS_BLOCK;
         this.type = WorldType.VOID;
         this.builders = Lists.newArrayList();
 

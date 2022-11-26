@@ -1,5 +1,6 @@
 package de.ariesbuildings.config;
 
+import com.cryptomorin.xseries.XMaterial;
 import de.ariesbuildings.config.serializers.AriesSerializers;
 import de.ariesbuildings.options.OptionMap;
 import de.ariesbuildings.options.WorldOption;
@@ -34,6 +35,7 @@ public class AriesWorldsData extends AbstractObjectData<AriesWorld> {
         objectNode.node("worldType").set(world.getType());
         objectNode.node("builders").set(AriesSerializers.Type.UUID_LIST, world.getBuilders());
         objectNode.node("creationTime").set(world.getCreationTime());
+        objectNode.node("displayIcon").set(world.getDisplayIcon());
         objectNode.node("options").set(AriesSerializers.Type.WORLD_OPTION_MAP, world.getOptions().getOptions());
     }
 
@@ -58,6 +60,11 @@ public class AriesWorldsData extends AbstractObjectData<AriesWorld> {
         Long creationTime = objectNode.node("creationTime").get(Long.class);
         if (creationTime != null) {
             world.setCreationTime(creationTime);
+        }
+
+        XMaterial displayIcon = objectNode.node("displayIcon").get(XMaterial.class);
+        if (displayIcon != null) {
+            world.setDisplayIcon(displayIcon);
         }
 
         OptionMap<WorldOption> options = objectNode.node("options").get(AriesSerializers.Type.WORLD_OPTION_MAP);
