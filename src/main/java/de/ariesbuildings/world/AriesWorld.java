@@ -71,7 +71,12 @@ public class AriesWorld {
         return builders.contains(uuid) || uuid.equals(worldCreator);
     }
 
-    public boolean hasWorldPermission(Player player) {
+    public boolean hasWorldPermission(Player player, String permission) {
+        if (player.hasPermission(Permission.WORLD_BYPASS_BUILDER)) return true;
+        return isBuilder(player.getUniqueId()) && player.hasPermission(permission);
+    }
+
+    public boolean isPermitted(Player player) {
         return isBuilder(player.getUniqueId()) || player.hasPermission(Permission.WORLD_BYPASS_BUILDER);
     }
 

@@ -28,7 +28,7 @@ public class CommandAntiBlockUpdate extends AriesCommand {
             return;
         }
 
-        if (!playerWorld.hasWorldPermission(player)) {
+        if (!playerWorld.hasWorldPermission(player, Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)) {
             player.sendMessage(I18n.translate("noPermission.not_a_builder"));
             return;
         }
