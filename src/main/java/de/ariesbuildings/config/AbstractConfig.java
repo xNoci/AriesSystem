@@ -21,7 +21,7 @@ public abstract class AbstractConfig {
 
     @SneakyThrows
     public static List<Triple<String, String, String>> getEntries(Class<? extends AbstractConfig> configClass) {
-        List<Triple<String, String, String>> entries = Lists.newLinkedList();
+        List<Triple<String, String, String>> entries = Lists.newArrayList();
 
         for (Field field : configClass.getDeclaredFields()) {
             if (!field.isAnnotationPresent(ConfigEntry.class)) continue;
