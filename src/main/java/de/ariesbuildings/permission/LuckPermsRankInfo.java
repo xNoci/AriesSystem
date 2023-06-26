@@ -6,6 +6,7 @@ import net.luckperms.api.model.group.Group;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 
+import java.util.Optional;
 import java.util.UUID;
 import java.util.function.Function;
 import java.util.function.Predicate;
@@ -47,7 +48,7 @@ public class LuckPermsRankInfo extends DefaultRankInfo {
         return getMetaDataValue("sortID", Integer::parseInt, super.sortID());
     }
 
-    private Group getHighestGroup() {
+    private Optional<Group> getHighestGroup() {
         return LuckPermsHook.getUserGroup(owner);
     }
 
@@ -56,8 +57,9 @@ public class LuckPermsRankInfo extends DefaultRankInfo {
     }
 
     private <T> T getGroupValue(Function<Group, T> group, T def) {
-        Group g = getHighestGroup();
-        return g != null ? group.apply(g) : def;
+        return getHighestGroup()
+                .map(group)
+                .orElse(def);
     }
 
     private <T> T getMetaDataValue(String key, Function<String, T> valueTransformer, T def) {

@@ -11,10 +11,7 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.jetbrains.annotations.Nullable;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Set;
-import java.util.UUID;
+import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
@@ -38,20 +35,19 @@ public class LuckPermsHook {
         eventBus.subscribe(plugin, eventClass, handler);
     }
 
-    @Nullable
-    public static Group getUserGroup(UUID uuid) {
-        if (!isEnabled()) return null;
+    public static Optional<Group> getUserGroup(UUID uuid) {
+        if (!isEnabled()) return Optional.empty();
 
         LuckPerms luckPerms = LuckPermsProvider.get();
         User user = luckPerms.getUserManager().getUser(uuid);
         List<Group> groups = getGroupsSorted();
 
         if (user == null) {
-            return groups.get(0);
+            return Optional.of(groups.get(0));
         }
 
         String groupName = user.getPrimaryGroup();
-        return luckPerms.getGroupManager().getGroup(groupName);
+        return Optional.ofNullable(luckPerms.getGroupManager().getGroup(groupName));
     }
 
     private static List<Group> getGroupsSorted() {

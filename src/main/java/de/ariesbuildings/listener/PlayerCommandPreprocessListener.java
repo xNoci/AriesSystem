@@ -12,7 +12,6 @@ import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
 
 import java.util.List;
-import java.util.Optional;
 
 public class PlayerCommandPreprocessListener implements Listener {
 
@@ -32,17 +31,14 @@ public class PlayerCommandPreprocessListener implements Listener {
         Player player = event.getPlayer();
         String command = event.getMessage().split(" ")[0];
 
-        Optional<BlockedCommand> blockedCommandOptional = blockedCommandList.stream()
+        blockedCommandList.stream()
                 .filter(blockedCommand -> blockedCommand.matches(command))
                 .filter(blockedCommand -> blockedCommand.shouldBlock(player))
-                .findFirst();
-
-        if (blockedCommandOptional.isPresent()) {
-            BlockedCommand blockedCommand = blockedCommandOptional.get();
-            event.setCancelled(true);
-            player.sendMessage(I18n.translate(blockedCommand.getReasonKey()));
-        }
-
+                .findFirst()
+                .ifPresent(blockedCommand -> {
+                    event.setCancelled(true);
+                    player.sendMessage(I18n.translate(blockedCommand.getReasonKey()));
+                });
     }
 
 

@@ -23,42 +23,34 @@ public class CommandGamemode extends AriesCommand {
     @CommandArgs(1)
     @CommandPermission({Permission.COMMAND_GAMEMODE, Permission.COMMAND_GAMEMODE_OTHER})
     private void onGamemodeChange(Player player, String[] args) {
-        Optional<GameMode> gameMode = parseGamemode(args[0]);
-
-        if (gameMode.isEmpty()) {
-            playerFallback(player);
-            return;
-        }
-
-        player.sendMessage(I18n.translate("command.gamemode.change", gameMode.get().name()));
-        player.setGameMode(gameMode.get());
+        parseGamemode(args[0])
+                .ifPresentOrElse(gamemode -> {
+                    player.sendMessage(I18n.translate("command.gamemode.change", gamemode.name()));
+                    player.setGameMode(gamemode);
+                }, () -> playerFallback(player));
     }
 
     @Subcommand("*")
     @CommandArgs(1)
     @CommandPermission(Permission.COMMAND_GAMEMODE_OTHER)
     private void onGamemodeChangeOther(Player player, String[] args) {
-        Optional<GameMode> gameMode = parseGamemode(args[0]);
+        parseGamemode(args[0])
+                .ifPresentOrElse(gamemode -> {
+                    Player target = Bukkit.getPlayer(args[1]);
+                    if (target == null) {
+                        player.sendMessage(I18n.translate("command.player_not_found", args[1]));
+                        return;
+                    }
 
-        if (gameMode.isEmpty()) {
-            playerFallback(player);
-            return;
-        }
+                    if (player.getUniqueId().equals(target.getUniqueId())) {
+                        player.sendMessage(I18n.translate("command.cannot_target_yourself", args[1]));
+                        return;
+                    }
 
-        Player target = Bukkit.getPlayer(args[1]);
-        if (target == null) {
-            player.sendMessage(I18n.translate("command.player_not_found", args[1]));
-            return;
-        }
-
-        if (player.getUniqueId().equals(target.getUniqueId())) {
-            player.sendMessage(I18n.translate("command.cannot_target_yourself", args[1]));
-            return;
-        }
-
-        player.sendMessage(I18n.translate("command.gamemode.change_other", target.getName(), gameMode.get().name()));
-        target.sendMessage(I18n.translate("command.gamemode.change", gameMode.get().name()));
-        target.setGameMode(gameMode.get());
+                    player.sendMessage(I18n.translate("command.gamemode.change_other", target.getName(), gamemode.name()));
+                    target.sendMessage(I18n.translate("command.gamemode.change", gamemode.name()));
+                    target.setGameMode(gamemode);
+                }, () -> playerFallback(player));
     }
 
     @UnknownCommand
