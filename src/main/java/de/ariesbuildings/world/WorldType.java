@@ -1,25 +1,42 @@
 package de.ariesbuildings.world;
 
-import de.ariesbuildings.world.creator.types.FlatWorldCreatorType;
-import de.ariesbuildings.world.creator.types.NormalWorldCreatorType;
-import de.ariesbuildings.world.creator.types.VoidWorldCreatorType;
-import de.ariesbuildings.world.creator.types.WorldCreatorType;
+import com.google.common.collect.Lists;
+import de.ariesbuildings.world.creator.types.*;
+import lombok.Getter;
+
+import java.util.List;
 
 public enum WorldType {
 
     VOID(new VoidWorldCreatorType()),
     NORMAL(new NormalWorldCreatorType()),
     FLAT(new FlatWorldCreatorType()),
-    IMPORTED(new NormalWorldCreatorType());
+    IMPORTED(new NormalWorldCreatorType()),
+    INTERNAL_TUTORIAL(new TutorialWorldCreatorType(), true);
 
-    private final WorldCreatorType creatorType;
+    @Getter private final WorldCreatorType creator;
+    @Getter private final boolean internalType;
 
     WorldType(WorldCreatorType creatorType) {
-        this.creatorType = creatorType;
+        this(creatorType, false);
     }
 
-    public WorldCreatorType getCreator() {
-        return creatorType;
+    WorldType(WorldCreatorType creator, boolean internalType) {
+        this.creator = creator;
+        this.internalType = internalType;
+    }
+
+    public static List<WorldType> publicTypes() {
+        List<WorldType> types = Lists.newArrayList();
+
+        for (WorldType value : values()) {
+            if (!value.internalType) types.add(value);
+        }
+        return types;
+    }
+
+    public static WorldType[] publicTypesArray() {
+        return publicTypes().toArray(WorldType[]::new);
     }
 
 }
