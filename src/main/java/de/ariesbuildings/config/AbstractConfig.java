@@ -20,8 +20,8 @@ import java.util.List;
 public abstract class AbstractConfig {
 
     @SneakyThrows
-    public static List<Triple<String, String, String>> getEntries(Class<? extends AbstractConfig> configClass) {
-        List<Triple<String, String, String>> entries = Lists.newArrayList();
+    public static List<ConfigEntryValue> getEntries(Class<? extends AbstractConfig> configClass) {
+        List<ConfigEntryValue> entries = Lists.newArrayList();
 
         for (Field field : configClass.getDeclaredFields()) {
             if (!field.isAnnotationPresent(ConfigEntry.class)) continue;
@@ -41,7 +41,7 @@ public abstract class AbstractConfig {
             }
 
 
-            entries.add(Triple.of(fieldName, configPath, configValue));
+            entries.add(new ConfigEntryValue(fieldName, configPath, configValue));
         }
         return entries;
     }

@@ -3,6 +3,7 @@ package de.ariesbuildings.commands;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.config.AbstractConfig;
 import de.ariesbuildings.config.AriesSystemConfig;
+import de.ariesbuildings.config.ConfigEntryValue;
 import de.ariesbuildings.permission.Permission;
 import me.noci.quickutilities.quickcommand.annotations.*;
 import org.apache.commons.lang3.tuple.Triple;
@@ -29,8 +30,8 @@ public class CommandConfig extends AriesCommand {
     public void displayConfig(CommandSender sender) {
         sender.sendMessage(I18n.translate("command.config.display_title"));
 
-        for (Triple<String, String, String> entry : AbstractConfig.getEntries(AriesSystemConfig.class)) {
-            sender.sendMessage(I18n.translate("command.config.display_entry", entry.getLeft(), entry.getMiddle(), entry.getRight()));
+        for (ConfigEntryValue entry : AbstractConfig.getEntries(AriesSystemConfig.class)) {
+            sender.sendMessage(I18n.translate("command.config.display_entry", entry.fieldName(), entry.configPath(), entry.configValue()));
         }
     }
 
