@@ -5,6 +5,7 @@ import de.ariesbuildings.config.serializers.AriesSerializers;
 import de.ariesbuildings.options.OptionMap;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.world.AriesWorld;
+import de.ariesbuildings.world.RawLocation;
 import de.ariesbuildings.world.WorldType;
 import lombok.SneakyThrows;
 import org.spongepowered.configurate.ConfigurationNode;
@@ -36,6 +37,7 @@ public class AriesWorldsData extends AbstractObjectData<AriesWorld> {
         objectNode.node("builders").set(AriesSerializers.Type.UUID_LIST, world.getBuilders());
         objectNode.node("creationTime").set(world.getCreationTime());
         objectNode.node("displayIcon").set(world.getDisplayIcon());
+        objectNode.node("worldSpawn").set(world.getWorldSpawn());
         objectNode.node("options").set(AriesSerializers.Type.WORLD_OPTION_MAP, world.getOptions().getOptions());
     }
 
@@ -65,6 +67,11 @@ public class AriesWorldsData extends AbstractObjectData<AriesWorld> {
         XMaterial displayIcon = objectNode.node("displayIcon").get(XMaterial.class);
         if (displayIcon != null) {
             world.setDisplayIcon(displayIcon);
+        }
+
+        RawLocation worldSpawn = objectNode.node("worldSpawn").get(RawLocation.class);
+        if (worldSpawn != null) {
+            world.setWorldSpawn(worldSpawn);
         }
 
         OptionMap<WorldOption> options = objectNode.node("options").get(AriesSerializers.Type.WORLD_OPTION_MAP);

@@ -24,6 +24,7 @@ public class AriesWorld {
     @Getter @Setter private UUID worldCreator;
     @Getter @Setter private long creationTime;
     @Getter @Setter private XMaterial displayIcon;
+    @Getter @Setter private RawLocation worldSpawn = new RawLocation(0, 100, 0);
     @Getter @Setter private WorldType type;
     @Getter @Setter private ArrayList<UUID> builders;
 
