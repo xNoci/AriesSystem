@@ -28,7 +28,7 @@ public class FlatWorldCreatorType implements WorldCreatorType {
     @Override
     public void applyDefaultSettings(AriesWorld world) {
         if(ReflectionUtils.supports(17)) {
-            world.setWorldSpawn(new RawLocation(0.5, -65, 0.5));
+            world.setWorldSpawn(new RawLocation(0.5, -60, 0.5));
         }
     }
 }
