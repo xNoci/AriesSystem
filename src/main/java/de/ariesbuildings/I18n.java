@@ -27,12 +27,12 @@ public class I18n {
     }
 
     public static String prefix() {
-        if (instance == null) return "";
+        if (instance == null) return "AriesSystem - ";
         return instance.translate("prefix");
     }
 
     public static String noPermission() {
-        if (instance == null) return "";
+        if (instance == null) return "{No Permissions - No translation instance}";
         return instance.translate("noPermission");
     }
 
