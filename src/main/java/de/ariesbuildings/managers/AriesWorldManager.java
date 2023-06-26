@@ -57,10 +57,8 @@ public class AriesWorldManager {
 
         for (AriesWorld world : worlds) {
             AriesSystemConfig.debug("Saving world '%s'...".formatted(world.getWorldName()));
-            world.unload();
             worldData.serialize(world.getWorldName(), world);
 
-            AriesSystemConfig.debug("Saved world '%s'.".formatted(world.getWorldName()));
             worldsSaved++;
         }
         worlds.clear();
@@ -123,7 +121,6 @@ public class AriesWorldManager {
         if (getWorld(worldName).isPresent()) return WorldImportResult.ALREADY_IMPORTED;
 
         AriesSystemConfig.debug("Importing world %s...".formatted(worldName));
-
 
         AriesWorld world = new AriesWorld(worldName);
         world.setType(WorldType.IMPORTED);
