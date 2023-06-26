@@ -2,6 +2,7 @@ package de.ariesbuildings.world.creator;
 
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.WorldType;
+import org.bukkit.Bukkit;
 import org.bukkit.World;
 
 public class WorldCreator {
@@ -18,6 +19,9 @@ public class WorldCreator {
     }
 
     public WorldCreator(String worldName, WorldType type) {
+        if (!Bukkit.isPrimaryThread()) {
+            throw new IllegalStateException("World creator can only be executed on the primary thread.");
+        }
         this.worldName = worldName;
         this.type = type;
     }
