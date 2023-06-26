@@ -3,6 +3,8 @@ package de.ariesbuildings.world.creator.types;
 import com.cryptomorin.xseries.ReflectionUtils;
 import com.cryptomorin.xseries.XMaterial;
 import de.ariesbuildings.config.AriesSystemConfig;
+import de.ariesbuildings.world.AriesWorld;
+import de.ariesbuildings.world.RawLocation;
 import de.ariesbuildings.world.creator.generator.VoidGenerator1_13;
 import de.ariesbuildings.world.creator.generator.VoidGenerator1_17;
 import org.bukkit.Material;
@@ -38,4 +40,8 @@ public class VoidWorldCreatorType implements WorldCreatorType {
         }
     }
 
+    @Override
+    public void applyDefaultSettings(AriesWorld world) {
+        world.setWorldSpawn(new RawLocation(0.5, 65, 0.5));
+    }
 }

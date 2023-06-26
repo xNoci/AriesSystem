@@ -1,5 +1,6 @@
 package de.ariesbuildings.world.creator.types;
 
+import de.ariesbuildings.world.AriesWorld;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -25,5 +26,7 @@ public interface WorldCreatorType {
     void applyWorldCreator(WorldCreator creator);
 
     void applyWorldGeneration(World world);
+
+    default void applyDefaultSettings(AriesWorld world) {}
 
 }
