@@ -1,12 +1,15 @@
 package de.ariesbuildings.managers;
 
 import com.google.common.collect.Lists;
+import de.ariesbuildings.I18n;
 import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.config.AriesWorldsData;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.WorldImportResult;
 import de.ariesbuildings.world.WorldType;
 import de.ariesbuildings.world.creator.WorldCreator;
+import me.noci.quickutilities.input.TitledPlayerChatInput;
+import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -15,6 +18,8 @@ import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.List;
+import java.util.Optional;
+import java.util.UUID;
 
 public class AriesWorldManager {
 
@@ -69,6 +74,48 @@ public class AriesWorldManager {
         return worldExists || worldFile.exists();
     }
 
+    public void createWorld(Player player, WorldType worldType) {
+        var playerInput = new TitledPlayerChatInput(plugin, player, AriesSystemConfig.PLAYER_INPUT_CANCEL, input -> {
+            if (StringUtils.isBlank(input)) {
+                player.sendMessage(I18n.translate("input.world_create.empty_string"));
+                return;
+            }
+
+            if (!createWorld(input, player.getUniqueId(), worldType)) {
+                player.sendMessage(I18n.translate("world_creation.failed"));
+                return;
+            }
+            player.sendMessage(I18n.translate("world_creation.success"));
+
+        }, I18n.translate("input.world_create.title"), I18n.translate("input.world_create.subtitle", AriesSystemConfig.PLAYER_INPUT_CANCEL));
+
+        playerInput.onCancel(p -> {
+            p.sendMessage(I18n.translate("input.world_create.canceled"));
+        });
+    }
+
+    public boolean createWorld(String worldName, UUID creator, WorldType type) {
+        if (existsWorld(worldName)) return false; //WORLD ALREADY EXIST
+        if (type == WorldType.IMPORTED) {
+            type = WorldType.NORMAL;
+        }
+
+        AriesWorld world = new AriesWorld(worldName);
+        if (creator != null) {
+            world.setWorldCreator(creator);
+        }
+        world.setType(type);
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            World bukkitWorld = new WorldCreator(world).generateWorld();
+            world.setWorld(bukkitWorld);
+        });
+        world.getType().getCreator().applyDefaultSettings(world);
+
+        worldData.serialize(worldName, world);
+        worlds.add(world);
+        return true;
+    }
+
     public WorldImportResult importWorld(String worldName) {
         File worldFile = new File(Bukkit.getWorldContainer(), worldName);
 
@@ -119,6 +166,7 @@ public class AriesWorldManager {
     }
 
     public Optional<AriesWorld> getWorld(String worldName) {
+        //TODO CACHE THE WORLDS
         return worlds.stream()
                 .filter(world -> world.getWorldName().equalsIgnoreCase(worldName))
                 .findFirst();
