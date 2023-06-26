@@ -20,12 +20,12 @@ dependencies {
     implementation("org.apache.commons:commons-lang3:3.12.0")
     implementation("org.spongepowered:configurate-gson:4.1.2")
     implementation("org.spongepowered:configurate-hocon:4.1.2")
-    implementation("com.github.cryptomorin:XSeries:9.1.0")
+    implementation("com.github.cryptomorin:XSeries:9.4.0")
     implementation("org.apache.commons:commons-lang3:3.12.0")
 
     compileOnly(files("libs/QuickUtils.jar"))
-    compileOnly("org.spigotmc:minecraft-server:1.19.2-R0.1-SNAPSHOT")
-    compileOnly("io.papermc.paper:paper-api:1.19.2-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:minecraft-server:1.20.1-R0.1-SNAPSHOT")
+    compileOnly("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
 
     compileOnly("net.luckperms:api:5.4")
 
