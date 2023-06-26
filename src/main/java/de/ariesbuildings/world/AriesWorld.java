@@ -62,6 +62,7 @@ public class AriesWorld {
         }
 
         Bukkit.unloadWorld(world, true);
+        Bukkit.getWorlds().remove(world);
         world = null;
     }
 
