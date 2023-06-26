@@ -14,6 +14,7 @@ public class I18n {
     private final ResourceBundle defaultBundle;
 
     public I18n() {
+        if(instance != null) throw new IllegalStateException("Cannot create a second instance of I18n.");
         instance = this;
         defaultBundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.ENGLISH);
     }
