@@ -11,6 +11,7 @@ import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
 import java.util.List;
@@ -20,7 +21,10 @@ public class AriesWorldManager {
     private final AriesWorldsData worldData = new AriesWorldsData();
     private final List<AriesWorld> worlds = Lists.newArrayList();
 
-    public AriesWorldManager() {
+    private final JavaPlugin plugin;
+
+    public AriesWorldManager(JavaPlugin plugin) {
+        this.plugin = plugin;
     }
 
     public void loadSavedWorlds() {

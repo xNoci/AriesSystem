@@ -37,7 +37,7 @@ public class AriesSystem extends JavaPlugin {
         AriesSystemConfig.load();
 
         this.i18n = new I18n();
-        this.worldManager = new AriesWorldManager();
+        this.worldManager = new AriesWorldManager(this);
         this.playerManager = new AriesPlayerManager();
         this.vanishManager = new VanishManager();
 
