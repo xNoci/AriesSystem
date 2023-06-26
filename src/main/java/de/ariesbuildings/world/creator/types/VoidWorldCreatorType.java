@@ -1,10 +1,10 @@
 package de.ariesbuildings.world.creator.types;
 
+import com.cryptomorin.xseries.ReflectionUtils;
 import com.cryptomorin.xseries.XMaterial;
 import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.world.creator.generator.VoidGenerator1_13;
 import de.ariesbuildings.world.creator.generator.VoidGenerator1_17;
-import me.noci.quickutilities.utils.ReflectionUtils;
 import org.bukkit.Material;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
@@ -17,14 +17,10 @@ public class VoidWorldCreatorType implements WorldCreatorType {
         creator.generateStructures(false);
         creator.type(WorldType.FLAT);
 
-        if (ReflectionUtils.supports(17)) {
-            creator.generator(new VoidGenerator1_17());
-        } else if (ReflectionUtils.supports(13)) {
-            creator.generator(new VoidGenerator1_13());
-        } else {
-            creator.generatorSettings("2;0;1");
-        }
-
+        ReflectionUtils
+                .v(17, () -> creator.generator(new VoidGenerator1_17()))
+                .v(13, () -> creator.generator(new VoidGenerator1_13()))
+                .orElse(() -> creator.generatorSettings("2;0;1"));
     }
 
     @Override
