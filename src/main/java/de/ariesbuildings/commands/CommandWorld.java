@@ -3,7 +3,6 @@ package de.ariesbuildings.commands;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.permission.Permission;
-import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.WorldImportResult;
 import me.noci.quickutilities.quickcommand.annotations.*;
 import org.bukkit.command.CommandSender;
@@ -29,14 +28,12 @@ public class CommandWorld extends AriesCommand {
     @Subcommand("current")
     @CommandArgs(0)
     private void displayCurrentWorld(Player player) {
-        AriesWorld world = worldManager.getWorld(player.getWorld());
-
-        if (world == null) {
-            player.sendMessage(I18n.translate("command.world.current.not_imported"));
-            return;
-        }
-
-        player.sendMessage(I18n.translate("command.world.current.display_name", world.getWorldName()));
+        worldManager.getWorld(player.getWorld())
+                .ifPresentOrElse(world -> {
+                    player.sendMessage(I18n.translate("command.world.current.display_name", world.getWorldName()));
+                }, () -> {
+                    player.sendMessage(I18n.translate("command.world.current.not_imported"));
+                });
     }
 
     @Subcommand("physics")
@@ -79,7 +76,6 @@ public class CommandWorld extends AriesCommand {
     private void unknownCommand(Player player) {
         player.sendMessage(I18n.translate("command.unknown", "worlds", ""));
     }
-
 
     @UnknownCommand
     private void notForConsole(CommandSender sender) {

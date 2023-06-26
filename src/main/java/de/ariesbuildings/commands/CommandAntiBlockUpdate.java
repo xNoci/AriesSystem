@@ -4,7 +4,6 @@ import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
-import de.ariesbuildings.world.AriesWorld;
 import me.noci.quickutilities.quickcommand.annotations.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
@@ -21,33 +20,32 @@ public class CommandAntiBlockUpdate extends AriesCommand {
     @CommandArgs(0)
     @CommandPermission(Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)
     private void onUsage(Player player) {
-        AriesWorld playerWorld = AriesSystem.getInstance().getWorldManager().getWorld(player.getWorld());
+        AriesSystem.getInstance().getWorldManager()
+                .getWorld(player.getWorld())
+                .ifPresentOrElse(world -> {
+                    if (!world.hasWorldPermission(player, Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)) {
+                        player.sendMessage(I18n.translate("noPermission.not_a_builder"));
+                        return;
+                    }
 
-        if (playerWorld == null) {
-            player.sendMessage(I18n.translate("world.not_found"));
-            return;
-        }
-
-        if (!playerWorld.hasWorldPermission(player, Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)) {
-            player.sendMessage(I18n.translate("noPermission.not_a_builder"));
-            return;
-        }
-
-        boolean currentValue = playerWorld.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE);
-        playerWorld.getOptions().set(WorldOption.ANTI_BLOCK_UPDATE, !currentValue);
+                    boolean currentValue = world.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE);
+                    world.getOptions().set(WorldOption.ANTI_BLOCK_UPDATE, !currentValue);
+                }, () -> {
+                    player.sendMessage(I18n.translate("world.not_found"));
+                });
     }
 
     @Subcommand("current")
     @CommandArgs(0)
     private void onCheckCurrent(Player player) {
-        AriesWorld playerWorld = AriesSystem.getInstance().getWorldManager().getWorld(player.getWorld());
-
-        if (playerWorld == null) {
-            player.sendMessage(I18n.translate("world.not_found"));
-            return;
-        }
-
-        player.sendMessage(I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), playerWorld.getOptions().get(WorldOption.ANTI_BLOCK_UPDATE, boolean.class)));
+        AriesSystem.getInstance().getWorldManager()
+                .getWorld(player.getWorld())
+                .ifPresentOrElse(world -> {
+                    String message = I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), world.getOptions().get(WorldOption.ANTI_BLOCK_UPDATE, boolean.class));
+                    player.sendMessage(message);
+                }, () -> {
+                    player.sendMessage(I18n.translate("world.not_found"));
+                });
     }
 
     @UnknownCommand

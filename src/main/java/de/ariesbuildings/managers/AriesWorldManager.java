@@ -89,11 +89,12 @@ public class AriesWorldManager {
     }
 
     public WorldImportResult unimportWorld(String worldName) {
-        AriesWorld world = getWorld(worldName);
-        if (world == null) return WorldImportResult.NOT_IMPORTED;
+        Optional<AriesWorld> worldOptional = getWorld(worldName);
+        if (worldOptional.isEmpty()) return WorldImportResult.NOT_IMPORTED;
 
         AriesSystemConfig.debug("Unimporting world %s...".formatted(worldName));
 
+        AriesWorld world = worldOptional.get();
         world.unload();
         worlds.remove(world);
         worldData.removeObject(world.getWorldName());
@@ -103,21 +104,20 @@ public class AriesWorldManager {
         return WorldImportResult.SUCCESS;
     }
 
-    public AriesWorld getWorld(Entity entityInWorld) {
-        if (entityInWorld == null) return null;
+    public Optional<AriesWorld> getWorld(Entity entityInWorld) {
+        if (entityInWorld == null) return Optional.empty();
         return getWorld(entityInWorld.getWorld());
     }
 
-    public AriesWorld getWorld(World world) {
-        if (world == null) return null;
+    public Optional<AriesWorld> getWorld(World world) {
+        if (world == null) return Optional.empty();
         return getWorld(world.getName());
     }
 
-    public AriesWorld getWorld(String worldName) {
+    public Optional<AriesWorld> getWorld(String worldName) {
         return worlds.stream()
                 .filter(world -> world.getWorldName().equalsIgnoreCase(worldName))
-                .findFirst()
-                .orElse(null);
+                .findFirst();
     }
 
 }
