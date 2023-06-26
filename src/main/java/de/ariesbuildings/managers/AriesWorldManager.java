@@ -64,7 +64,7 @@ public class AriesWorldManager {
     }
 
     public boolean existsWorld(String worldName) {
-        boolean worldExists = getWorld(worldName) != null;
+        boolean worldExists = getWorld(worldName).isPresent();
         File worldFile = new File(Bukkit.getWorldContainer(), worldName);
         return worldExists || worldFile.exists();
     }
@@ -73,7 +73,7 @@ public class AriesWorldManager {
         File worldFile = new File(Bukkit.getWorldContainer(), worldName);
 
         if (!worldFile.exists() || !worldFile.isDirectory()) return WorldImportResult.WORLD_NOT_EXIST;
-        if (getWorld(worldName) != null) return WorldImportResult.ALREADY_IMPORTED;
+        if (getWorld(worldName).isPresent()) return WorldImportResult.ALREADY_IMPORTED;
 
         AriesSystemConfig.debug("Importing world %s...".formatted(worldName));
 
