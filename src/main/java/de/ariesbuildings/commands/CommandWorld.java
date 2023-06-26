@@ -4,12 +4,15 @@ import de.ariesbuildings.I18n;
 import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.permission.Permission;
 import de.ariesbuildings.world.WorldImportResult;
+import de.ariesbuildings.world.WorldType;
 import me.noci.quickutilities.quickcommand.annotations.*;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.Optional;
+import java.util.UUID;
+
 public class CommandWorld extends AriesCommand {
 
     private final AriesWorldManager worldManager;
@@ -73,6 +76,39 @@ public class CommandWorld extends AriesCommand {
         sender.sendMessage(I18n.translate("command.world.unimport.failed", worldName, result.name()));
     }
 
+    @Subcommand("create")
+    @CommandPermission(Permission.WORLD_CREATE)
+    @CommandArgs(1)
+    public void createWorld(Player player, String[] args) {
+        String rawWorldType = args[1];
+        parseWorldType(player, rawWorldType)
+                .ifPresent(worldType -> {
+                    worldManager.createWorld(player, worldType);
+                });
+    }
+
+    @Subcommand("create")
+    @CommandPermission(Permission.WORLD_CREATE)
+    @CommandArgs(2)
+    public void createWorld(CommandSender sender, String[] args) {
+        String rawWorldType = args[1];
+        String worldName = args[2];
+        parseWorldType(sender, rawWorldType)
+                .ifPresent(worldType -> {
+                    UUID creator = null;
+
+                    if (sender instanceof Player player) {
+                        creator = player.getUniqueId();
+                    }
+
+                    if (worldManager.createWorld(worldName, creator, worldType)) {
+                        sender.sendMessage(I18n.translate("world_creation.success"));
+                    } else {
+                        sender.sendMessage(I18n.translate("world_creation.failed"));
+                    }
+                });
+    }
+
     @Subcommand("tp")
     @CommandPermission(Permission.WORLD_TP)
     @CommandArgs(1)
@@ -95,5 +131,27 @@ public class CommandWorld extends AriesCommand {
     private void notForConsole(CommandSender sender) {
         sender.sendMessage(I18n.translate("command.only_for_player"));
     }
+
+    private Optional<WorldType> parseWorldType(CommandSender sender, String type) {
+        WorldType worldType;
+        try {
+            worldType = WorldType.valueOf(type);
+        } catch (Exception e) {
+            //TODO
+            String validTypes = String.join(", ", WorldType.publicTypes().stream().map(Enum::name).toList());
+            sender.sendMessage("[Placeholder] Invalid WorldType '%s'. Possible types: %s".formatted(type, validTypes));
+            return Optional.empty();
+        }
+
+        if(worldType.isInternalType()) {
+            //TODO
+            String validTypes = String.join(", ", WorldType.publicTypes().stream().map(Enum::name).toList());
+            sender.sendMessage("[Placeholder] The given type %s is for internal use only. Cannot create a world using this type.\n Possible types: %s".formatted(type, validTypes));
+            return Optional.empty();
+        }
+
+        return Optional.of(worldType);
+    }
+
 
 }
