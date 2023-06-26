@@ -3,6 +3,7 @@ package de.ariesbuildings.config.serializers;
 import de.ariesbuildings.options.OptionMap;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.options.WorldOption;
+import de.ariesbuildings.world.RawLocation;
 import io.leangen.geantyref.TypeToken;
 import org.bukkit.GameMode;
 import org.spongepowered.configurate.serialize.TypeSerializerCollection;
@@ -15,6 +16,7 @@ public class AriesSerializers {
     public static TypeSerializerCollection SERIALIZERS = TypeSerializerCollection
             .builder()
             .register(GameMode.class, GameModeSerializer.INSTANCE)
+            .register(RawLocation.class, RawLocationSerializer.INSTANCE)
             .register(Type.PLAYER_OPTION_MAP, PlayerOptionMapSerializer.INSTANCE)
             .register(Type.WORLD_OPTION_MAP, WorldOptionMapSerializer.INSTANCE)
             .build();
