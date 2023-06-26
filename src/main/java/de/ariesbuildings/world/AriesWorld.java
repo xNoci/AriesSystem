@@ -10,6 +10,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.bukkit.Bukkit;
 import org.bukkit.Chunk;
+import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
@@ -88,6 +89,18 @@ public class AriesWorld {
 
     public void addBuilder(UUID uuid) {
         this.builders.add(uuid);
+    }
+
+    public boolean teleport(Player player, boolean force) {
+        if (!isLoaded()) {
+            if (!force) return false;
+            load();
+        }
+
+        Location location = new Location(world, worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ(), worldSpawn.getYaw(), worldSpawn.getPitch());
+        player.teleport(location);
+
+        return true;
     }
 
 }

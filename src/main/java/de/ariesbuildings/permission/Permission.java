@@ -16,6 +16,9 @@ public class Permission {
     public static final String WORLD_IMPORT = PERMISSION_PREFIX + "world.import";
     public static final String WORLD_UNIMPORT = PERMISSION_PREFIX + "world.unimport";
 
+    public static final String WORLD_TP = PERMISSION_PREFIX + "world.tp";
+
+
     //PLAYER OPTIONS
     public static final String PLAYER_OPTION_VANISH = PERMISSION_PREFIX + "vanish"; //Player can use /vanish and also see vanish player
 

@@ -9,6 +9,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
+import java.util.Optional;
 public class CommandWorld extends AriesCommand {
 
     private final AriesWorldManager worldManager;
@@ -70,6 +71,19 @@ public class CommandWorld extends AriesCommand {
         }
 
         sender.sendMessage(I18n.translate("command.world.unimport.failed", worldName, result.name()));
+    }
+
+    @Subcommand("tp")
+    @CommandPermission(Permission.WORLD_TP)
+    @CommandArgs(1)
+    public void teleport(Player player, String[] args) {
+        String worldName = args[1];
+        worldManager.getWorld(worldName)
+                .ifPresentOrElse(world -> {
+                    world.teleport(player, true);
+                }, () -> {
+                    player.sendMessage(I18n.translate("world.not_found.world_name", worldName));
+                });
     }
 
     @UnknownCommand
