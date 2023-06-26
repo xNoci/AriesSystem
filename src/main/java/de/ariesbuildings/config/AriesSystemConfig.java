@@ -23,6 +23,9 @@ public class AriesSystemConfig extends AbstractConfig {
 
     //----------------------
 
+    @ConfigEntry(name = "input.cancel_string", comment = "Set wich message will cancel the player input.")
+    public static String PLAYER_INPUT_CANCEL = "!cancel";
+
     private static JavaPlugin plugin;
 
     public static void load() {
