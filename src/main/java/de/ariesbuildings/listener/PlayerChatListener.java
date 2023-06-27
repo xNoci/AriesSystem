@@ -12,7 +12,7 @@ import org.bukkit.event.player.AsyncPlayerChatEvent;
 
 public class PlayerChatListener implements Listener {
 
-    private static final String CHAT_FORMAT = ChatFormat.RANK_COLOR.getKey() + ChatFormat.RANK_DISPLAYNAME + " §8| " + ChatFormat.RANK_COLOR + ChatFormat.PLAYER_NAME + "§8: §f" + ChatFormat.MESSAGE;
+    private static final String CHAT_FORMAT = ChatFormat.RANK_COLOR.getKey() + ChatFormat.RANK_DISPLAYNAME + " §8| " + ChatFormat.RANK_COLOR + "%s§8: §f%s";
 
     @EventHandler
     public void handleAsyncPlayerChat(AsyncPlayerChatEvent event) {
@@ -20,13 +20,11 @@ public class PlayerChatListener implements Listener {
         RankInfo rankInfo = RankInfo.getInfo(player.getUniqueId());
 
         String message = replaceMessage(player, event.getMessage());
+        event.setMessage(message);
 
         MessageFormatter formatter = MessageFormatter.format(CHAT_FORMAT);
         formatter.apply(ChatFormat.RANK_COLOR, rankInfo);
         formatter.apply(ChatFormat.RANK_DISPLAYNAME, rankInfo);
-        formatter.apply(ChatFormat.PLAYER_NAME, player);
-        formatter.apply(ChatFormat.MESSAGE, message);
-
         event.setFormat(formatter.toString());
     }
 
