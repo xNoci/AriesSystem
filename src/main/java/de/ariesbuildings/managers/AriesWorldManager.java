@@ -1,5 +1,6 @@
 package de.ariesbuildings.managers;
 
+import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.config.AriesSystemConfig;
@@ -170,5 +171,10 @@ public class AriesWorldManager {
                 .filter(world -> world.getWorldName().equalsIgnoreCase(worldName))
                 .findFirst();
     }
+
+    public List<AriesWorld> getWorlds() {
+        return ImmutableList.copyOf(worlds);
+    }
+
 
 }
