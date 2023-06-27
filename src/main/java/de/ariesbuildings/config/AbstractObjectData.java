@@ -2,12 +2,15 @@ package de.ariesbuildings.config;
 
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.config.serializers.AriesSerializers;
+import io.leangen.geantyref.TypeToken;
 import lombok.Getter;
 import lombok.SneakyThrows;
 import org.spongepowered.configurate.ConfigurationNode;
 import org.spongepowered.configurate.gson.GsonConfigurationLoader;
 
 import java.nio.file.Path;
+import java.util.List;
+import java.util.Optional;
 
 public abstract class AbstractObjectData<T> {
 
@@ -78,6 +81,31 @@ public abstract class AbstractObjectData<T> {
         if (node.virtual()) return;
         config().removeChild(node.key());
         save();
+    }
+
+    @SneakyThrows
+    public <V> Optional<V> nodeValue(ConfigurationNode rootNode, String nodePath, Class<V> type) {
+        return Optional.ofNullable(rootNode.node(nodePath).get(type));
+    }
+
+    @SneakyThrows
+    public <V> Optional<V> nodeValue(ConfigurationNode rootNode, String nodePath, TypeToken<V> token) {
+        return Optional.ofNullable(rootNode.node(nodePath).get(token));
+    }
+
+    @SneakyThrows
+    public <V> Optional<List<V>> nodeListValue(ConfigurationNode rootNode, String nodePath, Class<V> type) {
+        return Optional.ofNullable(rootNode.node(nodePath).getList(type));
+    }
+
+    @SneakyThrows
+    public void setNodeValue(ConfigurationNode rootNode, String path, Object value) {
+        rootNode.node(path).set(value);
+    }
+
+    @SneakyThrows
+    public <V> void setNodeValue(ConfigurationNode rootNode, String path, V value, TypeToken<V> token) {
+        rootNode.node(path).set(token, value);
     }
 
     abstract void onSerialize(ConfigurationNode objectNode, T object);

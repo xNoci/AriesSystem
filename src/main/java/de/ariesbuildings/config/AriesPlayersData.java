@@ -14,19 +14,14 @@ public class AriesPlayersData extends AbstractObjectData<AriesPlayer> {
     }
 
     @Override
-    @SneakyThrows
-    void onSerialize(ConfigurationNode objectNode, AriesPlayer player) {
-        objectNode.node("name").set(player.getName());
-        objectNode.node("options").set(AriesSerializers.Type.PLAYER_OPTION_MAP, player.getOptions().getOptions());
+    void onSerialize(ConfigurationNode node, AriesPlayer player) {
+        setNodeValue(node, "name", player.getName());
+        setNodeValue(node, "options", player.getOptions().getOptions(), AriesSerializers.Type.PLAYER_OPTION_MAP);
     }
 
     @Override
-    @SneakyThrows
-    void onDeserialize(ConfigurationNode objectNode, AriesPlayer player) {
-        OptionMap<PlayerOption> options = objectNode.node("options").get(AriesSerializers.Type.PLAYER_OPTION_MAP);
-        if (options != null) {
-            player.getOptions().setOptions(options);
-        }
+    void onDeserialize(ConfigurationNode node, AriesPlayer player) {
+        nodeValue(node, "options", AriesSerializers.Type.PLAYER_OPTION_MAP).ifPresent(options -> player.getOptions().setOptions(options));
     }
 
 }
