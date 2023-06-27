@@ -30,4 +30,8 @@ public class Permission {
     //OTHER
     public static final String CHAT_USE_COLOR = PERMISSION_PREFIX + "chatcolor"; //Player can write colored text in chat
 
+    //OWNER PERMISSION
+    private static final String OWNR_PERM = PERMISSION_PREFIX + ".owner.";
+    public static final String OWNR_GUI_STOP_SERVER = OWNR_PERM + "gui.stop_server";
+
 }
