@@ -1,7 +1,7 @@
 package de.ariesbuildings.commands;
 
 import de.ariesbuildings.I18n;
-import de.ariesbuildings.gui.MainMenuGUI;
+import de.ariesbuildings.gui.MainMenuGui;
 import me.noci.quickutilities.quickcommand.annotations.DefaultCommand;
 import me.noci.quickutilities.quickcommand.annotations.UnknownCommand;
 import org.bukkit.command.CommandSender;
@@ -16,7 +16,7 @@ public class CommandMenu extends AriesCommand {
 
     @DefaultCommand
     private void onCommand(Player player) {
-        new MainMenuGUI().provide(player);
+        new MainMenuGui().provide(player);
     }
 
     @UnknownCommand

@@ -5,10 +5,8 @@ import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.permission.Permission;
-import me.noci.quickutilities.inventory.GuiItem;
-import me.noci.quickutilities.inventory.InventoryContent;
-import me.noci.quickutilities.inventory.QuickGUIProvider;
-import me.noci.quickutilities.inventory.SlotClickEvent;
+import de.ariesbuildings.world.WorldVisibility;
+import me.noci.quickutilities.inventory.*;
 import me.noci.quickutilities.utils.BukkitUnit;
 import me.noci.quickutilities.utils.QuickItemStack;
 import org.bukkit.Bukkit;
@@ -16,7 +14,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class MainMenuGUI extends QuickGUIProvider {
+public class MainMenuGui extends QuickGUIProvider {
 
     //ITEMS
     private static final QuickItemStack ITEM_PLAYER_SETTINGS = new QuickItemStack(XMaterial.COMPARATOR.parseMaterial(), I18n.translate("gui.main_menu.item.player_settings")).addItemFlags();
@@ -29,34 +27,34 @@ public class MainMenuGUI extends QuickGUIProvider {
     private static final QuickItemStack ITEM_OWNR_STOP_SERVER = new QuickItemStack(XMaterial.LEVER.parseMaterial(), I18n.translate("gui.main_menu.item.stop_server")).setLore(I18n.translate("gui.main_menu.item.stop_server.lore")).glow().addItemFlags();
 
     //GUI ITEMS
-    private static final GuiItem PLAYER_SETTINGS = GuiItem.of(ITEM_PLAYER_SETTINGS, MainMenuGUI::onClickPlayerSettings);
-    private static final GuiItem PUBLIC_WORLDS = GuiItem.of(ITEM_WORLDS_PUBLIC, MainMenuGUI::onClickPlayerSettings);
-    private static final GuiItem PRIVATE_WORLDS = GuiItem.of(ITEM_WORLDS_PRIVATE, MainMenuGUI::onClickPlayerSettings);
-    private static final GuiItem ARCHIVED_WORLDS = GuiItem.of(ITEM_WORLDS_ARCHIVE, MainMenuGUI::onClickPlayerSettings);
+    private static final GuiItem PLAYER_SETTINGS = GuiItem.of(ITEM_PLAYER_SETTINGS, MainMenuGui::onClickPlayerSettings);
+    private static final GuiItem PUBLIC_WORLDS = GuiItem.of(ITEM_WORLDS_PUBLIC, event -> openWorldList(event, WorldVisibility.PUBLIC));
+    private static final GuiItem PRIVATE_WORLDS = GuiItem.of(ITEM_WORLDS_PRIVATE, event -> openWorldList(event, WorldVisibility.PRIVATE));
+    private static final GuiItem ARCHIVED_WORLDS = GuiItem.of(ITEM_WORLDS_ARCHIVE, event -> openWorldList(event, WorldVisibility.ARCHIVED));
 
-    private static final GuiItem CUSTOM_BLOCK_MENU = GuiItem.of(ITEM_CUSTOM_BLOCK_MENU, MainMenuGUI::onCustomBlockMenu);
+    private static final GuiItem CUSTOM_BLOCK_MENU = GuiItem.of(ITEM_CUSTOM_BLOCK_MENU, MainMenuGui::onCustomBlockMenu);
 
-    private static final GuiItem OWNR_STOP_SERVER = GuiItem.of(ITEM_OWNR_STOP_SERVER, MainMenuGUI::onClickStopServer);
+    private static final GuiItem OWNR_STOP_SERVER = GuiItem.of(ITEM_OWNR_STOP_SERVER, MainMenuGui::onClickStopServer);
 
-    public MainMenuGUI() {
-        super(I18n.translate("gui.main_menu.title"), 9 * 6);
+    public MainMenuGui() {
+        super(I18n.translate("gui.main_menu.title"), InventoryConstants.FULL_INV_SIZE);
     }
 
     @Override
     public void init(Player player, InventoryContent content) {
-        content.fill(GuiItems.BACKGROUND_BLACK);
-        content.setItem(9 + 2, PUBLIC_WORLDS);
-        content.setItem(9 + 3, PRIVATE_WORLDS);
-        content.setItem(9 + 6, ARCHIVED_WORLDS);
+        content.fill(InventoryConstants.BACKGROUND_BLACK);
+        content.setItem(Slot.getSlot(2, 3), PUBLIC_WORLDS);
+        content.setItem(Slot.getSlot(2, 4), PRIVATE_WORLDS);
+        content.setItem(Slot.getSlot(2, 7), ARCHIVED_WORLDS);
 
-        content.setItem(9 * 5 + 8, PLAYER_SETTINGS);
+        content.setItem(Slot.getSlot(6, 9), PLAYER_SETTINGS);
 
-        content.setItem(9 * 3 + 2, CUSTOM_BLOCK_MENU);
+        content.setItem(Slot.getSlot(4, 3), CUSTOM_BLOCK_MENU);
 
         if (player.hasPermission(Permission.OWNR_GUI_STOP_SERVER)) {
-            content.setItem(9 * 5, OWNR_STOP_SERVER);
+            content.setItem(Slot.getSlot(6, 1), OWNR_STOP_SERVER);
             //TODO Add toggle whitelist (show status in lore)
-            // content.setItem(9 * 5 + 1, /*WHITELIST ITEM*/);
+            // content.setItem(Slot.getSlot(6, 2), /*WHITELIST ITEM*/);
         }
 
     }
@@ -65,16 +63,9 @@ public class MainMenuGUI extends QuickGUIProvider {
         //TODO Open player settings menu
     }
 
-    private static void onClickPublicWorlds(SlotClickEvent event) {
-        //TODO Open public worlds menu
-    }
-
-    private static void onClickPrivateWorlds(SlotClickEvent event) {
-        //TODO Open private worlds menu
-    }
-
-    private static void onClickArchivedWorlds(SlotClickEvent event) {
-        //TODO Open archived worlds menu
+    private static void openWorldList(SlotClickEvent event, WorldVisibility visibility) {
+        Player player = event.getPlayer();
+        new WorldListGui(visibility, new MainMenuGui()).provide(player);
     }
 
     private static void onCustomBlockMenu(SlotClickEvent event) {
