@@ -27,12 +27,12 @@ public class MainMenuGui extends QuickGUIProvider {
     private static final QuickItemStack ITEM_OWNR_STOP_SERVER = new QuickItemStack(XMaterial.LEVER.parseMaterial(), I18n.translate("gui.main_menu.item.stop_server")).setLore(I18n.translate("gui.main_menu.item.stop_server.lore")).glow().addItemFlags();
 
     //GUI ITEMS
-    private static final GuiItem PLAYER_SETTINGS = GuiItem.of(ITEM_PLAYER_SETTINGS, MainMenuGui::onClickPlayerSettings);
+    private static final GuiItem PLAYER_SETTINGS = GuiItem.of(ITEM_PLAYER_SETTINGS, event -> new PlayerSettingsGui(new MainMenuGui()).provide(event.getPlayer()));
     private static final GuiItem PUBLIC_WORLDS = GuiItem.of(ITEM_WORLDS_PUBLIC, event -> openWorldList(event, WorldVisibility.PUBLIC));
     private static final GuiItem PRIVATE_WORLDS = GuiItem.of(ITEM_WORLDS_PRIVATE, event -> openWorldList(event, WorldVisibility.PRIVATE));
     private static final GuiItem ARCHIVED_WORLDS = GuiItem.of(ITEM_WORLDS_ARCHIVE, event -> openWorldList(event, WorldVisibility.ARCHIVED));
 
-    private static final GuiItem CUSTOM_BLOCK_MENU = GuiItem.of(ITEM_CUSTOM_BLOCK_MENU, MainMenuGui::onCustomBlockMenu);
+    private static final GuiItem CUSTOM_BLOCK_MENU = GuiItem.of(ITEM_CUSTOM_BLOCK_MENU, event -> new CustomBlockGui(new MainMenuGui()).provide(event.getPlayer()));
 
     private static final GuiItem OWNR_STOP_SERVER = GuiItem.of(ITEM_OWNR_STOP_SERVER, MainMenuGui::onClickStopServer);
 
@@ -59,17 +59,9 @@ public class MainMenuGui extends QuickGUIProvider {
 
     }
 
-    private static void onClickPlayerSettings(SlotClickEvent event) {
-        //TODO Open player settings menu
-    }
-
     private static void openWorldList(SlotClickEvent event, WorldVisibility visibility) {
         Player player = event.getPlayer();
         new WorldListGui(visibility, new MainMenuGui()).provide(player);
-    }
-
-    private static void onCustomBlockMenu(SlotClickEvent event) {
-        new CustomBlockGui(new MainMenuGui()).provide(event.getPlayer());
     }
 
     private static void onClickStopServer(SlotClickEvent event) {
