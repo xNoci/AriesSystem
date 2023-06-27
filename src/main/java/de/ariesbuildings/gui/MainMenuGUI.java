@@ -69,7 +69,7 @@ public class MainMenuGui extends QuickGUIProvider {
     }
 
     private static void onCustomBlockMenu(SlotClickEvent event) {
-        new CustomBlockGui().provide(event.getPlayer());
+        new CustomBlockGui(new MainMenuGui()).provide(event.getPlayer());
     }
 
     private static void onClickStopServer(SlotClickEvent event) {
