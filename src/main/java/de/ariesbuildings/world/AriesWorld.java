@@ -15,6 +15,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.UUID;
 
 public class AriesWorld {
@@ -27,8 +28,8 @@ public class AriesWorld {
     @Getter @Setter private XMaterial displayIcon;
     @Getter @Setter private RawLocation worldSpawn = new RawLocation(0, 100, 0);
     @Getter @Setter private WorldType type;
-    @Getter @Setter private ArrayList<UUID> builders;
-
+    @Getter @Setter private List<UUID> builders;
+    @Getter @Setter private WorldVisibility visibility;
 
     @Getter @Setter private World world = null;
 
@@ -41,6 +42,7 @@ public class AriesWorld {
         this.displayIcon = XMaterial.GRASS_BLOCK;
         this.type = WorldType.VOID;
         this.builders = Lists.newArrayList();
+        this.visibility = WorldVisibility.PRIVATE;
 
         World world = Bukkit.getWorld(worldName);
         if (world != null) {

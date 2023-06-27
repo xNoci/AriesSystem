@@ -7,6 +7,7 @@ import de.ariesbuildings.config.AriesWorldsData;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.WorldImportResult;
 import de.ariesbuildings.world.WorldType;
+import de.ariesbuildings.world.WorldVisibility;
 import de.ariesbuildings.world.creator.WorldCreator;
 import me.noci.quickutilities.input.TitledPlayerChatInput;
 import org.apache.commons.lang3.StringUtils;
@@ -124,6 +125,7 @@ public class AriesWorldManager {
 
         AriesWorld world = new AriesWorld(worldName);
         world.setType(WorldType.IMPORTED);
+        world.setVisibility(WorldVisibility.PUBLIC);
 
         World bukkitWorld = new WorldCreator(worldName).loadWorld();
         world.setWorld(bukkitWorld);
