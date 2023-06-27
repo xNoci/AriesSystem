@@ -7,6 +7,7 @@ import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.RawLocation;
 import de.ariesbuildings.world.WorldType;
+import de.ariesbuildings.world.WorldVisibility;
 import lombok.SneakyThrows;
 import org.spongepowered.configurate.ConfigurationNode;
 
@@ -34,6 +35,7 @@ public class AriesWorldsData extends AbstractObjectData<AriesWorld> {
     void onSerialize(ConfigurationNode objectNode, AriesWorld world) {
         objectNode.node("creator").set(world.getWorldCreator());
         objectNode.node("worldType").set(world.getType());
+        objectNode.node("visibility").set(world.getVisibility());
         objectNode.node("builders").set(AriesSerializers.Type.UUID_LIST, world.getBuilders());
         objectNode.node("creationTime").set(world.getCreationTime());
         objectNode.node("displayIcon").set(world.getDisplayIcon());
@@ -52,6 +54,11 @@ public class AriesWorldsData extends AbstractObjectData<AriesWorld> {
         WorldType worldType = objectNode.node("worldType").get(WorldType.class);
         if (worldType != null) {
             world.setType(worldType);
+        }
+
+        WorldVisibility visibility = objectNode.node("visibility").get(WorldVisibility.class);
+        if(visibility != null) {
+            world.setVisibility(visibility);
         }
 
         ArrayList<UUID> builders = (ArrayList<UUID>) objectNode.node("builders").getList(UUID.class);
