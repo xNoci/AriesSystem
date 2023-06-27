@@ -83,12 +83,18 @@ public class AriesSystem extends JavaPlugin {
         registerListener(new OptionChangeListener());
         registerListener(new PostOptionChangeListener());
         registerListener(new PlayerCommandPreprocessListener());
-        registerListener(PaperLib.isPaper() ? new ServerListPingPaperListener() : new ServerListPingBukkitListener());
+        registerListener(new ServerListPingBukkitListener(), new ServerListPingPaperListener());
     }
 
     private void registerListener(Listener listener) {
+        registerListener(listener, null);
+    }
+
+    private void registerListener(Listener bukkitListener, Listener paperListener) {
         PluginManager pluginManager = getServer().getPluginManager();
-        pluginManager.registerEvents(listener, this);
+        Listener toRegister = bukkitListener;
+        if(PaperLib.isPaper() && paperListener != null) toRegister = paperListener;
+        pluginManager.registerEvents(toRegister, this);
     }
 
 }
