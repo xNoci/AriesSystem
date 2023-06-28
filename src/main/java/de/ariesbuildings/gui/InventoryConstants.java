@@ -31,12 +31,10 @@ public class InventoryConstants {
         QuickItemStack worldItem = new QuickItemStack(displayIcon, displayName);
         worldItem.addItemFlags();
 
-
-
         String typeLore = I18n.translate("gui.world_list.item.world_display.lore.type", CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, world.getType().name()));
         String visibilityLore = I18n.translate("gui.world_list.item.world_display.lore.visibility", CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, world.getVisibility().name()));
         String creationTimeLore = I18n.translate("gui.world_list.item.world_display.lore.creationTime", world.getCreationTime()); //Todo tp readable format
-        String creatorLore = I18n.translate("gui.world_list.item.world_display.lore.creator", world.getWorldCreator()); //Todo to name
+        String creatorLore = I18n.translate("gui.world_list.item.world_display.lore.creator", world.getCreatorAsString());
 
         worldItem.setLore("", typeLore, visibilityLore, creationTimeLore, creatorLore);
 
