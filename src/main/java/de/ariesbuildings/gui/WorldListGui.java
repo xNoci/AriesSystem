@@ -1,7 +1,5 @@
 package de.ariesbuildings.gui;
 
-import com.cryptomorin.xseries.XMaterial;
-import com.google.common.base.CaseFormat;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.world.AriesWorld;
@@ -9,9 +7,7 @@ import de.ariesbuildings.world.WorldVisibility;
 import me.noci.quickutilities.inventory.*;
 import me.noci.quickutilities.utils.InventoryPattern;
 import me.noci.quickutilities.utils.QuickItemStack;
-import org.bukkit.Material;
 import org.bukkit.entity.Player;
-import org.bukkit.event.inventory.ClickType;
 
 import java.util.List;
 
@@ -63,10 +59,10 @@ public class WorldListGui extends PagedQuickGUIProvider {
 
         String interactInfoLore = I18n.translate("gui.world_list.item.world_display.lore.interact_info");
         List<String> lore = worldItem.getLore();
-        if(lore != null) {
+        if (lore != null) {
             lore.add("");
             lore.add(interactInfoLore);
-            worldItem.setLore(interactInfoLore);
+            worldItem.setLore(lore);
         }
 
         return GuiItem.of(worldItem, event -> {
