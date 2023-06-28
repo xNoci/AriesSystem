@@ -47,9 +47,8 @@ public class MainMenuGui extends QuickGUIProvider {
         content.setItem(Slot.getSlot(2, 4), PRIVATE_WORLDS);
         content.setItem(Slot.getSlot(2, 7), ARCHIVED_WORLDS);
 
-        content.setItem(Slot.getSlot(6, 9), PLAYER_SETTINGS);
-
         content.setItem(Slot.getSlot(4, 3), CUSTOM_BLOCK_MENU);
+        content.setItem(Slot.getSlot(4, 7), PLAYER_SETTINGS);
 
         if (player.hasPermission(Permission.OWNR_GUI_STOP_SERVER)) {
             content.setItem(Slot.getSlot(6, 1), OWNR_STOP_SERVER);
