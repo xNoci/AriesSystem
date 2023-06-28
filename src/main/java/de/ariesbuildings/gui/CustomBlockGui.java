@@ -26,6 +26,7 @@ public class CustomBlockGui extends QuickGUIProvider {
         content.fill(InventoryConstants.BACKGROUND_BLACK);
         content.fillSlots(GuiItem.empty(), InventoryPattern.box(2, 4));
         if(previousGui != null) content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
+        //TODO
         // FURNACE WICH IS TURNED ON (AND THE OTHER FURNACE VARIANTS)
         // REDSONTE LAMP (TURNED ON)
         // DOUBLE STONE SLAB
