@@ -68,7 +68,6 @@ public class MainMenuGui extends QuickGUIProvider {
         ClickType clickType = event.getClick();
         if (!clickType.isShiftClick() || !clickType.isLeftClick()) return;
         Bukkit.broadcastMessage(I18n.translate("broadcast.notify.server_shutdown", AriesSystemConfig.SERVER_SHUTDOW_DELAY));
-        event.getPlayer().closeInventory();
         new BukkitRunnable() {
             @Override
             public void run() {
