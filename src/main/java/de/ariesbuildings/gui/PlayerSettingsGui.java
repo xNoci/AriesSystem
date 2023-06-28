@@ -4,11 +4,14 @@ import com.cryptomorin.xseries.XMaterial;
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
+import de.ariesbuildings.gui.optionitem.EnumOptionItem;
+import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.QuickGUIProvider;
 import me.noci.quickutilities.inventory.Slot;
 import me.noci.quickutilities.utils.QuickItemStack;
+import org.bukkit.GameMode;
 import org.bukkit.entity.Player;
 
 public class PlayerSettingsGui extends QuickGUIProvider {
@@ -40,6 +43,13 @@ public class PlayerSettingsGui extends QuickGUIProvider {
                         I18n.translate("gui.player_settings.item.player_info.lore.rank", rankInfo.getColor() + rankInfo.getName())
                 );
         content.setItem(Slot.getSlot(2, 5), playerInfo.asGuiItem());
+
+        EnumOptionItem<PlayerOption, GameMode> gamemodeOption = new EnumOptionItem<>(player.getOptions().get(PlayerOption.DEFAULT_GAMEMODE, GameMode.class), player.getOptions(), PlayerOption.DEFAULT_GAMEMODE, content, 3, 2);
+        gamemodeOption.setItem(GameMode.SURVIVAL, new QuickItemStack(XMaterial.ORANGE_DYE.parseMaterial(), "SURVIVAL"));
+        gamemodeOption.setItem(GameMode.CREATIVE, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "CREATIVE"));
+        gamemodeOption.setItem(GameMode.ADVENTURE, new QuickItemStack(XMaterial.YELLOW_DYE.parseMaterial(), "ADVENTURE"));
+        gamemodeOption.setItem(GameMode.SPECTATOR, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "SPECTATOR"));
+
     }
 
 
