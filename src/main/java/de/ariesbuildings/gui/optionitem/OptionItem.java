@@ -7,6 +7,7 @@ import de.ariesbuildings.options.OptionHolder;
 import me.noci.quickutilities.inventory.ClickHandler;
 import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.InventoryContent;
+import me.noci.quickutilities.inventory.SlotClickEvent;
 import me.noci.quickutilities.utils.QuickItemStack;
 import org.bukkit.inventory.ItemStack;
 
@@ -32,14 +33,7 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
         this.content = content;
         this.slot = slot;
 
-        setAction(event -> {
-            //TODO if (clickCondition != null && !clickCondition.shouldExecute()) return;
-            updateCurrentValue();
-            QuickItemStack item = valueMap.get(this.currentValue);
-            setItem(item);
-            setOption(this.currentValue);
-            update();
-        });
+        setAction(this::slotClickEvent);
         update();
     }
 
@@ -57,6 +51,19 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
     public void mapValue(OptionValue value, QuickItemStack itemStack) {
         valueMap.put(value, itemStack);
         if (currentValue == value) setItem(itemStack);
+        update();
+    }
+
+    private void slotClickEvent(SlotClickEvent event) {
+        //TODO if (clickCondition != null && !clickCondition.shouldExecute()) return;
+        updateCurrentValue();
+        QuickItemStack item = valueMap.get(this.currentValue);
+        if(item == null) {
+            item = OPTION_VALUE_NOT_SET;
+            item.setDisplayName("[PLACEHOLDER] Item for value '%s' not found.".formatted(this.currentValue)); //TODO Add language file
+        }
+        setItem(item);
+        setOption(this.currentValue);
         update();
     }
 
