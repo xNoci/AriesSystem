@@ -21,6 +21,7 @@ public class OptionItemBuilder<O extends Option, V> {
     private InventoryContent content;
     private OptionHolder<O> optionHolder;
     private int slot;
+    private ClickCondition clickCondition;
 
     private OptionItemBuilder(O option, V currentValue) {
         this.option = option;
@@ -39,6 +40,12 @@ public class OptionItemBuilder<O extends Option, V> {
 
     public OptionItemBuilder<O, V> slot(int row, int column) {
         this.slot = Slot.getSlot(row, column);
+        return this;
+    }
+
+    public OptionItemBuilder<O, V> clickCondition(ClickCondition clickCondition) {
+        if (this.clickCondition != null) throw new IllegalStateException("Cannot set clickCondition twice.");
+        this.clickCondition = clickCondition;
         return this;
     }
 

@@ -4,6 +4,8 @@ import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
 import de.ariesbuildings.options.Option;
 import de.ariesbuildings.options.OptionHolder;
+import lombok.AccessLevel;
+import lombok.Setter;
 import me.noci.quickutilities.inventory.ClickHandler;
 import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.InventoryContent;
@@ -23,6 +25,7 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
     protected OptionType option;
     protected OptionValue currentValue;
 
+    @Setter(AccessLevel.PROTECTED) private ClickCondition clickCondition = null;
     private final InventoryContent content;
     private final int slot;
 
@@ -55,7 +58,7 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
     }
 
     private void slotClickEvent(SlotClickEvent event) {
-        //TODO if (clickCondition != null && !clickCondition.shouldExecute()) return;
+        if (clickCondition != null && !clickCondition.shouldExecute()) return;
         updateCurrentValue();
         QuickItemStack item = valueMap.get(this.currentValue);
         if(item == null) {
