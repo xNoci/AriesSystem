@@ -1,16 +1,20 @@
 package de.ariesbuildings.gui.optionitem;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
 import de.ariesbuildings.options.Option;
 import de.ariesbuildings.options.OptionHolder;
+import me.noci.quickutilities.inventory.ClickHandler;
 import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.InventoryContent;
-import me.noci.quickutilities.inventory.Slot;
 import me.noci.quickutilities.utils.QuickItemStack;
+import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
 public abstract class OptionItem<OptionType extends Option, OptionValue> extends GuiItem {
+
+    private static final QuickItemStack OPTION_VALUE_NOT_SET = new QuickItemStack(XMaterial.BARRIER.parseMaterial()).glow().addItemFlags();
 
     protected final HashMap<OptionValue, QuickItemStack> valueMap = Maps.newHashMap();
 
@@ -21,22 +25,25 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
     private final InventoryContent content;
     private final int slot;
 
-    public OptionItem(OptionValue currentValue, OptionHolder<OptionType> optionHolder, OptionType option, InventoryContent content, int row, int column) {
+    protected OptionItem(OptionValue currentValue, OptionHolder<OptionType> optionHolder, OptionType option, InventoryContent content, int slot) {
         this.optionHolder = optionHolder;
         this.option = option;
         this.currentValue = currentValue;
         this.content = content;
-        this.slot = Slot.getSlot(row, column);
+        this.slot = slot;
 
         setAction(event -> {
             //TODO if (clickCondition != null && !clickCondition.shouldExecute()) return;
-            click();
+            updateCurrentValue();
+            QuickItemStack item = valueMap.get(this.currentValue);
+            setItem(item);
+            setOption(this.currentValue);
             update();
         });
         update();
     }
 
-    protected abstract void click();
+    protected abstract void updateCurrentValue();
 
     protected void setOption(Object value) {
         optionHolder.set(option, value);
@@ -49,7 +56,7 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
 
     public void mapValue(OptionValue value, QuickItemStack itemStack) {
         valueMap.put(value, itemStack);
-        if(currentValue == value) setItem(itemStack);
+        if (currentValue == value) setItem(itemStack);
         update();
     }
 
