@@ -5,6 +5,7 @@ import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.gui.optionitem.EnumOptionItem;
+import de.ariesbuildings.gui.optionitem.OptionItemBuilder;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
 import me.noci.quickutilities.inventory.InventoryContent;
@@ -44,12 +45,43 @@ public class PlayerSettingsGui extends QuickGUIProvider {
                 );
         content.setItem(Slot.getSlot(2, 5), playerInfo.asGuiItem());
 
-        EnumOptionItem<PlayerOption, GameMode> gamemodeOption = new EnumOptionItem<>(player.getOptions().get(PlayerOption.DEFAULT_GAMEMODE, GameMode.class), player.getOptions(), PlayerOption.DEFAULT_GAMEMODE, content, 3, 2);
-        gamemodeOption.mapValue(GameMode.SURVIVAL, new QuickItemStack(XMaterial.ORANGE_DYE.parseMaterial(), "SURVIVAL"));
-        gamemodeOption.mapValue(GameMode.CREATIVE, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "CREATIVE"));
-        gamemodeOption.mapValue(GameMode.ADVENTURE, new QuickItemStack(XMaterial.YELLOW_DYE.parseMaterial(), "ADVENTURE"));
-        gamemodeOption.mapValue(GameMode.SPECTATOR, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "SPECTATOR"));
+        GameMode currentGamemode = player.getOptions().get(PlayerOption.DEFAULT_GAMEMODE, GameMode.class);
+        OptionItemBuilder.of(PlayerOption.DEFAULT_GAMEMODE, currentGamemode)
+                .inventoryContent(content)
+                .slot(3, 2)
+                .optionHolder(player.getOptions())
+                .mapValue(GameMode.SURVIVAL, new QuickItemStack(XMaterial.ORANGE_DYE.parseMaterial(), "SURVIVAL"))
+                .mapValue(GameMode.CREATIVE, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "CREATIVE"))
+                .mapValue(GameMode.ADVENTURE, new QuickItemStack(XMaterial.YELLOW_DYE.parseMaterial(), "ADVENTURE"))
+                .mapValue(GameMode.SPECTATOR, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "SPECTATOR"))
+                .build();
 
+        boolean currentGlow = player.getOptions().get(PlayerOption.GLOW, Boolean.class);
+        OptionItemBuilder.of(PlayerOption.GLOW, currentGlow)
+                .inventoryContent(content)
+                .slot(3, 3)
+                .optionHolder(player.getOptions())
+                .mapValue(true, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "TRUE"))
+                .mapValue(false, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "FALSE"))
+                .build();
+
+        boolean currentTeleportVoid = player.getOptions().get(PlayerOption.VOID_DAMAGE_TELEPORT, Boolean.class);
+        OptionItemBuilder.of(PlayerOption.VOID_DAMAGE_TELEPORT, currentTeleportVoid)
+                .inventoryContent(content)
+                .slot(3, 4)
+                .optionHolder(player.getOptions())
+                .mapValue(true, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "TRUE"))
+                .mapValue(false, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "FALSE"))
+                .build();
+
+        boolean currentVanish = player.getOptions().get(PlayerOption.VANISH, Boolean.class);
+        OptionItemBuilder.of(PlayerOption.VANISH, currentVanish)
+                .inventoryContent(content)
+                .slot(3, 5)
+                .optionHolder(player.getOptions())
+                .mapValue(true, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "TRUE"))
+                .mapValue(false, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "FALSE"))
+                .build();
     }
 
 
