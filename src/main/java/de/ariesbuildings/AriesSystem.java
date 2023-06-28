@@ -7,6 +7,7 @@ import de.ariesbuildings.listener.playeroptions.VoidDamageTeleportListener;
 import de.ariesbuildings.listener.worldoptions.AntiBlockUpdateListeners;
 import de.ariesbuildings.listener.worldoptions.EntityTargetPlayerListener;
 import de.ariesbuildings.listener.worldoptions.PlayerWorldDamageListener;
+import de.ariesbuildings.listener.worldoptions.WeatherChangeListener;
 import de.ariesbuildings.managers.AriesPlayerManager;
 import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.managers.VanishManager;
@@ -69,6 +70,7 @@ public class AriesSystem extends JavaPlugin {
         registerListener(new AntiBlockUpdateListeners());
         registerListener(new EntityTargetPlayerListener());
         registerListener(new PlayerWorldDamageListener());
+        registerListener(new WeatherChangeListener());
 
         //PLAYER OPTIONS
         registerListener(new VoidDamageTeleportListener());
