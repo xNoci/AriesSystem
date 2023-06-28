@@ -24,7 +24,8 @@ public class MainMenuGui extends QuickGUIProvider {
 
     private static final QuickItemStack ITEM_CUSTOM_BLOCK_MENU = new QuickItemStack(XMaterial.CHEST.parseMaterial(), I18n.translate("gui.main_menu.item.custom_block_menu.displayname")).addItemFlags();
 
-    private static final QuickItemStack ITEM_OWNR_STOP_SERVER = new QuickItemStack(XMaterial.LEVER.parseMaterial(), I18n.translate("gui.main_menu.item.stop_server.displayname")).setLore(I18n.translate("gui.main_menu.item.stop_server.lore")).glow().addItemFlags();
+    private static final QuickItemStack ITEM_OWNR_STOP_SERVER = new QuickItemStack(XMaterial.LEVER.parseMaterial(), I18n.translate("gui.main_menu.item.stop_server.displayname")).setLore(I18n.translate("gui.main_menu.item.lore.shift_left")).glow().addItemFlags();
+    private static final QuickItemStack ITEM_OWNR_TOGGLE_WHITELIST = new QuickItemStack(XMaterial.PAPER.parseMaterial(), I18n.translate("gui.main_menu.item.whitelist_toggle.displayname")).glow().addItemFlags();
 
     //GUI ITEMS
     private static final GuiItem PLAYER_SETTINGS = GuiItem.of(ITEM_PLAYER_SETTINGS, event -> new PlayerSettingsGui(new MainMenuGui()).provide(event.getPlayer()));
@@ -35,6 +36,8 @@ public class MainMenuGui extends QuickGUIProvider {
     private static final GuiItem CUSTOM_BLOCK_MENU = GuiItem.of(ITEM_CUSTOM_BLOCK_MENU, event -> new CustomBlockGui(new MainMenuGui()).provide(event.getPlayer()));
 
     private static final GuiItem OWNR_STOP_SERVER = GuiItem.of(ITEM_OWNR_STOP_SERVER, MainMenuGui::onClickStopServer);
+
+    private static final int WHITELIST_TOGGLE_SLOT = Slot.getSlot(6, 2);
 
     public MainMenuGui() {
         super(I18n.translate("gui.main_menu.title"), InventoryConstants.FULL_INV_SIZE);
@@ -52,8 +55,7 @@ public class MainMenuGui extends QuickGUIProvider {
 
         if (player.hasPermission(Permission.OWNR_GUI_STOP_SERVER)) {
             content.setItem(Slot.getSlot(6, 1), OWNR_STOP_SERVER);
-            //TODO Add toggle whitelist (show status in lore)
-            // content.setItem(Slot.getSlot(6, 2), /*WHITELIST ITEM*/);
+            content.setItem(WHITELIST_TOGGLE_SLOT, whitlistItem(content));
         }
 
     }
@@ -73,6 +75,18 @@ public class MainMenuGui extends QuickGUIProvider {
                 Bukkit.shutdown();
             }
         }.runTaskLater(AriesSystem.getInstance(), BukkitUnit.SECONDS.toTicks(AriesSystemConfig.SERVER_SHUTDOW_DELAY));
+    }
+
+    private GuiItem whitlistItem(InventoryContent content) {
+        QuickItemStack whitelist = ITEM_OWNR_TOGGLE_WHITELIST;
+        String whitelistStatus = Bukkit.hasWhitelist() ? I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_enabled") : I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_disabled");
+        whitelist.setLore("", I18n.translate("gui.main_menu.item.lore.shift_left"), whitelistStatus);
+        return GuiItem.of(whitelist, event -> {
+            if (event.getClick() != ClickType.SHIFT_LEFT) return;
+            Bukkit.setWhitelist(!Bukkit.hasWhitelist());
+            content.setItem(WHITELIST_TOGGLE_SLOT, whitlistItem(content));
+            content.applyContent();
+        });
     }
 
 
