@@ -14,7 +14,7 @@ public enum PlayerOption implements Option {
     @Getter private final Object defaultValue;
     @Getter private final Class<?> valueType;
 
-    PlayerOption(String name, Object defaultValue, Class<?> valueType) {
+    <T> PlayerOption(String name, T defaultValue, Class<T> valueType) {
         this.name = name;
         this.defaultValue = defaultValue;
         this.valueType = valueType;
