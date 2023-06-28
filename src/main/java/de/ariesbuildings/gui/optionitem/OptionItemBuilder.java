@@ -54,6 +54,7 @@ public class OptionItemBuilder<O extends Option, V> {
         return this;
     }
 
+    @SuppressWarnings({"rawtypes", "unchecked"})
     public void build() {
         OptionItem item = null;
 
