@@ -45,10 +45,10 @@ public class PlayerSettingsGui extends QuickGUIProvider {
         content.setItem(Slot.getSlot(2, 5), playerInfo.asGuiItem());
 
         EnumOptionItem<PlayerOption, GameMode> gamemodeOption = new EnumOptionItem<>(player.getOptions().get(PlayerOption.DEFAULT_GAMEMODE, GameMode.class), player.getOptions(), PlayerOption.DEFAULT_GAMEMODE, content, 3, 2);
-        gamemodeOption.setItem(GameMode.SURVIVAL, new QuickItemStack(XMaterial.ORANGE_DYE.parseMaterial(), "SURVIVAL"));
-        gamemodeOption.setItem(GameMode.CREATIVE, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "CREATIVE"));
-        gamemodeOption.setItem(GameMode.ADVENTURE, new QuickItemStack(XMaterial.YELLOW_DYE.parseMaterial(), "ADVENTURE"));
-        gamemodeOption.setItem(GameMode.SPECTATOR, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "SPECTATOR"));
+        gamemodeOption.mapValue(GameMode.SURVIVAL, new QuickItemStack(XMaterial.ORANGE_DYE.parseMaterial(), "SURVIVAL"));
+        gamemodeOption.mapValue(GameMode.CREATIVE, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "CREATIVE"));
+        gamemodeOption.mapValue(GameMode.ADVENTURE, new QuickItemStack(XMaterial.YELLOW_DYE.parseMaterial(), "ADVENTURE"));
+        gamemodeOption.mapValue(GameMode.SPECTATOR, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "SPECTATOR"));
 
     }
 
