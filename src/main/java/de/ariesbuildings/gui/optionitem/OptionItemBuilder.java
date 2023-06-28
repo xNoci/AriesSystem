@@ -20,7 +20,7 @@ public class OptionItemBuilder<O extends Option, V> {
     private final V currentValue;
     private InventoryContent content;
     private OptionHolder<O> optionHolder;
-    private int slot;
+    private int slot = -1;
     private ClickCondition clickCondition;
 
     private OptionItemBuilder(O option, V currentValue) {
@@ -28,17 +28,20 @@ public class OptionItemBuilder<O extends Option, V> {
         this.currentValue = currentValue;
     }
 
-    public OptionItemBuilder<O, V> inventoryContent(InventoryContent content) {
-        this.content = content;
+    public OptionItemBuilder<O, V> inventoryContent(InventoryContent inventoryContent) {
+        if (this.content != null) throw new IllegalStateException("Cannot set content twice.");
+        this.content = inventoryContent;
         return this;
     }
 
     public OptionItemBuilder<O, V> optionHolder(OptionHolder<O> holder) {
+        if (this.optionHolder != null) throw new IllegalStateException("Cannot set optionHolder twice.");
         this.optionHolder = holder;
         return this;
     }
 
     public OptionItemBuilder<O, V> slot(int row, int column) {
+        if (this.slot != -1) throw new IllegalStateException("Cannot set slot twice.");
         this.slot = Slot.getSlot(row, column);
         return this;
     }
@@ -50,25 +53,22 @@ public class OptionItemBuilder<O extends Option, V> {
     }
 
     public OptionItemBuilder<O, V> mapValue(V value, QuickItemStack itemStack) {
+        if (valueMap.containsKey(value)) throw new IllegalStateException("There is already a mapping for value '%s'.".formatted(value));
         valueMap.put(value, itemStack);
         return this;
     }
 
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void build() {
+        //TODO Validate - every thing required should be set
         OptionItem item = null;
 
-        if (currentValue instanceof Enum def) {
-            item = new EnumOptionItem(def, optionHolder, option, content, slot);
-        }
+        if (currentValue instanceof Enum def) item = new EnumOptionItem(def, optionHolder, option, content, slot);
+        if (currentValue instanceof Boolean def) item = new BooleanOptionItem(def, optionHolder, option, content, slot);
+        if (item == null) throw new IllegalStateException("Unexpected value: " + currentValue);
 
-        if (currentValue instanceof Boolean def) {
-            item = new BooleanOptionItem(def, optionHolder, option, content, slot);
-        }
 
-        if (item == null) {
-            throw new IllegalStateException("Unexpected value: " + currentValue);
-        }
+        item.setClickCondition(clickCondition);
 
         valueMap.forEach(item::mapValue);
     }
