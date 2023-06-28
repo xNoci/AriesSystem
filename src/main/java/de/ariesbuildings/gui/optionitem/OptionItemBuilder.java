@@ -53,7 +53,8 @@ public class OptionItemBuilder<O extends Option, V> {
     }
 
     public OptionItemBuilder<O, V> mapValue(V value, QuickItemStack itemStack) {
-        if (valueMap.containsKey(value)) throw new IllegalStateException("There is already a mapping for value '%s'.".formatted(value));
+        if (valueMap.containsKey(value))
+            throw new IllegalStateException("There is already a mapping for value '%s'.".formatted(value));
         valueMap.put(value, itemStack);
         return this;
     }
@@ -66,7 +67,6 @@ public class OptionItemBuilder<O extends Option, V> {
         if (currentValue instanceof Enum def) item = new EnumOptionItem(def, optionHolder, option, content, slot);
         if (currentValue instanceof Boolean def) item = new BooleanOptionItem(def, optionHolder, option, content, slot);
         if (item == null) throw new IllegalStateException("Unexpected value: " + currentValue);
-
 
         item.setClickCondition(clickCondition);
 
