@@ -11,6 +11,7 @@ import me.noci.quickutilities.utils.InventoryPattern;
 import me.noci.quickutilities.utils.QuickItemStack;
 import org.bukkit.Material;
 import org.bukkit.entity.Player;
+import org.bukkit.event.inventory.ClickType;
 
 import java.util.List;
 
@@ -48,28 +49,25 @@ public class WorldListGui extends PagedQuickGUIProvider {
 
         List<AriesWorld> worlds = AriesSystem.getInstance().getWorldManager().getWorlds(); //TODO get valid worlds by visibility and player permissions
 
-        GuiItem[] guiItems = worlds.stream().map(world -> createWorldGuiItem(world, player)).toArray(GuiItem[]::new);
+        GuiItem[] guiItems = worlds.stream().map(world -> createWorldGuiItem(world, player, this)).toArray(GuiItem[]::new);
         content.setPageContent(guiItems);
         content.updatePage();
     }
 
-    private static GuiItem createWorldGuiItem(AriesWorld world, Player player) {
-
-        Material displayIcon = world.getDisplayIcon().or(XMaterial.GRASS_BLOCK).parseMaterial();
-        String displayName = I18n.translate("gui.world_list.item.world_display.displayname", world.getWorldName());
-        QuickItemStack worldItem = new QuickItemStack(displayIcon, displayName);
-        worldItem.addItemFlags();
+    private static GuiItem createWorldGuiItem(AriesWorld world, Player player, WorldListGui previousGui) {
+        QuickItemStack worldItem = InventoryConstants.worldDisplayIcon(world);
 
         if (world.getWorldCreator() != null && world.getWorldCreator().equals(player.getUniqueId())) {
             worldItem.glow();
         }
 
-        String typeLore = I18n.translate("gui.world_list.item.world_display.lore.type", CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, world.getType().name()));
-        String visibilityLore = I18n.translate("gui.world_list.item.world_display.lore.visibility", CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, world.getVisibility().name()));
-        String creationTimeLore = I18n.translate("gui.world_list.item.world_display.lore.creationTime", world.getCreationTime()); //Todo tp readable format
-        String creatorLore = I18n.translate("gui.world_list.item.world_display.lore.creator", world.getWorldCreator()); //Todo to name
-
-        worldItem.setLore("", typeLore, visibilityLore, creationTimeLore, creatorLore);
+        String interactInfoLore = I18n.translate("gui.world_list.item.world_display.lore.interact_info");
+        List<String> lore = worldItem.getLore();
+        if(lore != null) {
+            lore.add("");
+            lore.add(interactInfoLore);
+            worldItem.setLore(interactInfoLore);
+        }
 
         return GuiItem.of(worldItem, event -> {
             //TODO Open world options menu
