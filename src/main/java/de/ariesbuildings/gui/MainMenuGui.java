@@ -21,21 +21,17 @@ public class MainMenuGui extends QuickGUIProvider {
     private static final QuickItemStack ITEM_WORLDS_PUBLIC = new QuickItemStack(XMaterial.WRITABLE_BOOK.parseMaterial(), I18n.translate("gui.main_menu.item.worlds_public.displayname")).addItemFlags();
     private static final QuickItemStack ITEM_WORLDS_PRIVATE = new QuickItemStack(XMaterial.BOOK.parseMaterial(), I18n.translate("gui.main_menu.item.worlds_private.displayname")).addItemFlags();
     private static final QuickItemStack ITEM_WORLDS_ARCHIVE = new QuickItemStack(XMaterial.BOOKSHELF.parseMaterial(), I18n.translate("gui.main_menu.item.worlds_archive.displayname")).addItemFlags();
-
     private static final QuickItemStack ITEM_CUSTOM_BLOCK_MENU = new QuickItemStack(XMaterial.CHEST.parseMaterial(), I18n.translate("gui.main_menu.item.custom_block_menu.displayname")).addItemFlags();
-
     private static final QuickItemStack ITEM_OWNR_STOP_SERVER = new QuickItemStack(XMaterial.LEVER.parseMaterial(), I18n.translate("gui.main_menu.item.stop_server.displayname")).setLore(I18n.translate("gui.main_menu.item.lore.shift_left")).glow().addItemFlags();
     private static final QuickItemStack ITEM_OWNR_TOGGLE_WHITELIST = new QuickItemStack(XMaterial.PAPER.parseMaterial(), I18n.translate("gui.main_menu.item.whitelist_toggle.displayname")).glow().addItemFlags();
 
     //GUI ITEMS
-    private static final GuiItem PLAYER_SETTINGS = GuiItem.of(ITEM_PLAYER_SETTINGS, event -> new PlayerSettingsGui(new MainMenuGui()).provide(event.getPlayer()));
-    private static final GuiItem PUBLIC_WORLDS = GuiItem.of(ITEM_WORLDS_PUBLIC, event -> openWorldList(event, WorldVisibility.PUBLIC));
-    private static final GuiItem PRIVATE_WORLDS = GuiItem.of(ITEM_WORLDS_PRIVATE, event -> openWorldList(event, WorldVisibility.PRIVATE));
-    private static final GuiItem ARCHIVED_WORLDS = GuiItem.of(ITEM_WORLDS_ARCHIVE, event -> openWorldList(event, WorldVisibility.ARCHIVED));
-
-    private static final GuiItem CUSTOM_BLOCK_MENU = GuiItem.of(ITEM_CUSTOM_BLOCK_MENU, event -> new CustomBlockGui(new MainMenuGui()).provide(event.getPlayer()));
-
-    private static final GuiItem OWNR_STOP_SERVER = GuiItem.of(ITEM_OWNR_STOP_SERVER, MainMenuGui::onClickStopServer);
+    private static final GuiItem PLAYER_SETTINGS = ITEM_PLAYER_SETTINGS.asGuiItem(event -> new PlayerSettingsGui(new MainMenuGui()).provide(event.getPlayer()));
+    private static final GuiItem PUBLIC_WORLDS = ITEM_WORLDS_PUBLIC.asGuiItem(event -> openWorldList(event, WorldVisibility.PUBLIC));
+    private static final GuiItem PRIVATE_WORLDS = ITEM_WORLDS_PRIVATE.asGuiItem(event -> openWorldList(event, WorldVisibility.PRIVATE));
+    private static final GuiItem ARCHIVED_WORLDS = ITEM_WORLDS_ARCHIVE.asGuiItem(event -> openWorldList(event, WorldVisibility.ARCHIVED));
+    private static final GuiItem CUSTOM_BLOCK_MENU = ITEM_CUSTOM_BLOCK_MENU.asGuiItem(event -> new CustomBlockGui(new MainMenuGui()).provide(event.getPlayer()));
+    private static final GuiItem OWNR_STOP_SERVER = ITEM_OWNR_STOP_SERVER.asGuiItem(MainMenuGui::onClickStopServer);
 
     private static final int WHITELIST_TOGGLE_SLOT = Slot.getSlot(6, 2);
 
@@ -81,7 +77,7 @@ public class MainMenuGui extends QuickGUIProvider {
         QuickItemStack whitelist = ITEM_OWNR_TOGGLE_WHITELIST;
         String whitelistStatus = Bukkit.hasWhitelist() ? I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_enabled") : I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_disabled");
         whitelist.setLore("", I18n.translate("gui.main_menu.item.lore.shift_left"), whitelistStatus);
-        return GuiItem.of(whitelist, event -> {
+        return whitelist.asGuiItem(event -> {
             if (event.getClick() != ClickType.SHIFT_LEFT) return;
             Bukkit.setWhitelist(!Bukkit.hasWhitelist());
             content.setItem(WHITELIST_TOGGLE_SLOT, whitlistItem(content));

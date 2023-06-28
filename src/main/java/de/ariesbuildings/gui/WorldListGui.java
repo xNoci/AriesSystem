@@ -65,7 +65,7 @@ public class WorldListGui extends PagedQuickGUIProvider {
             worldItem.setLore(lore);
         }
 
-        return GuiItem.of(worldItem, event -> {
+        return worldItem.asGuiItem(event -> {
             switch (event.getClick()) {
                 case LEFT -> world.teleport(event.getPlayer(), true);
                 case RIGHT -> new WorldSettingsGui(world, previousGui).provide(event.getPlayer());

@@ -29,7 +29,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
         content.fill(InventoryConstants.BACKGROUND_BLACK);
         content.fillSlots(GuiItem.empty(), InventoryPattern.box(3, 4));
         if(previousGui != null) content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
-        content.setItem(Slot.getSlot(1, 5), GuiItem.of(InventoryConstants.worldDisplayIcon(world)));
+        content.setItem(Slot.getSlot(1, 5), InventoryConstants.worldDisplayIcon(world).asGuiItem());
         //TODO
     }
 
