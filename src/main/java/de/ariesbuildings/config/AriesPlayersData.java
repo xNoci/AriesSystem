@@ -7,10 +7,17 @@ import de.ariesbuildings.options.PlayerOption;
 import lombok.SneakyThrows;
 import org.spongepowered.configurate.ConfigurationNode;
 
+import java.util.Optional;
+import java.util.UUID;
+
 public class AriesPlayersData extends AbstractObjectData<AriesPlayer> {
 
     public AriesPlayersData() {
         super("players.data.json", 1);
+    }
+
+    public Optional<String> getName(UUID uuid) {
+        return nodeValue(config().node(uuid.toString()), "name", String.class);
     }
 
     @Override
