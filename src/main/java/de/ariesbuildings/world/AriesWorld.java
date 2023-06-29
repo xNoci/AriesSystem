@@ -80,6 +80,10 @@ public class AriesWorld {
         return isBuilder(player.getUniqueId()) && player.hasPermission(permission);
     }
 
+    public boolean isPermitted(AriesPlayer player) {
+        return isPermitted(player.getBase());
+    }
+
     public boolean isPermitted(Player player) {
         return isBuilder(player.getUniqueId()) || player.hasPermission(Permission.WORLD_BYPASS_BUILDER);
     }

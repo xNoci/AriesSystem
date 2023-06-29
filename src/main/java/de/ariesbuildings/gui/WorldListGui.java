@@ -1,5 +1,6 @@
 package de.ariesbuildings.gui;
 
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.world.AriesWorld;
@@ -38,22 +39,23 @@ public class WorldListGui extends PagedQuickGUIProvider {
     }
 
     @Override
-    public void initPage(Player player, PageContent content) {
+    public void initPage(Player p, PageContent content) {
+        AriesPlayer player = AriesSystem.getInstance().getPlayerManager().getPlayer(p);
         content.setItemSlots(InventoryPattern.box(2, 4));
         content.setPreviousPageItem(Slot.getSlot(6, 1), InventoryConstants.PREVIOUS_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
         content.setNextPageItem(Slot.getSlot(6, 8), InventoryConstants.NEXT_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
 
-        List<AriesWorld> worlds = AriesSystem.getInstance().getWorldManager().getWorlds(); //TODO get valid worlds by visibility and player permissions
+        List<AriesWorld> worlds = AriesSystem.getInstance().getWorldManager().getWorlds(visibility, player);
 
         GuiItem[] guiItems = worlds.stream().map(world -> createWorldGuiItem(world, player, this)).toArray(GuiItem[]::new);
         content.setPageContent(guiItems);
         content.updatePage();
     }
 
-    private static GuiItem createWorldGuiItem(AriesWorld world, Player player, WorldListGui previousGui) {
+    private static GuiItem createWorldGuiItem(AriesWorld world, AriesPlayer player, WorldListGui previousGui) {
         QuickItemStack worldItem = InventoryConstants.worldDisplayIcon(world);
 
-        if (world.getWorldCreator() != null && world.getWorldCreator().equals(player.getUniqueId())) {
+        if (world.getWorldCreator() != null && world.getWorldCreator().equals(player.getUUID())) {
             worldItem.glow();
         }
 

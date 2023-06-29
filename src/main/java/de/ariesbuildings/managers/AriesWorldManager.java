@@ -2,6 +2,7 @@ package de.ariesbuildings.managers;
 
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.config.AriesWorldsData;
@@ -177,4 +178,21 @@ public class AriesWorldManager {
     }
 
 
+    public List<AriesWorld> getWorlds(WorldVisibility visibility) {
+        List<AriesWorld> copiedWorlds = Lists.newArrayList(worlds);
+        return copiedWorlds.stream()
+                .filter(world -> world.getVisibility() == visibility)
+                .collect(ImmutableList.toImmutableList());
+
+    }
+
+    public List<AriesWorld> getWorlds(WorldVisibility visibility, AriesPlayer player) {
+        return getWorlds(visibility).stream()
+                .filter(world -> {
+                    if (visibility != WorldVisibility.PRIVATE) return true;
+                    return world.isPermitted(player);
+                })
+                .collect(ImmutableList.toImmutableList());
+
+    }
 }
