@@ -61,6 +61,15 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .mapValue(true, new QuickItemStack(XMaterial.CREEPER_SPAWN_EGG.parseMaterial(), etpDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
                 .mapValue(false, new QuickItemStack(XMaterial.WOLF_SPAWN_EGG.parseMaterial(), etpDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
                 .build();
+
+        String weatherCycleDisplayname = I18n.translate("gui.world_settings.item.weather_cycle.displayname");
+        OptionItemBuilder.of(WorldOption.WEATHER_CYCLE, Boolean.class)
+                .slot(3, 6)
+                .inventoryContent(content)
+                .optionHolder(world.getOptions())
+                .mapValue(true, new QuickItemStack(XMaterial.LIGHTNING_ROD.or(XMaterial.DAYLIGHT_DETECTOR).parseMaterial(), weatherCycleDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.COBWEB.parseMaterial(), weatherCycleDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
+                .build();
     }
 
 }
