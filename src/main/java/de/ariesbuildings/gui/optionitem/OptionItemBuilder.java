@@ -11,21 +11,28 @@ import java.util.HashMap;
 
 public class OptionItemBuilder<O extends Option, V> {
 
-    public static <O extends Option, V> OptionItemBuilder<O, V> of(O option, V currentValue) {
-        return new OptionItemBuilder<>(option, currentValue);
+    public static <O extends Option, V> OptionItemBuilder<O, V> of(O option, Class<V> valueType) {
+        return new OptionItemBuilder<>(option, valueType);
     }
 
     private final HashMap<V, QuickItemStack> valueMap = Maps.newHashMap();
     private final O option;
-    private final V currentValue;
+    private final Class<V> valueType;
+    private V currentValue;
     private InventoryContent content;
     private OptionHolder<O> optionHolder;
     private int slot = -1;
     private ClickCondition clickCondition;
 
-    private OptionItemBuilder(O option, V currentValue) {
+    private OptionItemBuilder(O option, Class<V> valueType) {
         this.option = option;
+        this.valueType = valueType;
+    }
+
+    public OptionItemBuilder<O, V> currentValue(V currentValue) {
+        if (this.currentValue != null) throw new IllegalStateException("Cannot set currentValue twice.");
         this.currentValue = currentValue;
+        return this;
     }
 
     public OptionItemBuilder<O, V> inventoryContent(InventoryContent inventoryContent) {
@@ -63,14 +70,20 @@ public class OptionItemBuilder<O extends Option, V> {
     public void build() {
         //TODO Validate - every thing required should be set
         OptionItem item = null;
+        V value = currentValue();
 
-        if (currentValue instanceof Enum def) item = new EnumOptionItem(def, optionHolder, option, content, slot);
-        if (currentValue instanceof Boolean def) item = new BooleanOptionItem(def, optionHolder, option, content, slot);
+        if (value instanceof Enum def) item = new EnumOptionItem(def, optionHolder, option, content, slot);
+        if (value instanceof Boolean def) item = new BooleanOptionItem(def, optionHolder, option, content, slot);
         if (item == null) throw new IllegalStateException("Unexpected value: " + currentValue);
 
         item.setClickCondition(clickCondition);
 
         valueMap.forEach(item::mapValue);
+    }
+
+    private V currentValue() {
+        if (currentValue != null) return currentValue;
+        return optionHolder.get(option, valueType);
     }
 
 }

@@ -4,7 +4,6 @@ import com.cryptomorin.xseries.XMaterial;
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
-import de.ariesbuildings.gui.optionitem.EnumOptionItem;
 import de.ariesbuildings.gui.optionitem.OptionItemBuilder;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
@@ -45,40 +44,40 @@ public class PlayerSettingsGui extends QuickGUIProvider {
                 );
         content.setItem(Slot.getSlot(2, 5), playerInfo.asGuiItem());
 
-        GameMode currentGamemode = player.getOptions().get(PlayerOption.DEFAULT_GAMEMODE, GameMode.class);
-        OptionItemBuilder.of(PlayerOption.DEFAULT_GAMEMODE, currentGamemode)
+        OptionItemBuilder.of(PlayerOption.DEFAULT_GAMEMODE, GameMode.class)
                 .inventoryContent(content)
                 .slot(3, 2)
                 .optionHolder(player.getOptions())
+                //TODO ITEMS
                 .mapValue(GameMode.SURVIVAL, new QuickItemStack(XMaterial.ORANGE_DYE.parseMaterial(), "SURVIVAL"))
                 .mapValue(GameMode.CREATIVE, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "CREATIVE"))
                 .mapValue(GameMode.ADVENTURE, new QuickItemStack(XMaterial.YELLOW_DYE.parseMaterial(), "ADVENTURE"))
                 .mapValue(GameMode.SPECTATOR, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "SPECTATOR"))
                 .build();
 
-        boolean currentGlow = player.getOptions().get(PlayerOption.GLOW, Boolean.class);
-        OptionItemBuilder.of(PlayerOption.GLOW, currentGlow)
+        OptionItemBuilder.of(PlayerOption.GLOW, Boolean.class)
                 .inventoryContent(content)
                 .slot(3, 3)
                 .optionHolder(player.getOptions())
+                //TODO ITEMS
                 .mapValue(true, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "TRUE"))
                 .mapValue(false, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "FALSE"))
                 .build();
 
-        boolean currentTeleportVoid = player.getOptions().get(PlayerOption.VOID_DAMAGE_TELEPORT, Boolean.class);
-        OptionItemBuilder.of(PlayerOption.VOID_DAMAGE_TELEPORT, currentTeleportVoid)
+        OptionItemBuilder.of(PlayerOption.VOID_DAMAGE_TELEPORT, Boolean.class)
                 .inventoryContent(content)
                 .slot(3, 4)
                 .optionHolder(player.getOptions())
+                //TODO ITEMS
                 .mapValue(true, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "TRUE"))
                 .mapValue(false, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "FALSE"))
                 .build();
 
-        boolean currentVanish = player.getOptions().get(PlayerOption.VANISH, Boolean.class);
-        OptionItemBuilder.of(PlayerOption.VANISH, currentVanish)
+        OptionItemBuilder.of(PlayerOption.VANISH, Boolean.class)
                 .inventoryContent(content)
                 .slot(3, 5)
                 .optionHolder(player.getOptions())
+                //TODO ITEMS
                 .mapValue(true, new QuickItemStack(XMaterial.GREEN_DYE.parseMaterial(), "TRUE"))
                 .mapValue(false, new QuickItemStack(XMaterial.RED_DYE.parseMaterial(), "FALSE"))
                 .build();
