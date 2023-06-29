@@ -1,6 +1,7 @@
 package de.ariesbuildings.gui;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.cryptomorin.xseries.XPotion;
 import com.google.common.base.CaseFormat;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.world.AriesWorld;
@@ -8,6 +9,7 @@ import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.QuickGUIProvider;
 import me.noci.quickutilities.utils.QuickItemStack;
 import org.bukkit.Material;
+import org.bukkit.inventory.ItemStack;
 
 public class InventoryConstants {
 
@@ -15,6 +17,7 @@ public class InventoryConstants {
     public static final QuickItemStack PREVIOUS_PAGE = new QuickItemStack(XMaterial.ARROW.parseMaterial(), I18n.translate("gui.constants.item_name.previous_page")).addItemFlags();
     public static final QuickItemStack NEXT_PAGE = new QuickItemStack(XMaterial.ARROW.parseMaterial(), I18n.translate("gui.constants.item_name.next_page")).addItemFlags();
     public static final QuickItemStack PREVIOUS_GUI = new QuickItemStack(XMaterial.FEATHER.parseMaterial(), I18n.translate("gui.constants.item_name.previous_gui")).addItemFlags();
+    public static final ItemStack INVISIBLE_POTION = XPotion.buildItemWithEffects(XMaterial.POTION.parseMaterial(), XPotion.INVISIBILITY.getPotionEffectType().getColor());
 
     public static final GuiItem BACKGROUND_BLACK = ITM_BACKGROUND_BLACK.asGuiItem();
 
