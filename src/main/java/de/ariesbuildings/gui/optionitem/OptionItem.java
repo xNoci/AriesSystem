@@ -7,12 +7,10 @@ import de.ariesbuildings.options.Option;
 import de.ariesbuildings.options.OptionHolder;
 import lombok.AccessLevel;
 import lombok.Setter;
-import me.noci.quickutilities.inventory.ClickHandler;
 import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.SlotClickEvent;
 import me.noci.quickutilities.utils.QuickItemStack;
-import org.bukkit.inventory.ItemStack;
 
 import java.util.HashMap;
 
@@ -69,8 +67,8 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
 
     private void updateDisplayedItem() {
         QuickItemStack item = valueMap.get(this.currentValue);
-        if(item == null) {
-            item = OPTION_VALUE_NOT_SET;
+        if (item == null) {
+            item = (QuickItemStack) OPTION_VALUE_NOT_SET.clone();
             item.setDisplayName(I18n.translate("gui.option_item.value_mapping_not_found.displayname", this.currentValue));
         }
         setItem(item);
