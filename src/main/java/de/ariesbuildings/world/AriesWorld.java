@@ -28,7 +28,7 @@ public class AriesWorld {
     @Getter @Setter private RawLocation worldSpawn = new RawLocation(0, 100, 0);
     @Getter @Setter private WorldType type;
     @Getter @Setter private List<UUID> builders;
-    @Getter @Setter private WorldVisibility visibility;
+    @Getter @Setter private WorldVisibility visibility; //TODO WorldOption?
 
     @Getter @Setter private World world = null;
 

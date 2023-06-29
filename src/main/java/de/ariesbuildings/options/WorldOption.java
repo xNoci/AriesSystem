@@ -7,6 +7,8 @@ public enum WorldOption implements Option {
     ANTI_BLOCK_UPDATE("AntiBlockUpdate", true, boolean.class),
     PLAYER_DAMAGE("Player Damage", false, boolean.class),
     ENTITY_TARGET_PLAYER("Entity Target Player", false, boolean.class);
+    //TODO Visibility?
+    //TODO Status - WAITING, WIP, FINISHED, REWORK
 
     @Getter private final String name;
     @Getter private final Object defaultValue;
