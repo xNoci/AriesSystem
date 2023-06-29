@@ -137,16 +137,14 @@ public class CommandWorld extends AriesCommand {
         try {
             worldType = WorldType.valueOf(type);
         } catch (Exception e) {
-            //TODO
             String validTypes = String.join(", ", WorldType.publicTypes().stream().map(Enum::name).toList());
-            sender.sendMessage("[Placeholder] Invalid WorldType '%s'. Possible types: %s".formatted(type, validTypes));
+            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.type", type, validTypes));
             return Optional.empty();
         }
 
-        if(worldType.isInternalType()) {
-            //TODO
+        if (worldType.isInternalType()) {
             String validTypes = String.join(", ", WorldType.publicTypes().stream().map(Enum::name).toList());
-            sender.sendMessage("[Placeholder] The given type %s is for internal use only. Cannot create a world using this type.\n Possible types: %s".formatted(type, validTypes));
+            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.internal", type, validTypes));
             return Optional.empty();
         }
 
