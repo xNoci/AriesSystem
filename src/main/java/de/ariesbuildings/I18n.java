@@ -48,6 +48,7 @@ public class I18n {
     private String format(String key, Object... params) {
         String translation = translate(key);
         translation = translation.replaceFirst("%prefix%", prefix());
+        translation = translation.replaceAll("(?<!')'(?!')", "''"); //Fix single quote broke format
         return MessageFormat.format(translation, params);
     }
 
