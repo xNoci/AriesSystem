@@ -2,6 +2,8 @@ package de.ariesbuildings.world;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Lists;
+import de.ariesbuildings.AriesPlayer;
+import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
@@ -114,8 +116,7 @@ public class AriesWorld {
             if(type == WorldType.IMPORTED) return "SERVER";
             return "Unknown";
         }
-        //TODO Get player name
-        return "Player {%s}".formatted(worldCreator);
+        return AriesSystem.getInstance().getPlayerManager().getPlayerName(worldCreator);
     }
 
 }
