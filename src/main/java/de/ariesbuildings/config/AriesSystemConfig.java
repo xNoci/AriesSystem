@@ -11,6 +11,9 @@ public class AriesSystemConfig extends AbstractConfig {
     @ConfigEntry(name = "settings.server.shutdown_delay", comment = "Sets the delay in seconds when the server shuts down after pressing shutdown button in main menu")
     public static int SERVER_SHUTDOW_DELAY = 3;
 
+    @ConfigEntry(name = "date_format", comment = "The date format used to indicate creation times")
+    public static String DATE_FORMAT = "dd.MM.yyyy HH:mm:ss";
+
     //DEFAULT WORLD SETTINGS
     @ConfigEntry(name = "world.difficulty", comment = "Default difficulty of a world.")
     public static Difficulty WORLD_DIFFICULTY = Difficulty.PEACEFUL;
