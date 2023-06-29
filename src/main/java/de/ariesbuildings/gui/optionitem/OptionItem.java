@@ -63,7 +63,7 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
         QuickItemStack item = valueMap.get(this.currentValue);
         if(item == null) {
             item = OPTION_VALUE_NOT_SET;
-            item.setDisplayName("[PLACEHOLDER] Item for value '%s' not found.".formatted(this.currentValue)); //TODO Add language file
+            item.setDisplayName(I18n.translate("gui.option_item.value_mapping_not_found.displayname", this.currentValue));
         }
         setItem(item);
         setOption(this.currentValue);
