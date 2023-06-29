@@ -63,6 +63,7 @@ public class AriesSystem extends JavaPlugin {
         CommandManager.register(new CommandVanish(this));
         CommandManager.register(new CommandConfig(this));
         CommandManager.register(new CommandWorld(this, this.worldManager));
+        CommandManager.register(new CommandMenu(this));
     }
 
     private void registerListeners() {

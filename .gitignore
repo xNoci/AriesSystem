@@ -116,3 +116,6 @@ gradle-app.setting
 
 ### Powershell ###
 *.ps1
+
+### OTHER
+.idea/discord.xml

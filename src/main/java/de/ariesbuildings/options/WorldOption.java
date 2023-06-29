@@ -8,6 +8,8 @@ public enum WorldOption implements Option {
     PLAYER_DAMAGE("Player Damage", false, boolean.class),
     ENTITY_TARGET_PLAYER("Entity Target Player", false, boolean.class),
     WEATHER_CYCLE("Weather cycle", false, boolean.class);
+    //TODO Visibility?
+    //TODO Status - WAITING, WIP, FINISHED, REWORK
 
     @Getter private final String name;
     @Getter private final Object defaultValue;

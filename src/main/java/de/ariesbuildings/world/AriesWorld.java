@@ -14,7 +14,6 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.entity.Player;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
 
@@ -29,7 +28,7 @@ public class AriesWorld {
     @Getter @Setter private RawLocation worldSpawn = new RawLocation(0, 100, 0);
     @Getter @Setter private WorldType type;
     @Getter @Setter private List<UUID> builders;
-    @Getter @Setter private WorldVisibility visibility;
+    @Getter @Setter private WorldVisibility visibility; //TODO WorldOption?
 
     @Getter @Setter private World world = null;
 
@@ -81,6 +80,10 @@ public class AriesWorld {
         return isBuilder(player.getUniqueId()) && player.hasPermission(permission);
     }
 
+    public boolean isPermitted(AriesPlayer player) {
+        return isPermitted(player.getBase());
+    }
+
     public boolean isPermitted(Player player) {
         return isBuilder(player.getUniqueId()) || player.hasPermission(Permission.WORLD_BYPASS_BUILDER);
     }
@@ -104,6 +107,15 @@ public class AriesWorld {
         player.teleport(location);
 
         return true;
+    }
+
+    public String getCreatorAsString() {
+        if (worldCreator == null) {
+            if(type == WorldType.IMPORTED) return "SERVER";
+            return "Unknown";
+        }
+        //TODO Get player name
+        return "Player {%s}".formatted(worldCreator);
     }
 
 }
