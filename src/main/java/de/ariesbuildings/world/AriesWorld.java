@@ -30,8 +30,6 @@ public class AriesWorld {
     @Getter @Setter private RawLocation worldSpawn = new RawLocation(0, 100, 0);
     @Getter @Setter private WorldType type;
     @Getter @Setter private List<UUID> builders;
-    @Getter @Setter private WorldVisibility visibility; //TODO WorldOption?
-
     @Getter @Setter private World world = null;
 
     public AriesWorld(String worldName) {
@@ -43,7 +41,6 @@ public class AriesWorld {
         this.displayIcon = XMaterial.GRASS_BLOCK;
         this.type = WorldType.VOID;
         this.builders = Lists.newArrayList();
-        this.visibility = WorldVisibility.PRIVATE;
 
         World world = Bukkit.getWorld(worldName);
         if (world != null) {
@@ -113,10 +110,18 @@ public class AriesWorld {
 
     public String getCreatorAsString() {
         if (worldCreator == null) {
-            if(type == WorldType.IMPORTED) return "SERVER";
+            if (type == WorldType.IMPORTED) return "SERVER";
             return "Unknown";
         }
         return AriesSystem.getInstance().getPlayerManager().getPlayerName(worldCreator);
+    }
+
+    public WorldVisibility getVisibility() {
+        return options.get(WorldOption.WORLD_VISIBILITY, WorldVisibility.class);
+    }
+
+    public void setVisibility(WorldVisibility visibility) {
+        options.set(WorldOption.WORLD_VISIBILITY, visibility);
     }
 
 }

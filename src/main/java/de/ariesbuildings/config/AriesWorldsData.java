@@ -34,7 +34,6 @@ public class AriesWorldsData extends AbstractObjectData<AriesWorld> {
     void onSerialize(ConfigurationNode node, AriesWorld world) {
         setNodeValue(node, "creator", world.getWorldCreator());
         setNodeValue(node, "worldType", world.getType());
-        setNodeValue(node, "visibility", world.getVisibility());
         setNodeValue(node, "builders", world.getBuilders(), AriesSerializers.Type.UUID_LIST);
         setNodeValue(node, "creationTime", world.getCreationTime());
         setNodeValue(node, "displayIcon", world.getDisplayIcon());
@@ -46,7 +45,6 @@ public class AriesWorldsData extends AbstractObjectData<AriesWorld> {
     void onDeserialize(ConfigurationNode node, AriesWorld world) {
         nodeValue(node, "creator", UUID.class).ifPresent(world::setWorldCreator);
         nodeValue(node, "worldType", WorldType.class).ifPresent(world::setType);
-        nodeValue(node, "visibility", WorldVisibility.class).ifPresent(world::setVisibility);
         nodeListValue(node, "builders", UUID.class).ifPresent(world::setBuilders);
         nodeValue(node, "creationTime", Long.class).ifPresent(world::setCreationTime);
         nodeValue(node, "displayIcon", XMaterial.class).ifPresent(world::setDisplayIcon);

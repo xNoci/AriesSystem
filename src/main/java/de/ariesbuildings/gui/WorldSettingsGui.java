@@ -5,6 +5,7 @@ import de.ariesbuildings.I18n;
 import de.ariesbuildings.gui.optionitem.OptionItemBuilder;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.world.AriesWorld;
+import de.ariesbuildings.world.WorldVisibility;
 import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.QuickGUIProvider;
@@ -35,9 +36,19 @@ public class WorldSettingsGui extends QuickGUIProvider {
         if (previousGui != null) content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
         content.setItem(Slot.getSlot(1, 5), InventoryConstants.worldDisplayIcon(world).asGuiItem());
 
+        String visibilityDisplayname = I18n.translate("gui.world_settings.item.world_visibility_.displayname");
+        OptionItemBuilder.of(WorldOption.WORLD_VISIBILITY, WorldVisibility.class)
+                .slot(3, 2)
+                .inventoryContent(content)
+                .optionHolder(world.getOptions())
+                .mapValue(WorldVisibility.PUBLIC, new QuickItemStack(XMaterial.WRITTEN_BOOK.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.player_settings.item.world_visibility_.lore.public")).addItemFlags())
+                .mapValue(WorldVisibility.PRIVATE, new QuickItemStack(XMaterial.BOOK.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.player_settings.item.world_visibility_.lore.private")).addItemFlags())
+                .mapValue(WorldVisibility.ARCHIVED, new QuickItemStack(XMaterial.BOOKSHELF.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.player_settings.item.world_visibility_.lore.archived")).addItemFlags())
+                .build();
+
         String abuDisplayname = I18n.translate("gui.world_settings.item.abu.displayname");
         OptionItemBuilder.of(WorldOption.ANTI_BLOCK_UPDATE, Boolean.class)
-                .slot(3, 2)
+                .slot(3, 3)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .mapValue(true, new QuickItemStack(XMaterial.WATER_BUCKET.parseMaterial(), abuDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
@@ -46,7 +57,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
 
         String playerDamageDisplayname = I18n.translate("gui.world_settings.item.player_damage.displayname");
         OptionItemBuilder.of(WorldOption.PLAYER_DAMAGE, Boolean.class)
-                .slot(3, 3)
+                .slot(3, 4)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .mapValue(true, new QuickItemStack(XMaterial.DIAMOND_SWORD.parseMaterial(), playerDamageDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
@@ -55,7 +66,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
 
         String etpDisplayname = I18n.translate("gui.world_settings.item.entity_target_player.displayname");
         OptionItemBuilder.of(WorldOption.ENTITY_TARGET_PLAYER, Boolean.class)
-                .slot(3, 4)
+                .slot(3, 5)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .mapValue(true, new QuickItemStack(XMaterial.CREEPER_SPAWN_EGG.parseMaterial(), etpDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
