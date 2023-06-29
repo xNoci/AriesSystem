@@ -2,6 +2,7 @@ package de.ariesbuildings.gui.optionitem;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
+import de.ariesbuildings.I18n;
 import de.ariesbuildings.options.Option;
 import de.ariesbuildings.options.OptionHolder;
 import lombok.AccessLevel;
@@ -38,6 +39,7 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
 
         setAction(this::slotClickEvent);
         update();
+        updateDisplayedItem();
     }
 
     protected abstract void updateCurrentValue();
@@ -60,14 +62,18 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
     private void slotClickEvent(SlotClickEvent event) {
         if (clickCondition != null && !clickCondition.shouldExecute()) return;
         updateCurrentValue();
+        updateDisplayedItem();
+        setOption(this.currentValue);
+        update();
+    }
+
+    private void updateDisplayedItem() {
         QuickItemStack item = valueMap.get(this.currentValue);
         if(item == null) {
             item = OPTION_VALUE_NOT_SET;
             item.setDisplayName(I18n.translate("gui.option_item.value_mapping_not_found.displayname", this.currentValue));
         }
         setItem(item);
-        setOption(this.currentValue);
-        update();
     }
 
 }
