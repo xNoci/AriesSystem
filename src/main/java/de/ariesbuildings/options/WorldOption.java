@@ -9,7 +9,8 @@ public enum WorldOption implements Option {
     PLAYER_DAMAGE("Player Damage", false, boolean.class),
     ENTITY_TARGET_PLAYER("Entity Target Player", false, boolean.class),
     WEATHER_CYCLE("Weather cycle", false, boolean.class),
-    WORLD_VISIBILITY("World visibility", WorldVisibility.PRIVATE, WorldVisibility.class);
+    WORLD_VISIBILITY("World visibility", WorldVisibility.PRIVATE, WorldVisibility.class),
+    ALLOW_COMMAND_BLOCK("Allow command block", false, Boolean.class);
     //TODO Status - WAITING, WIP, FINISHED, REWORK
 
     @Getter private final String name;

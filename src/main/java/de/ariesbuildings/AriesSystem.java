@@ -14,6 +14,7 @@ import de.ariesbuildings.managers.VanishManager;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import me.noci.quickutilities.quickcommand.CommandManager;
+import me.noci.quickutilities.utils.ServerProperties;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
@@ -72,6 +73,10 @@ public class AriesSystem extends JavaPlugin {
         registerListener(new EntityTargetPlayerListener());
         registerListener(new PlayerWorldDamageListener());
         registerListener(new WeatherChangeListener());
+        if (ServerProperties.isCommandBlockEnabled()) {
+            AriesSystemConfig.debug("Command blocks are enabled - register ServerCommandListener");
+            registerListener(new ServerCommandListener());
+        }
 
         //PLAYER OPTIONS
         registerListener(new VoidDamageTeleportListener());
@@ -96,7 +101,7 @@ public class AriesSystem extends JavaPlugin {
     private void registerListener(Listener bukkitListener, Listener paperListener) {
         PluginManager pluginManager = getServer().getPluginManager();
         Listener toRegister = bukkitListener;
-        if(PaperLib.isPaper() && paperListener != null) toRegister = paperListener;
+        if (PaperLib.isPaper() && paperListener != null) toRegister = paperListener;
         pluginManager.registerEvents(toRegister, this);
     }
 
