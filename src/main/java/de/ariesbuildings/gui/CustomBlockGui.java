@@ -1,14 +1,14 @@
 package de.ariesbuildings.gui;
 
 import de.ariesbuildings.I18n;
-import me.noci.quickutilities.inventory.GuiItem;
-import me.noci.quickutilities.inventory.InventoryContent;
-import me.noci.quickutilities.inventory.QuickGUIProvider;
-import me.noci.quickutilities.inventory.Slot;
+import de.ariesbuildings.utils.CustomBlock;
+import me.noci.quickutilities.inventory.*;
 import me.noci.quickutilities.utils.InventoryPattern;
 import org.bukkit.entity.Player;
 
-public class CustomBlockGui extends QuickGUIProvider {
+import java.util.Arrays;
+
+public class CustomBlockGui extends PagedQuickGUIProvider {
 
     private final QuickGUIProvider previousGui;
 
@@ -25,15 +25,17 @@ public class CustomBlockGui extends QuickGUIProvider {
     public void init(Player player, InventoryContent content) {
         content.fill(InventoryConstants.BACKGROUND_BLACK);
         content.fillSlots(GuiItem.empty(), InventoryPattern.box(2, 4));
-        if(previousGui != null) content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
-        //TODO
-        // FURNACE WICH IS TURNED ON (AND THE OTHER FURNACE VARIANTS)
-        // REDSONTE LAMP (TURNED ON)
-        // DOUBLE STONE SLAB
-        // HALF PISTON (STICKY/NON STICK) - Upper and lower part
-        // MUSHROOM BLOCK VARIANTS
-        // INVISIBLE ITEM FRAME
-        // NETHER PORTAL
-        // END PORTAL
+        if (previousGui != null) content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
+    }
+
+    @Override
+    public void initPage(Player player, PageContent content) {
+        content.setItemSlots(InventoryPattern.box(2, 4));
+        content.setPreviousPageItem(Slot.getSlot(6, 1), InventoryConstants.PREVIOUS_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
+        content.setNextPageItem(Slot.getSlot(6, 8), InventoryConstants.NEXT_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
+
+        GuiItem[] items = Arrays.stream(CustomBlock.values()).map(CustomBlockItem::new).toArray(GuiItem[]::new);
+        content.setPageContent(items);
+        content.updatePage();
     }
 }
