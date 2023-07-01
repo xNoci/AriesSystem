@@ -82,6 +82,7 @@ public class AriesSystem extends JavaPlugin {
         registerListener(new VoidDamageTeleportListener());
 
         //OTHER
+        registerListener(new CustomBlockListener());
         registerListener(new PlayerJoinListener());
         registerListener(new PlayerQuitListener());
         registerListener(new PlayerLoginListener());
