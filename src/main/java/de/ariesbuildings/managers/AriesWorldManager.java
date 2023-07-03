@@ -6,13 +6,13 @@ import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.config.AriesWorldsData;
+import de.ariesbuildings.utils.Input;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.WorldImportResult;
 import de.ariesbuildings.world.WorldType;
 import de.ariesbuildings.world.WorldVisibility;
 import de.ariesbuildings.world.creator.CreatorID;
 import de.ariesbuildings.world.creator.WorldCreator;
-import me.noci.quickutilities.input.TitledPlayerChatInput;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -77,7 +77,7 @@ public class AriesWorldManager {
     }
 
     public void createWorld(Player player, WorldType worldType) {
-        var playerInput = new TitledPlayerChatInput(plugin, player, AriesSystemConfig.PLAYER_INPUT_CANCEL, input -> {
+        Input.title(player, I18n.translate("input.title.world_create"), input -> {
             if (StringUtils.isBlank(input)) {
                 player.sendMessage(I18n.translate("input.world_create.empty_string"));
                 return;
@@ -88,12 +88,7 @@ public class AriesWorldManager {
                 return;
             }
             player.sendMessage(I18n.translate("world_creation.success"));
-
-        }, I18n.translate("input.world_create.title"), I18n.translate("input.world_create.subtitle", AriesSystemConfig.PLAYER_INPUT_CANCEL));
-
-        playerInput.onCancel(p -> {
-            p.sendMessage(I18n.translate("input.world_create.canceled"));
-        });
+        }, p -> p.sendMessage(I18n.translate("input.world_create.canceled")));
     }
 
     public boolean createWorld(String worldName, UUID creator, WorldType type) {
