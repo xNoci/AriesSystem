@@ -24,6 +24,12 @@ public class OptionItemBuilder<O extends Option, V> {
     private int slot = -1;
     private ClickCondition clickCondition;
 
+    //Integer option
+    private QuickItemStack integerItem = null;
+    private int lowerBound = -1;
+    private int upperBound = -1;
+    private int increment = -1;
+
     private OptionItemBuilder(O option, Class<V> valueType) {
         this.option = option;
         this.valueType = valueType;
@@ -66,6 +72,33 @@ public class OptionItemBuilder<O extends Option, V> {
         return this;
     }
 
+    public OptionItemBuilder<O, V> integerItem(QuickItemStack item) {
+        if (integerItem != null) throw new IllegalStateException("Cannot set integerItem twice");
+        this.integerItem = item;
+        return this;
+    }
+
+    public OptionItemBuilder<O, V> lowerBound(int lowerBound) {
+        if (this.lowerBound != -1) throw new IllegalStateException("Cannot set lowerBound twice.");
+        if (lowerBound < 0) throw new IllegalArgumentException("lowerBound must be greater than or equal to zero.");
+        this.lowerBound = lowerBound;
+        return this;
+    }
+
+    public OptionItemBuilder<O, V> upperBound(int upperBound) {
+        if (this.upperBound != -1) throw new IllegalStateException("Cannot set upperBound twice.");
+        if (upperBound < 1) throw new IllegalArgumentException("upperBound must be greater than zero.");
+        this.upperBound = upperBound;
+        return this;
+    }
+
+    public OptionItemBuilder<O, V> increment(int increment) {
+        if (this.increment != -1) throw new IllegalStateException("Cannot set increment twice.");
+        if (increment < 1) throw new IllegalArgumentException("increment must be greater than zero.");
+        this.increment = increment;
+        return this;
+    }
+
     @SuppressWarnings({"rawtypes", "unchecked"})
     public void build() {
         //TODO Validate - every thing required should be set
@@ -74,11 +107,27 @@ public class OptionItemBuilder<O extends Option, V> {
 
         if (value instanceof Enum def) item = new EnumOptionItem(def, optionHolder, option, content, slot);
         if (value instanceof Boolean def) item = new BooleanOptionItem(def, optionHolder, option, content, slot);
+        if (value instanceof Integer def) {
+            item = new IntegerOptionItem(def, optionHolder, option, content, slot);
+
+            if (lowerBound > upperBound) {
+                int tmp = lowerBound;
+                lowerBound = upperBound;
+                upperBound = tmp;
+            }
+
+            if (lowerBound >= 0) ((IntegerOptionItem) item).setLowerBound(lowerBound);
+            if (upperBound >= 0) ((IntegerOptionItem) item).setUpperBound(upperBound);
+            if (increment > 0) ((IntegerOptionItem) item).setIncrement(increment);
+            if (integerItem != null) ((IntegerOptionItem) item).setIntegerItem(integerItem);
+        }
+
         if (item == null) throw new IllegalStateException("Unexpected value: " + currentValue);
 
         item.setClickCondition(clickCondition);
 
-        valueMap.forEach(item::mapValue);
+        if (!(value instanceof Integer))
+            valueMap.forEach(item::mapValue);
     }
 
     private V currentValue() {

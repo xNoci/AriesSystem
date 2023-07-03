@@ -65,7 +65,7 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
         update();
     }
 
-    private void updateDisplayedItem() {
+    protected void updateDisplayedItem() {
         QuickItemStack item = valueMap.get(this.currentValue);
         if (item == null) {
             item = (QuickItemStack) OPTION_VALUE_NOT_SET.clone();
