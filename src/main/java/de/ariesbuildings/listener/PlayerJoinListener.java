@@ -40,6 +40,10 @@ public class PlayerJoinListener implements Listener {
         }
 
         VanishManager.updatePlayerVisibility();
+
+        //TODO IF NOT FIRST LOGIN TELEPORT TO LAST LOCATION
+        // SETTING IF ALWAYS TELEPORT TO SPAWN WORLD
+        AriesSystem.getInstance().teleportToSpawnWorld(player);
     }
 
 }

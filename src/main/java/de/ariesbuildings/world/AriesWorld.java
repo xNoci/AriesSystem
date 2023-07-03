@@ -98,6 +98,10 @@ public class AriesWorld {
         this.builders.add(uuid);
     }
 
+    public boolean teleport(AriesPlayer player, boolean force) {
+        return teleport(player.getBase(), force);
+    }
+
     public boolean teleport(Player player, boolean force) {
         if (!isLoaded()) {
             if (!force) return false;

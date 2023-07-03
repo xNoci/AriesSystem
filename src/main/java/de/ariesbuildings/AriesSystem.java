@@ -117,10 +117,14 @@ public class AriesSystem extends JavaPlugin {
     private void loadTutorialWorld() {
         if (this.serverData.isTutorialWorldLoaded()) return;
         AriesSystemConfig.debug("Creating tutorial world...");
-        if(!this.worldManager.createWorld("tutorialWorld", CreatorID.TUTORIAL.getUUID(), WorldType.INTERNAL_TUTORIAL)) {
+        if (!this.worldManager.createWorld("tutorialWorld", CreatorID.TUTORIAL.getUUID(), WorldType.INTERNAL_TUTORIAL)) {
             AriesSystemConfig.debug("Failed to create tutorial world.");
         }
         this.serverData.setTutorialWorldLoaded(true);
+    }
+
+    public void teleportToSpawnWorld(AriesPlayer player) {
+        this.serverData.getSpawnWorld().teleport(player, true);
     }
 
 }
