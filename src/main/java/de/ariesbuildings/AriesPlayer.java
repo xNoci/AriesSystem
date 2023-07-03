@@ -48,7 +48,6 @@ public class AriesPlayer {
         if (speed > 10) speed = 10;
         if (speed < 1) speed = 1;
         base.setFlySpeed(DEFAULT_FLY_SPEED * speed);
-
     }
 
     public void updateFlySpeed() {
