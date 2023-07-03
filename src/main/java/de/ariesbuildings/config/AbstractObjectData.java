@@ -84,27 +84,27 @@ public abstract class AbstractObjectData<T> {
     }
 
     @SneakyThrows
-    public <V> Optional<V> nodeValue(ConfigurationNode rootNode, String nodePath, Class<V> type) {
+    protected <V> Optional<V> nodeValue(ConfigurationNode rootNode, String nodePath, Class<V> type) {
         return Optional.ofNullable(rootNode.node(nodePath).get(type));
     }
 
     @SneakyThrows
-    public <V> Optional<V> nodeValue(ConfigurationNode rootNode, String nodePath, TypeToken<V> token) {
+    protected <V> Optional<V> nodeValue(ConfigurationNode rootNode, String nodePath, TypeToken<V> token) {
         return Optional.ofNullable(rootNode.node(nodePath).get(token));
     }
 
     @SneakyThrows
-    public <V> Optional<List<V>> nodeListValue(ConfigurationNode rootNode, String nodePath, Class<V> type) {
+    protected <V> Optional<List<V>> nodeListValue(ConfigurationNode rootNode, String nodePath, Class<V> type) {
         return Optional.ofNullable(rootNode.node(nodePath).getList(type));
     }
 
     @SneakyThrows
-    public void setNodeValue(ConfigurationNode rootNode, String path, Object value) {
+    protected void setNodeValue(ConfigurationNode rootNode, String path, Object value) {
         rootNode.node(path).set(value);
     }
 
     @SneakyThrows
-    public <V> void setNodeValue(ConfigurationNode rootNode, String path, V value, TypeToken<V> token) {
+    protected <V> void setNodeValue(ConfigurationNode rootNode, String path, V value, TypeToken<V> token) {
         rootNode.node(path).set(token, value);
     }
 
