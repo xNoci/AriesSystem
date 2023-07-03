@@ -10,7 +10,7 @@ public class ServerData {
     private final ServerDataSerializer settingsData = new ServerDataSerializer();
 
     @Getter @Setter private boolean tutorialWorldLoaded = false;
-    @Setter private String spawnWorld = "tutorial";
+    @Setter private String spawnWorld = "tutorialWorld";
 
     public AriesWorld getSpawnWorld() {
         var manager = AriesSystem.getInstance().getWorldManager();
