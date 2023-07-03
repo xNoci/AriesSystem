@@ -63,7 +63,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .build();
 
         String abuDisplayname = I18n.translate("gui.world_settings.item.abu.displayname");
-        OptionItemBuilder.of(WorldOption.ANTI_BLOCK_UPDATE, Boolean.class)
+        OptionItemBuilder.of(WorldOption.ANTI_BLOCK_UPDATE, boolean.class)
                 .slot(3, 4)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
@@ -73,7 +73,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .build();
 
         String playerDamageDisplayname = I18n.translate("gui.world_settings.item.player_damage.displayname");
-        OptionItemBuilder.of(WorldOption.PLAYER_DAMAGE, Boolean.class)
+        OptionItemBuilder.of(WorldOption.PLAYER_DAMAGE, boolean.class)
                 .slot(3, 5)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
@@ -83,7 +83,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .build();
 
         String etpDisplayname = I18n.translate("gui.world_settings.item.entity_target_player.displayname");
-        OptionItemBuilder.of(WorldOption.ENTITY_TARGET_PLAYER, Boolean.class)
+        OptionItemBuilder.of(WorldOption.ENTITY_TARGET_PLAYER, boolean.class)
                 .slot(3, 6)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
@@ -93,7 +93,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .build();
 
         String weatherCycleDisplayname = I18n.translate("gui.world_settings.item.weather_cycle.displayname");
-        OptionItemBuilder.of(WorldOption.WEATHER_CYCLE, Boolean.class)
+        OptionItemBuilder.of(WorldOption.WEATHER_CYCLE, boolean.class)
                 .slot(3, 7)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())

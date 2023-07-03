@@ -58,7 +58,7 @@ public class PlayerSettingsGui extends QuickGUIProvider {
                 .build();
 
         String glowOptionDisplayname = I18n.translate("gui.player_settings.item.glow.displayname");
-        OptionItemBuilder.of(PlayerOption.GLOW, Boolean.class)
+        OptionItemBuilder.of(PlayerOption.GLOW, boolean.class)
                 .inventoryContent(content)
                 .slot(4, 4)
                 .optionHolder(player.getOptions())
@@ -67,7 +67,7 @@ public class PlayerSettingsGui extends QuickGUIProvider {
                 .build();
 
         String voidTeleportOptionDisplayname = I18n.translate("gui.player_settings.item.void_tp.displayname");
-        OptionItemBuilder.of(PlayerOption.VOID_DAMAGE_TELEPORT, Boolean.class)
+        OptionItemBuilder.of(PlayerOption.VOID_DAMAGE_TELEPORT, boolean.class)
                 .inventoryContent(content)
                 .slot(4, 6)
                 .optionHolder(player.getOptions())
@@ -77,7 +77,7 @@ public class PlayerSettingsGui extends QuickGUIProvider {
 
 
         String vanishOptionDisplayname = I18n.translate("gui.player_settings.item.vanish.displayname");
-        OptionItemBuilder.of(PlayerOption.VANISH, Boolean.class)
+        OptionItemBuilder.of(PlayerOption.VANISH, boolean.class)
                 .inventoryContent(content)
                 .slot(4, 8)
                 .optionHolder(player.getOptions())
