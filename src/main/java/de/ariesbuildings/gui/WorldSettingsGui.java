@@ -41,6 +41,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .slot(3, 2)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
+                .clickCondition(event -> world.isBuilder(event.getPlayer().getUniqueId()))
                 .mapValue(WorldVisibility.PUBLIC, new QuickItemStack(XMaterial.WRITTEN_BOOK.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.player_settings.item.world_visibility_.lore.public")).addItemFlags())
                 .mapValue(WorldVisibility.PRIVATE, new QuickItemStack(XMaterial.BOOK.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.player_settings.item.world_visibility_.lore.private")).addItemFlags())
                 .mapValue(WorldVisibility.ARCHIVED, new QuickItemStack(XMaterial.BOOKSHELF.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.player_settings.item.world_visibility_.lore.archived")).addItemFlags())
@@ -51,6 +52,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .slot(3, 3)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
+                .clickCondition(event -> world.isBuilder(event.getPlayer().getUniqueId()))
                 .mapValue(true, new QuickItemStack(XMaterial.WATER_BUCKET.parseMaterial(), abuDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
                 .mapValue(false, new QuickItemStack(XMaterial.BUCKET.parseMaterial(), abuDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
                 .build();
@@ -60,6 +62,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .slot(3, 4)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
+                .clickCondition(event -> world.isBuilder(event.getPlayer().getUniqueId()))
                 .mapValue(true, new QuickItemStack(XMaterial.DIAMOND_SWORD.parseMaterial(), playerDamageDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
                 .mapValue(false, new QuickItemStack(XMaterial.WOODEN_SWORD.parseMaterial(), playerDamageDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
                 .build();
@@ -69,6 +72,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .slot(3, 5)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
+                .clickCondition(event -> world.isBuilder(event.getPlayer().getUniqueId()))
                 .mapValue(true, new QuickItemStack(XMaterial.CREEPER_SPAWN_EGG.parseMaterial(), etpDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
                 .mapValue(false, new QuickItemStack(XMaterial.WOLF_SPAWN_EGG.parseMaterial(), etpDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
                 .build();
@@ -78,6 +82,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .slot(3, 6)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
+                .clickCondition(event -> world.isBuilder(event.getPlayer().getUniqueId()))
                 .mapValue(true, new QuickItemStack(XMaterial.LIGHTNING_ROD.or(XMaterial.DAYLIGHT_DETECTOR).parseMaterial(), weatherCycleDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
                 .mapValue(false, new QuickItemStack(XMaterial.COBWEB.parseMaterial(), weatherCycleDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
                 .build();

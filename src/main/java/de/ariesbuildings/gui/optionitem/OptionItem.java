@@ -58,7 +58,7 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
     }
 
     private void slotClickEvent(SlotClickEvent event) {
-        if (clickCondition != null && !clickCondition.shouldExecute()) return;
+        if (clickCondition != null && !clickCondition.shouldExecute(event)) return;
         updateCurrentValue();
         updateDisplayedItem();
         setOption(this.currentValue);
