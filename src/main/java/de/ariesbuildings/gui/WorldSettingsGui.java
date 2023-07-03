@@ -111,7 +111,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_WEATHER_CYCLE))
                 .mapValue(true, new QuickItemStack(XMaterial.LIGHTNING_ROD.or(XMaterial.DAYLIGHT_DETECTOR).parseMaterial(), weatherCycleDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.COBWEB.parseMaterial(), weatherCycleDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.DEAD_BUSH.parseMaterial(), weatherCycleDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
                 .build();
     }
 
