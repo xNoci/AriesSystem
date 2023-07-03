@@ -60,6 +60,17 @@ public abstract class AbstractObjectData<T> {
         save();
     }
 
+    public void serialize(T object) {
+        onSerialize(config(), object);
+        save();
+    }
+
+    public T deserialize(T object) {
+        if (config().virtual()) return object;
+        onDeserialize(config(), object);
+        return object;
+    }
+
     public void serialize(String path, T object) {
         ConfigurationNode node = config().node(path);
 
