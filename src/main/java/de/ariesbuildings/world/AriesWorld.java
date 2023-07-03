@@ -20,6 +20,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.stream.Collectors;
 
 public class AriesWorld {
 
@@ -122,6 +123,13 @@ public class AriesWorld {
         Optional<CreatorID> creatorID = CreatorID.match(worldCreator);
         if (creatorID.isPresent()) return creatorID.get().getCreatorName();
         return AriesSystem.getInstance().getPlayerManager().getPlayerName(worldCreator);
+    }
+
+    public String getBuildersAsString() {
+        if (builders.isEmpty()) return "/";
+        return builders.stream()
+                .map(uuid -> AriesSystem.getInstance().getPlayerManager().getPlayerName(uuid))
+                .collect(Collectors.joining(", "));
     }
 
     public WorldVisibility getVisibility() {

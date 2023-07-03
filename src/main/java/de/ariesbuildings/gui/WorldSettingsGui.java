@@ -37,6 +37,18 @@ public class WorldSettingsGui extends QuickGUIProvider {
         content.fillSlots(GuiItem.empty(), InventoryPattern.box(3, 4));
         if (previousGui != null) content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
         content.setItem(Slot.getSlot(1, 5), InventoryConstants.worldDisplayIcon(world).asGuiItem());
+        content.setItem(Slot.getSlot(2, 5), new QuickItemStack(XMaterial.OAK_SIGN.parseMaterial())
+                .setDisplayName(I18n.translate("gui.world_settings.item.builder_list.displayname"))
+                .setLore(
+                        "",
+                        I18n.translate("gui.world_settings.item.builder_list.lore.creator", world.getCreatorAsString()),
+                        I18n.translate("gui.world_settings.item.builder_list.lore.builders", world.getBuildersAsString()),
+                        "",
+                        I18n.translate("gui.world_settings.item.builder_list.lore.click_to_edit")
+                )
+                .asGuiItem(event -> {
+                    //TODO BUILDER EDIT MENU
+                }));
 
         String visibilityDisplayname = I18n.translate("gui.world_settings.item.world_visibility_.displayname");
         OptionItemBuilder.of(WorldOption.WORLD_VISIBILITY, WorldVisibility.class)
