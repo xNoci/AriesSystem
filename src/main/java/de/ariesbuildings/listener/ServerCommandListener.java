@@ -32,7 +32,7 @@ public class ServerCommandListener implements Listener {
         }
 
         if (abort) return;
-        world.map(w -> w.getOptions().get(WorldOption.ALLOW_COMMAND_BLOCK, Boolean.class))
+        world.map(w -> w.getOptions().isEnabled(WorldOption.ALLOW_COMMAND_BLOCK))
                 .filter(allowCommands -> allowCommands)
                 .ifPresentOrElse(w -> {}, () -> event.setCancelled(true));
     }
