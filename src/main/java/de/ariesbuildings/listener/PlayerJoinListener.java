@@ -27,6 +27,7 @@ public class PlayerJoinListener implements Listener {
     public void handlePlayerJoin(PlayerJoinEvent event) {
         AriesPlayer player = AriesSystem.getInstance().getPlayerManager().getPlayer(event.getPlayer());
 
+        player.updateFlySpeed();
         player.getBase().setPlayerListHeaderFooter(I18n.translate("tab_list.header"), I18n.translate("tab_list.footer"));
 
         player.getBase().setGlowing(player.getOptions().isEnabled(PlayerOption.GLOW));

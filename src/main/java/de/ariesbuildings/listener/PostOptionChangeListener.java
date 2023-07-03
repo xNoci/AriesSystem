@@ -27,6 +27,10 @@ public class PostOptionChangeListener implements Listener {
             }
         }
 
+        if (event.getOption() == PlayerOption.FLY_SPEED) {
+            player.setFlySpeed((int) event.getNewValue());
+        }
+
     }
 
 }

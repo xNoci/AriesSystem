@@ -1,8 +1,6 @@
 package de.ariesbuildings.gui;
 
-import com.cryptomorin.xseries.XItemStack;
 import com.cryptomorin.xseries.XMaterial;
-import com.cryptomorin.xseries.XPotion;
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
@@ -83,6 +81,17 @@ public class PlayerSettingsGui extends QuickGUIProvider {
                 .optionHolder(player.getOptions())
                 .mapValue(true, new QuickItemStack(InventoryConstants.INVISIBLE_POTION).setDisplayName(vanishOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_true")).addItemFlags())
                 .mapValue(false, new QuickItemStack(XMaterial.GLASS_BOTTLE.parseMaterial(), vanishOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_false")).addItemFlags())
+                .build();
+
+        String flySpeedOptionDisplayname = I18n.translate("gui.player_settings.item.fly_speed.displayname");
+        OptionItemBuilder.of(PlayerOption.FLY_SPEED, int.class)
+                .inventoryContent(content)
+                .slot(5, 2)
+                .optionHolder(player.getOptions())
+                .lowerBound(1)
+                .upperBound(10)
+                .increment(1)
+                .integerItem(new QuickItemStack(XMaterial.FEATHER.parseMaterial()).setDisplayName(flySpeedOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_increment_left")))
                 .build();
     }
 
