@@ -7,6 +7,7 @@ import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
+import de.ariesbuildings.world.creator.CreatorID;
 import de.ariesbuildings.world.creator.WorldCreator;
 import lombok.Getter;
 import lombok.Setter;
@@ -17,6 +18,7 @@ import org.bukkit.World;
 import org.bukkit.entity.Player;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.UUID;
 
 public class AriesWorld {
@@ -110,9 +112,11 @@ public class AriesWorld {
 
     public String getCreatorAsString() {
         if (worldCreator == null) {
-            if (type == WorldType.IMPORTED) return "SERVER";
             return "Unknown";
         }
+
+        Optional<CreatorID> creatorID = CreatorID.match(worldCreator);
+        if (creatorID.isPresent()) return creatorID.get().getCreatorName();
         return AriesSystem.getInstance().getPlayerManager().getPlayerName(worldCreator);
     }
 
