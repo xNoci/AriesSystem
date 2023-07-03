@@ -29,6 +29,7 @@ public class AriesSystem extends JavaPlugin {
     @Getter private AriesWorldManager worldManager;
     @Getter private AriesPlayerManager playerManager;
     @Getter private VanishManager vanishManager;
+    @Getter private ServerData serverData;
 
     @Override
     public void onEnable() {
@@ -38,6 +39,8 @@ public class AriesSystem extends JavaPlugin {
         AriesSystemConfig.setPlugin(this);
         AriesSystemConfig.load();
 
+        this.serverData = new ServerData();
+        this.serverData.deserialize();
         this.i18n = new I18n();
         this.worldManager = new AriesWorldManager(this);
         this.playerManager = new AriesPlayerManager();
@@ -47,12 +50,15 @@ public class AriesSystem extends JavaPlugin {
 
         registerListeners();
         registerCommands();
+
+        loadTutorialWorld();
     }
 
     @Override
     public void onDisable() {
         Bukkit.getOnlinePlayers().forEach(player -> player.kickPlayer(I18n.translate("serverRestart")));
 
+        this.serverData.serialize();
         this.worldManager.saveWorlds();
         this.vanishManager.stopTask();
         this.i18n.disable();
