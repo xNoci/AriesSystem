@@ -1,5 +1,7 @@
 package de.ariesbuildings.managers;
 
+import com.google.common.cache.Cache;
+import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableList;
 import com.google.common.collect.Lists;
 import de.ariesbuildings.AriesPlayer;
@@ -13,6 +15,7 @@ import de.ariesbuildings.world.WorldType;
 import de.ariesbuildings.world.WorldVisibility;
 import de.ariesbuildings.world.creator.CreatorID;
 import de.ariesbuildings.world.creator.WorldCreator;
+import lombok.SneakyThrows;
 import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
@@ -24,11 +27,16 @@ import java.io.File;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.concurrent.TimeUnit;
 
 public class AriesWorldManager {
 
     private final AriesWorldsData worldData = new AriesWorldsData();
     private final List<AriesWorld> worlds = Lists.newArrayList();
+    private final Cache<String, AriesWorld> worldCache = CacheBuilder.newBuilder()
+            .expireAfterWrite(10, TimeUnit.MINUTES)
+            .maximumSize(50)
+            .build();
 
     private final JavaPlugin plugin;
 
@@ -163,17 +171,22 @@ public class AriesWorldManager {
         return getWorld(world.getName());
     }
 
+    @SneakyThrows
     public Optional<AriesWorld> getWorld(String worldName) {
-        //TODO CACHE THE WORLDS
-        return worlds.stream()
+        AriesWorld cachedWorld = worldCache.getIfPresent(worldName.toLowerCase());
+        if (cachedWorld != null) return Optional.of(cachedWorld);
+        
+        Optional<AriesWorld> optionalWorld = worlds.stream()
                 .filter(world -> world.getWorldName().equalsIgnoreCase(worldName))
                 .findFirst();
+
+        optionalWorld.ifPresent(world -> worldCache.put(worldName.toLowerCase(), world));
+        return optionalWorld;
     }
 
     public List<AriesWorld> getWorlds() {
         return ImmutableList.copyOf(worlds);
     }
-
 
     public List<AriesWorld> getWorlds(WorldVisibility visibility) {
         List<AriesWorld> copiedWorlds = Lists.newArrayList(worlds);
