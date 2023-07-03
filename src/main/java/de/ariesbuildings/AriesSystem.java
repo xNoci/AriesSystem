@@ -11,6 +11,8 @@ import de.ariesbuildings.listener.worldoptions.WeatherChangeListener;
 import de.ariesbuildings.managers.AriesPlayerManager;
 import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.managers.VanishManager;
+import de.ariesbuildings.world.WorldType;
+import de.ariesbuildings.world.creator.CreatorID;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import me.noci.quickutilities.quickcommand.CommandManager;
@@ -110,6 +112,15 @@ public class AriesSystem extends JavaPlugin {
         Listener toRegister = bukkitListener;
         if (PaperLib.isPaper() && paperListener != null) toRegister = paperListener;
         pluginManager.registerEvents(toRegister, this);
+    }
+
+    private void loadTutorialWorld() {
+        if (this.serverData.isTutorialWorldLoaded()) return;
+        AriesSystemConfig.debug("Creating tutorial world...");
+        if(!this.worldManager.createWorld("tutorialWorld", CreatorID.TUTORIAL.getUUID(), WorldType.INTERNAL_TUTORIAL)) {
+            AriesSystemConfig.debug("Failed to create tutorial world.");
+        }
+        this.serverData.setTutorialWorldLoaded(true);
     }
 
 }
