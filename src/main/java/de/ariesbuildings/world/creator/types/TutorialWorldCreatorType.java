@@ -1,20 +1,17 @@
 package de.ariesbuildings.world.creator.types;
 
 import com.cryptomorin.xseries.XMaterial;
-import de.ariesbuildings.world.AriesWorld;
-import de.ariesbuildings.world.RawLocation;
-import de.ariesbuildings.world.WorldVisibility;
+import de.ariesbuildings.options.WorldOption;
+import de.ariesbuildings.world.*;
 import org.bukkit.Difficulty;
 import org.bukkit.World;
 import org.bukkit.WorldCreator;
 
 public class TutorialWorldCreatorType implements WorldCreatorType {
 
-    private WorldCreatorType template = new VoidWorldCreatorType();
-
     @Override
     public void applyWorldCreator(WorldCreator creator) {
-        template.applyWorldCreator(creator);
+        WorldType.VOID.getCreator().applyWorldCreator(creator);
     }
 
     @Override
@@ -36,6 +33,7 @@ public class TutorialWorldCreatorType implements WorldCreatorType {
     public void applyDefaultSettings(AriesWorld world) {
         world.setWorldSpawn(new RawLocation(0.5, 65, 0.5));
         world.setVisibility(WorldVisibility.ARCHIVED);
+        world.getOptions().set(WorldOption.WORLD_STATUS, WorldStatus.FINISHED);
     }
 
 }

@@ -175,7 +175,7 @@ public class AriesWorldManager {
     public Optional<AriesWorld> getWorld(String worldName) {
         AriesWorld cachedWorld = worldCache.getIfPresent(worldName.toLowerCase());
         if (cachedWorld != null) return Optional.of(cachedWorld);
-        
+
         Optional<AriesWorld> optionalWorld = worlds.stream()
                 .filter(world -> world.getWorldName().equalsIgnoreCase(worldName))
                 .findFirst();

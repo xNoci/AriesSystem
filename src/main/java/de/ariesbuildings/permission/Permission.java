@@ -15,7 +15,8 @@ public class Permission {
     //WORLD OPTIONS
     public static final String WORLD_BYPASS_BUILDER = WORLD_PREFIX + "bypass_builder"; //This allows a player to bypass the builder role to change settings and use world commands
     public static final String WORLD_OPTION_ANTI_BLOCK_UPDATE = WORLD_OPTION_PREFIX + "physics"; //Player can toggle block updates with /abu, /antiblockupdate and /physics or via world menu
-    public static final String WORLD_OPTION_UPDATE_VISIBILITY = WORLD_OPTION_PREFIX + "visibility"; //Player can change visibility via world menu
+    public static final String WORLD_OPTION_VISIBILITY = WORLD_OPTION_PREFIX + "visibility"; //Player can change visibility via world menu
+    public static final String WORLD_OPTION_STATUS = WORLD_OPTION_PREFIX + "status"; //Player can change visibility via world menu
     public static final String WORLD_OPTION_PLAYER_DAMAGE = WORLD_OPTION_PREFIX + "player_damage"; //Player can toggle player damage via world menu
     public static final String WORLD_OPTION_ENTITY_TARGET_PLAYER = WORLD_OPTION_PREFIX + "entity_target_player"; //Player can toggle entity player target via world menu
     public static final String WORLD_OPTION_WEATHER_CYCLE = WORLD_OPTION_PREFIX + "weather_cycle"; //Player can toggle weather cycle via world menu

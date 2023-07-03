@@ -6,6 +6,7 @@ import de.ariesbuildings.gui.optionitem.OptionItemBuilder;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
 import de.ariesbuildings.world.AriesWorld;
+import de.ariesbuildings.world.WorldStatus;
 import de.ariesbuildings.world.WorldVisibility;
 import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.InventoryContent;
@@ -42,15 +43,28 @@ public class WorldSettingsGui extends QuickGUIProvider {
                 .slot(3, 2)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
-                .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_UPDATE_VISIBILITY))
-                .mapValue(WorldVisibility.PUBLIC, new QuickItemStack(XMaterial.WRITTEN_BOOK.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.player_settings.item.world_visibility_.lore.public")).addItemFlags())
-                .mapValue(WorldVisibility.PRIVATE, new QuickItemStack(XMaterial.BOOK.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.player_settings.item.world_visibility_.lore.private")).addItemFlags())
-                .mapValue(WorldVisibility.ARCHIVED, new QuickItemStack(XMaterial.BOOKSHELF.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.player_settings.item.world_visibility_.lore.archived")).addItemFlags())
+                .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_VISIBILITY))
+                .mapValue(WorldVisibility.PUBLIC, new QuickItemStack(XMaterial.WRITTEN_BOOK.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_visibility_.lore.public")).addItemFlags())
+                .mapValue(WorldVisibility.PRIVATE, new QuickItemStack(XMaterial.BOOK.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_visibility_.lore.private")).addItemFlags())
+                .mapValue(WorldVisibility.ARCHIVED, new QuickItemStack(XMaterial.BOOKSHELF.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_visibility_.lore.archived")).addItemFlags())
+                .build();
+
+        String statusDisplayname = I18n.translate("gui.world_settings.item.world_status.displayname");
+        OptionItemBuilder.of(WorldOption.WORLD_STATUS, WorldStatus.class)
+                .slot(3, 3)
+                .inventoryContent(content)
+                .optionHolder(world.getOptions())
+                .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_STATUS))
+                .mapValue(WorldStatus.CREATED, new QuickItemStack(XMaterial.RED_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.created")).addItemFlags())
+                .mapValue(WorldStatus.WAITING, new QuickItemStack(XMaterial.LIGHT_BLUE_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.waiting")).addItemFlags())
+                .mapValue(WorldStatus.WORK_IN_PROGRESS, new QuickItemStack(XMaterial.YELLOW_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.wip")).addItemFlags())
+                .mapValue(WorldStatus.FINISHED, new QuickItemStack(XMaterial.LIME_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.finished")).addItemFlags())
+                .mapValue(WorldStatus.REWORK, new QuickItemStack(XMaterial.PINK_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.rework")).addItemFlags())
                 .build();
 
         String abuDisplayname = I18n.translate("gui.world_settings.item.abu.displayname");
         OptionItemBuilder.of(WorldOption.ANTI_BLOCK_UPDATE, Boolean.class)
-                .slot(3, 3)
+                .slot(3, 4)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE))
@@ -60,7 +74,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
 
         String playerDamageDisplayname = I18n.translate("gui.world_settings.item.player_damage.displayname");
         OptionItemBuilder.of(WorldOption.PLAYER_DAMAGE, Boolean.class)
-                .slot(3, 4)
+                .slot(3, 5)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_PLAYER_DAMAGE))
@@ -70,7 +84,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
 
         String etpDisplayname = I18n.translate("gui.world_settings.item.entity_target_player.displayname");
         OptionItemBuilder.of(WorldOption.ENTITY_TARGET_PLAYER, Boolean.class)
-                .slot(3, 5)
+                .slot(3, 6)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_ENTITY_TARGET_PLAYER))
@@ -80,7 +94,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
 
         String weatherCycleDisplayname = I18n.translate("gui.world_settings.item.weather_cycle.displayname");
         OptionItemBuilder.of(WorldOption.WEATHER_CYCLE, Boolean.class)
-                .slot(3, 6)
+                .slot(3, 7)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_WEATHER_CYCLE))
