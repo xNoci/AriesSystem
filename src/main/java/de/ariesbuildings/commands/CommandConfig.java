@@ -38,7 +38,7 @@ public class CommandConfig extends AriesCommand {
     @DefaultCommand
     @UnknownCommand
     public void unknownCommand(CommandSender sender) {
-        if (sender.hasPermission(Permission.CONFIG_RELOAD) && sender.hasPermission("Permission.CONFIG_DISPLAY")) {
+        if (sender.hasPermission(Permission.CONFIG_RELOAD) && sender.hasPermission(Permission.CONFIG_DISPLAY)) {
             sender.sendMessage(I18n.translate("command.unknown", "config", "<reload/display>"));
             return;
         }
