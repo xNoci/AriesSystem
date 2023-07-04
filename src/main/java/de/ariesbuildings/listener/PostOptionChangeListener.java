@@ -12,29 +12,21 @@ public class PostOptionChangeListener implements Listener {
 
     @EventHandler
     public void handlePostOptionChange(PostOptionChangeEvent event) {
-        AriesPlayer player = event.getPlayer();
-
-        if (event.getOption() == PlayerOption.VANISH) {
-            boolean vanished = (boolean) event.getNewValue();
-
-            VanishManager.sendActionbar();
-            VanishManager.updatePlayerVisibility();
-
-            if (vanished) {
-                Bukkit.broadcastMessage(PlayerQuitListener.getQuitMessage(player));
-            } else {
-                Bukkit.broadcastMessage(PlayerJoinListener.getJoinMessage(player));
+        if (event.getOption() instanceof PlayerOption playerOption) {
+            AriesPlayer player = event.getPlayer();
+            switch (playerOption) {
+                case VANISH -> handleVanish(player, (Boolean) event.getNewValue());
+                case FLY_SPEED -> player.setFlySpeed((int) event.getNewValue());
+                case GLOW -> player.getBase().setGlowing((Boolean) event.getNewValue());
             }
         }
+    }
 
-        if (event.getOption() == PlayerOption.FLY_SPEED) {
-            player.setFlySpeed((int) event.getNewValue());
-        }
-
-        if (event.getOption() == PlayerOption.GLOW) {
-            player.getBase().setGlowing((Boolean) event.getNewValue());
-        }
-
+    private void handleVanish(AriesPlayer player, boolean vanished) {
+        VanishManager.sendActionbar();
+        VanishManager.updatePlayerVisibility();
+        String message = vanished ? PlayerQuitListener.getQuitMessage(player) : PlayerJoinListener.getJoinMessage(player);
+        Bukkit.broadcastMessage(message);
     }
 
 }
