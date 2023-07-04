@@ -20,6 +20,7 @@ import org.bukkit.entity.Player;
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
+import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 public class AriesWorld {
@@ -93,6 +94,14 @@ public class AriesWorld {
     public void broadcast(String message) {
         if (world == null) return;
         world.getPlayers().forEach(player -> player.sendMessage(message));
+    }
+
+    public void broadcast(String message, Predicate<AriesPlayer> filter) {
+        if (world == null) return;
+        world.getPlayers().stream()
+                .map(AriesSystem.getInstance().getPlayerManager()::getPlayer)
+                .filter(filter)
+                .forEach(player -> player.sendMessage(message));
     }
 
     public void addBuilder(UUID uuid) {
