@@ -92,10 +92,10 @@ public class AriesWorldManager {
             }
 
             if (!createWorld(input, player.getUniqueId(), worldType)) {
-                player.sendMessage(I18n.translate("world_creation.failed"));
+                player.sendMessage(I18n.translate("world.creation.failed"));
                 return;
             }
-            player.sendMessage(I18n.translate("world_creation.success"));
+            player.sendMessage(I18n.translate("world.creation.success"));
         }, p -> p.sendMessage(I18n.translate("input.world_create.canceled")));
     }
 

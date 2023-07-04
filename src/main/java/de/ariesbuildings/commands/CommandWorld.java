@@ -102,9 +102,9 @@ public class CommandWorld extends AriesCommand {
                     }
 
                     if (worldManager.createWorld(worldName, creator, worldType)) {
-                        sender.sendMessage(I18n.translate("world_creation.success"));
+                        sender.sendMessage(I18n.translate("world.creation.success"));
                     } else {
-                        sender.sendMessage(I18n.translate("world_creation.failed"));
+                        sender.sendMessage(I18n.translate("world.creation.failed"));
                     }
                 });
     }
