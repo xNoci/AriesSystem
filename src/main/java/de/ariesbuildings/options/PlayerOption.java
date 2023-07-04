@@ -9,7 +9,8 @@ public enum PlayerOption implements Option {
     GLOW("Glow", true, boolean.class),
     VOID_DAMAGE_TELEPORT("Void Damage Teleport", true, boolean.class),
     VANISH("Vanish", false, boolean.class),
-    FLY_SPEED("Fly speed", 1, int.class);
+    FLY_SPEED("Fly speed", 1, int.class),
+    NOTIFY_OPTION_CHANGE("Notify option change", OptionNotify.ALWAYS, OptionNotify.class);
 
     @Getter private final String name;
     @Getter private final Object defaultValue;

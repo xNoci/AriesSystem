@@ -7,6 +7,7 @@ import de.ariesbuildings.I18n;
 import de.ariesbuildings.gui.optionitem.OptionItemBuilder;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
+import de.ariesbuildings.options.OptionNotify;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.QuickGUIProvider;
 import me.noci.quickutilities.inventory.Slot;
@@ -91,8 +92,20 @@ public class PlayerSettingsGui extends QuickGUIProvider {
                 .lowerBound(1)
                 .upperBound(10)
                 .increment(1)
-                .integerItem(new QuickItemStack(XMaterial.FEATHER.parseMaterial()).setDisplayName(flySpeedOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_increment_left")))
+                .integerItem(new QuickItemStack(XMaterial.FEATHER.parseMaterial(), flySpeedOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_increment_left")))
                 .build();
+
+        String optionNotifyDisplayname = I18n.translate("gui.player_settings.item.option_notify.displayname");
+        OptionItemBuilder.of(PlayerOption.NOTIFY_OPTION_CHANGE, OptionNotify.class)
+                .inventoryContent(content)
+                .slot(5, 4)
+                .optionHolder(player.getOptions())
+                .mapValue(OptionNotify.ALWAYS, new QuickItemStack(XMaterial.NETHER_STAR.parseMaterial(), optionNotifyDisplayname).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.always")))
+                .mapValue(OptionNotify.NEVER, new QuickItemStack(XMaterial.IRON_BARS.parseMaterial(), optionNotifyDisplayname).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.never")))
+                .mapValue(OptionNotify.ONLY_PLAYER, new QuickItemStack(XMaterial.ARMOR_STAND.parseMaterial(), optionNotifyDisplayname).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.only_player")))
+                .mapValue(OptionNotify.ONLY_WORLD, new QuickItemStack(XMaterial.GRASS_BLOCK.parseMaterial(), optionNotifyDisplayname).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.only_world")))
+                .build();
+
     }
 
 
