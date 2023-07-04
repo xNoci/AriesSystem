@@ -33,6 +33,11 @@ public class AriesPlayer {
         return RankInfo.getInfo(uuid);
     }
 
+    public void sendMessage(String message) {
+        if (!base.isOnline()) return;
+        base.sendMessage(message);
+    }
+
     public void clearActionBar() {
         if (!base.isOnline()) return;
         ActionBar.clearActionBar(this.base);
