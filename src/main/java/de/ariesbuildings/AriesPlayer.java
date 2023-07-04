@@ -38,6 +38,11 @@ public class AriesPlayer {
         base.sendMessage(message);
     }
 
+    public boolean hasPermission(String permission) {
+        if (!base.isOnline()) return false;
+        return base.hasPermission(permission);
+    }
+
     public void clearActionBar() {
         if (!base.isOnline()) return;
         ActionBar.clearActionBar(this.base);
