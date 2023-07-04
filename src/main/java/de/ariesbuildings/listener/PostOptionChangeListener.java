@@ -31,6 +31,10 @@ public class PostOptionChangeListener implements Listener {
             player.setFlySpeed((int) event.getNewValue());
         }
 
+        if (event.getOption() == PlayerOption.GLOW) {
+            player.getBase().setGlowing((Boolean) event.getNewValue());
+        }
+
     }
 
 }
