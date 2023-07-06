@@ -124,7 +124,7 @@ public class AriesSystem extends JavaPlugin {
     }
 
     public void teleportToSpawnWorld(AriesPlayer player) {
-        this.serverData.getSpawnWorld().teleport(player, true);
+        this.serverData.getSpawnWorld().teleport(player, true, true);
     }
 
 }

@@ -4,6 +4,7 @@ import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Lists;
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
+import de.ariesbuildings.I18n;
 import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
@@ -78,6 +79,10 @@ public class AriesWorld {
         return builders.contains(uuid) || uuid.equals(worldCreator);
     }
 
+    public boolean canJoin(AriesPlayer player) {
+        return isBuilder(player.getUUID()) || player.hasPermission(Permission.WORLD_BYPASS_BUILDER);
+    }
+
     public boolean hasWorldPermission(Player player, String permission) {
         if (player.hasPermission(Permission.WORLD_BYPASS_BUILDER)) return true;
         return isBuilder(player.getUniqueId()) && player.hasPermission(permission);
@@ -108,19 +113,27 @@ public class AriesWorld {
         this.builders.add(uuid);
     }
 
-    public boolean teleport(AriesPlayer player, boolean force) {
-        return teleport(player.getBase(), force);
+    public boolean teleport(Player player, boolean force) {
+        return teleport(AriesSystem.getInstance().getPlayerManager().getPlayer(player), force);
     }
 
-    public boolean teleport(Player player, boolean force) {
+    public boolean teleport(AriesPlayer player, boolean force) {
+        return teleport(player, force, false);
+    }
+
+    public boolean teleport(AriesPlayer player, boolean force, boolean ignoreJoinRestriction) {
+        if (!ignoreJoinRestriction && !canJoin(player)) {
+            player.sendMessage(I18n.translate("world.join.not_allowed"));
+            return false;
+        }
+
         if (!isLoaded()) {
             if (!force) return false;
             load();
         }
 
         Location location = new Location(world, worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ(), worldSpawn.getYaw(), worldSpawn.getPitch());
-        player.teleport(location);
-
+        player.getBase().teleport(location);
         return true;
     }
 

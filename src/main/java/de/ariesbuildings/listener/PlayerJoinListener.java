@@ -44,6 +44,7 @@ public class PlayerJoinListener implements Listener {
 
         //TODO IF NOT FIRST LOGIN TELEPORT TO LAST LOCATION
         // SETTING IF ALWAYS TELEPORT TO SPAWN WORLD
+        // check if player is allowed in his last world
         AriesSystem.getInstance().teleportToSpawnWorld(player);
     }
 
