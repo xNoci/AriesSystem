@@ -1,20 +1,17 @@
 package de.ariesbuildings.hooks;
 
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
+public class WorldEditHook extends PluginHook {
 
-public class WorldEditHook {
-
-    private static Plugin plugin;
-    private static boolean checktPlugin = false;
+    protected WorldEditHook() {
+        super("WorldEdit");
+    }
 
     public static boolean isEnabled() {
-        if (!checktPlugin) {
-            checktPlugin = true;
-            plugin = Bukkit.getPluginManager().getPlugin("WorldEdit");
-        }
-        if (plugin == null) return false;
-        return plugin.isEnabled();
+        return Singleton.HOOK.enabled();
+    }
+
+    private static class Singleton {
+        private static final WorldEditHook HOOK = new WorldEditHook();
     }
 
 }

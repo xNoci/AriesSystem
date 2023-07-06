@@ -6,26 +6,20 @@ import net.luckperms.api.event.EventBus;
 import net.luckperms.api.event.LuckPermsEvent;
 import net.luckperms.api.model.group.Group;
 import net.luckperms.api.model.user.User;
-import org.bukkit.Bukkit;
-import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.util.*;
 import java.util.function.Consumer;
 import java.util.stream.Collectors;
 
-public class LuckPermsHook {
+public class LuckPermsHook extends PluginHook {
 
-    private static Plugin plugin;
-    private static boolean checktPlugin = false;
+    protected LuckPermsHook() {
+        super("LuckPerms");
+    }
 
     public static boolean isEnabled() {
-        if (!checktPlugin) {
-            checktPlugin = true;
-            plugin = Bukkit.getPluginManager().getPlugin("LuckPerms");
-        }
-        if (plugin == null) return false;
-        return plugin.isEnabled();
+        return Singleton.HOOK.enabled();
     }
 
     public static <T extends LuckPermsEvent> void subscribe(JavaPlugin plugin, Class<T> eventClass, Consumer<? super T> handler) {
@@ -59,6 +53,10 @@ public class LuckPermsHook {
 
             return weightOne.compareTo(weightTwo);
         }).collect(Collectors.toCollection(ArrayList::new));
+    }
+
+    private static class Singleton {
+        private static final LuckPermsHook HOOK = new LuckPermsHook();
     }
 
 }
