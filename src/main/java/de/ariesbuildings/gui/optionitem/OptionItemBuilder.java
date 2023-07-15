@@ -15,20 +15,20 @@ public class OptionItemBuilder<O extends Option, V> {
         return new OptionItemBuilder<>(option, valueType);
     }
 
-    private final HashMap<V, QuickItemStack> valueMap = Maps.newHashMap();
-    private final O option;
-    private final Class<V> valueType;
+    protected final HashMap<V, QuickItemStack> valueMap = Maps.newHashMap();
+    protected final O option;
+    protected final Class<V> valueType;
     private V currentValue;
-    private InventoryContent content;
-    private OptionHolder<O> optionHolder;
-    private int slot = -1;
-    private ClickCondition clickCondition;
+    protected InventoryContent content;
+    protected OptionHolder<O> optionHolder;
+    protected int slot = -1;
+    protected ClickCondition clickCondition;
 
     //Integer option
-    private QuickItemStack integerItem = null;
-    private int lowerBound = -1;
-    private int upperBound = -1;
-    private int increment = -1;
+    protected QuickItemStack integerItem = null;
+    protected int lowerBound = -1;
+    protected int upperBound = -1;
+    protected int increment = -1;
 
     private OptionItemBuilder(O option, Class<V> valueType) {
         this.option = option;
@@ -99,38 +99,14 @@ public class OptionItemBuilder<O extends Option, V> {
         return this;
     }
 
-    @SuppressWarnings({"rawtypes", "unchecked"})
     public void build() {
-        //TODO Validate - every thing required should be set
-        OptionItem item = null;
         V value = currentValue();
-
-        if (value instanceof Enum def) item = new EnumOptionItem(def, optionHolder, option, content, slot);
-        if (value instanceof Boolean def) item = new BooleanOptionItem(def, optionHolder, option, content, slot);
-        if (value instanceof Integer def) {
-            item = new IntegerOptionItem(def, optionHolder, option, content, slot);
-
-            if (lowerBound > upperBound) {
-                int tmp = lowerBound;
-                lowerBound = upperBound;
-                upperBound = tmp;
-            }
-
-            if (lowerBound >= 0) ((IntegerOptionItem) item).setLowerBound(lowerBound);
-            if (upperBound >= 0) ((IntegerOptionItem) item).setUpperBound(upperBound);
-            if (increment > 0) ((IntegerOptionItem) item).setIncrement(increment);
-            if (integerItem != null) ((IntegerOptionItem) item).setIntegerItem(integerItem);
-        }
-
-        if (item == null) throw new IllegalStateException("Unexpected value: " + currentValue);
-
-        item.setClickCondition(clickCondition);
-
-        if (!(value instanceof Integer))
-            valueMap.forEach(item::mapValue);
+        if(value instanceof Boolean) BooleanOptionItem.FACTORY.build((OptionItemBuilder<O, Boolean>) this);
+        if(value instanceof Integer) IntegerOptionItem.FACTORY.build((OptionItemBuilder<O, Integer>)this);
+        if(value instanceof Enum) EnumOptionItem.FACTORY.build(this);
     }
 
-    private V currentValue() {
+    protected V currentValue() {
         if (currentValue != null) return currentValue;
         return optionHolder.get(option, valueType);
     }

@@ -9,6 +9,8 @@ import me.noci.quickutilities.utils.QuickItemStack;
 
 public class IntegerOptionItem<OptionType extends Option> extends OptionItem<OptionType, Integer> {
 
+    public static final Factory FACTORY = new Factory();
+
     private QuickItemStack integerItem;
     @Setter private int lowerBound = 0;
     @Setter private int upperBound = 100;
@@ -41,4 +43,24 @@ public class IntegerOptionItem<OptionType extends Option> extends OptionItem<Opt
         this.integerItem = integerItem;
         updateDisplayedItem();
     }
+
+    public static class Factory implements OptionItem.Factory<Integer> {
+        @Override
+        public <O extends Option> void build(OptionItemBuilder<O, Integer> builder) {
+            IntegerOptionItem<O> item = new IntegerOptionItem(builder.currentValue(), builder.optionHolder, builder.option, builder.content, builder.slot);
+
+            if (builder.lowerBound > builder.upperBound) {
+                int tmp = builder.lowerBound;
+                builder.lowerBound = builder.upperBound;
+                builder.upperBound = tmp;
+            }
+
+            if (builder.lowerBound >= 0) item.setLowerBound(builder.lowerBound);
+            if (builder.upperBound >= 0) item.setUpperBound(builder.upperBound);
+            if (builder.increment > 0) item.setIncrement(builder.increment);
+            if (builder.integerItem != null) item.setIntegerItem(builder.integerItem);
+            item.setClickCondition(builder.clickCondition);
+        }
+    }
+
 }

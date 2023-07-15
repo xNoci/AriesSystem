@@ -74,4 +74,8 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
         setItem(item);
     }
 
+    public interface Factory<T> {
+        <O extends Option> void build(OptionItemBuilder<O, T> builder);
+    }
+
 }
