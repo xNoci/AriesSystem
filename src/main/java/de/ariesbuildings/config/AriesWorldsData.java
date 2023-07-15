@@ -2,13 +2,9 @@ package de.ariesbuildings.config;
 
 import com.cryptomorin.xseries.XMaterial;
 import de.ariesbuildings.config.serializers.AriesSerializers;
-import de.ariesbuildings.options.OptionMap;
-import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.RawLocation;
 import de.ariesbuildings.world.WorldType;
-import de.ariesbuildings.world.WorldVisibility;
-import lombok.SneakyThrows;
 import org.spongepowered.configurate.ConfigurationNode;
 
 import java.util.ArrayList;
@@ -32,7 +28,7 @@ public class AriesWorldsData extends AbstractObjectData<AriesWorld> {
 
     @Override
     void onSerialize(ConfigurationNode node, AriesWorld world) {
-        setNodeValue(node, "creator", world.getWorldCreator());
+        setNodeValue(node, "creator", world.getWorldCreator().get());
         setNodeValue(node, "worldType", world.getType());
         setNodeValue(node, "builders", world.getBuilders(), AriesSerializers.Type.UUID_LIST);
         setNodeValue(node, "creationTime", world.getCreationTime());

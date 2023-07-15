@@ -29,7 +29,7 @@ public class AriesWorld {
     @Getter private final OptionHolder<WorldOption> options;
 
     @Getter private final String worldName;
-    @Getter @Setter private UUID worldCreator;
+    @Setter private UUID worldCreator;
     @Getter @Setter private long creationTime;
     @Getter @Setter private XMaterial displayIcon;
     @Getter @Setter private RawLocation worldSpawn = new RawLocation(0, 100, 0);
@@ -82,6 +82,11 @@ public class AriesWorld {
     public boolean isCreator(UUID uuid) {
         return uuid.equals(worldCreator);
     }
+
+    public Optional<UUID> getWorldCreator() {
+        return Optional.ofNullable(this.worldCreator);
+    }
+
     public boolean canJoin(AriesPlayer player) {
         return isBuilder(player.getUUID()) || player.hasPermission(Permission.WORLD_BYPASS_BUILDER);
     }
