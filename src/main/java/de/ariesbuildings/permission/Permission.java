@@ -37,7 +37,8 @@ public class Permission {
     public static final String CONFIG_DISPLAY = CONFIG_PREFIX + "display"; //Allows the player to display the config with /config display or /cfg display
 
     //OTHER
-    public static final String CHAT_USE_COLOR = PERMISSION_PREFIX + "chatcolor"; //Player can write colored text in chat
+    public static final String CHAT_USE_COLOR = PERMISSION_PREFIX + "chat.color"; //Player can write colored text in chat
+    public static final String CHAT_PING_PLAYER = PERMISSION_PREFIX + "chat.ping"; //Player can write colored text in chat
 
     //OWNER PERMISSION
     private static final String OWNR_PERM = PERMISSION_PREFIX + ".owner.";
