@@ -12,7 +12,7 @@ public class Permission {
     public static final String COMMAND_GAMEMODE = PERMISSION_PREFIX + "gamemode"; //Player can use /gamemode <type> and /gm <type>
     public static final String COMMAND_GAMEMODE_OTHER = PERMISSION_PREFIX + "gamemode.other"; //Player can use /gamemode <type> [Player] and /gm <type> [Player]
 
-    //WORLD OPTIONS
+    //WORLD
     public static final String WORLD_BYPASS_BUILDER = WORLD_PREFIX + "bypass_builder"; //This allows a player to bypass the builder role to change settings and use world commands
     public static final String WORLD_OPTION_ANTI_BLOCK_UPDATE = WORLD_OPTION_PREFIX + "physics"; //Player can toggle block updates with /abu, /antiblockupdate and /physics or via world menu
     public static final String WORLD_OPTION_VISIBILITY = WORLD_OPTION_PREFIX + "visibility"; //Player can change visibility via world menu
@@ -21,9 +21,9 @@ public class Permission {
     public static final String WORLD_OPTION_ENTITY_TARGET_PLAYER = WORLD_OPTION_PREFIX + "entity_target_player"; //Player can toggle entity player target via world menu
     public static final String WORLD_OPTION_WEATHER_CYCLE = WORLD_OPTION_PREFIX + "weather_cycle"; //Player can toggle weather cycle via world menu
 
-    public static final String WORLD_IMPORT = PERMISSION_PREFIX + "import";
-    public static final String WORLD_UNIMPORT = PERMISSION_PREFIX + "unimport";
-    public static final String WORLD_CREATE = PERMISSION_PREFIX + "create";
+    public static final String WORLD_IMPORT = WORLD_PREFIX + "import";
+    public static final String WORLD_UNIMPORT = WORLD_PREFIX + "unimport";
+    public static final String WORLD_CREATE = WORLD_PREFIX + "create";
 
     public static final String WORLD_TP = WORLD_PREFIX + "tp";
 
