@@ -47,7 +47,7 @@ public class WorldSettingsGui extends QuickGUIProvider {
                         I18n.translate("gui.world_settings.item.builder_list.lore.click_to_edit")
                 )
                 .asGuiItem(event -> {
-                    //TODO BUILDER EDIT MENU
+                    new EditBuilderGui(world, this).provide(event.getPlayer());
                 }));
 
         String visibilityDisplayname = I18n.translate("gui.world_settings.item.world_visibility_.displayname");

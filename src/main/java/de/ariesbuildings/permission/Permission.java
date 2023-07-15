@@ -24,6 +24,7 @@ public class Permission {
     public static final String WORLD_IMPORT = WORLD_PREFIX + "import";
     public static final String WORLD_UNIMPORT = WORLD_PREFIX + "unimport";
     public static final String WORLD_CREATE = WORLD_PREFIX + "create";
+    public static final String WORLD_ADD_BUILD = WORLD_PREFIX + "add_builder";
 
     public static final String WORLD_TP = WORLD_PREFIX + "tp";
 
