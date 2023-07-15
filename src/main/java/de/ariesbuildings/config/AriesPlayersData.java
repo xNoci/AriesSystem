@@ -2,8 +2,6 @@ package de.ariesbuildings.config;
 
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.config.serializers.AriesSerializers;
-import de.ariesbuildings.options.OptionMap;
-import de.ariesbuildings.options.PlayerOption;
 import lombok.SneakyThrows;
 import org.spongepowered.configurate.ConfigurationNode;
 
@@ -18,6 +16,17 @@ public class AriesPlayersData extends AbstractObjectData<AriesPlayer> {
 
     public Optional<String> getName(UUID uuid) {
         return nodeValue(config().node(uuid.toString()), "name", String.class);
+    }
+
+    @SneakyThrows
+    public Optional<UUID> getUUID(String name) {
+        return config().childrenMap().entrySet().stream()
+                .filter(entry -> {
+                    var nameNode = entry.getValue().childrenMap().get("name");
+                    return !nameNode.virtual() && name.equalsIgnoreCase(nameNode.getString());
+                })
+                .map(entry -> UUID.fromString((String) entry.getKey()))
+                .findFirst();
     }
 
     @Override

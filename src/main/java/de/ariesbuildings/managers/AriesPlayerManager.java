@@ -62,4 +62,8 @@ public class AriesPlayerManager {
         return nameCache.get(uuid, () -> playerData.getName(uuid).orElse(String.format("Unknown %s", uuid)));
     }
 
+    public Optional<UUID> getPlayerUUID(String name) {
+        return playerData.getUUID(name);
+    }
+
 }
