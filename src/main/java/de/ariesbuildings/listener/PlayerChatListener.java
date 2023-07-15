@@ -24,7 +24,7 @@ import java.util.regex.Pattern;
 
 public class PlayerChatListener implements Listener {
 
-    private static final Pattern PING_PATTERN = Pattern.compile("(?<=\\s|^|\\W)(@)(?<name>[a-zA-Z0-9_]{2,16})\\b"); // Match @Username or ##@Username
+    private static final Pattern PING_PATTERN = Pattern.compile("(?<=\\s|^|\\W)(@)(?<name>[a-zA-Z0-9_]{2,16})\\b"); // Match @Username
 
     private static final String CHAT_FORMAT = "§8(§7" + ChatFormat.CURRENT_ARIES_WORLD + "§8) " + ChatFormat.RANK_COLOR + ChatFormat.RANK_DISPLAYNAME + " §8| " + ChatFormat.RANK_COLOR + FormatKey.PLAYER_NAME + "§8: §f" + FormatKey.MESSAGE;
 

@@ -6,6 +6,7 @@ import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
 import lombok.Getter;
+import me.noci.quickutilities.utils.MathUtils;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -56,8 +57,7 @@ public class AriesPlayer {
 
     public void setFlySpeed(int speed) {
         if (!base.isOnline()) return;
-        if (speed > 10) speed = 10;
-        if (speed < 1) speed = 1;
+        speed = MathUtils.clamp(1, 10, speed);
         base.setFlySpeed(DEFAULT_FLY_SPEED * speed);
     }
 

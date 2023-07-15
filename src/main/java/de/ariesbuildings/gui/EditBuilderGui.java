@@ -86,7 +86,7 @@ public class EditBuilderGui extends PagedQuickGUIProvider {
     private GuiItem builder(Player viewer, UUID uuid, boolean creator) {
         String name = AriesSystem.getInstance().getPlayerManager().getPlayerName(uuid);
         RankInfo rankInfo = RankInfo.getInfo(uuid);
-        
+
         QuickItemStack playerHead = SkullItem.getPlayerSkull(name);
         playerHead.addItemFlags();
         playerHead.setDisplayName(I18n.translate("gui.edit_builder.player.displayname", name));
