@@ -3,6 +3,7 @@ package de.ariesbuildings.listener;
 import com.cryptomorin.xseries.XSound;
 import com.google.common.collect.Lists;
 import de.ariesbuildings.AriesSystem;
+import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.Permission;
 import de.ariesbuildings.permission.RankInfo;
 import de.ariesbuildings.utils.ChatFormat;
@@ -59,13 +60,15 @@ public class PlayerChatListener implements Listener {
                 tags.add(matcher.group("name"));
             }
         }
-        
+
         String result = message;
-        Bukkit.getOnlinePlayers().forEach(all -> {
+        AriesSystem.getInstance().getPlayerManager().getPlayers().forEach(all -> {
             for (String tag : tags) {
-                if (all.getName().equalsIgnoreCase(tag) && !all.getUniqueId().equals(player.getUniqueId())) {
+                if (all.getName().equalsIgnoreCase(tag) && !all.getUUID().equals(player.getUniqueId())) {
                     all.sendMessage(replacePing(result, tag));
-                    all.playSound(all.getLocation(), XSound.BLOCK_NOTE_BLOCK_PLING.parseSound(), 1, 1);
+                    if (all.getOptions().isEnabled(PlayerOption.PLAY_PING_SOUND)) {
+                        all.playSound(XSound.BLOCK_NOTE_BLOCK_PLING, 1, 1);
+                    }
                     return;
                 }
             }

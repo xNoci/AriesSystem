@@ -10,7 +10,8 @@ public enum PlayerOption implements Option {
     VOID_DAMAGE_TELEPORT("Void Damage Teleport", true, boolean.class),
     VANISH("Vanish", false, boolean.class),
     FLY_SPEED("Fly speed", 1, int.class),
-    NOTIFY_OPTION_CHANGE("Notify option change", OptionNotify.ALWAYS, OptionNotify.class);
+    NOTIFY_OPTION_CHANGE("Notify option change", OptionNotify.ALWAYS, OptionNotify.class),
+    PLAY_PING_SOUND("Ping sound", true, boolean.class);
 
     @Getter private final String name;
     @Getter private final Object defaultValue;

@@ -5,9 +5,9 @@ import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.gui.optionitem.OptionItemBuilder;
+import de.ariesbuildings.options.OptionNotify;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
-import de.ariesbuildings.options.OptionNotify;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.QuickGUIProvider;
 import me.noci.quickutilities.inventory.Slot;
@@ -105,6 +105,16 @@ public class PlayerSettingsGui extends QuickGUIProvider {
                 .mapValue(OptionNotify.ONLY_PLAYER, new QuickItemStack(XMaterial.ARMOR_STAND.parseMaterial(), optionNotifyDisplayname).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.only_player")))
                 .mapValue(OptionNotify.ONLY_WORLD, new QuickItemStack(XMaterial.GRASS_BLOCK.parseMaterial(), optionNotifyDisplayname).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.only_world")))
                 .build();
+
+        String pingSoundDisplayname = I18n.translate("gui.player_settings.item.ping_sound.displayname");
+        OptionItemBuilder.of(PlayerOption.PLAY_PING_SOUND, boolean.class)
+                .inventoryContent(content)
+                .slot(5, 6)
+                .optionHolder(player.getOptions())
+                .mapValue(true, new QuickItemStack(XMaterial.BELL.or(XMaterial.JUKEBOX).parseMaterial()).setDisplayName(pingSoundDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_true")).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.GRAY_CARPET.parseMaterial(), pingSoundDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_false")).addItemFlags())
+                .build();
+
 
     }
 

@@ -1,5 +1,6 @@
 package de.ariesbuildings;
 
+import com.cryptomorin.xseries.XSound;
 import com.cryptomorin.xseries.messages.ActionBar;
 import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.PlayerOption;
@@ -58,6 +59,11 @@ public class AriesPlayer {
         if (speed > 10) speed = 10;
         if (speed < 1) speed = 1;
         base.setFlySpeed(DEFAULT_FLY_SPEED * speed);
+    }
+
+    public void playSound(XSound sound, float volume, float pitch) {
+        if (!base.isOnline()) return;
+        base.playSound(base.getLocation(), sound.parseSound(), volume, pitch);
     }
 
     public void updateFlySpeed() {
