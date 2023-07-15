@@ -79,6 +79,9 @@ public class AriesWorld {
         return builders.contains(uuid) || uuid.equals(worldCreator);
     }
 
+    public boolean isCreator(UUID uuid) {
+        return uuid.equals(worldCreator);
+    }
     public boolean canJoin(AriesPlayer player) {
         return isBuilder(player.getUUID()) || player.hasPermission(Permission.WORLD_BYPASS_BUILDER);
     }
