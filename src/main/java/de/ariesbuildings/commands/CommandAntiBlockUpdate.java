@@ -1,10 +1,14 @@
 package de.ariesbuildings.commands;
 
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
-import me.noci.quickutilities.quickcommand.annotations.*;
+import me.noci.quickutilities.quickcommand.annotation.Command;
+import me.noci.quickutilities.quickcommand.annotation.CommandPermission;
+import me.noci.quickutilities.quickcommand.annotation.FallbackCommand;
+import me.noci.quickutilities.quickcommand.annotation.SubCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -12,12 +16,10 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CommandAntiBlockUpdate extends AriesCommand {
 
     public CommandAntiBlockUpdate(JavaPlugin plugin) {
-        super(plugin, "antiblockupdate", "abu", "physics");
-        setDescription("Toggles block updates in a world");
+        super(plugin, "antiblockupdate", "Toggles block updates in a world", "physics", "abu");
     }
 
-    @DefaultCommand
-    @CommandArgs(0)
+    @Command
     @CommandPermission(Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)
     private void onUsage(Player player) {
         AriesSystem.getInstance().getWorldManager()
@@ -35,8 +37,7 @@ public class CommandAntiBlockUpdate extends AriesCommand {
                 });
     }
 
-    @Subcommand("current")
-    @CommandArgs(0)
+    @SubCommand(path = "current")
     private void onCheckCurrent(Player player) {
         AriesSystem.getInstance().getWorldManager()
                 .getWorld(player.getWorld())
@@ -48,13 +49,13 @@ public class CommandAntiBlockUpdate extends AriesCommand {
                 });
     }
 
-    @UnknownCommand
+    @FallbackCommand
     private void notForConsole(CommandSender sender) {
         sender.sendMessage(I18n.translate("command.only_for_player"));
     }
 
-    @UnknownCommand
-    private void onUnknown(Player player) {
+    @FallbackCommand
+    private void onUnknown(AriesPlayer player) {
         if (!player.hasPermission(Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)) {
             player.sendMessage(I18n.noPermission());
             return;

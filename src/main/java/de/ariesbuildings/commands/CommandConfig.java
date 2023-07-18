@@ -5,27 +5,27 @@ import de.ariesbuildings.config.AbstractConfig;
 import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.config.ConfigEntryValue;
 import de.ariesbuildings.permission.Permission;
-import me.noci.quickutilities.quickcommand.annotations.*;
-import org.apache.commons.lang3.tuple.Triple;
+import me.noci.quickutilities.quickcommand.annotation.Command;
+import me.noci.quickutilities.quickcommand.annotation.CommandPermission;
+import me.noci.quickutilities.quickcommand.annotation.FallbackCommand;
+import me.noci.quickutilities.quickcommand.annotation.SubCommand;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CommandConfig extends AriesCommand {
 
     public CommandConfig(JavaPlugin plugin) {
-        super(plugin, "config", "cfg");
+        super(plugin, "config", "", "", "cfg");
     }
 
-    @Subcommand("reload")
-    @CommandArgs(0)
+    @SubCommand(path = "reload")
     @CommandPermission(Permission.CONFIG_RELOAD)
     public void reloadConfig(CommandSender sender) {
         AriesSystemConfig.load();
         sender.sendMessage(I18n.translate("command.config.reload_successfully"));
     }
 
-    @Subcommand("display")
-    @CommandArgs(0)
+    @SubCommand(path = "display")
     @CommandPermission(Permission.CONFIG_DISPLAY)
     public void displayConfig(CommandSender sender) {
         sender.sendMessage(I18n.translate("command.config.display_title"));
@@ -35,8 +35,8 @@ public class CommandConfig extends AriesCommand {
         }
     }
 
-    @DefaultCommand
-    @UnknownCommand
+    @Command
+    @FallbackCommand
     public void unknownCommand(CommandSender sender) {
         if (sender.hasPermission(Permission.CONFIG_RELOAD) && sender.hasPermission(Permission.CONFIG_DISPLAY)) {
             sender.sendMessage(I18n.translate("command.unknown", "config", "<reload/display>"));

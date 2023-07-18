@@ -15,7 +15,8 @@ import de.ariesbuildings.world.WorldType;
 import de.ariesbuildings.world.creator.CreatorID;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
-import me.noci.quickutilities.quickcommand.CommandManager;
+import me.noci.quickutilities.quickcommand.CommandRegister;
+import me.noci.quickutilities.quickcommand.mappings.CommandMapping;
 import me.noci.quickutilities.utils.ServerProperties;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
@@ -67,12 +68,15 @@ public class AriesSystem extends JavaPlugin {
     }
 
     private void registerCommands() {
-        CommandManager.register(new CommandGamemode(this));
-        CommandManager.register(new CommandAntiBlockUpdate(this));
-        CommandManager.register(new CommandVanish(this));
-        CommandManager.register(new CommandConfig(this));
-        CommandManager.register(new CommandWorld(this, this.worldManager));
-        CommandManager.register(new CommandMenu(this));
+        CommandMapping.registerPlayerMapping(AriesPlayer.class, player -> playerManager.getPlayer(player));
+        CommandMapping.registerArgumentMapping(AriesPlayer.class, argument -> playerManager.getPlayer(argument));
+
+        CommandRegister.register(new CommandGamemode(this));
+        CommandRegister.register(new CommandAntiBlockUpdate(this));
+        CommandRegister.register(new CommandVanish(this));
+        CommandRegister.register(new CommandConfig(this));
+        CommandRegister.register(new CommandWorld(this, this.worldManager));
+        CommandRegister.register(new CommandMenu(this));
     }
 
     private void registerListeners() {

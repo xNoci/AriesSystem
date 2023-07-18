@@ -34,6 +34,12 @@ public class AriesPlayerManager {
         return createPlayer(player);
     }
 
+    public AriesPlayer getPlayer(String name) {
+        Player player = Bukkit.getPlayer(name);
+        if (player == null) return new AriesPlayer(name);
+        return getPlayer(player);
+    }
+
     public void removePlayer(UUID uuid) {
         if (!playerMap.containsKey(uuid)) return;
         AriesPlayer player = playerMap.get(uuid);

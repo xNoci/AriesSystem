@@ -21,10 +21,20 @@ public class AriesPlayer {
     @Getter private final String name;
     private final UUID uuid;
 
+    public AriesPlayer(String name) {
+        this.name = name;
+        this.base = null;
+        this.uuid = null;
+    }
+
     public AriesPlayer(Player player) {
         this.base = player;
         this.name = player.getName();
         this.uuid = player.getUniqueId();
+    }
+
+    public boolean isValid() {
+        return base != null && uuid != null && base.isOnline();
     }
 
     public UUID getUUID() {
