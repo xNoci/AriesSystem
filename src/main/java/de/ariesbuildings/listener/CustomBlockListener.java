@@ -1,5 +1,6 @@
 package de.ariesbuildings.listener;
 
+import com.cryptomorin.xseries.XBlock;
 import com.cryptomorin.xseries.XMaterial;
 import de.ariesbuildings.utils.CustomBlock;
 import me.noci.quickutilities.utils.DirectionUtils;
@@ -113,17 +114,9 @@ public class CustomBlockListener implements Listener {
     }
 
     private void rotate(Player player, Block block, boolean allowUpDown) {
-        BlockData blockData = block.getBlockData();
         BlockFace facing = DirectionUtils.getBlockDirection(player, allowUpDown);
-        if (blockData instanceof Directional directional) {
-            directional.setFacing(facing);
-        }
-
-        if (blockData instanceof Rotatable rotatable) {
-            rotatable.setRotation(facing);
-        }
-
-        block.setBlockData(blockData);
+        XBlock.setRotation(block, facing);
+        XBlock.setDirection(block, facing);
     }
 
 }
