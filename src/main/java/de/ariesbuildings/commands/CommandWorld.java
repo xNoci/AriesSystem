@@ -44,8 +44,6 @@ public class CommandWorld extends AriesCommand {
     @SubCommand(path = "import")
     @CommandPermission(Permission.WORLD_IMPORT)
     public void importWorld(CommandSender sender, String worldName) {
-        worldName = worldName.split(" ")[0]; //TODO REMOVE WITH NEXT QUICK UTILS UPDATE
-
         WorldImportResult result = worldManager.importWorld(worldName);
 
         if (result == WorldImportResult.SUCCESS) {
@@ -59,8 +57,6 @@ public class CommandWorld extends AriesCommand {
     @SubCommand(path = "unimport")
     @CommandPermission(Permission.WORLD_UNIMPORT)
     public void unimportWorld(CommandSender sender, String worldName) {
-        worldName = worldName.split(" ")[0]; //TODO REMOVE WITH NEXT QUICK UTILS UPDATE
-
         WorldImportResult result = worldManager.unimportWorld(worldName);
 
         if (result == WorldImportResult.SUCCESS) {
@@ -92,8 +88,6 @@ public class CommandWorld extends AriesCommand {
     @SubCommand(path = "create")
     @CommandPermission(Permission.WORLD_CREATE)
     public void createWorld(CommandSender sender, @IgnoreStrictEnum WorldType worldType, String worldName) {
-        worldName = worldName.split(" ")[0]; //TODO REMOVE WITH NEXT QUICK UTILS UPDATE
-
         if(worldType == null) {
             String validTypes = String.join(", ", WorldType.publicTypes().stream().map(Enum::name).toList());
             sender.sendMessage(I18n.translate("command.world.world_parse_invalid.type", validTypes));
@@ -122,14 +116,11 @@ public class CommandWorld extends AriesCommand {
     @SubCommand(path = "tp")
     @CommandPermission(Permission.WORLD_TP)
     public void teleport(Player player, String worldName) {
-        worldName = worldName.split(" ")[0]; //TODO REMOVE WITH NEXT QUICK UTILS UPDATE
-        String tempName = worldName;               //TODO THIS ALSO
-
         worldManager.getWorld(worldName)
                 .ifPresentOrElse(world -> {
                     world.teleport(player, true);
                 }, () -> {
-                    player.sendMessage(I18n.translate("world.not_found.world_name", tempName));
+                    player.sendMessage(I18n.translate("world.not_found.world_name", worldName));
                 });
     }
 
