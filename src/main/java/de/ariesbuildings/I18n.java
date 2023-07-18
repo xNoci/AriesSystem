@@ -1,5 +1,6 @@
 package de.ariesbuildings;
 
+import me.noci.quickutilities.utils.Require;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.MessageFormat;
@@ -14,7 +15,7 @@ public class I18n {
     private final ResourceBundle defaultBundle;
 
     public I18n() {
-        if(instance != null) throw new IllegalStateException("Cannot create a second instance of I18n.");
+        Require.checkState(() -> instance == null, "Cannot create a second instance of I18n.");
         instance = this;
         defaultBundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.ENGLISH);
     }

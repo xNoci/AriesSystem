@@ -6,6 +6,7 @@ import de.ariesbuildings.options.OptionHolder;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.Slot;
 import me.noci.quickutilities.utils.QuickItemStack;
+import me.noci.quickutilities.utils.Require;
 
 import java.util.HashMap;
 
@@ -36,74 +37,73 @@ public class OptionItemBuilder<O extends Option, V> {
     }
 
     public OptionItemBuilder<O, V> currentValue(V currentValue) {
-        if (this.currentValue != null) throw new IllegalStateException("Cannot set currentValue twice.");
+        Require.checkState(() -> this.currentValue == null, "Cannot set currentValue twice.");
         this.currentValue = currentValue;
         return this;
     }
 
     public OptionItemBuilder<O, V> inventoryContent(InventoryContent inventoryContent) {
-        if (this.content != null) throw new IllegalStateException("Cannot set content twice.");
+        Require.checkState(() -> this.content == null, "Cannot set content twice.");
         this.content = inventoryContent;
         return this;
     }
 
     public OptionItemBuilder<O, V> optionHolder(OptionHolder<O> holder) {
-        if (this.optionHolder != null) throw new IllegalStateException("Cannot set optionHolder twice.");
+        Require.checkState(() -> this.optionHolder == null, "Cannot set optionHolder twice.");
         this.optionHolder = holder;
         return this;
     }
 
     public OptionItemBuilder<O, V> slot(int row, int column) {
-        if (this.slot != -1) throw new IllegalStateException("Cannot set slot twice.");
+        Require.checkState(() -> this.slot == -1, "Cannot set slot twice.");
         this.slot = Slot.getSlot(row, column);
         return this;
     }
 
     public OptionItemBuilder<O, V> clickCondition(ClickCondition clickCondition) {
-        if (this.clickCondition != null) throw new IllegalStateException("Cannot set clickCondition twice.");
+        Require.checkState(() -> this.clickCondition == null, "Cannot set clickCondition twice.");
         this.clickCondition = clickCondition;
         return this;
     }
 
     public OptionItemBuilder<O, V> mapValue(V value, QuickItemStack itemStack) {
-        if (valueMap.containsKey(value))
-            throw new IllegalStateException("There is already a mapping for value '%s'.".formatted(value));
+        Require.checkState(() -> !valueMap.containsKey(value), "There is already a mapping for value '%s'.".formatted(value));
         valueMap.put(value, itemStack);
         return this;
     }
 
     public OptionItemBuilder<O, V> integerItem(QuickItemStack item) {
-        if (integerItem != null) throw new IllegalStateException("Cannot set integerItem twice");
+        Require.checkState(() -> integerItem == null, "Cannot set integerItem twice");
         this.integerItem = item;
         return this;
     }
 
     public OptionItemBuilder<O, V> lowerBound(int lowerBound) {
-        if (this.lowerBound != -1) throw new IllegalStateException("Cannot set lowerBound twice.");
-        if (lowerBound < 0) throw new IllegalArgumentException("lowerBound must be greater than or equal to zero.");
+        Require.checkState(() -> this.lowerBound == -1, "Cannot set lowerBound twice.");
+        Require.checkArgument(() -> lowerBound >= 0, "lowerBound must be greater than or equal to zero.");
         this.lowerBound = lowerBound;
         return this;
     }
 
     public OptionItemBuilder<O, V> upperBound(int upperBound) {
-        if (this.upperBound != -1) throw new IllegalStateException("Cannot set upperBound twice.");
-        if (upperBound < 1) throw new IllegalArgumentException("upperBound must be greater than zero.");
+        Require.checkState(() -> this.upperBound == 1, "Cannot set upperBound twice.");
+        Require.checkArgument(() -> upperBound > 0, "upperBound must be greater than zero.");
         this.upperBound = upperBound;
         return this;
     }
 
     public OptionItemBuilder<O, V> increment(int increment) {
-        if (this.increment != -1) throw new IllegalStateException("Cannot set increment twice.");
-        if (increment < 1) throw new IllegalArgumentException("increment must be greater than zero.");
+        Require.checkState(() -> this.increment == -1, "Cannot set increment twice.");
+        Require.checkArgument(() -> increment > 0, "increment must be greater than zero.");
         this.increment = increment;
         return this;
     }
 
     public void build() {
         V value = currentValue();
-        if(value instanceof Boolean) BooleanOptionItem.FACTORY.build((OptionItemBuilder<O, Boolean>) this);
-        if(value instanceof Integer) IntegerOptionItem.FACTORY.build((OptionItemBuilder<O, Integer>)this);
-        if(value instanceof Enum) EnumOptionItem.FACTORY.build(this);
+        if (value instanceof Boolean) BooleanOptionItem.FACTORY.build((OptionItemBuilder<O, Boolean>) this);
+        if (value instanceof Integer) IntegerOptionItem.FACTORY.build((OptionItemBuilder<O, Integer>) this);
+        if (value instanceof Enum) EnumOptionItem.FACTORY.build(this);
     }
 
     protected V currentValue() {
