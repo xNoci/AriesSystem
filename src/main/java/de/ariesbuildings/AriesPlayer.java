@@ -45,6 +45,10 @@ public class AriesPlayer {
         return RankInfo.getInfo(uuid);
     }
 
+    public void sendTranslate(String key, Object... args) {
+        sendMessage(I18n.translate(key, args));
+    }
+
     public void sendMessage(String message) {
         if (!base.isOnline()) return;
         base.sendMessage(message);
