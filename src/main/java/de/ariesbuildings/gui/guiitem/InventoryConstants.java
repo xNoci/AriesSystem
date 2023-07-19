@@ -39,7 +39,7 @@ public class InventoryConstants {
 
         String typeLore = I18n.translate("gui.world_list.item.world_display.lore.type", CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, world.getType().name()));
         String visibilityLore = I18n.translate("gui.world_list.item.world_display.lore.visibility", CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, world.getVisibility().name()));
-        String statusLore = I18n.translate("gui.world_list.item.world_display.lore.status", CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, world.getOptions().get(WorldOption.WORLD_STATUS, WorldStatus.class).name()));
+        String statusLore = I18n.translate("gui.world_list.item.world_display.lore.status", world.getOptions().get(WorldOption.WORLD_STATUS, WorldStatus.class).getStatusName());
         String creationTimeLore = I18n.translate("gui.world_list.item.world_display.lore.creationTime", DateUtils.asDate(world.getCreationTime()));
         String creatorLore = I18n.translate("gui.world_list.item.world_display.lore.creator", world.getCreatorAsString());
 

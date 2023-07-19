@@ -69,11 +69,11 @@ public class WorldSettingsGui extends AriesGuiProvider {
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_STATUS))
-                .mapValue(WorldStatus.CREATED, new QuickItemStack(XMaterial.RED_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.created")).addItemFlags())
-                .mapValue(WorldStatus.WAITING, new QuickItemStack(XMaterial.LIGHT_BLUE_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.waiting")).addItemFlags())
-                .mapValue(WorldStatus.WORK_IN_PROGRESS, new QuickItemStack(XMaterial.YELLOW_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.wip")).addItemFlags())
-                .mapValue(WorldStatus.FINISHED, new QuickItemStack(XMaterial.LIME_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.finished")).addItemFlags())
-                .mapValue(WorldStatus.REWORK, new QuickItemStack(XMaterial.PINK_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.rework")).addItemFlags())
+                .mapValue(WorldStatus.CREATED, new QuickItemStack(XMaterial.RED_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.CREATED.getColoredName())).addItemFlags())
+                .mapValue(WorldStatus.WAITING, new QuickItemStack(XMaterial.LIGHT_BLUE_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.WAITING.getColoredName())).addItemFlags())
+                .mapValue(WorldStatus.WORK_IN_PROGRESS, new QuickItemStack(XMaterial.YELLOW_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.WORK_IN_PROGRESS.getColoredName())).addItemFlags())
+                .mapValue(WorldStatus.FINISHED, new QuickItemStack(XMaterial.LIME_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.FINISHED.getColoredName())).addItemFlags())
+                .mapValue(WorldStatus.REWORK, new QuickItemStack(XMaterial.PINK_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.REWORK.getColoredName())).addItemFlags())
                 .build();
 
         String abuDisplayname = I18n.translate("gui.world_settings.item.abu.displayname");
