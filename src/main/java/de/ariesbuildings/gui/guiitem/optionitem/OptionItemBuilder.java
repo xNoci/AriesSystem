@@ -37,64 +37,64 @@ public class OptionItemBuilder<O extends Option, V> {
     }
 
     public OptionItemBuilder<O, V> currentValue(V currentValue) {
-        Require.checkState(() -> this.currentValue == null, "Cannot set currentValue twice.");
+        Require.checkState(this.currentValue == null, "Cannot set currentValue twice.");
         this.currentValue = currentValue;
         return this;
     }
 
     public OptionItemBuilder<O, V> inventoryContent(InventoryContent inventoryContent) {
-        Require.checkState(() -> this.content == null, "Cannot set content twice.");
+        Require.checkState(this.content == null, "Cannot set content twice.");
         this.content = inventoryContent;
         return this;
     }
 
     public OptionItemBuilder<O, V> optionHolder(OptionHolder<O> holder) {
-        Require.checkState(() -> this.optionHolder == null, "Cannot set optionHolder twice.");
+        Require.checkState(this.optionHolder == null, "Cannot set optionHolder twice.");
         this.optionHolder = holder;
         return this;
     }
 
     public OptionItemBuilder<O, V> slot(int row, int column) {
-        Require.checkState(() -> this.slot == -1, "Cannot set slot twice.");
+        Require.checkState(this.slot == -1, "Cannot set slot twice.");
         this.slot = Slot.getSlot(row, column);
         return this;
     }
 
     public OptionItemBuilder<O, V> clickCondition(ClickCondition clickCondition) {
-        Require.checkState(() -> this.clickCondition == null, "Cannot set clickCondition twice.");
+        Require.checkState(this.clickCondition == null, "Cannot set clickCondition twice.");
         this.clickCondition = clickCondition;
         return this;
     }
 
     public OptionItemBuilder<O, V> mapValue(V value, QuickItemStack itemStack) {
-        Require.checkState(() -> !valueMap.containsKey(value), "There is already a mapping for value '%s'.".formatted(value));
+        Require.checkState(!valueMap.containsKey(value), "There is already a mapping for value '%s'.".formatted(value));
         valueMap.put(value, itemStack);
         return this;
     }
 
     public OptionItemBuilder<O, V> integerItem(QuickItemStack item) {
-        Require.checkState(() -> integerItem == null, "Cannot set integerItem twice");
+        Require.checkState(integerItem == null, "Cannot set integerItem twice");
         this.integerItem = item;
         return this;
     }
 
     public OptionItemBuilder<O, V> lowerBound(int lowerBound) {
-        Require.checkState(() -> this.lowerBound == -1, "Cannot set lowerBound twice.");
-        Require.checkArgument(() -> lowerBound >= 0, "lowerBound must be greater than or equal to zero.");
+        Require.checkState(this.lowerBound == -1, "Cannot set lowerBound twice.");
+        Require.checkArgument(lowerBound >= 0, "lowerBound must be greater than or equal to zero.");
         this.lowerBound = lowerBound;
         return this;
     }
 
     public OptionItemBuilder<O, V> upperBound(int upperBound) {
-        Require.checkState(() -> this.upperBound == -1, "Cannot set upperBound twice.");
-        Require.checkArgument(() -> upperBound > 0, "upperBound must be greater than zero.");
+        Require.checkState(this.upperBound == -1, "Cannot set upperBound twice.");
+        Require.checkArgument(upperBound > 0, "upperBound must be greater than zero.");
         this.upperBound = upperBound;
         return this;
     }
 
     public OptionItemBuilder<O, V> increment(int increment) {
-        Require.checkState(() -> this.increment == -1, "Cannot set increment twice.");
-        Require.checkArgument(() -> increment > 0, "increment must be greater than zero.");
+        Require.checkState(this.increment == -1, "Cannot set increment twice.");
+        Require.checkArgument(increment > 0, "increment must be greater than zero.");
         this.increment = increment;
         return this;
     }

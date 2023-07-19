@@ -42,7 +42,7 @@ public abstract class AriesPagedGuiProvider extends PagedQuickGUIProvider implem
     @Override
     public void provide(AriesPlayer player) {
         Require.nonNull(player, "Cannot provide gui (%s) to null AriesPlayer".formatted(getClass().getName()));
-        Require.checkState(player::isValid, "Could not provide gui (%s) to invalid AriesPlayer".formatted(getClass().getName()));
+        Require.checkState(player.isValid(), "Could not provide gui (%s) to invalid AriesPlayer".formatted(getClass().getName()));
         super.provide(player.getBase());
     }
 

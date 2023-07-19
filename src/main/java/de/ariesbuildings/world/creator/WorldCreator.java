@@ -20,7 +20,7 @@ public class WorldCreator {
     }
 
     public WorldCreator(String worldName, WorldType type) {
-        Require.checkState(Bukkit::isPrimaryThread, "World creator can only be executed on the primary thread.");
+        Require.checkState(Bukkit.isPrimaryThread(), "World creator can only be executed on the primary thread.");
         this.worldName = worldName;
         this.type = type;
     }
