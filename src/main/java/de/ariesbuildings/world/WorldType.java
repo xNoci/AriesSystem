@@ -35,8 +35,4 @@ public enum WorldType {
         return types;
     }
 
-    public static WorldType[] publicTypesArray() {
-        return publicTypes().toArray(WorldType[]::new);
-    }
-
 }
