@@ -8,7 +8,6 @@ import me.noci.quickutilities.quickcommand.annotation.Command;
 import me.noci.quickutilities.quickcommand.annotation.CommandPermission;
 import me.noci.quickutilities.quickcommand.annotation.FallbackCommand;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CommandVanish extends AriesCommand {
@@ -30,7 +29,7 @@ public class CommandVanish extends AriesCommand {
     }
 
     @FallbackCommand
-    private void onUnknown(Player player) {
+    private void onUnknown(AriesPlayer player) {
         if (!player.hasPermission(Permission.PLAYER_OPTION_VANISH)) {
             player.sendMessage(I18n.noPermission());
             return;

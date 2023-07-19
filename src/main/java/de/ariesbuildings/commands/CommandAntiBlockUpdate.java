@@ -10,7 +10,6 @@ import me.noci.quickutilities.quickcommand.annotation.CommandPermission;
 import me.noci.quickutilities.quickcommand.annotation.FallbackCommand;
 import me.noci.quickutilities.quickcommand.annotation.SubCommand;
 import org.bukkit.command.CommandSender;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 public class CommandAntiBlockUpdate extends AriesCommand {
@@ -21,9 +20,9 @@ public class CommandAntiBlockUpdate extends AriesCommand {
 
     @Command
     @CommandPermission(Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)
-    private void onUsage(Player player) {
+    private void onUsage(AriesPlayer player) {
         AriesSystem.getInstance().getWorldManager()
-                .getWorld(player.getWorld())
+                .getWorld(player)
                 .ifPresentOrElse(world -> {
                     if (!world.hasWorldPermission(player, Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)) {
                         player.sendMessage(I18n.translate("noPermission.not_a_builder"));
@@ -38,9 +37,9 @@ public class CommandAntiBlockUpdate extends AriesCommand {
     }
 
     @SubCommand(path = "current")
-    private void onCheckCurrent(Player player) {
+    private void onCheckCurrent(AriesPlayer player) {
         AriesSystem.getInstance().getWorldManager()
-                .getWorld(player.getWorld())
+                .getWorld(player)
                 .ifPresentOrElse(world -> {
                     String message = I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), world.getOptions().get(WorldOption.ANTI_BLOCK_UPDATE, boolean.class));
                     player.sendMessage(message);
