@@ -30,6 +30,10 @@ public class WorldListGui extends AriesPagedGuiProvider {
     private final WorldVisibility visibility;
     private final AriesProvider previousGui;
 
+    public WorldListGui(WorldVisibility visibility) {
+        this(visibility, null);
+    }
+
     public WorldListGui(WorldVisibility visibility, AriesProvider previousGui) {
         super(inventoryTitle(visibility), InventoryConstants.FULL_INV_SIZE);
         this.visibility = visibility;
@@ -40,7 +44,7 @@ public class WorldListGui extends AriesPagedGuiProvider {
     protected void init(AriesPlayer player, InventoryContent content) {
         content.fill(InventoryConstants.BACKGROUND_BLACK);
         content.fillSlots(GuiItem.empty(), InventoryPattern.box(2, 4));
-        content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
+        if (previousGui != null) content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
     }
 
     @Override
