@@ -2,36 +2,42 @@ package de.ariesbuildings.gui;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Lists;
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
+import de.ariesbuildings.gui.guiitem.InventoryConstants;
+import de.ariesbuildings.gui.provider.AriesPagedGuiProvider;
+import de.ariesbuildings.gui.provider.AriesProvider;
 import de.ariesbuildings.permission.Permission;
 import de.ariesbuildings.permission.RankInfo;
 import de.ariesbuildings.utils.Input;
 import de.ariesbuildings.world.AriesWorld;
-import me.noci.quickutilities.inventory.*;
+import me.noci.quickutilities.inventory.GuiItem;
+import me.noci.quickutilities.inventory.InventoryContent;
+import me.noci.quickutilities.inventory.PageContent;
+import me.noci.quickutilities.inventory.Slot;
 import me.noci.quickutilities.utils.BukkitUnit;
 import me.noci.quickutilities.utils.InventoryPattern;
 import me.noci.quickutilities.utils.QuickItemStack;
 import me.noci.quickutilities.utils.SkullItem;
 import org.bukkit.Bukkit;
-import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 
 import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
-public class EditBuilderGui extends PagedQuickGUIProvider {
+public class EditBuilderGui extends AriesPagedGuiProvider {
 
     private static final QuickItemStack ADD_BUILDER_ITEM_TEMPLATE = new QuickItemStack(XMaterial.OAK_SIGN.parseMaterial(), I18n.translate("gui.edit_builder.add_builder.displayname"))
             .addItemFlags()
             .setLore("", I18n.translate("gui.edit_builder.add_builder.lore"));
 
     private final AriesWorld world;
-    private final QuickGUIProvider previousGui;
+    private final AriesProvider previousGui;
     private final GuiItem addBuilderInput;
 
-    protected EditBuilderGui(AriesWorld world, QuickGUIProvider previousGui) {
+    protected EditBuilderGui(AriesWorld world, AriesProvider previousGui) {
         super(I18n.translate("gui.edit_builder.title", world.getWorldName()), InventoryConstants.FULL_INV_SIZE);
         this.world = world;
         this.previousGui = previousGui;
@@ -57,7 +63,7 @@ public class EditBuilderGui extends PagedQuickGUIProvider {
     }
 
     @Override
-    public void init(Player player, InventoryContent content) {
+    protected void init(AriesPlayer player, InventoryContent content) {
         content.fill(InventoryConstants.BACKGROUND_BLACK);
         content.fillSlots(GuiItem.empty(), InventoryPattern.box(3, 4));
         if (previousGui != null) content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
@@ -68,7 +74,7 @@ public class EditBuilderGui extends PagedQuickGUIProvider {
     }
 
     @Override
-    public void initPage(Player player, PageContent content) {
+    protected void initPage(AriesPlayer player, PageContent content) {
         content.setItemSlots(InventoryPattern.box(3, 4));
         content.setPreviousPageItem(Slot.getSlot(6, 1), InventoryConstants.PREVIOUS_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
         content.setNextPageItem(Slot.getSlot(6, 8), InventoryConstants.NEXT_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
@@ -76,14 +82,14 @@ public class EditBuilderGui extends PagedQuickGUIProvider {
         content.setPageContent(builders(player));
     }
 
-    private GuiItem[] builders(Player viewer) {
+    private GuiItem[] builders(AriesPlayer viewer) {
         List<UUID> builders = Lists.newArrayList();
         world.getWorldCreator().ifPresent(builders::add);
         builders.addAll(world.getBuilders());
         return builders.stream().map(uuid -> builder(viewer, uuid, world.isCreator(uuid))).toArray(GuiItem[]::new);
     }
 
-    private GuiItem builder(Player viewer, UUID uuid, boolean creator) {
+    private GuiItem builder(AriesPlayer viewer, UUID uuid, boolean creator) {
         String name = AriesSystem.getInstance().getPlayerManager().getPlayerName(uuid);
         RankInfo rankInfo = RankInfo.getInfo(uuid);
 
@@ -95,7 +101,7 @@ public class EditBuilderGui extends PagedQuickGUIProvider {
         lore.add("");
         lore.add(I18n.translate("gui.edit_builder.player.lore.rank", rankInfo.getColor() + rankInfo.getName()));
         lore.add(I18n.translate("gui.edit_builder.player.lore.creator." + creator));
-        if (world.isCreator(viewer.getUniqueId()) && !creator) {
+        if (world.isCreator(viewer.getUUID()) && !creator) {
             lore.add("");
             lore.add(I18n.translate("gui.edit_builder.player.lore.action"));
         }
@@ -103,7 +109,7 @@ public class EditBuilderGui extends PagedQuickGUIProvider {
 
         return playerHead.asGuiItem(event -> {
             event.setCancelled(true);
-            if (!world.isCreator(viewer.getUniqueId()) || event.getClick() != ClickType.LEFT) return;
+            if (!world.isCreator(viewer.getUUID()) || event.getClick() != ClickType.LEFT) return;
 
             world.getBuilders().remove(uuid);
             new EditBuilderGui(world, previousGui).provide(viewer);

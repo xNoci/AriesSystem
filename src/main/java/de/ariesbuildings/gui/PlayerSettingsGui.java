@@ -2,37 +2,36 @@ package de.ariesbuildings.gui;
 
 import com.cryptomorin.xseries.XMaterial;
 import de.ariesbuildings.AriesPlayer;
-import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
-import de.ariesbuildings.gui.optionitem.OptionItemBuilder;
+import de.ariesbuildings.gui.guiitem.InventoryConstants;
+import de.ariesbuildings.gui.guiitem.optionitem.OptionItemBuilder;
+import de.ariesbuildings.gui.provider.AriesGuiProvider;
+import de.ariesbuildings.gui.provider.AriesProvider;
 import de.ariesbuildings.options.OptionNotify;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
 import me.noci.quickutilities.inventory.InventoryContent;
-import me.noci.quickutilities.inventory.QuickGUIProvider;
 import me.noci.quickutilities.inventory.Slot;
 import me.noci.quickutilities.utils.QuickItemStack;
 import org.bukkit.GameMode;
-import org.bukkit.entity.Player;
 
-public class PlayerSettingsGui extends QuickGUIProvider {
+public class PlayerSettingsGui extends AriesGuiProvider {
 
-    private final QuickGUIProvider previousGui;
+    private final AriesProvider previousGui;
 
     public PlayerSettingsGui() {
         this(null);
     }
 
-    public PlayerSettingsGui(QuickGUIProvider previousGui) {
+    public PlayerSettingsGui(AriesProvider previousGui) {
         super(I18n.translate("gui.player_settings.title"), InventoryConstants.FULL_INV_SIZE);
         this.previousGui = previousGui;
     }
 
     @Override
-    public void init(Player p, InventoryContent content) {
+    protected void init(AriesPlayer player, InventoryContent content) {
         content.fill(InventoryConstants.BACKGROUND_BLACK);
         if (previousGui != null) content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
-        AriesPlayer player = AriesSystem.getInstance().getPlayerManager().getPlayer(p);
         RankInfo rankInfo = player.getRankInfo();
 
         QuickItemStack playerInfo = new QuickItemStack(XMaterial.PLAYER_HEAD.parseMaterial())
@@ -114,8 +113,6 @@ public class PlayerSettingsGui extends QuickGUIProvider {
                 .mapValue(true, new QuickItemStack(XMaterial.BELL.or(XMaterial.JUKEBOX).parseMaterial()).setDisplayName(pingSoundDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_true")).addItemFlags())
                 .mapValue(false, new QuickItemStack(XMaterial.GRAY_CARPET.parseMaterial(), pingSoundDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_false")).addItemFlags())
                 .build();
-
-
     }
 
 

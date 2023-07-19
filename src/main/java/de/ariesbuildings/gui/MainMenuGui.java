@@ -1,12 +1,18 @@
 package de.ariesbuildings.gui;
 
 import com.cryptomorin.xseries.XMaterial;
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.config.AriesSystemConfig;
+import de.ariesbuildings.gui.guiitem.InventoryConstants;
+import de.ariesbuildings.gui.provider.AriesGuiProvider;
 import de.ariesbuildings.permission.Permission;
 import de.ariesbuildings.world.WorldVisibility;
-import me.noci.quickutilities.inventory.*;
+import me.noci.quickutilities.inventory.GuiItem;
+import me.noci.quickutilities.inventory.InventoryContent;
+import me.noci.quickutilities.inventory.Slot;
+import me.noci.quickutilities.inventory.SlotClickEvent;
 import me.noci.quickutilities.utils.BukkitUnit;
 import me.noci.quickutilities.utils.QuickItemStack;
 import org.bukkit.Bukkit;
@@ -14,7 +20,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.ClickType;
 import org.bukkit.scheduler.BukkitRunnable;
 
-public class MainMenuGui extends QuickGUIProvider {
+public class MainMenuGui extends AriesGuiProvider {
 
     //ITEMS
     private static final QuickItemStack ITEM_PLAYER_SETTINGS = new QuickItemStack(XMaterial.COMPARATOR.parseMaterial(), I18n.translate("gui.main_menu.item.player_settings.displayname")).addItemFlags();
@@ -40,7 +46,7 @@ public class MainMenuGui extends QuickGUIProvider {
     }
 
     @Override
-    public void init(Player player, InventoryContent content) {
+    protected void init(AriesPlayer player, InventoryContent content) {
         content.fill(InventoryConstants.BACKGROUND_BLACK);
         content.setItem(Slot.getSlot(2, 3), PUBLIC_WORLDS);
         content.setItem(Slot.getSlot(2, 4), PRIVATE_WORLDS);
@@ -53,7 +59,6 @@ public class MainMenuGui extends QuickGUIProvider {
             content.setItem(Slot.getSlot(6, 1), OWNR_STOP_SERVER);
             content.setItem(WHITELIST_TOGGLE_SLOT, whitlistItem(content));
         }
-
     }
 
     private static void openWorldList(SlotClickEvent event, WorldVisibility visibility) {

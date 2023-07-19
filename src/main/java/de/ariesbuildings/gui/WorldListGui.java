@@ -3,16 +3,21 @@ package de.ariesbuildings.gui;
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
+import de.ariesbuildings.gui.guiitem.InventoryConstants;
+import de.ariesbuildings.gui.provider.AriesPagedGuiProvider;
+import de.ariesbuildings.gui.provider.AriesProvider;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.WorldVisibility;
-import me.noci.quickutilities.inventory.*;
+import me.noci.quickutilities.inventory.GuiItem;
+import me.noci.quickutilities.inventory.InventoryContent;
+import me.noci.quickutilities.inventory.PageContent;
+import me.noci.quickutilities.inventory.Slot;
 import me.noci.quickutilities.utils.InventoryPattern;
 import me.noci.quickutilities.utils.QuickItemStack;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 
-public class WorldListGui extends PagedQuickGUIProvider {
+public class WorldListGui extends AriesPagedGuiProvider {
 
     private static String inventoryTitle(WorldVisibility visibility) {
         return switch (visibility) {
@@ -23,24 +28,23 @@ public class WorldListGui extends PagedQuickGUIProvider {
     }
 
     private final WorldVisibility visibility;
-    private final QuickGUIProvider previousGui;
+    private final AriesProvider previousGui;
 
-    public WorldListGui(WorldVisibility visibility, QuickGUIProvider previousGui) {
+    public WorldListGui(WorldVisibility visibility, AriesProvider previousGui) {
         super(inventoryTitle(visibility), InventoryConstants.FULL_INV_SIZE);
         this.visibility = visibility;
         this.previousGui = previousGui;
     }
 
     @Override
-    public void init(Player player, InventoryContent content) {
+    protected void init(AriesPlayer player, InventoryContent content) {
         content.fill(InventoryConstants.BACKGROUND_BLACK);
         content.fillSlots(GuiItem.empty(), InventoryPattern.box(2, 4));
         content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
     }
 
     @Override
-    public void initPage(Player p, PageContent content) {
-        AriesPlayer player = AriesSystem.getInstance().getPlayerManager().getPlayer(p);
+    protected void initPage(AriesPlayer player, PageContent content) {
         content.setItemSlots(InventoryPattern.box(2, 4));
         content.setPreviousPageItem(Slot.getSlot(6, 1), InventoryConstants.PREVIOUS_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
         content.setNextPageItem(Slot.getSlot(6, 8), InventoryConstants.NEXT_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
@@ -56,7 +60,7 @@ public class WorldListGui extends PagedQuickGUIProvider {
         QuickItemStack worldItem = InventoryConstants.worldDisplayIcon(world);
 
         world.getWorldCreator().ifPresent(uuid -> {
-            if(uuid.equals(player.getUUID())) {
+            if (uuid.equals(player.getUUID())) {
                 worldItem.glow();
             }
         });
