@@ -1,15 +1,16 @@
-package de.ariesbuildings.gui;
+package de.ariesbuildings.gui.guiitem;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XPotion;
 import com.google.common.base.CaseFormat;
+import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
+import de.ariesbuildings.gui.provider.AriesProvider;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.utils.DateUtils;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.WorldStatus;
 import me.noci.quickutilities.inventory.GuiItem;
-import me.noci.quickutilities.inventory.QuickGUIProvider;
 import me.noci.quickutilities.utils.QuickItemStack;
 import org.bukkit.Material;
 import org.bukkit.inventory.ItemStack;
@@ -26,8 +27,8 @@ public class InventoryConstants {
 
     public static final int FULL_INV_SIZE = 9 * 6;
 
-    public static GuiItem openPreviousGui(QuickGUIProvider gui) {
-        return PREVIOUS_GUI.asGuiItem(event -> gui.provide(event.getPlayer()));
+    public static GuiItem openPreviousGui(AriesProvider gui) {
+        return PREVIOUS_GUI.asGuiItem(event -> gui.provide(AriesSystem.getInstance().getPlayerManager().getPlayer(event.getPlayer())));
     }
 
     public static QuickItemStack worldDisplayIcon(AriesWorld world) {

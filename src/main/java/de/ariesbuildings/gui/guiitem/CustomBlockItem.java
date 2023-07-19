@@ -1,4 +1,4 @@
-package de.ariesbuildings.gui;
+package de.ariesbuildings.gui.guiitem;
 
 import de.ariesbuildings.utils.CustomBlock;
 import me.noci.quickutilities.inventory.GuiItem;
@@ -11,7 +11,7 @@ public class CustomBlockItem extends GuiItem {
     private final CustomBlock customBlock;
 
 
-    protected CustomBlockItem(CustomBlock customBlock) {
+    public CustomBlockItem(CustomBlock customBlock) {
         this.customBlock = customBlock;
 
         setAction(this::slotClickEvent);

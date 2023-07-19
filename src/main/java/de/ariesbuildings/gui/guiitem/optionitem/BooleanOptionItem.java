@@ -1,12 +1,10 @@
-package de.ariesbuildings.gui.optionitem;
+package de.ariesbuildings.gui.guiitem.optionitem;
 
 import de.ariesbuildings.options.Option;
 import de.ariesbuildings.options.OptionHolder;
 import me.noci.quickutilities.inventory.InventoryContent;
 
 public class BooleanOptionItem<OptionType extends Option> extends OptionItem<OptionType, Boolean> {
-
-    public static final Factory FACTORY = new Factory();
 
     protected BooleanOptionItem(Boolean currentValue, OptionHolder<OptionType> optionHolder, OptionType option, InventoryContent content, int slot) {
         super(currentValue, optionHolder, option, content, slot);
@@ -17,7 +15,7 @@ public class BooleanOptionItem<OptionType extends Option> extends OptionItem<Opt
         currentValue = !currentValue;
     }
 
-    public static class Factory implements OptionItem.Factory<Boolean> {
+    public static class Factory implements OptionItemFactory.Factory<Boolean> {
         @Override
         public <O extends Option> void build(OptionItemBuilder<O, Boolean> builder) {
             BooleanOptionItem<O> item = new BooleanOptionItem<>(builder.currentValue(), builder.optionHolder, builder.option, builder.content, builder.slot);

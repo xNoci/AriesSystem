@@ -1,4 +1,4 @@
-package de.ariesbuildings.gui.optionitem;
+package de.ariesbuildings.gui.guiitem.optionitem;
 
 import com.google.common.collect.Maps;
 import de.ariesbuildings.options.Option;
@@ -86,7 +86,7 @@ public class OptionItemBuilder<O extends Option, V> {
     }
 
     public OptionItemBuilder<O, V> upperBound(int upperBound) {
-        Require.checkState(() -> this.upperBound == 1, "Cannot set upperBound twice.");
+        Require.checkState(() -> this.upperBound == -1, "Cannot set upperBound twice.");
         Require.checkArgument(() -> upperBound > 0, "upperBound must be greater than zero.");
         this.upperBound = upperBound;
         return this;
@@ -101,9 +101,7 @@ public class OptionItemBuilder<O extends Option, V> {
 
     public void build() {
         V value = currentValue();
-        if (value instanceof Boolean) BooleanOptionItem.FACTORY.build((OptionItemBuilder<O, Boolean>) this);
-        if (value instanceof Integer) IntegerOptionItem.FACTORY.build((OptionItemBuilder<O, Integer>) this);
-        if (value instanceof Enum) EnumOptionItem.FACTORY.build(this);
+        OptionItemFactory.build(value.getClass(), this);
     }
 
     protected V currentValue() {

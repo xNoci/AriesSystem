@@ -1,4 +1,4 @@
-package de.ariesbuildings.gui.optionitem;
+package de.ariesbuildings.gui.guiitem.optionitem;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.google.common.collect.Maps;
@@ -72,10 +72,6 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
             item.setDisplayName(I18n.translate("gui.option_item.value_mapping_not_found.displayname", this.currentValue));
         }
         setItem(item);
-    }
-
-    public interface Factory<T> {
-        <O extends Option> void build(OptionItemBuilder<O, T> builder);
     }
 
 }

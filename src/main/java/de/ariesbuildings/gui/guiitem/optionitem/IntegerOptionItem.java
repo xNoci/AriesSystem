@@ -1,4 +1,4 @@
-package de.ariesbuildings.gui.optionitem;
+package de.ariesbuildings.gui.guiitem.optionitem;
 
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.options.Option;
@@ -8,8 +8,6 @@ import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.utils.QuickItemStack;
 
 public class IntegerOptionItem<OptionType extends Option> extends OptionItem<OptionType, Integer> {
-
-    public static final Factory FACTORY = new Factory();
 
     private QuickItemStack integerItem;
     @Setter private int lowerBound = 0;
@@ -44,7 +42,7 @@ public class IntegerOptionItem<OptionType extends Option> extends OptionItem<Opt
         updateDisplayedItem();
     }
 
-    public static class Factory implements OptionItem.Factory<Integer> {
+    public static class Factory implements OptionItemFactory.Factory<Integer> {
         @Override
         public <O extends Option> void build(OptionItemBuilder<O, Integer> builder) {
             IntegerOptionItem<O> item = new IntegerOptionItem(builder.currentValue(), builder.optionHolder, builder.option, builder.content, builder.slot);
