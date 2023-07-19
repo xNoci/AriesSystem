@@ -160,6 +160,11 @@ public class AriesWorldManager {
         return WorldImportResult.SUCCESS;
     }
 
+    public Optional<AriesWorld> getWorld(AriesPlayer player) {
+        if (!player.isValid()) return Optional.empty();
+        return getWorld(player.getBase());
+    }
+
     public Optional<AriesWorld> getWorld(Entity entityInWorld) {
         if (entityInWorld == null) return Optional.empty();
         return getWorld(entityInWorld.getWorld());
