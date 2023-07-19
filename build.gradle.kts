@@ -12,7 +12,6 @@ group = "de.ariesbuildings"
 version = "b${gitRevision()}.${gitHash()}"
 
 repositories {
-    mavenLocal()
     maven { url = uri("https://repo.papermc.io/repository/maven-public/") } //PaperMC
 }
 
@@ -24,7 +23,7 @@ dependencies {
     implementation("com.github.cryptomorin:XSeries:9.4.0")
 
     compileOnly(files("libs/QuickUtils.jar"))
-    compileOnly("org.spigotmc:minecraft-server:1.20.1-R0.1-SNAPSHOT")
+    compileOnly("org.spigotmc:spigot-api:1.20.1-R0.1-SNAPSHOT")
     compileOnly("io.papermc.paper:paper-api:1.20.1-R0.1-SNAPSHOT")
 
     compileOnly("net.luckperms:api:5.4")
