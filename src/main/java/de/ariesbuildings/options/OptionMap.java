@@ -14,8 +14,8 @@ public class OptionMap<K> {
 
     public <T> void set(K key, T value) {
         Value<T> cache = (Value<T>) getCached(key, value.getClass());
-        Require.checkState(() -> cache.getValue() == null || cache.getValue().getClass().equals(value.getClass()),
-                "Used wrong type for %s. Used type '%s' requires type '%s'".formatted(key, value.getClass(), cache.getValue().getClass()));
+        if (cache.getValue() != null && !cache.getValue().getClass().equals(value.getClass()))
+            throw new UnsupportedOperationException(String.format("Used wrong type for %s. Used type '%s' requires type '%s'", key, value.getClass(), cache.getValue().getClass()));
         cache.setValue(value);
     }
 
