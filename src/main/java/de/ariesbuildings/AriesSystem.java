@@ -11,17 +11,25 @@ import de.ariesbuildings.listener.worldoptions.WeatherChangeListener;
 import de.ariesbuildings.managers.AriesPlayerManager;
 import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.managers.VanishManager;
+import de.ariesbuildings.options.WorldOption;
+import de.ariesbuildings.permission.RankInfo;
+import de.ariesbuildings.world.AriesWorld;
+import de.ariesbuildings.world.WorldStatus;
 import de.ariesbuildings.world.WorldType;
 import de.ariesbuildings.world.creator.CreatorID;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import me.noci.quickutilities.quickcommand.CommandRegister;
 import me.noci.quickutilities.quickcommand.mappings.CommandMapping;
+import me.noci.quickutilities.scoreboard.QuickBoard;
+import me.noci.quickutilities.utils.BukkitUnit;
 import me.noci.quickutilities.utils.ServerProperties;
 import org.bukkit.Bukkit;
 import org.bukkit.event.Listener;
 import org.bukkit.plugin.PluginManager;
 import org.bukkit.plugin.java.JavaPlugin;
+
+import java.util.Optional;
 
 public class AriesSystem extends JavaPlugin {
 
@@ -55,6 +63,32 @@ public class AriesSystem extends JavaPlugin {
         registerCommands();
 
         loadTutorialWorld();
+
+        QuickBoard.setUpdatingScoreboard(this, 5, BukkitUnit.SECONDS, (p, scoreboard) -> {
+            AriesPlayer player = playerManager.getPlayer(p);
+            RankInfo rankInfo = player.getRankInfo();
+            Optional<AriesWorld> world = worldManager.getWorld(player);
+            String unknownWorld = I18n.translate("scoreboard.line.world_name_display.unknown");
+            String unknownWorldStatus = I18n.translate("scoreboard.line.world_status_display.unknown");
+
+            String rankName = rankInfo.getColor() + rankInfo.getDisplayname();
+            String worldName = world.map(AriesWorld::getWorldName).orElse(unknownWorld);
+            String worldStatus = world.map(w -> w.getOptions().get(WorldOption.WORLD_STATUS, WorldStatus.class)).map(WorldStatus::getColoredName).orElse(unknownWorldStatus);
+
+            scoreboard.updateTitle(I18n.translate("scoreboard.title"));
+
+            scoreboard.updateLine(0, "");
+            scoreboard.updateLine(1, I18n.translate("scoreboard.line.your_rank"));
+            scoreboard.updateLine(2, I18n.translate("scoreboard.line.your_rank_display", rankName));
+            scoreboard.updateLine(3, "");
+            scoreboard.updateLine(4, I18n.translate("scoreboard.line.world_name"));
+            scoreboard.updateLine(5, I18n.translate("scoreboard.line.world_name_display", worldName));
+            scoreboard.updateLine(6, "");
+            scoreboard.updateLine(7, I18n.translate("scoreboard.line.world_status"));
+            scoreboard.updateLine(8, I18n.translate("scoreboard.line.world_status_display", worldStatus));
+            scoreboard.updateLine(9, "");
+
+        });
     }
 
     @Override
