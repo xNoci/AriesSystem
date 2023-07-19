@@ -55,9 +55,11 @@ public class WorldListGui extends PagedQuickGUIProvider {
     private static GuiItem createWorldGuiItem(AriesWorld world, AriesPlayer player, WorldListGui previousGui) {
         QuickItemStack worldItem = InventoryConstants.worldDisplayIcon(world);
 
-        if (world.getWorldCreator() != null && world.getWorldCreator().equals(player.getUUID())) {
-            worldItem.glow();
-        }
+        world.getWorldCreator().ifPresent(uuid -> {
+            if(uuid.equals(player.getUUID())) {
+                worldItem.glow();
+            }
+        });
 
         String interactInfoLore = I18n.translate("gui.world_list.item.world_display.lore.interact_info");
         List<String> lore = worldItem.getLore();
