@@ -1,5 +1,6 @@
 package de.ariesbuildings.commands;
 
+import com.google.common.collect.Lists;
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
@@ -8,6 +9,7 @@ import de.ariesbuildings.world.WorldVisibility;
 import me.noci.quickutilities.quickcommand.annotation.Command;
 import me.noci.quickutilities.quickcommand.annotation.FallbackCommand;
 import me.noci.quickutilities.quickcommand.annotation.IgnoreStrictEnum;
+import me.noci.quickutilities.quickcommand.annotation.SubCommand;
 import me.noci.quickutilities.quickcommand.mappings.CommandMapping;
 import me.noci.quickutilities.utils.EnumUtils;
 import org.bukkit.command.CommandSender;
@@ -53,6 +55,20 @@ public class CommandMenu extends AriesCommand {
         }
     }
 
+    @SubCommand(path = "alternative")
+    private void showAlternative(AriesPlayer player, @IgnoreStrictEnum MenuType type) {
+        if (type == null) {
+            player.sendTranslate("command.menu.menu_parse_invalid.type", EnumUtils.join(", ", MenuType.class));
+            return;
+        }
+        player.sendTranslate("command.menu.alternative_key", type, type.getAlternative(", "));
+    }
+
+    @FallbackCommand
+    private void playerFallback(AriesPlayer player) {
+        player.sendTranslate("command.unknown", getName(), "<type | alternative [type]>");
+    }
+
     @FallbackCommand
     private void notForConsole(CommandSender sender) {
         sender.sendMessage(I18n.translate("command.only_for_player"));
@@ -73,9 +89,14 @@ public class CommandMenu extends AriesCommand {
             this.alt = Lists.newArrayList(alt).stream().map(String::toLowerCase).toList();
         }
 
+        public String getAlternative(String delimiter) {
+            return String.join(delimiter, alt);
+        }
+
         public static MenuType map(String value) {
             for (MenuType menuType : values()) {
-                if (menuType.name().equalsIgnoreCase(value) || menuType.alt.contains(value.toLowerCase())) return menuType;
+                if (menuType.name().equalsIgnoreCase(value) || menuType.alt.contains(value.toLowerCase()))
+                    return menuType;
             }
             return null;
         }
