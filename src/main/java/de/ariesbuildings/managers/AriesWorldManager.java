@@ -20,7 +20,6 @@ import org.apache.commons.lang3.StringUtils;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
-import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
 
 import java.io.File;
@@ -84,14 +83,14 @@ public class AriesWorldManager {
         return worldExists || worldFile.exists();
     }
 
-    public void createWorld(Player player, WorldType worldType) {
+    public void createWorld(AriesPlayer player, WorldType worldType) {
         Input.title(player, I18n.translate("input.title.world_create"), input -> {
             if (StringUtils.isBlank(input)) {
                 player.sendMessage(I18n.translate("input.world_create.empty_string"));
                 return;
             }
 
-            if (!createWorld(input, player.getUniqueId(), worldType)) {
+            if (!createWorld(input, player.getUUID(), worldType)) {
                 player.sendMessage(I18n.translate("world.creation.failed"));
                 return;
             }

@@ -1,11 +1,13 @@
 package de.ariesbuildings.commands;
 
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.permission.Permission;
 import de.ariesbuildings.world.WorldImportResult;
 import de.ariesbuildings.world.WorldType;
 import me.noci.quickutilities.quickcommand.annotation.*;
+import me.noci.quickutilities.utils.EnumUtils;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -22,13 +24,13 @@ public class CommandWorld extends AriesCommand {
     }
 
     @Command
-    private void onUsage(Player player) {
+    private void onUsage(AriesPlayer player) {
         displayCurrentWorld(player);
     }
 
     @SubCommand(path = "current")
-    private void displayCurrentWorld(Player player) {
-        worldManager.getWorld(player.getWorld())
+    private void displayCurrentWorld(AriesPlayer player) {
+        worldManager.getWorld(player)
                 .ifPresentOrElse(world -> {
                     player.sendMessage(I18n.translate("command.world.current.display_name", world.getWorldName()));
                 }, () -> {
@@ -69,7 +71,7 @@ public class CommandWorld extends AriesCommand {
 
     @SubCommand(path = "create")
     @CommandPermission(Permission.WORLD_CREATE)
-    public void createWorld(Player sender, @IgnoreStrictEnum WorldType worldType) {
+    public void createWorld(AriesPlayer sender, @IgnoreStrictEnum WorldType worldType) {
         if(worldType == null) {
             sender.sendMessage(I18n.translate("command.world.world_parse_invalid.type", EnumUtils.join(", ", WorldType.publicTypes())));
             return;
