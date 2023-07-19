@@ -1,5 +1,6 @@
 import com.github.jengelman.gradle.plugins.shadow.tasks.ConfigureShadowRelocation
 import com.github.jengelman.gradle.plugins.shadow.tasks.ShadowJar
+import org.apache.commons.io.output.ByteArrayOutputStream
 import org.apache.tools.ant.filters.ReplaceTokens
 
 plugins {
@@ -8,7 +9,7 @@ plugins {
 }
 
 group = "de.ariesbuildings"
-version = project.property("version")!!
+version = "b${gitRevision()}.${gitHash()}"
 
 repositories {
     mavenLocal()
@@ -47,7 +48,7 @@ java {
 
 tasks {
     shadowJar {
-        archiveFileName.set("${project.property("plugin.name")}-${project.property("plugin.version")}.jar")
+        archiveFileName.set("${project.property("plugin.name")}-${project.version}.jar")
     }
 
     compileJava {
@@ -60,7 +61,7 @@ tasks {
             "endToken" to "}",
             "tokens" to mapOf(
                 "plugin.name" to project.property("plugin.name"),
-                "plugin.version" to project.property("plugin.version"),
+                "plugin.version" to version,
                 "plugin.main" to project.property("plugin.main"),
                 "plugin.authors" to project.property("plugin.authors")
             )
@@ -68,3 +69,20 @@ tasks {
     }
 }
 
+fun gitRevision() : String {
+    val out = ByteArrayOutputStream();
+    exec {
+        commandLine("git", "rev-list", "--count", "HEAD")
+        standardOutput = out;
+    }
+    return out.toString("UTF-8").trim();
+}
+
+fun gitHash() : String {
+    val out = ByteArrayOutputStream();
+    exec {
+        commandLine("git", "rev-parse", "--short", "HEAD")
+        standardOutput = out;
+    }
+    return out.toString("UTF-8").trim();
+}
