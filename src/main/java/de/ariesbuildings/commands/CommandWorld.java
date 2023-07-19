@@ -71,14 +71,12 @@ public class CommandWorld extends AriesCommand {
     @CommandPermission(Permission.WORLD_CREATE)
     public void createWorld(Player sender, @IgnoreStrictEnum WorldType worldType) {
         if(worldType == null) {
-            String validTypes = String.join(", ", WorldType.publicTypes().stream().map(Enum::name).toList());
-            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.type", validTypes));
+            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.type", EnumUtils.join(", ", WorldType.publicTypes())));
             return;
         }
 
         if (worldType.isInternalType()) {
-            String validTypes = String.join(", ", WorldType.publicTypes().stream().map(Enum::name).toList());
-            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.internal", worldType, validTypes));
+            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.internal", worldType, EnumUtils.join(", ", WorldType.publicTypes())));
             return;
         }
 
@@ -89,14 +87,12 @@ public class CommandWorld extends AriesCommand {
     @CommandPermission(Permission.WORLD_CREATE)
     public void createWorld(CommandSender sender, @IgnoreStrictEnum WorldType worldType, String worldName) {
         if(worldType == null) {
-            String validTypes = String.join(", ", WorldType.publicTypes().stream().map(Enum::name).toList());
-            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.type", validTypes));
+            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.type", EnumUtils.join(", ", WorldType.publicTypes())));
             return;
         }
 
         if (worldType.isInternalType()) {
-            String validTypes = String.join(", ", WorldType.publicTypes().stream().map(Enum::name).toList());
-            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.internal", worldType, validTypes));
+            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.internal", worldType, EnumUtils.join(", ", WorldType.publicTypes())));
             return;
         }
 
