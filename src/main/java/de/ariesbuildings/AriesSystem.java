@@ -8,6 +8,7 @@ import de.ariesbuildings.listener.worldoptions.AntiBlockUpdateListeners;
 import de.ariesbuildings.listener.worldoptions.EntityTargetPlayerListener;
 import de.ariesbuildings.listener.worldoptions.PlayerWorldDamageListener;
 import de.ariesbuildings.listener.worldoptions.WeatherChangeListener;
+import de.ariesbuildings.locales.LanguageLoader;
 import de.ariesbuildings.managers.AriesPlayerManager;
 import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.managers.VanishManager;
@@ -36,7 +37,6 @@ public class AriesSystem extends JavaPlugin {
     @Getter
     private static AriesSystem instance;
 
-    private I18n i18n;
     @Getter private AriesWorldManager worldManager;
     @Getter private AriesPlayerManager playerManager;
     @Getter private VanishManager vanishManager;
@@ -50,9 +50,10 @@ public class AriesSystem extends JavaPlugin {
         AriesSystemConfig.setPlugin(this);
         AriesSystemConfig.load();
 
+        LanguageLoader.initialise();
+
         this.serverData = new ServerData();
         this.serverData.deserialize();
-        this.i18n = new I18n();
         this.worldManager = new AriesWorldManager(this);
         this.playerManager = new AriesPlayerManager();
         this.vanishManager = new VanishManager();
@@ -98,7 +99,6 @@ public class AriesSystem extends JavaPlugin {
         this.serverData.serialize();
         this.worldManager.saveWorlds();
         this.vanishManager.stopTask();
-        this.i18n.disable();
     }
 
     private void registerCommands() {
@@ -112,6 +112,7 @@ public class AriesSystem extends JavaPlugin {
         CommandRegister.register(new CommandConfig(this));
         CommandRegister.register(new CommandWorld(this, this.worldManager));
         CommandRegister.register(new CommandMenu(this));
+        CommandRegister.register(new CommandReloadLocals(this));
     }
 
     private void registerListeners() {

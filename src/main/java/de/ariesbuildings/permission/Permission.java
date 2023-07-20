@@ -35,6 +35,7 @@ public class Permission {
     //CONFIG
     public static final String CONFIG_RELOAD = CONFIG_PREFIX + "reload"; //Allows the player to reload the config with /config reload or /cfg reload
     public static final String CONFIG_DISPLAY = CONFIG_PREFIX + "display"; //Allows the player to display the config with /config display or /cfg display
+    public static final String LANGUAGE_RELOAD = CONFIG_PREFIX + "reload_langauge"; //Allows the player to reload current language using /reloadlocals
 
     //OTHER
     public static final String CHAT_USE_COLOR = PERMISSION_PREFIX + "chat.color"; //Player can write colored text in chat

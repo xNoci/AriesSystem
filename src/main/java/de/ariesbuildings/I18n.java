@@ -1,23 +1,22 @@
 package de.ariesbuildings;
 
+import de.ariesbuildings.locales.LanguageFile;
 import me.noci.quickutilities.utils.Require;
 import org.apache.commons.lang3.StringUtils;
 
 import java.text.MessageFormat;
-import java.util.Locale;
-import java.util.ResourceBundle;
 
 public class I18n {
 
     private static final String BUNDLE_NAME = "locales.messages";
     private static I18n instance;
 
-    private final ResourceBundle defaultBundle;
+    private final LanguageFile languageFile;
 
-    public I18n() {
+    public I18n(LanguageFile languageFile) {
         Require.checkState(instance == null, "Cannot create a second instance of I18n.");
         instance = this;
-        defaultBundle = ResourceBundle.getBundle(BUNDLE_NAME, Locale.ENGLISH);
+        this.languageFile = languageFile;
     }
 
     public static String translate(String key, Object... params) {
@@ -37,13 +36,12 @@ public class I18n {
         return instance.translate("noPermission");
     }
 
-    public void disable() {
+    public void delete() {
         instance = null;
     }
 
     private String translate(String key) {
-        if (!defaultBundle.containsKey(key)) return key;
-        return defaultBundle.getString(key);
+        return languageFile.get(key);
     }
 
     private String format(String key, Object... params) {
