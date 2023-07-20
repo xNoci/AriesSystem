@@ -39,6 +39,7 @@ task<ConfigureShadowRelocation>("relocateShadowJar") {
 
 tasks.named<ShadowJar>("shadowJar").configure {
     dependsOn(tasks["relocateShadowJar"])
+    minimize()
 }
 
 java {
