@@ -1,6 +1,6 @@
 package de.ariesbuildings.utils;
 
-import org.bukkit.entity.Player;
+import de.ariesbuildings.AriesPlayer;
 
 public interface BlockedCommand {
 
@@ -8,7 +8,7 @@ public interface BlockedCommand {
 
     String getReasonKey();
 
-    boolean shouldBlock(Player player);
+    boolean shouldBlock(AriesPlayer player);
 
     default boolean matches(String command) {
         String identifier = getIdentifier();

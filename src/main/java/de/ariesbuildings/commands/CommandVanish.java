@@ -31,9 +31,9 @@ public class CommandVanish extends AriesCommand {
     @FallbackCommand
     private void onUnknown(AriesPlayer player) {
         if (!player.hasPermission(Permission.PLAYER_OPTION_VANISH)) {
-            player.sendMessage(I18n.noPermission());
+            player.sendNoPermissions();
             return;
         }
-        player.sendMessage(I18n.translate("command.unknown", "vanish", ""));
+        player.sendTranslate("command.unknown", "vanish", "");
     }
 }

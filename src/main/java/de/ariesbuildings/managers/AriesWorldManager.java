@@ -86,16 +86,16 @@ public class AriesWorldManager {
     public void createWorld(AriesPlayer player, WorldType worldType) {
         Input.title(player, I18n.translate("input.title.world_create"), input -> {
             if (StringUtils.isBlank(input)) {
-                player.sendMessage(I18n.translate("input.world_create.empty_string"));
+                player.sendTranslate("input.world_create.empty_string");
                 return;
             }
 
             if (!createWorld(input, player.getUUID(), worldType)) {
-                player.sendMessage(I18n.translate("world.creation.failed"));
+                player.sendTranslate("world.creation.failed");
                 return;
             }
-            player.sendMessage(I18n.translate("world.creation.success"));
-        }, p -> p.sendMessage(I18n.translate("input.world_create.canceled")));
+            player.sendTranslate("world.creation.success");
+        }, p -> p.sendTranslate("input.world_create.canceled"));
     }
 
     public boolean createWorld(String worldName, UUID creator, WorldType type) {

@@ -1,9 +1,9 @@
 package de.ariesbuildings.utils;
 
 import com.google.common.collect.Lists;
+import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.config.AriesSystemConfig;
-import org.bukkit.entity.Player;
 
 import java.util.List;
 
@@ -166,9 +166,8 @@ public class WorldEditBlockedCommand implements BlockedCommand {
     }
 
     @Override
-    public boolean shouldBlock(Player player) {
+    public boolean shouldBlock(AriesPlayer player) {
         if (!AriesSystemConfig.WORLD_BLOCK_WORLD_EDIT) return false;
-
         return AriesSystem.getInstance().getWorldManager()
                 .getWorld(player)
                 .map(world -> !world.isPermitted(player))

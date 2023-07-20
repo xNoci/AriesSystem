@@ -24,7 +24,7 @@ public class CommandGamemode extends AriesCommand {
             return;
         }
 
-        player.sendMessage(I18n.translate("command.gamemode.change", gameMode.name()));
+        player.sendTranslate("command.gamemode.change", gameMode.name());
         player.getBase().setGameMode(gameMode);
     }
 
@@ -37,17 +37,17 @@ public class CommandGamemode extends AriesCommand {
         }
 
         if (!target.isValid()) {
-            sender.sendMessage(I18n.translate("command.player_not_found", target.getName()));
+            sender.sendTranslate("command.player_not_found", target.getName());
             return;
         }
 
         if (sender.getUUID().equals(target.getUUID())) {
-            sender.sendMessage(I18n.translate("command.cannot_target_yourself"));
+            sender.sendTranslate("command.cannot_target_yourself");
             return;
         }
 
-        sender.sendMessage(I18n.translate("command.gamemode.change_other", target.getName(), gameMode.name()));
-        target.sendMessage(I18n.translate("command.gamemode.change", gameMode.name()));
+        sender.sendTranslate("command.gamemode.change_other", target.getName(), gameMode.name());
+        target.sendTranslate("command.gamemode.change", gameMode.name());
         target.getBase().setGameMode(gameMode);
     }
 
@@ -59,16 +59,16 @@ public class CommandGamemode extends AriesCommand {
     @FallbackCommand
     public void playerFallback(AriesPlayer player) {
         if (!player.hasPermission(Permission.COMMAND_GAMEMODE) && !player.hasPermission(Permission.COMMAND_GAMEMODE_OTHER)) {
-            player.sendMessage(I18n.noPermission());
+            player.sendNoPermissions();
             return;
         }
 
         if (player.hasPermission(Permission.COMMAND_GAMEMODE_OTHER)) {
-            player.sendMessage(I18n.translate("command.unknown", "gamemode", "<type> [player]"));
+            player.sendTranslate("command.unknown", "gamemode", "<type> [player]");
             return;
         }
 
-        player.sendMessage(I18n.translate("command.unknown", "gamemode", "<type>"));
+        player.sendTranslate("command.unknown", "gamemode", "<type>");
     }
 
 }

@@ -1,6 +1,7 @@
 package de.ariesbuildings.utils;
 
 import de.ariesbuildings.AriesPlayer;
+import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.config.AriesSystemConfig;
 import me.noci.quickutilities.input.Inputs;
@@ -13,7 +14,7 @@ import java.util.List;
 
 public class Input {
 
-    public static void title(AriesPlayer player, String title, InputExecutor inputExecutor, CanceledInput canceledInput) {
+    public static void title(AriesPlayer player, String title, InputExecutor inputExecutor, WrappedCanceledInput canceledInput) {
         Require.checkState(player != null && player.isValid(), "Could not open titled input, AriesPlayer is not valid");
         title(player.getBase(), title, inputExecutor, canceledInput);
     }
@@ -23,7 +24,7 @@ public class Input {
         input.onCancel(canceledInput);
     }
 
-    public static void chat(AriesPlayer player, String notify, InputExecutor inputExecutor, CanceledInput canceledInput) {
+    public static void chat(AriesPlayer player, String notify, InputExecutor inputExecutor, WrappedCanceledInput canceledInput) {
         Require.checkState(player != null && player.isValid(), "Could not open chat input, AriesPlayer is not valid");
         chat(player.getBase(), notify, inputExecutor, canceledInput);
     }
@@ -33,7 +34,7 @@ public class Input {
         input.onCancel(canceledInput);
     }
 
-    public static void sign(AriesPlayer player, int inputLine, List<String> lines, InputExecutor inputExecutor, CanceledInput canceledInput) {
+    public static void sign(AriesPlayer player, int inputLine, List<String> lines, InputExecutor inputExecutor, WrappedCanceledInput canceledInput) {
         Require.checkState(player != null && player.isValid(), "Could not sign chat input, AriesPlayer is not valid");
         sign(player.getBase(), inputLine, lines, inputExecutor, canceledInput);
     }
@@ -41,6 +42,15 @@ public class Input {
     public static void sign(Player player, int inputLine, List<String> lines, InputExecutor inputExecutor, CanceledInput canceledInput) {
         var input = Inputs.sign(player, inputLine, lines, inputExecutor);
         input.onCancel(canceledInput);
+    }
+
+    @FunctionalInterface
+    public interface WrappedCanceledInput extends CanceledInput {
+        void execute(AriesPlayer player);
+
+        default void execute(Player player) {
+            execute(AriesSystem.getInstance().getPlayerManager().getPlayer(player));
+        }
     }
 
 }

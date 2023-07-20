@@ -2,7 +2,6 @@ package de.ariesbuildings.listener.playeroptions;
 
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
-import de.ariesbuildings.I18n;
 import de.ariesbuildings.options.PlayerOption;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
@@ -14,16 +13,16 @@ public class VoidDamageTeleportListener implements Listener {
 
     @EventHandler
     public void handlePlayerDamage(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player player)) return;
-        AriesPlayer ariesPlayer = AriesSystem.getInstance().getPlayerManager().getPlayer(player);
+        if (!(event.getEntity() instanceof Player)) return;
+        AriesPlayer player = AriesSystem.getInstance().getPlayerManager().getPlayer((Player) event.getEntity());
 
-        if (ariesPlayer.getOptions().isEnabled(PlayerOption.VOID_DAMAGE_TELEPORT) &&
+        if (player.getOptions().isEnabled(PlayerOption.VOID_DAMAGE_TELEPORT) &&
                 event.getCause() == EntityDamageEvent.DamageCause.VOID && player.getLocation().getY() < 0) {
             Location location = player.getLocation().clone();
             location.setY(100);
             player.teleport(location);
-            player.sendMessage(I18n.translate("teleport.out_of_void.reason"));
-            player.sendMessage(I18n.translate("teleport.out_of_void.help"));
+            player.sendTranslate("teleport.out_of_void.reason");
+            player.sendTranslate("teleport.out_of_void.help");
         }
     }
 

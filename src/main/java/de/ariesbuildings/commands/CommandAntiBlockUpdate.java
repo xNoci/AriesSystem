@@ -25,14 +25,14 @@ public class CommandAntiBlockUpdate extends AriesCommand {
                 .getWorld(player)
                 .ifPresentOrElse(world -> {
                     if (!world.hasWorldPermission(player, Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)) {
-                        player.sendMessage(I18n.translate("noPermission.not_a_builder"));
+                        player.sendTranslate("noPermission.not_a_builder");
                         return;
                     }
 
                     boolean currentValue = world.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE);
                     world.getOptions().set(WorldOption.ANTI_BLOCK_UPDATE, !currentValue);
                 }, () -> {
-                    player.sendMessage(I18n.translate("world.not_found.current_world"));
+                    player.sendTranslate("world.not_found.current_world");
                 });
     }
 
@@ -41,10 +41,9 @@ public class CommandAntiBlockUpdate extends AriesCommand {
         AriesSystem.getInstance().getWorldManager()
                 .getWorld(player)
                 .ifPresentOrElse(world -> {
-                    String message = I18n.translate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), world.getOptions().get(WorldOption.ANTI_BLOCK_UPDATE, boolean.class));
-                    player.sendMessage(message);
+                    player.sendTranslate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), world.getOptions().get(WorldOption.ANTI_BLOCK_UPDATE, boolean.class));
                 }, () -> {
-                    player.sendMessage(I18n.translate("world.not_found.current_world"));
+                    player.sendTranslate("world.not_found.current_world");
                 });
     }
 
@@ -56,9 +55,9 @@ public class CommandAntiBlockUpdate extends AriesCommand {
     @FallbackCommand
     private void onUnknown(AriesPlayer player) {
         if (!player.hasPermission(Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE)) {
-            player.sendMessage(I18n.noPermission());
+            player.sendNoPermissions();
             return;
         }
-        player.sendMessage(I18n.translate("command.unknown", "abu", "[current]"));
+        player.sendTranslate("command.unknown", "abu", "[current]");
     }
 }

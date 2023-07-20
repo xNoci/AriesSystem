@@ -109,9 +109,16 @@ public class AriesWorld {
         return isBuilder(player.getUniqueId()) || player.hasPermission(Permission.WORLD_BYPASS_BUILDER);
     }
 
+    public void broadcast(String key, Object... args) {
+        broadcast(I18n.translate(key, args), player -> true);
+    }
+
     public void broadcast(String message) {
-        if (world == null) return;
-        world.getPlayers().forEach(player -> player.sendMessage(message));
+        broadcast(message, player -> true);
+    }
+
+    public void broadcast(String key, Predicate<AriesPlayer> filter, Object... args) {
+        broadcast(I18n.translate(key, args), filter);
     }
 
     public void broadcast(String message, Predicate<AriesPlayer> filter) {
@@ -136,7 +143,7 @@ public class AriesWorld {
 
     public boolean teleport(AriesPlayer player, boolean force, boolean ignoreJoinRestriction) {
         if (!ignoreJoinRestriction && !canJoin(player)) {
-            player.sendMessage(I18n.translate("world.join.not_allowed"));
+            player.sendTranslate("world.join.not_allowed");
             return false;
         }
 

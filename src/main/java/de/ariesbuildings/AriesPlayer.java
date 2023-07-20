@@ -49,6 +49,10 @@ public class AriesPlayer {
         sendMessage(I18n.translate(key, args));
     }
 
+    public void sendNoPermissions() {
+        sendMessage(I18n.noPermission());
+    }
+
     public void sendMessage(String message) {
         if (!base.isOnline()) return;
         base.sendMessage(message);

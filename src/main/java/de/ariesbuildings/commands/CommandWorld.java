@@ -32,9 +32,9 @@ public class CommandWorld extends AriesCommand {
     private void displayCurrentWorld(AriesPlayer player) {
         worldManager.getWorld(player)
                 .ifPresentOrElse(world -> {
-                    player.sendMessage(I18n.translate("command.world.current.display_name", world.getWorldName()));
+                    player.sendTranslate("command.world.current.display_name", world.getWorldName());
                 }, () -> {
-                    player.sendMessage(I18n.translate("command.world.current.not_imported"));
+                    player.sendTranslate("command.world.current.not_imported");
                 });
     }
 
@@ -72,13 +72,13 @@ public class CommandWorld extends AriesCommand {
     @SubCommand(path = "create")
     @CommandPermission(Permission.WORLD_CREATE)
     public void createWorld(AriesPlayer sender, @IgnoreStrictEnum WorldType worldType) {
-        if(worldType == null) {
-            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.type", EnumUtils.join(", ", WorldType.publicTypes())));
+        if (worldType == null) {
+            sender.sendTranslate("command.world.world_parse_invalid.type", EnumUtils.join(", ", WorldType.publicTypes()));
             return;
         }
 
         if (worldType.isInternalType()) {
-            sender.sendMessage(I18n.translate("command.world.world_parse_invalid.internal", worldType, EnumUtils.join(", ", WorldType.publicTypes())));
+            sender.sendTranslate("command.world.world_parse_invalid.internal", worldType, EnumUtils.join(", ", WorldType.publicTypes()));
             return;
         }
 
@@ -88,7 +88,7 @@ public class CommandWorld extends AriesCommand {
     @SubCommand(path = "create")
     @CommandPermission(Permission.WORLD_CREATE)
     public void createWorld(CommandSender sender, @IgnoreStrictEnum WorldType worldType, String worldName) {
-        if(worldType == null) {
+        if (worldType == null) {
             sender.sendMessage(I18n.translate("command.world.world_parse_invalid.type", EnumUtils.join(", ", WorldType.publicTypes())));
             return;
         }

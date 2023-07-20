@@ -1,12 +1,12 @@
 package de.ariesbuildings.listener;
 
 import com.google.common.collect.Lists;
-import de.ariesbuildings.I18n;
+import de.ariesbuildings.AriesPlayer;
+import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.hooks.WorldEditHook;
 import de.ariesbuildings.utils.BlockedCommand;
 import de.ariesbuildings.utils.WorldEditBlockedCommand;
-import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.Listener;
 import org.bukkit.event.player.PlayerCommandPreprocessEvent;
@@ -28,7 +28,7 @@ public class PlayerCommandPreprocessListener implements Listener {
     public void handlePlayerCommandPreprocess(PlayerCommandPreprocessEvent event) {
         if (event.isCancelled()) return;
 
-        Player player = event.getPlayer();
+        AriesPlayer player = AriesSystem.getInstance().getPlayerManager().getPlayer(event.getPlayer());
         String command = event.getMessage().split(" ")[0];
 
         blockedCommandList.stream()
@@ -37,7 +37,7 @@ public class PlayerCommandPreprocessListener implements Listener {
                 .findFirst()
                 .ifPresent(blockedCommand -> {
                     event.setCancelled(true);
-                    player.sendMessage(I18n.translate(blockedCommand.getReasonKey()));
+                    player.sendTranslate(blockedCommand.getReasonKey());
                 });
     }
 
