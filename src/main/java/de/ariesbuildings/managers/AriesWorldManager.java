@@ -52,11 +52,11 @@ public class AriesWorldManager {
             worldData.deserialize(savedWorld, ariesWorld);
             ariesWorld.load();
             worlds.add(ariesWorld);
-            AriesSystemConfig.debug("Loaded world '%s'.".formatted(savedWorld));
+            AriesSystemConfig.debug("Loaded world '%s'.", savedWorld);
             worldsLoaded++;
         }
 
-        AriesSystemConfig.debug("Worlds loaded. Loaded a total of %s worlds.".formatted(worldsLoaded));
+        AriesSystemConfig.debug("Worlds loaded. Loaded a total of %s worlds.", worldsLoaded);
     }
 
     public void saveWorlds() {
@@ -64,14 +64,14 @@ public class AriesWorldManager {
         AriesSystemConfig.debug("Saving worlds...");
 
         for (AriesWorld world : worlds) {
-            AriesSystemConfig.debug("Saving world '%s'...".formatted(world.getWorldName()));
+            AriesSystemConfig.debug("Saving world '%s'...", world.getWorldName());
             worldData.serialize(world.getWorldName(), world);
 
             worldsSaved++;
         }
         worlds.clear();
 
-        AriesSystemConfig.debug("Worlds saved. Saved a total of %s worlds.".formatted(worldsSaved));
+        AriesSystemConfig.debug("Worlds saved. Saved a total of %s worlds.", worldsSaved);
     }
 
     public boolean existsWorld(String worldName) {
@@ -123,7 +123,7 @@ public class AriesWorldManager {
         if (!worldFile.exists() || !worldFile.isDirectory()) return WorldImportResult.WORLD_NOT_EXIST;
         if (getWorld(worldName).isPresent()) return WorldImportResult.ALREADY_IMPORTED;
 
-        AriesSystemConfig.debug("Importing world %s...".formatted(worldName));
+        AriesSystemConfig.debug("Importing world %s...", worldName);
 
         AriesWorld world = new AriesWorld(worldName);
         world.setType(WorldType.IMPORTED);
@@ -136,7 +136,7 @@ public class AriesWorldManager {
         worlds.add(world);
         worldData.serialize(worldName, world);
 
-        AriesSystemConfig.debug("World %s successfully imported.".formatted(worldName));
+        AriesSystemConfig.debug("World %s successfully imported.", worldName);
 
         return WorldImportResult.SUCCESS;
     }
@@ -145,14 +145,14 @@ public class AriesWorldManager {
         Optional<AriesWorld> worldOptional = getWorld(worldName);
         if (worldOptional.isEmpty()) return WorldImportResult.NOT_IMPORTED;
 
-        AriesSystemConfig.debug("Unimporting world %s...".formatted(worldName));
+        AriesSystemConfig.debug("Unimporting world %s...", worldName);
 
         AriesWorld world = worldOptional.get();
         world.unload();
         worlds.remove(world);
         worldData.removeObject(world.getWorldName());
 
-        AriesSystemConfig.debug("World %s successfully unimported.".formatted(worldName));
+        AriesSystemConfig.debug("World %s successfully unimported.", worldName);
 
         return WorldImportResult.SUCCESS;
     }

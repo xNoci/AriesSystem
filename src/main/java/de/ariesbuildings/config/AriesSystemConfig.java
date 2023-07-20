@@ -45,7 +45,7 @@ public class AriesSystemConfig extends AbstractConfig {
         AriesSystemConfig.plugin = plugin;
     }
 
-    public static void debug(String message) {
+    public static void debug(String message, Object... args) {
         if (!DEBUG) return;
 
         if (plugin == null) {
@@ -53,16 +53,16 @@ public class AriesSystemConfig extends AbstractConfig {
             return;
         }
 
-        plugin.getLogger().info("[DEBUG] " + message);
+        plugin.getLogger().info("[DEBUG] " + String.format(message, args));
     }
 
-    public static void info(String message) {
+    public static void info(String message, Object... args) {
         if (plugin == null) {
             System.out.println("[AriesSystem/INFO] " + message);
             return;
         }
 
-        plugin.getLogger().info(message);
+        plugin.getLogger().info(String.format(message, args));
     }
 
     protected AriesSystemConfig() {
