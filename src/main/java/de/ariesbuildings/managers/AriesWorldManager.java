@@ -48,13 +48,10 @@ public class AriesWorldManager {
         AriesSystemConfig.debug("Loading worlds...");
 
         for (String savedWorld : worldData.getSavedWorlds()) {
-            AriesSystemConfig.debug("Loading world '%s'...".formatted(savedWorld));
-
             AriesWorld ariesWorld = new AriesWorld(savedWorld);
             worldData.deserialize(savedWorld, ariesWorld);
             ariesWorld.load();
             worlds.add(ariesWorld);
-
             AriesSystemConfig.debug("Loaded world '%s'.".formatted(savedWorld));
             worldsLoaded++;
         }
@@ -110,7 +107,7 @@ public class AriesWorldManager {
         }
         world.setType(type);
         Bukkit.getScheduler().runTask(plugin, () -> {
-            World bukkitWorld = new WorldCreator(world).generateWorld();
+            World bukkitWorld = new WorldCreator(world).createWorld();
             world.setWorld(bukkitWorld);
         });
         world.getType().getCreator().applyDefaultSettings(world);

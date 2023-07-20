@@ -1,5 +1,8 @@
 package de.ariesbuildings.world.creator;
 
+import de.ariesbuildings.AriesSystem;
+import de.ariesbuildings.config.AriesSystemConfig;
+import de.ariesbuildings.utils.WorldGenerationLogFilter;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.WorldType;
 import me.noci.quickutilities.utils.Require;
@@ -25,12 +28,15 @@ public class WorldCreator {
         this.type = type;
     }
 
-    public World generateWorld() {
-        return this.type.getCreator().generateBukkitWorld(worldName);
+    public World createWorld() {
+        AriesSystemConfig.info("Creating new bukkit world ('%s' - Type: %s)".formatted(worldName, type));
+        return WorldGenerationLogFilter.handleSilently(() -> this.type.getCreator().generateBukkitWorld(worldName));
     }
 
     public World loadWorld() {
-        return this.type.getCreator().loadBukkitWorld(worldName);
+        AriesSystemConfig.info("Loading bukkit world ('%s' - Type: %s)".formatted(worldName, type));
+        return WorldGenerationLogFilter.handleSilently(() -> this.type.getCreator().loadBukkitWorld(worldName));
     }
+
 
 }
