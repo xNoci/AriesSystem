@@ -23,7 +23,7 @@ public abstract class AbstractObjectData<T> {
     public AbstractObjectData(String path, int configVersion) {
         this.configVersion = configVersion;
         this.configLoader = GsonConfigurationLoader.builder()
-                .path(Path.of(AriesSystem.getInstance().getDataFolder().getPath(), path))
+                .path(Path.of(AriesSystem.getInstance().getDataFolder().getPath(), "data", path))
                 .defaultOptions(options -> options.serializers(builder -> builder.registerAll(AriesSerializers.SERIALIZERS)))
                 .build();
         this.config = this.configLoader.load();
