@@ -153,7 +153,7 @@ public class AriesWorld {
         }
 
         Location location = new Location(world, worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ(), worldSpawn.getYaw(), worldSpawn.getPitch());
-        player.getBase().teleport(location);
+        player.teleport(location);
         return true;
     }
 

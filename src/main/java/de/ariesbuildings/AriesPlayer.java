@@ -5,8 +5,11 @@ import com.cryptomorin.xseries.messages.ActionBar;
 import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
+import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import me.noci.quickutilities.utils.MathUtils;
+import me.noci.quickutilities.utils.Require;
+import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
 import java.util.UUID;
@@ -88,4 +91,13 @@ public class AriesPlayer {
         setFlySpeed(options.get(PlayerOption.FLY_SPEED, int.class));
     }
 
+    public Location getLocation() {
+        Require.checkState(isValid(), "Cannot get location because player %s is not valid".formatted(name));
+        return this.base.getLocation();
+    }
+
+    public void teleport(Location location) {
+        if (!isValid()) return;
+        PaperLib.teleportAsync(this.base, location);
+    }
 }
