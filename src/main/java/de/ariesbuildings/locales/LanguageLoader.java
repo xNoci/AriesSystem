@@ -7,6 +7,8 @@ import lombok.SneakyThrows;
 import me.noci.quickutilities.utils.Require;
 
 import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
@@ -62,7 +64,7 @@ public class LanguageLoader {
     }
 
     protected static void readeDefaultProperties(Properties properties) {
-        try (InputStream defaultProperties = AriesSystem.getInstance().getResource(MESSAGES_PROPERTIES)) {
+        try (InputStreamReader defaultProperties = new InputStreamReader(AriesSystem.getInstance().getResource(MESSAGES_PROPERTIES), StandardCharsets.UTF_8)) {
             properties.load(defaultProperties);
         } catch (Exception e) {
             AriesSystemConfig.debug("Failed to load default properties: " + e.getMessage());
@@ -70,7 +72,7 @@ public class LanguageLoader {
     }
 
     protected static void readeServerProperties(Properties properties) {
-        try (InputStream defaultProperties = Files.newInputStream(LANGUAGE_FILE)) {
+        try (InputStreamReader defaultProperties = new InputStreamReader(Files.newInputStream(LANGUAGE_FILE), StandardCharsets.UTF_8)) {
             properties.load(defaultProperties);
         } catch (Exception e) {
             AriesSystemConfig.debug("Failed to load server properties: " + e.getMessage());
