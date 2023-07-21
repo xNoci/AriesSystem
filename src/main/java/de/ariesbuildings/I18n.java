@@ -8,7 +8,6 @@ import java.text.MessageFormat;
 
 public class I18n {
 
-    private static final String BUNDLE_NAME = "locales.messages";
     private static I18n instance;
 
     private final LanguageFile languageFile;
