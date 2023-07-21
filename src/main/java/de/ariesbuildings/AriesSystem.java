@@ -22,6 +22,8 @@ import io.papermc.lib.PaperLib;
 import lombok.Getter;
 import me.noci.quickutilities.quickcommand.CommandRegister;
 import me.noci.quickutilities.quickcommand.mappings.CommandMapping;
+import me.noci.quickutilities.quicktab.QuickTab;
+import me.noci.quickutilities.quicktab.builder.QuickTabBuilder;
 import me.noci.quickutilities.scoreboard.QuickBoard;
 import me.noci.quickutilities.utils.BukkitUnit;
 import me.noci.quickutilities.utils.ServerProperties;
@@ -88,8 +90,18 @@ public class AriesSystem extends JavaPlugin {
             scoreboard.updateLine(7, I18n.translate("scoreboard.line.world_status"));
             scoreboard.updateLine(8, I18n.translate("scoreboard.line.world_status_display", worldStatus));
             scoreboard.updateLine(9, "");
-
         });
+
+        QuickTabBuilder builder = QuickTab.builder();
+        builder.prefix((player, target) -> RankInfo.getInfo(target).getPrefix());
+        builder.suffix((player, target) -> {
+            String worldName = AriesSystem.getInstance().getWorldManager().getWorld(target).map(AriesWorld::getWorldName).orElse(I18n.translate("tab_list.player_list.suffix.unknown_world"));
+            return I18n.translate("tab_list.player_list.suffix", worldName);
+        });
+        builder.color((player, target) -> RankInfo.getInfo(target).getColor());
+        builder.sortID((player, target) -> RankInfo.getInfo(target).getSortID());
+
+        QuickTab.setUpdatingTabList(builder);
     }
 
     @Override
@@ -141,6 +153,7 @@ public class AriesSystem extends JavaPlugin {
         registerListener(new PostOptionChangeListener());
         registerListener(new PlayerCommandPreprocessListener());
         registerListener(new ServerListPingBukkitListener(), new ServerListPingPaperListener());
+        new PlayerWorldChangeListener();
     }
 
     private void registerListener(Listener listener) {

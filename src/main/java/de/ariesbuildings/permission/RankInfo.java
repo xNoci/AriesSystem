@@ -1,7 +1,9 @@
 package de.ariesbuildings.permission;
 
+import de.ariesbuildings.I18n;
 import de.ariesbuildings.hooks.LuckPermsHook;
 import org.bukkit.ChatColor;
+import org.bukkit.entity.Player;
 
 import java.util.UUID;
 
@@ -11,6 +13,10 @@ public abstract class RankInfo {
 
     public RankInfo(UUID uuid) {
         this.owner = uuid;
+    }
+
+    public static RankInfo getInfo(Player player) {
+        return getInfo(player.getUniqueId());
     }
 
     public static RankInfo getInfo(UUID uuid) {
@@ -27,7 +33,7 @@ public abstract class RankInfo {
     public abstract ChatColor getColor();
 
     public String getPrefix() {
-        return getColor() + prefix() + "§8|" + getColor() + " ";
+        return I18n.translate("tab_list.player_list.prefix_format", getColor() + prefix(), getColor());
     }
 
     public int getSortID() {
