@@ -13,6 +13,7 @@ import java.util.HashMap;
 public class OptionItemBuilder<O extends Option, V> {
 
     public static <O extends Option, V> OptionItemBuilder<O, V> of(O option, Class<V> valueType) {
+        Require.checkState(option.getValueType().equals(valueType), "The given valueType (%s) does not match the value type of the option '%s' (%s)".formatted(valueType.getName(), option.getName(), option.getValueType().getName()));
         return new OptionItemBuilder<>(option, valueType);
     }
 

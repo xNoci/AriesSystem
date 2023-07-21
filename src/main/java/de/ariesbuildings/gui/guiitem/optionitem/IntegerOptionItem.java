@@ -45,7 +45,7 @@ public class IntegerOptionItem<OptionType extends Option> extends OptionItem<Opt
     public static class Factory implements OptionItemFactory.Factory<Integer> {
         @Override
         public <O extends Option> void build(OptionItemBuilder<O, Integer> builder) {
-            IntegerOptionItem<O> item = new IntegerOptionItem(builder.currentValue(), builder.optionHolder, builder.option, builder.content, builder.slot);
+            IntegerOptionItem<O> item = new IntegerOptionItem<>(builder.currentValue(), builder.optionHolder, builder.option, builder.content, builder.slot);
 
             if (builder.lowerBound > builder.upperBound) {
                 int tmp = builder.lowerBound;

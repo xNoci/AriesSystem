@@ -16,6 +16,7 @@ public class OptionItemFactory {
         FACTORY_MAP.put(Enum.class, new EnumOptionItem.Factory());
     }
 
+    @SuppressWarnings({"unchecked", "rawtypes"})
     public static <V, O extends Option> void build(Class<?> type, OptionItemBuilder<O, V> optionItemBuilder) {
         Factory factory = getFactory(type);
         factory.build(optionItemBuilder);
@@ -26,8 +27,7 @@ public class OptionItemFactory {
         Require.checkState(FACTORY_MAP.containsKey(type), "Could not find OptionItemFactory for type %s.".formatted(type.getName()));
         return FACTORY_MAP.get(type);
     }
-
-
+    
     public interface Factory<T> {
         <O extends Option> void build(OptionItemBuilder<O, T> builder);
     }
