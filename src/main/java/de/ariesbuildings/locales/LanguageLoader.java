@@ -53,6 +53,9 @@ public class LanguageLoader {
     @SneakyThrows
     private static void createNewLanguageFile() {
         if (Files.exists(LANGUAGE_FILE)) {
+            String backupName = backupFileName();
+            AriesSystemConfig.debug("Creating backup of old 'messages.lang' as '%s' before deleting it", backupName);
+            Files.copy(LANGUAGE_FILE, Path.of(LANGUAGE_FOLDER.toString(), backupName));
             Files.delete(LANGUAGE_FILE);
         }
 
@@ -75,8 +78,14 @@ public class LanguageLoader {
         try (InputStreamReader defaultProperties = new InputStreamReader(Files.newInputStream(LANGUAGE_FILE), StandardCharsets.UTF_8)) {
             properties.load(defaultProperties);
         } catch (Exception e) {
-            AriesSystemConfig.debug("Failed to load server properties: " + e.getMessage());
+            AriesSystemConfig.debug("Failed to load server messages.lang: " + e.getMessage());
         }
+    }
+
+    private static String backupFileName() {
+        Instant instant = Instant.ofEpochMilli(System.currentTimeMillis());
+        LocalDateTime dateTime = LocalDateTime.ofInstant(instant, ZoneId.systemDefault());
+        return "messages_" + dateTime.format(DateTimeFormatter.ofPattern("dd_MM_yyyy_HH_mm_ss")) + ".lang";
     }
 
 }
