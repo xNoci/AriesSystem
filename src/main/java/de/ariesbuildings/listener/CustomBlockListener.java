@@ -114,7 +114,7 @@ public class CustomBlockListener implements Listener {
     }
 
     private void rotate(Player player, Block block, boolean allowUpDown) {
-        BlockFace facing = DirectionUtils.getBlockDirection(player, allowUpDown);
+        BlockFace facing = DirectionUtils.getFacingBlockDirection(player, allowUpDown);
         XBlock.setRotation(block, facing);
         XBlock.setDirection(block, facing);
     }
