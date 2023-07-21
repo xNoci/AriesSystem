@@ -12,7 +12,7 @@ import org.bukkit.plugin.java.JavaPlugin;
 public class CommandReloadLocals extends AriesCommand {
 
     public CommandReloadLocals(JavaPlugin plugin) {
-        super(plugin, "reloadlocals", "", "", "reloadlanguage");
+        super(plugin, "reloadlocals", "", "", "reloadlanguage", "rll");
     }
 
     @Command
