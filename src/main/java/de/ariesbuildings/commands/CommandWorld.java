@@ -1,9 +1,12 @@
 package de.ariesbuildings.commands;
 
 import de.ariesbuildings.AriesPlayer;
+import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.managers.AriesWorldManager;
+import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
+import de.ariesbuildings.world.RawLocation;
 import de.ariesbuildings.world.WorldImportResult;
 import de.ariesbuildings.world.WorldType;
 import me.noci.quickutilities.quickcommand.annotation.*;
@@ -33,9 +36,7 @@ public class CommandWorld extends AriesCommand {
         worldManager.getWorld(player)
                 .ifPresentOrElse(world -> {
                     player.sendTranslate("command.world.current.display_name", world.getWorldName());
-                }, () -> {
-                    player.sendTranslate("command.world.current.not_imported");
-                });
+                }, () -> player.sendTranslate("command.world.current.not_imported"));
     }
 
     @SubCommand(path = "physics")
@@ -113,18 +114,16 @@ public class CommandWorld extends AriesCommand {
 
     @SubCommand(path = "tp")
     @CommandPermission(Permission.WORLD_TP)
-    public void teleport(Player player, String worldName) {
+    public void teleport(AriesPlayer player, String worldName) {
         worldManager.getWorld(worldName)
                 .ifPresentOrElse(world -> {
                     world.teleport(player, true);
-                }, () -> {
-                    player.sendMessage(I18n.translate("world.not_found.world_name", worldName));
-                });
+                }, () -> player.sendTranslate("world.not_found.world_name", worldName));
     }
 
     @FallbackCommand
-    private void unknownCommand(Player player) {
-        player.sendMessage(I18n.translate("command.unknown", "worlds", ""));
+    private void unknownCommand(AriesPlayer player) {
+        player.sendTranslate("command.unknown", "worlds", "");
     }
 
     @FallbackCommand
