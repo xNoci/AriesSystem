@@ -1,5 +1,7 @@
 package de.ariesbuildings.config.serializers;
 
+import de.ariesbuildings.AriesSystem;
+import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.RawLocation;
 import org.checkerframework.checker.nullness.qual.Nullable;
 import org.spongepowered.configurate.ConfigurationNode;
@@ -29,18 +31,30 @@ public class RawLocationSerializer implements TypeSerializer<RawLocation> {
     public RawLocation deserialize(Type type, ConfigurationNode source) throws SerializationException {
         ConfigurationNode location = nonVirtualNode(source, LOCATION);
 
+        AriesWorld world = null;
+        ConfigurationNode ariesWorldNode = location.node("ariesWorld");
+        if (!ariesWorldNode.virtual() && ariesWorldNode.getString() != null) {
+            world = AriesSystem.getInstance().getWorldManager().getWorld(ariesWorldNode.getString()).get();
+        }
+
         double x = location.node("x").getDouble();
         double y = location.node("y").getDouble();
         double z = location.node("z").getDouble();
         float yaw = location.node("yaw").getFloat();
         float pitch = location.node("pitch").getFloat();
 
-        return new RawLocation(x, y, z, yaw, pitch);
+        return new RawLocation(world, x, y, z, yaw, pitch);
     }
 
     @Override
     public void serialize(Type type, @Nullable RawLocation location, ConfigurationNode target) throws SerializationException {
         if (location == null) return;
+
+        var ariesWorld = location.getAriesWorld();
+        if (ariesWorld.isPresent()) {
+            target.node(LOCATION).node("ariesWorld").set(ariesWorld.get().getWorldName());
+        }
+
         target.node(LOCATION).node("x").set(location.getX());
         target.node(LOCATION).node("y").set(location.getY());
         target.node(LOCATION).node("z").set(location.getZ());
