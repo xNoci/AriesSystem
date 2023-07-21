@@ -11,14 +11,15 @@ public enum PlayerOption implements Option {
     VANISH("Vanish", false, boolean.class),
     FLY_SPEED("Fly speed", 1, int.class),
     NOTIFY_OPTION_CHANGE("Notify option change", OptionNotify.ALWAYS, OptionNotify.class),
-    PLAY_PING_SOUND("Ping sound", true, boolean.class);
+    PLAY_PING_SOUND("Ping sound", true, boolean.class),
+    REMEMBER_LOCATION("Remember last location", false, boolean.class);
 
     @Getter private final String name;
     @Getter private final Object defaultValue;
     @Getter private final Class<?> valueType;
 
     <T> PlayerOption(String name, T defaultValue, Class<T> valueType) {
-        this.name = name;
+        this.name = name; //TODO Load name from config file
         this.defaultValue = defaultValue;
         this.valueType = valueType;
     }

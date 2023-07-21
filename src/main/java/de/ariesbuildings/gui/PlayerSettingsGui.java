@@ -113,6 +113,15 @@ public class PlayerSettingsGui extends AriesGuiProvider {
                 .mapValue(true, new QuickItemStack(XMaterial.BELL.or(XMaterial.JUKEBOX).parseMaterial()).setDisplayName(pingSoundDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_true")).addItemFlags())
                 .mapValue(false, new QuickItemStack(XMaterial.GRAY_CARPET.parseMaterial(), pingSoundDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_false")).addItemFlags())
                 .build();
+
+        String rememberLocation = I18n.translate("gui.player_settings.item.remember_location.displayname");
+        OptionItemBuilder.of(PlayerOption.REMEMBER_LOCATION, boolean.class)
+                .inventoryContent(content)
+                .slot(5, 8)
+                .optionHolder(player.getOptions())
+                .mapValue(true, new QuickItemStack(XMaterial.MAP.parseMaterial()).setDisplayName(rememberLocation).setLore("", I18n.translate("gui.player_settings.item.option.lore_true")).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.ITEM_FRAME.parseMaterial(), rememberLocation).setLore("", I18n.translate("gui.player_settings.item.option.lore_false")).addItemFlags())
+                .build();
     }
 
 

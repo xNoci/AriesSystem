@@ -5,6 +5,7 @@ import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
+import de.ariesbuildings.world.RawLocation;
 import org.bukkit.ChatColor;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.EventPriority;
@@ -25,6 +26,7 @@ public class PlayerQuitListener implements Listener {
     @EventHandler
     public void handlePlayerQuit(PlayerQuitEvent event) {
         AriesPlayer ariesPlayer = AriesSystem.getInstance().getPlayerManager().getPlayer(event.getPlayer());
+        ariesPlayer.getWorld().ifPresent(world -> ariesPlayer.setLastKnownLocation(new RawLocation(world, ariesPlayer.getLocation())));
 
         if (ariesPlayer.getOptions().isDisabled(PlayerOption.VANISH)) {
             event.setQuitMessage(getQuitMessage(ariesPlayer));

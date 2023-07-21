@@ -138,10 +138,21 @@ public class AriesWorld {
     }
 
     public boolean teleport(AriesPlayer player, boolean force) {
-        return teleport(player, force, false);
+        Location location = new Location(world, worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ(), worldSpawn.getYaw(), worldSpawn.getPitch());
+        return teleport(player, location, force, false);
     }
 
     public boolean teleport(AriesPlayer player, boolean force, boolean ignoreJoinRestriction) {
+        Location location = new Location(world, worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ(), worldSpawn.getYaw(), worldSpawn.getPitch());
+        return teleport(player, location, force, ignoreJoinRestriction);
+    }
+
+    public boolean teleportTo(AriesPlayer player, RawLocation location, boolean force) {
+        Location loc = new Location(world, location.getX(), location.getY(), location.getZ(), location.getYaw(), location.getPitch());
+        return teleport(player, loc, force, false);
+    }
+
+    private boolean teleport(AriesPlayer player, Location location, boolean force, boolean ignoreJoinRestriction) {
         if (!ignoreJoinRestriction && !canJoin(player)) {
             player.sendTranslate("world.join.not_allowed");
             return false;
@@ -152,7 +163,6 @@ public class AriesWorld {
             load();
         }
 
-        Location location = new Location(world, worldSpawn.getX(), worldSpawn.getY(), worldSpawn.getZ(), worldSpawn.getYaw(), worldSpawn.getPitch());
         player.teleport(location);
         return true;
     }

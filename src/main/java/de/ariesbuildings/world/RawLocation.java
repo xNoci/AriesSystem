@@ -45,7 +45,7 @@ public class RawLocation {
     public boolean teleportTo(AriesPlayer player) {
         var world = getAriesWorld();
         if (world.isEmpty()) return false;
-        world.get().teleport(player, true);
+        world.get().teleportTo(player, this, true);
         return true;
     }
 

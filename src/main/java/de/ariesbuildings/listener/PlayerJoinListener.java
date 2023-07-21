@@ -6,6 +6,7 @@ import de.ariesbuildings.I18n;
 import de.ariesbuildings.managers.VanishManager;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
+import de.ariesbuildings.world.RawLocation;
 import org.bukkit.ChatColor;
 import org.bukkit.GameMode;
 import org.bukkit.event.EventHandler;
@@ -42,10 +43,17 @@ public class PlayerJoinListener implements Listener {
 
         VanishManager.updatePlayerVisibility();
 
-        //TODO IF NOT FIRST LOGIN TELEPORT TO LAST LOCATION
-        // SETTING IF ALWAYS TELEPORT TO SPAWN WORLD
-        // check if player is allowed in his last world
-        AriesSystem.getInstance().teleportToSpawnWorld(player);
+        boolean rememberLocation = player.getOptions().isEnabled(PlayerOption.REMEMBER_LOCATION);
+        RawLocation rawLocation = player.getLastKnownLocation();
+        boolean teleported = false;
+
+        if (rememberLocation && rawLocation != null) {
+            teleported = rawLocation.teleportTo(player);
+        }
+
+        if (!rememberLocation || !teleported) {
+            AriesSystem.getInstance().teleportToSpawnWorld(player);
+        }
     }
 
 }

@@ -5,13 +5,17 @@ import com.cryptomorin.xseries.messages.ActionBar;
 import de.ariesbuildings.options.OptionHolder;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.RankInfo;
+import de.ariesbuildings.world.AriesWorld;
+import de.ariesbuildings.world.RawLocation;
 import io.papermc.lib.PaperLib;
 import lombok.Getter;
+import lombok.Setter;
 import me.noci.quickutilities.utils.MathUtils;
 import me.noci.quickutilities.utils.Require;
 import org.bukkit.Location;
 import org.bukkit.entity.Player;
 
+import java.util.Optional;
 import java.util.UUID;
 
 public class AriesPlayer {
@@ -22,6 +26,7 @@ public class AriesPlayer {
 
     @Getter private final Player base;
     @Getter private final String name;
+    @Getter @Setter private RawLocation lastKnownLocation;
     private final UUID uuid;
 
     public AriesPlayer(String name) {
@@ -100,4 +105,9 @@ public class AriesPlayer {
         if (!isValid()) return;
         PaperLib.teleportAsync(this.base, location);
     }
+
+    public Optional<AriesWorld> getWorld() {
+        return AriesSystem.getInstance().getWorldManager().getWorld(this);
+    }
+
 }
