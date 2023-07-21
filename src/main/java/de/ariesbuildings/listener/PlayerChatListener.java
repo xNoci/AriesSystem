@@ -3,6 +3,7 @@ package de.ariesbuildings.listener;
 import com.cryptomorin.xseries.XSound;
 import com.google.common.collect.Lists;
 import de.ariesbuildings.AriesSystem;
+import de.ariesbuildings.I18n;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.Permission;
 import de.ariesbuildings.permission.RankInfo;
@@ -26,13 +27,12 @@ public class PlayerChatListener implements Listener {
 
     private static final Pattern PING_PATTERN = Pattern.compile("(?<=\\s|^|\\W)(@)(?<name>[a-zA-Z0-9_]{2,16})\\b"); // Match @Username
 
-    private static final String CHAT_FORMAT = "§8(§7" + ChatFormat.CURRENT_ARIES_WORLD + "§8) " + ChatFormat.RANK_COLOR + ChatFormat.RANK_DISPLAYNAME + " §8| " + ChatFormat.RANK_COLOR + FormatKey.PLAYER_NAME + "§8: §f" + FormatKey.MESSAGE;
-
     @EventHandler
     public void handleAsyncPlayerChat(AsyncPlayerChatEvent event) {
         Player player = event.getPlayer();
         RankInfo rankInfo = RankInfo.getInfo(player.getUniqueId());
         Optional<AriesWorld> world = AriesSystem.getInstance().getWorldManager().getWorld(player);
+        String chatFormat = I18n.translate("chat_format");
 
         event.setCancelled(true);
 
@@ -44,7 +44,7 @@ public class PlayerChatListener implements Listener {
             message = ChatColor.translateAlternateColorCodes('&', message);
         }
 
-        MessageFormatter formatter = MessageFormatter.format(CHAT_FORMAT);
+        MessageFormatter formatter = MessageFormatter.format(chatFormat);
         formatter.apply(ChatFormat.RANK_COLOR, rankInfo);
         formatter.apply(ChatFormat.RANK_DISPLAYNAME, rankInfo);
         formatter.apply(FormatKey.PLAYER_NAME, player);
