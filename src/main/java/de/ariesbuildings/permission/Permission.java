@@ -27,6 +27,7 @@ public class Permission {
     public static final String WORLD_ADD_BUILD = WORLD_PREFIX + "add_builder";
 
     public static final String WORLD_TP = WORLD_PREFIX + "tp";
+    public static final String WORLD_SET_SPAWN = WORLD_PREFIX + "set_spawn";
 
 
     //PLAYER OPTIONS

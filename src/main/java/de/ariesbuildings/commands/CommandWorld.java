@@ -112,6 +112,16 @@ public class CommandWorld extends AriesCommand {
         }
     }
 
+    @SubCommand(path = "setspawn")
+    @CommandPermission(Permission.WORLD_SET_SPAWN)
+    public void setSpawn(AriesPlayer player) {
+        worldManager.getWorld(player)
+                .ifPresentOrElse(world -> {
+                    world.setWorldSpawn(new RawLocation(player.getLocation()));
+                    player.sendTranslate("command.world.set_spawm.success");
+                }, () -> player.sendTranslate("world.not_found.current_world"));
+    }
+
     @SubCommand(path = "tp")
     @CommandPermission(Permission.WORLD_TP)
     public void teleport(AriesPlayer player, String worldName) {
