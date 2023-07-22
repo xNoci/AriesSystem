@@ -116,6 +116,7 @@ public class AriesSystem extends JavaPlugin {
     private void registerCommands() {
         CommandMapping.registerPlayerMapping(AriesPlayer.class, player -> playerManager.getPlayer(player));
         CommandMapping.registerArgumentMapping(AriesPlayer.class, argument -> playerManager.getPlayer(argument));
+        CommandMapping.registerArgumentMapping(AriesWorld.class, argument -> worldManager.getWorld(argument).orElse(null));
 
         CommandRegister.register(new CommandAriesSystem(this));
         CommandRegister.register(new CommandGamemode(this));

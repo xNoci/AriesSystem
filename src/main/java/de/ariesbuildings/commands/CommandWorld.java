@@ -1,11 +1,10 @@
 package de.ariesbuildings.commands;
 
 import de.ariesbuildings.AriesPlayer;
-import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.managers.AriesWorldManager;
-import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.Permission;
+import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.RawLocation;
 import de.ariesbuildings.world.WorldImportResult;
 import de.ariesbuildings.world.WorldType;
@@ -124,11 +123,13 @@ public class CommandWorld extends AriesCommand {
 
     @SubCommand(path = "tp")
     @CommandPermission(Permission.WORLD_TP)
-    public void teleport(AriesPlayer player, String worldName) {
-        worldManager.getWorld(worldName)
-                .ifPresentOrElse(world -> {
-                    world.teleport(player, true);
-                }, () -> player.sendTranslate("world.not_found.world_name", worldName));
+    public void teleport(AriesPlayer player, @MatchNull AriesWorld world) {
+        if (world == null) {
+            player.sendTranslate("world.not_found.world");
+            return;
+        }
+
+        world.teleport(player, true);
     }
 
     @FallbackCommand
