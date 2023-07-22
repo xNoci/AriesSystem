@@ -29,20 +29,10 @@ public class AriesPlayer {
     @Getter @Setter private RawLocation lastKnownLocation;
     private final UUID uuid;
 
-    public AriesPlayer(String name) {
-        this.name = name;
-        this.base = null;
-        this.uuid = null;
-    }
-
     public AriesPlayer(Player player) {
         this.base = player;
         this.name = player.getName();
         this.uuid = player.getUniqueId();
-    }
-
-    public boolean isValid() {
-        return base != null && uuid != null && base.isOnline();
     }
 
     public UUID getUUID() {
@@ -97,12 +87,12 @@ public class AriesPlayer {
     }
 
     public Location getLocation() {
-        Require.checkState(isValid(), "Cannot get location because player %s is not valid".formatted(name));
+        Require.checkState(base.isOnline(), "Cannot get location because player %s is offline".formatted(name));
         return this.base.getLocation();
     }
 
     public void teleport(Location location) {
-        if (!isValid()) return;
+        if (!base.isOnline()) return;
         PaperLib.teleportAsync(this.base, location);
     }
 

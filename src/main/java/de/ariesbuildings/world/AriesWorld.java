@@ -92,7 +92,7 @@ public class AriesWorld {
     }
 
     public boolean hasWorldPermission(AriesPlayer player, String permission) {
-        if (!player.isValid()) return false;
+        if (player == null) return false;
         return hasWorldPermission(player.getBase(), permission);
     }
 

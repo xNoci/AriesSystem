@@ -15,7 +15,7 @@ import java.util.List;
 public class Input {
 
     public static void title(AriesPlayer player, String title, InputExecutor inputExecutor, WrappedCanceledInput canceledInput) {
-        Require.checkState(player != null && player.isValid(), "Could not open titled input, AriesPlayer is not valid");
+        Require.checkState(player != null, "Could not open titled input, AriesPlayer is null");
         title(player.getBase(), title, inputExecutor, canceledInput);
     }
 
@@ -25,7 +25,7 @@ public class Input {
     }
 
     public static void chat(AriesPlayer player, String notify, InputExecutor inputExecutor, WrappedCanceledInput canceledInput) {
-        Require.checkState(player != null && player.isValid(), "Could not open chat input, AriesPlayer is not valid");
+        Require.checkState(player != null, "Could not open chat input, AriesPlayer is null");
         chat(player.getBase(), notify, inputExecutor, canceledInput);
     }
 
@@ -35,7 +35,7 @@ public class Input {
     }
 
     public static void sign(AriesPlayer player, int inputLine, List<String> lines, InputExecutor inputExecutor, WrappedCanceledInput canceledInput) {
-        Require.checkState(player != null && player.isValid(), "Could not sign chat input, AriesPlayer is not valid");
+        Require.checkState(player != null, "Could not open sign chat input, AriesPlayer is null");
         sign(player.getBase(), inputLine, lines, inputExecutor, canceledInput);
     }
 

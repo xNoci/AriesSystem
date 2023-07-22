@@ -6,6 +6,7 @@ import de.ariesbuildings.permission.Permission;
 import me.noci.quickutilities.quickcommand.annotation.Command;
 import me.noci.quickutilities.quickcommand.annotation.CommandPermission;
 import me.noci.quickutilities.quickcommand.annotation.FallbackCommand;
+import me.noci.quickutilities.quickcommand.annotation.MatchNull;
 import org.bukkit.GameMode;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.java.JavaPlugin;
@@ -30,14 +31,14 @@ public class CommandGamemode extends AriesCommand {
 
     @Command
     @CommandPermission(Permission.COMMAND_GAMEMODE_OTHER)
-    private void onGamemodeChangeOther(AriesPlayer sender, GameMode gameMode, AriesPlayer target) {
+    private void onGamemodeChangeOther(AriesPlayer sender, GameMode gameMode, @MatchNull AriesPlayer target) {
         if (gameMode == null) {
             playerFallback(sender);
             return;
         }
 
-        if (!target.isValid()) {
-            sender.sendTranslate("command.player_not_found", target.getName());
+        if (target == null) {
+            sender.sendTranslate("command.player_not_found");
             return;
         }
 

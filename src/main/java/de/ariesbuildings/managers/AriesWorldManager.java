@@ -158,7 +158,7 @@ public class AriesWorldManager {
     }
 
     public Optional<AriesWorld> getWorld(AriesPlayer player) {
-        if (!player.isValid()) return Optional.empty();
+        if (player == null) return Optional.empty();
         return getWorld(player.getBase());
     }
 
