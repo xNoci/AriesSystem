@@ -16,7 +16,7 @@ import de.ariesbuildings.world.WorldVisibility;
 import de.ariesbuildings.world.creator.CreatorID;
 import de.ariesbuildings.world.creator.WorldCreator;
 import lombok.SneakyThrows;
-import org.apache.commons.lang3.StringUtils;
+import me.noci.quickutilities.utils.Require;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -82,7 +82,7 @@ public class AriesWorldManager {
 
     public void createWorld(AriesPlayer player, WorldType worldType) {
         Input.title(player, I18n.translate("input.title.world_create"), input -> {
-            if (StringUtils.isBlank(input)) {
+            if (Require.isBlank(input)) {
                 player.sendTranslate("input.world_create.empty_string");
                 return;
             }

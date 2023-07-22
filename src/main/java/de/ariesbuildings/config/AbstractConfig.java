@@ -3,8 +3,7 @@ package de.ariesbuildings.config;
 import com.google.common.collect.Lists;
 import de.ariesbuildings.AriesSystem;
 import lombok.SneakyThrows;
-import org.apache.commons.lang3.StringUtils;
-import org.apache.commons.lang3.tuple.Triple;
+import me.noci.quickutilities.utils.Require;
 import org.spongepowered.configurate.CommentedConfigurationNode;
 import org.spongepowered.configurate.hocon.HoconConfigurationLoader;
 
@@ -77,10 +76,7 @@ public abstract class AbstractConfig {
             ConfigEntry entry = field.getAnnotation(ConfigEntry.class);
             CommentedConfigurationNode entryNode = node.node((Object[]) entry.name().split("\\."));
 
-            String comment = entry.comment();
-            if (StringUtils.isNotBlank(comment)) {
-                entryNode.comment(entry.comment());
-            }
+            Require.nonBlank(entry.comment()).ifPresent(entryNode::comment);
 
             try {
                 entryNode.set(field.get(null));

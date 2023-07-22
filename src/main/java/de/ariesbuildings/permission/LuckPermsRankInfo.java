@@ -1,9 +1,9 @@
 package de.ariesbuildings.permission;
 
 import de.ariesbuildings.hooks.LuckPermsHook;
+import me.noci.quickutilities.utils.Require;
 import net.luckperms.api.cacheddata.CachedMetaData;
 import net.luckperms.api.model.group.Group;
-import org.apache.commons.lang3.StringUtils;
 import org.bukkit.ChatColor;
 
 import java.util.Optional;
@@ -40,7 +40,7 @@ public class LuckPermsRankInfo extends DefaultRankInfo {
 
     @Override
     protected String prefix() {
-        return getMetaData(CachedMetaData::getPrefix, StringUtils::isNotBlank, super.prefix());
+        return getMetaData(CachedMetaData::getPrefix, Require::notBlank, super.prefix());
     }
 
     @Override

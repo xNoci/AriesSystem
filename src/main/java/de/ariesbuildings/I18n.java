@@ -2,7 +2,6 @@ package de.ariesbuildings;
 
 import de.ariesbuildings.locales.LanguageFile;
 import me.noci.quickutilities.utils.Require;
-import org.apache.commons.lang3.StringUtils;
 
 import java.text.MessageFormat;
 
@@ -19,7 +18,7 @@ public class I18n {
     }
 
     public static String translate(String key, Object... params) {
-        if (StringUtils.isBlank(key))
+        if (Require.isBlank(key))
             return "{Error: empty or null translation key}";
         if (instance == null) return key;
         return instance.format(key, params);
