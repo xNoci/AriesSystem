@@ -82,8 +82,8 @@ public class WorldSettingsGui extends AriesGuiProvider {
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE))
-                .mapValue(true, new QuickItemStack(XMaterial.WATER_BUCKET.parseMaterial(), abuDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.BUCKET.parseMaterial(), abuDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.WATER_BUCKET.parseMaterial(), abuDisplayname).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.BUCKET.parseMaterial(), abuDisplayname).addItemFlags())
                 .build();
 
         String playerDamageDisplayname = I18n.translate("gui.world_settings.item.player_damage.displayname");
@@ -92,8 +92,8 @@ public class WorldSettingsGui extends AriesGuiProvider {
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_PLAYER_DAMAGE))
-                .mapValue(true, new QuickItemStack(XMaterial.DIAMOND_SWORD.parseMaterial(), playerDamageDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.WOODEN_SWORD.parseMaterial(), playerDamageDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.DIAMOND_SWORD.parseMaterial(), playerDamageDisplayname).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.WOODEN_SWORD.parseMaterial(), playerDamageDisplayname).addItemFlags())
                 .build();
 
         String etpDisplayname = I18n.translate("gui.world_settings.item.entity_target_player.displayname");
@@ -102,8 +102,8 @@ public class WorldSettingsGui extends AriesGuiProvider {
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_ENTITY_TARGET_PLAYER))
-                .mapValue(true, new QuickItemStack(XMaterial.CREEPER_SPAWN_EGG.parseMaterial(), etpDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.WOLF_SPAWN_EGG.parseMaterial(), etpDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.CREEPER_SPAWN_EGG.parseMaterial(), etpDisplayname).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.WOLF_SPAWN_EGG.parseMaterial(), etpDisplayname).addItemFlags())
                 .build();
 
         String weatherCycleDisplayname = I18n.translate("gui.world_settings.item.weather_cycle.displayname");

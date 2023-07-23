@@ -60,8 +60,8 @@ public class PlayerSettingsGui extends AriesGuiProvider {
                 .inventoryContent(content)
                 .slot(4, 4)
                 .optionHolder(player.getOptions())
-                .mapValue(true, new QuickItemStack(XMaterial.TOTEM_OF_UNDYING.parseMaterial(), glowOptionDisplayname).glow().setLore("", I18n.translate("gui.player_settings.item.option.lore_true")).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.TOTEM_OF_UNDYING.parseMaterial(), glowOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_false")).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.TOTEM_OF_UNDYING.parseMaterial(), glowOptionDisplayname).glow().addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.TOTEM_OF_UNDYING.parseMaterial(), glowOptionDisplayname).addItemFlags())
                 .build();
 
         String voidTeleportOptionDisplayname = I18n.translate("gui.player_settings.item.void_tp.displayname");
@@ -69,8 +69,8 @@ public class PlayerSettingsGui extends AriesGuiProvider {
                 .inventoryContent(content)
                 .slot(4, 6)
                 .optionHolder(player.getOptions())
-                .mapValue(true, new QuickItemStack(XMaterial.END_PORTAL_FRAME.parseMaterial(), voidTeleportOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_true")).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.BEDROCK.parseMaterial(), voidTeleportOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_false")).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.END_PORTAL_FRAME.parseMaterial(), voidTeleportOptionDisplayname).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.BEDROCK.parseMaterial(), voidTeleportOptionDisplayname).addItemFlags())
                 .build();
 
 
@@ -79,8 +79,8 @@ public class PlayerSettingsGui extends AriesGuiProvider {
                 .inventoryContent(content)
                 .slot(4, 8)
                 .optionHolder(player.getOptions())
-                .mapValue(true, new QuickItemStack(InventoryConstants.INVISIBLE_POTION).setDisplayName(vanishOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_true")).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.GLASS_BOTTLE.parseMaterial(), vanishOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_false")).addItemFlags())
+                .mapValue(true, new QuickItemStack(InventoryConstants.INVISIBLE_POTION).setDisplayName(vanishOptionDisplayname).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.GLASS_BOTTLE.parseMaterial(), vanishOptionDisplayname).addItemFlags())
                 .build();
 
         String flySpeedOptionDisplayname = I18n.translate("gui.player_settings.item.fly_speed.displayname");
@@ -91,7 +91,7 @@ public class PlayerSettingsGui extends AriesGuiProvider {
                 .lowerBound(1)
                 .upperBound(10)
                 .increment(1)
-                .integerItem(new QuickItemStack(XMaterial.FEATHER.parseMaterial(), flySpeedOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_increment_left")))
+                .integerItem(new QuickItemStack(XMaterial.FEATHER.parseMaterial(), flySpeedOptionDisplayname))
                 .build();
 
         String optionNotifyDisplayname = I18n.translate("gui.player_settings.item.option_notify.displayname");
@@ -110,8 +110,8 @@ public class PlayerSettingsGui extends AriesGuiProvider {
                 .inventoryContent(content)
                 .slot(5, 6)
                 .optionHolder(player.getOptions())
-                .mapValue(true, new QuickItemStack(XMaterial.BELL.or(XMaterial.JUKEBOX).parseMaterial()).setDisplayName(pingSoundDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_true")).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.GRAY_CARPET.parseMaterial(), pingSoundDisplayname).setLore("", I18n.translate("gui.player_settings.item.option.lore_false")).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.BELL.or(XMaterial.JUKEBOX).parseMaterial(), pingSoundDisplayname).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.GRAY_CARPET.parseMaterial(), pingSoundDisplayname).addItemFlags())
                 .build();
 
         String rememberLocation = I18n.translate("gui.player_settings.item.remember_location.displayname");
@@ -119,8 +119,8 @@ public class PlayerSettingsGui extends AriesGuiProvider {
                 .inventoryContent(content)
                 .slot(5, 8)
                 .optionHolder(player.getOptions())
-                .mapValue(true, new QuickItemStack(XMaterial.MAP.parseMaterial()).setDisplayName(rememberLocation).setLore("", I18n.translate("gui.player_settings.item.option.lore_true")).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.ITEM_FRAME.parseMaterial(), rememberLocation).setLore("", I18n.translate("gui.player_settings.item.option.lore_false")).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.MAP.parseMaterial(), rememberLocation).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.ITEM_FRAME.parseMaterial(), rememberLocation).addItemFlags())
                 .build();
     }
 

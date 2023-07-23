@@ -9,7 +9,7 @@ import me.noci.quickutilities.utils.QuickItemStack;
 
 public class IntegerOptionItem<OptionType extends Option> extends OptionItem<OptionType, Integer> {
 
-    private QuickItemStack integerItem;
+    @Setter private QuickItemStack integerItem;
     @Setter private int lowerBound = 0;
     @Setter private int upperBound = 100;
     @Setter private int increment = 1;
@@ -27,19 +27,16 @@ public class IntegerOptionItem<OptionType extends Option> extends OptionItem<Opt
     }
 
     @Override
-    protected void updateDisplayedItem() {
+    protected QuickItemStack getItem() {
         if (integerItem == null) {
-            super.updateDisplayedItem();
-            return;
+            return super.getItem();
         }
-        integerItem.setAmount(currentValue);
-        integerItem.setLore("", I18n.translate("gui.option_item.integer_item.current_value", currentValue));
-        setItem(integerItem);
-    }
-
-    public void setIntegerItem(QuickItemStack integerItem) {
-        this.integerItem = integerItem;
-        updateDisplayedItem();
+        QuickItemStack item = (QuickItemStack) integerItem.clone();
+        item.setAmount(currentValue);
+        item.setLore("",
+                I18n.translate("gui.option_item.integer_item.current_value", currentValue),
+                I18n.translate("gui.player_settings.item.option.lore_increment_left", currentValue));
+        return item;
     }
 
     public static class Factory implements OptionItemFactory.Factory<Integer> {
@@ -56,7 +53,10 @@ public class IntegerOptionItem<OptionType extends Option> extends OptionItem<Opt
             if (builder.lowerBound >= 0) item.setLowerBound(builder.lowerBound);
             if (builder.upperBound >= 0) item.setUpperBound(builder.upperBound);
             if (builder.increment > 0) item.setIncrement(builder.increment);
-            if (builder.integerItem != null) item.setIntegerItem(builder.integerItem);
+            if (builder.integerItem != null) {
+                item.setIntegerItem(builder.integerItem);
+                item.updateDisplayedItem();
+            }
             item.setClickCondition(builder.clickCondition);
         }
     }
