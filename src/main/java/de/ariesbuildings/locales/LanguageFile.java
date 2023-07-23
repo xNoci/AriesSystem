@@ -7,7 +7,7 @@ import java.util.Properties;
 
 public class LanguageFile {
 
-    private Map<String, String> languageKeys;
+    private final Map<String, String> languageKeys;
 
     public LanguageFile() {
         Properties properties = new Properties();
@@ -20,6 +20,10 @@ public class LanguageFile {
 
     public String get(String key) {
         return languageKeys.getOrDefault(key, key);
+    }
+
+    public boolean hasKey(String key) {
+        return languageKeys.containsKey(key);
     }
 
 

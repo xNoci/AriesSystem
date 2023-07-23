@@ -4,6 +4,7 @@ import de.ariesbuildings.locales.LanguageFile;
 import me.noci.quickutilities.utils.Require;
 
 import java.text.MessageFormat;
+import java.util.Optional;
 
 public class I18n {
 
@@ -17,11 +18,21 @@ public class I18n {
         this.languageFile = languageFile;
     }
 
+    public static Optional<String> tryTranslate(String key, Object... params) {
+        if (!hasKey(key)) return Optional.empty();
+        return Optional.of(translate(key, params));
+    }
+
     public static String translate(String key, Object... params) {
         if (Require.isBlank(key))
             return "{Error: empty or null translation key}";
         if (instance == null) return key;
         return instance.format(key, params);
+    }
+
+    public static boolean hasKey(String key) {
+        if (instance == null) return false;
+        return instance.languageFile.hasKey(key);
     }
 
     public static String prefix() {
