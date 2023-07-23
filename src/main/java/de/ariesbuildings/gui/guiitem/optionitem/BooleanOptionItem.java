@@ -37,10 +37,11 @@ public class BooleanOptionItem<OptionType extends Option> extends OptionItem<Opt
 
     public static class Factory implements OptionItemFactory.Factory<Boolean> {
         @Override
-        public <O extends Option> void build(OptionItemBuilder<O, Boolean> builder) {
+        public <O extends Option> OptionItem<O, Boolean> build(OptionItemBuilder<O, Boolean> builder) {
             BooleanOptionItem<O> item = new BooleanOptionItem<>(builder.currentValue(), builder.optionHolder, builder.option, builder.content, builder.slot);
             item.setClickCondition(builder.clickCondition);
             builder.valueMap.forEach(item::mapValue);
+            return item;
         }
     }
 

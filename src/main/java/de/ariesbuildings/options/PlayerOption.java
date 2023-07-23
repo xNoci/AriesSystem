@@ -16,11 +16,13 @@ public enum PlayerOption implements Option {
     REMEMBER_LOCATION(false, boolean.class);
 
     @Getter private final String name;
+    @Getter private final String description;
     @Getter private final Object defaultValue;
     @Getter private final Class<?> valueType;
 
     <T> PlayerOption(T defaultValue, Class<T> valueType) {
         this.name = I18n.translate("option.player." + name().toLowerCase() + ".name");
+        this.description = I18n.tryTranslate("option.player." + name().toLowerCase() + ".description").orElse("");
         this.defaultValue = defaultValue;
         this.valueType = valueType;
     }

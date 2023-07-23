@@ -16,11 +16,13 @@ public enum WorldOption implements Option {
     WORLD_STATUS(WorldStatus.CREATED, WorldStatus.class);
 
     @Getter private final String name;
+    @Getter private final String description;
     @Getter private final Object defaultValue;
     @Getter private final Class<?> valueType;
 
     <T> WorldOption(T defaultValue, Class<T> valueType) {
         this.name = I18n.translate("option.world." + name().toLowerCase() + ".name");
+        this.description = I18n.tryTranslate("option.world." + name().toLowerCase() + ".description").orElse("");
         this.defaultValue = defaultValue;
         this.valueType = valueType;
     }

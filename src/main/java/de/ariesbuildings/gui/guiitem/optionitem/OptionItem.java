@@ -1,6 +1,7 @@
 package de.ariesbuildings.gui.guiitem.optionitem;
 
 import com.cryptomorin.xseries.XMaterial;
+import com.google.common.collect.Lists;
 import com.google.common.collect.Maps;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.options.Option;
@@ -11,9 +12,11 @@ import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.SlotClickEvent;
 import me.noci.quickutilities.utils.QuickItemStack;
+import me.noci.quickutilities.utils.Require;
 import org.bukkit.event.inventory.ClickType;
 
 import java.util.HashMap;
+import java.util.List;
 
 public abstract class OptionItem<OptionType extends Option, OptionValue> extends GuiItem {
 
@@ -35,19 +38,11 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
         this.currentValue = currentValue;
         this.content = content;
         this.slot = slot;
-
         setAction(this::slotClickEvent);
-        update();
-        updateDisplayedItem();
     }
 
     protected void setOption(Object value) {
         optionHolder.set(option, value);
-    }
-
-    protected void update() {
-        content.setItem(slot, this);
-        content.applyContent();
     }
 
     public void mapValue(OptionValue value, QuickItemStack itemStack) {
@@ -56,18 +51,11 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
         update();
     }
 
-    private void slotClickEvent(SlotClickEvent event) {
-        if (clickCondition != null && !clickCondition.shouldExecute(event)) return;
-        boolean valueChanged = updateCurrentValue(event.getClick());
-        if (!valueChanged) return;
-        updateDisplayedItem();
-        setOption(this.currentValue);
-        update();
-    }
-
     protected void updateDisplayedItem() {
         QuickItemStack item = getItem();
+        updateItemLore(item);
         setItem(item);
+        update();
     }
 
     protected QuickItemStack getItem() {
@@ -79,5 +67,32 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
     }
 
     protected abstract boolean updateCurrentValue(ClickType clickType);
+
+    private void update() {
+        content.setItem(slot, this);
+        content.applyContent();
+    }
+
+    private void updateItemLore(QuickItemStack item) {
+        List<String> lore = item.getLore() != null ? item.getLore() : Lists.newArrayList();
+        Require.nonBlank(option.getDescription()).ifPresent(description -> {
+            String[] descriptions = I18n.translate("gui.option_item.description", description).split("\n");
+            int index = 0;
+            for (String desc : descriptions) {
+                lore.add(index, desc);
+                index++;
+            }
+        });
+
+        item.setLore(lore);
+    }
+
+    private void slotClickEvent(SlotClickEvent event) {
+        if (clickCondition != null && !clickCondition.shouldExecute(event)) return;
+        boolean valueChanged = updateCurrentValue(event.getClick());
+        if (!valueChanged) return;
+        updateDisplayedItem();
+        setOption(this.currentValue);
+    }
 
 }

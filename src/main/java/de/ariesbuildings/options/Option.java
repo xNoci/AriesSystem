@@ -4,6 +4,8 @@ sealed public interface Option permits PlayerOption, WorldOption {
 
     String getName();
 
+    String getDescription();
+
     Class<?> getValueType();
 
     Object getDefaultValue();
