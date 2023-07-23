@@ -6,6 +6,7 @@ import de.ariesbuildings.options.Option;
 import de.ariesbuildings.options.OptionHolder;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.utils.QuickItemStack;
+import org.bukkit.event.inventory.ClickType;
 
 import java.util.List;
 
@@ -16,8 +17,9 @@ public class BooleanOptionItem<OptionType extends Option> extends OptionItem<Opt
     }
 
     @Override
-    protected void updateCurrentValue() {
+    protected boolean updateCurrentValue(ClickType clickType) {
         currentValue = !currentValue;
+        return true;
     }
 
     @Override

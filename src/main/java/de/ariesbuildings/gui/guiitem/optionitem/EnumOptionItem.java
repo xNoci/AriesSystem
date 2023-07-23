@@ -4,6 +4,7 @@ import de.ariesbuildings.options.Option;
 import de.ariesbuildings.options.OptionHolder;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.utils.EnumUtils;
+import org.bukkit.event.inventory.ClickType;
 
 public class EnumOptionItem<OptionType extends Option> extends OptionItem<OptionType, Enum<?>> {
 
@@ -12,8 +13,10 @@ public class EnumOptionItem<OptionType extends Option> extends OptionItem<Option
     }
 
     @Override
-    protected void updateCurrentValue() {
-        currentValue = EnumUtils.next(currentValue); //Rotate the enum to next entry
+    protected boolean updateCurrentValue(ClickType clickType) {
+        if (clickType != ClickType.RIGHT && clickType != ClickType.LEFT) return false;
+        currentValue = clickType == ClickType.LEFT ? EnumUtils.next(currentValue) : EnumUtils.previous(currentValue);
+        return true;
     }
 
     public static class Factory implements OptionItemFactory.Factory<Enum<?>> {

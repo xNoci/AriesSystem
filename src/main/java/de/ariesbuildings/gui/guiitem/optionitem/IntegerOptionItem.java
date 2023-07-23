@@ -5,7 +5,9 @@ import de.ariesbuildings.options.Option;
 import de.ariesbuildings.options.OptionHolder;
 import lombok.Setter;
 import me.noci.quickutilities.inventory.InventoryContent;
+import me.noci.quickutilities.utils.MathUtils;
 import me.noci.quickutilities.utils.QuickItemStack;
+import org.bukkit.event.inventory.ClickType;
 
 public class IntegerOptionItem<OptionType extends Option> extends OptionItem<OptionType, Integer> {
 
@@ -19,11 +21,15 @@ public class IntegerOptionItem<OptionType extends Option> extends OptionItem<Opt
     }
 
     @Override
-    protected void updateCurrentValue() {
-        currentValue += increment;
-        if (currentValue > upperBound) {
-            currentValue = lowerBound;
-        }
+    protected boolean updateCurrentValue(ClickType clickType) {
+        if (clickType != ClickType.RIGHT && clickType != ClickType.LEFT) return false;
+
+        int newValue = currentValue + (clickType == ClickType.LEFT ? increment : -increment);
+        newValue = MathUtils.clamp(lowerBound, upperBound, newValue);
+
+        if (newValue == currentValue) return false;
+        currentValue = newValue;
+        return true;
     }
 
     @Override
@@ -35,7 +41,7 @@ public class IntegerOptionItem<OptionType extends Option> extends OptionItem<Opt
         item.setAmount(currentValue);
         item.setLore("",
                 I18n.translate("gui.option_item.integer_item.current_value", currentValue),
-                I18n.translate("gui.player_settings.item.option.lore_increment_left", currentValue));
+                I18n.translate("gui.player_settings.item.option.lore.integer_increment_click", currentValue));
         return item;
     }
 

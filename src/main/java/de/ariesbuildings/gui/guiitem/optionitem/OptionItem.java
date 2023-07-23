@@ -11,6 +11,7 @@ import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.SlotClickEvent;
 import me.noci.quickutilities.utils.QuickItemStack;
+import org.bukkit.event.inventory.ClickType;
 
 import java.util.HashMap;
 
@@ -40,8 +41,6 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
         updateDisplayedItem();
     }
 
-    protected abstract void updateCurrentValue();
-
     protected void setOption(Object value) {
         optionHolder.set(option, value);
     }
@@ -59,7 +58,8 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
 
     private void slotClickEvent(SlotClickEvent event) {
         if (clickCondition != null && !clickCondition.shouldExecute(event)) return;
-        updateCurrentValue();
+        boolean valueChanged = updateCurrentValue(event.getClick());
+        if (!valueChanged) return;
         updateDisplayedItem();
         setOption(this.currentValue);
         update();
@@ -77,5 +77,7 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
         item.setDisplayName(I18n.translate("gui.option_item.value_mapping_not_found.displayname", this.currentValue));
         return item;
     }
+
+    protected abstract boolean updateCurrentValue(ClickType clickType);
 
 }
