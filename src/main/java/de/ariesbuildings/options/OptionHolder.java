@@ -42,12 +42,14 @@ public class OptionHolder<T extends Option> {
         return get(option, option.getValueType());
     }
 
+    @SuppressWarnings("unchecked")
     public <V> V get(T option, Class<V> type) {
         V value = options.get(option, type);
         if (value == null) return (V) option.getDefaultValue();
         return value;
     }
 
+    @SuppressWarnings("unchecked")
     public <V> void set(T option, V newValue) {
         V oldValue = (V) get(option, option.getValueType());
 

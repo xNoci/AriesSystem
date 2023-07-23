@@ -10,8 +10,9 @@ import java.util.Set;
 
 public class OptionMap<K> {
 
-    private final Map<K, Value> DATA = Maps.newHashMap();
+    private final Map<K, Value<?>> DATA = Maps.newHashMap();
 
+    @SuppressWarnings("unchecked")
     public <T> void set(K key, T value) {
         Value<T> cache = (Value<T>) getCached(key, value.getClass());
         if (cache.getValue() != null && !cache.getValue().getClass().equals(value.getClass()))
@@ -27,8 +28,9 @@ public class OptionMap<K> {
         return getCached(key, type).getValue();
     }
 
+    @SuppressWarnings("unchecked")
     private <T> Value<T> getCached(K key, Class<T> type) {
-        if (DATA.containsKey(key)) return DATA.get(key);
+        if (DATA.containsKey(key)) return (Value<T>) DATA.get(key);
         Value<T> value = new Value<>();
         value.setType(type);
         DATA.put(key, value);
