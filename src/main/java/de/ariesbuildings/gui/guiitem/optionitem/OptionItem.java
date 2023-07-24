@@ -13,6 +13,7 @@ import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.SlotClickEvent;
 import me.noci.quickutilities.utils.QuickItemStack;
 import me.noci.quickutilities.utils.Require;
+import org.bukkit.ChatColor;
 import org.bukkit.event.inventory.ClickType;
 
 import java.util.HashMap;
@@ -78,8 +79,11 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
         Require.nonBlank(option.getDescription()).ifPresent(description -> {
             String[] descriptions = I18n.translate("gui.option_item.description", description).split("\n");
             int index = 0;
+            String lastLine = null;
             for (String desc : descriptions) {
-                lore.add(index, desc);
+                String lastColor = lastLine == null ? "" : ChatColor.getLastColors(lastLine);
+                lastLine = desc;
+                lore.add(index, lastColor + desc);
                 index++;
             }
         });

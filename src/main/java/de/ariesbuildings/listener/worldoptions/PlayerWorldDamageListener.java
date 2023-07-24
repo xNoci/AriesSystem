@@ -16,7 +16,7 @@ public class PlayerWorldDamageListener implements Listener {
         AriesSystem.getInstance().getWorldManager()
                 .getWorld(player.getWorld())
                 .ifPresentOrElse(world -> {
-                    event.setCancelled(!world.getOptions().isEnabled(WorldOption.PLAYER_DAMAGE));
+                    event.setCancelled(world.getOptions().isDisabled(WorldOption.PLAYER_DAMAGE));
                 }, () -> event.setCancelled(true));
     }
 
