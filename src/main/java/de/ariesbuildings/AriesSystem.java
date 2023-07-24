@@ -4,10 +4,7 @@ import de.ariesbuildings.commands.*;
 import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.listener.*;
 import de.ariesbuildings.listener.playeroptions.VoidDamageTeleportListener;
-import de.ariesbuildings.listener.worldoptions.AntiBlockUpdateListeners;
-import de.ariesbuildings.listener.worldoptions.EntityTargetPlayerListener;
-import de.ariesbuildings.listener.worldoptions.PlayerWorldDamageListener;
-import de.ariesbuildings.listener.worldoptions.WeatherChangeListener;
+import de.ariesbuildings.listener.worldoptions.*;
 import de.ariesbuildings.locales.LanguageLoader;
 import de.ariesbuildings.managers.AriesPlayerManager;
 import de.ariesbuildings.managers.AriesWorldManager;
@@ -134,6 +131,7 @@ public class AriesSystem extends JavaPlugin {
         registerListener(new EntityTargetPlayerListener());
         registerListener(new PlayerWorldDamageListener());
         registerListener(new WeatherChangeListener());
+        registerListener(new MobSpawnListener());
         if (ServerProperties.isCommandBlockEnabled()) {
             AriesSystemConfig.debug("Command blocks are enabled - register ServerCommandListener");
             registerListener(new ServerCommandListener());

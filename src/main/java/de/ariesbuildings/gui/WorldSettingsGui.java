@@ -102,13 +102,33 @@ public class WorldSettingsGui extends AriesGuiProvider {
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_ENTITY_TARGET_PLAYER))
-                .mapValue(true, new QuickItemStack(XMaterial.CREEPER_SPAWN_EGG.parseMaterial(), etpDisplayname).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.WOLF_SPAWN_EGG.parseMaterial(), etpDisplayname).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.ARROW.parseMaterial(), etpDisplayname).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.ARMOR_STAND.parseMaterial(), etpDisplayname).addItemFlags())
                 .build();
 
+        String spawnHostileDisplayname = I18n.translate("gui.world_settings.item.allow_spawn_hostile.displayname");
+        OptionItemBuilder.of(WorldOption.ALLOW_HOSTILE_SPAWNING, boolean.class)
+                .slot(3, 7)
+                .inventoryContent(content)
+                .optionHolder(world.getOptions())
+                .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_HOSTILE_SPAWN))
+                .mapValue(true, new QuickItemStack(XMaterial.CREEPER_SPAWN_EGG.parseMaterial(), spawnHostileDisplayname).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.SKELETON_SPAWN_EGG.parseMaterial(), spawnHostileDisplayname).addItemFlags())
+                .build();
+
+        String spawnFriendlyDisplayname = I18n.translate("gui.world_settings.item.allow_spawn_friendly.displayname");
+        OptionItemBuilder.of(WorldOption.ALLOW_FRIENDLY_SPAWNING, boolean.class)
+                .slot(3, 8)
+                .inventoryContent(content)
+                .optionHolder(world.getOptions())
+                .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_FRIENDLY_SPAWN))
+                .mapValue(true, new QuickItemStack(XMaterial.OCELOT_SPAWN_EGG.parseMaterial(), spawnFriendlyDisplayname).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.WOLF_SPAWN_EGG.parseMaterial(), spawnFriendlyDisplayname).addItemFlags())
+                .build();
+        
         String weatherCycleDisplayname = I18n.translate("gui.world_settings.item.weather_cycle.displayname");
         OptionItemBuilder.of(WorldOption.WEATHER_CYCLE, boolean.class)
-                .slot(3, 7)
+                .slot(4, 2)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_WEATHER_CYCLE))

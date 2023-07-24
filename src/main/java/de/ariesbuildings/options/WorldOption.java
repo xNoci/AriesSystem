@@ -13,7 +13,9 @@ public enum WorldOption implements Option {
     WEATHER_CYCLE(false, boolean.class),
     WORLD_VISIBILITY(WorldVisibility.PRIVATE, WorldVisibility.class),
     ALLOW_COMMAND_BLOCK(false, boolean.class),
-    WORLD_STATUS(WorldStatus.CREATED, WorldStatus.class);
+    WORLD_STATUS(WorldStatus.CREATED, WorldStatus.class),
+    ALLOW_HOSTILE_SPAWNING(false, boolean.class),
+    ALLOW_FRIENDLY_SPAWNING(false, boolean.class);
 
     @Getter private final String name;
     @Getter private final String description;

@@ -20,6 +20,8 @@ public class Permission {
     public static final String WORLD_OPTION_PLAYER_DAMAGE = WORLD_OPTION_PREFIX + "player_damage"; //Player can toggle player damage via world menu
     public static final String WORLD_OPTION_ENTITY_TARGET_PLAYER = WORLD_OPTION_PREFIX + "entity_target_player"; //Player can toggle entity player target via world menu
     public static final String WORLD_OPTION_WEATHER_CYCLE = WORLD_OPTION_PREFIX + "weather_cycle"; //Player can toggle weather cycle via world menu
+    public static final String WORLD_OPTION_HOSTILE_SPAWN = "hostile_spawn"; //Player can toggle spawn hostile mobs via world menu
+    public static final String WORLD_OPTION_FRIENDLY_SPAWN = "friendly_spawn"; //Player can toggle spawn friendly mobs via world menu
 
     public static final String WORLD_IMPORT = WORLD_PREFIX + "import";
     public static final String WORLD_UNIMPORT = WORLD_PREFIX + "unimport";
