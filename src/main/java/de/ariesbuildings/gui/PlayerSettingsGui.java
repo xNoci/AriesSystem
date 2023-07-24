@@ -38,52 +38,43 @@ public class PlayerSettingsGui extends AriesGuiProvider {
                 .setDisplayName(I18n.translate("gui.player_settings.item.player_info.displayname", player.getName()))
                 .addItemFlags()
                 .setSkullOwner(player.getName())
-                .setLore(
-                        "",
-                        I18n.translate("gui.player_settings.item.player_info.lore.rank", rankInfo.getColor() + rankInfo.getName())
-                );
+                .setLore("", I18n.translate("gui.player_settings.item.player_info.lore.rank", rankInfo.getColor() + rankInfo.getName()));
         content.setItem(Slot.getSlot(2, 5), playerInfo.asGuiItem());
 
-        String gamemodeOptionDisplayname = I18n.translate("gui.player_settings.item.gamemode.displayname");
         OptionItemBuilder.of(PlayerOption.DEFAULT_GAMEMODE, GameMode.class)
                 .inventoryContent(content)
                 .slot(4, 2)
                 .optionHolder(player.getOptions())
-                .mapValue(GameMode.SURVIVAL, new QuickItemStack(XMaterial.WOODEN_PICKAXE.parseMaterial(), gamemodeOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.gamemode.lore.survival")).addItemFlags())
-                .mapValue(GameMode.CREATIVE, new QuickItemStack(XMaterial.DIAMOND_PICKAXE.parseMaterial(), gamemodeOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.gamemode.lore.creative")).addItemFlags())
-                .mapValue(GameMode.ADVENTURE, new QuickItemStack(XMaterial.GOLDEN_PICKAXE.parseMaterial(), gamemodeOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.gamemode.lore.adventure")).addItemFlags())
-                .mapValue(GameMode.SPECTATOR, new QuickItemStack(XMaterial.STONE_PICKAXE.parseMaterial(), gamemodeOptionDisplayname).setLore("", I18n.translate("gui.player_settings.item.gamemode.lore.spectator")).addItemFlags())
+                .mapValue(GameMode.SURVIVAL, new QuickItemStack(XMaterial.WOODEN_PICKAXE.parseMaterial()).setLore("", I18n.translate("gui.player_settings.item.gamemode.lore.survival")).addItemFlags())
+                .mapValue(GameMode.CREATIVE, new QuickItemStack(XMaterial.DIAMOND_PICKAXE.parseMaterial()).setLore("", I18n.translate("gui.player_settings.item.gamemode.lore.creative")).addItemFlags())
+                .mapValue(GameMode.ADVENTURE, new QuickItemStack(XMaterial.GOLDEN_PICKAXE.parseMaterial()).setLore("", I18n.translate("gui.player_settings.item.gamemode.lore.adventure")).addItemFlags())
+                .mapValue(GameMode.SPECTATOR, new QuickItemStack(XMaterial.STONE_PICKAXE.parseMaterial()).setLore("", I18n.translate("gui.player_settings.item.gamemode.lore.spectator")).addItemFlags())
                 .build();
 
-        String glowOptionDisplayname = I18n.translate("gui.player_settings.item.glow.displayname");
         OptionItemBuilder.of(PlayerOption.GLOW, boolean.class)
                 .inventoryContent(content)
                 .slot(4, 4)
                 .optionHolder(player.getOptions())
-                .mapValue(true, new QuickItemStack(XMaterial.TOTEM_OF_UNDYING.parseMaterial(), glowOptionDisplayname).glow().addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.TOTEM_OF_UNDYING.parseMaterial(), glowOptionDisplayname).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.TOTEM_OF_UNDYING.parseMaterial()).glow().addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.TOTEM_OF_UNDYING.parseMaterial()).addItemFlags())
                 .build();
 
-        String voidTeleportOptionDisplayname = I18n.translate("gui.player_settings.item.void_tp.displayname");
         OptionItemBuilder.of(PlayerOption.VOID_DAMAGE_TELEPORT, boolean.class)
                 .inventoryContent(content)
                 .slot(4, 6)
                 .optionHolder(player.getOptions())
-                .mapValue(true, new QuickItemStack(XMaterial.END_PORTAL_FRAME.parseMaterial(), voidTeleportOptionDisplayname).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.BEDROCK.parseMaterial(), voidTeleportOptionDisplayname).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.END_PORTAL_FRAME.parseMaterial()).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.BEDROCK.parseMaterial()).addItemFlags())
                 .build();
 
-
-        String vanishOptionDisplayname = I18n.translate("gui.player_settings.item.vanish.displayname");
         OptionItemBuilder.of(PlayerOption.VANISH, boolean.class)
                 .inventoryContent(content)
                 .slot(4, 8)
                 .optionHolder(player.getOptions())
-                .mapValue(true, new QuickItemStack(InventoryConstants.INVISIBLE_POTION).setDisplayName(vanishOptionDisplayname).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.GLASS_BOTTLE.parseMaterial(), vanishOptionDisplayname).addItemFlags())
+                .mapValue(true, new QuickItemStack(InventoryConstants.INVISIBLE_POTION).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.GLASS_BOTTLE.parseMaterial()).addItemFlags())
                 .build();
 
-        String flySpeedOptionDisplayname = I18n.translate("gui.player_settings.item.fly_speed.displayname");
         OptionItemBuilder.of(PlayerOption.FLY_SPEED, int.class)
                 .inventoryContent(content)
                 .slot(5, 2)
@@ -91,37 +82,35 @@ public class PlayerSettingsGui extends AriesGuiProvider {
                 .lowerBound(1)
                 .upperBound(10)
                 .increment(1)
-                .integerItem(new QuickItemStack(XMaterial.FEATHER.parseMaterial(), flySpeedOptionDisplayname))
+                .integerItem(new QuickItemStack(XMaterial.FEATHER.parseMaterial()))
                 .build();
 
-        String optionNotifyDisplayname = I18n.translate("gui.player_settings.item.option_notify.displayname");
         OptionItemBuilder.of(PlayerOption.NOTIFY_OPTION_CHANGE, OptionNotify.class)
                 .inventoryContent(content)
                 .slot(5, 4)
                 .optionHolder(player.getOptions())
-                .mapValue(OptionNotify.ALWAYS, new QuickItemStack(XMaterial.NETHER_STAR.parseMaterial(), optionNotifyDisplayname).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.always")))
-                .mapValue(OptionNotify.NEVER, new QuickItemStack(XMaterial.IRON_BARS.parseMaterial(), optionNotifyDisplayname).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.never")))
-                .mapValue(OptionNotify.ONLY_PLAYER, new QuickItemStack(XMaterial.ARMOR_STAND.parseMaterial(), optionNotifyDisplayname).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.only_player")))
-                .mapValue(OptionNotify.ONLY_WORLD, new QuickItemStack(XMaterial.GRASS_BLOCK.parseMaterial(), optionNotifyDisplayname).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.only_world")))
+                .mapValue(OptionNotify.ALWAYS, new QuickItemStack(XMaterial.NETHER_STAR.parseMaterial()).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.always")))
+                .mapValue(OptionNotify.NEVER, new QuickItemStack(XMaterial.IRON_BARS.parseMaterial()).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.never")))
+                .mapValue(OptionNotify.ONLY_PLAYER, new QuickItemStack(XMaterial.ARMOR_STAND.parseMaterial()).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.only_player")))
+                .mapValue(OptionNotify.ONLY_WORLD, new QuickItemStack(XMaterial.GRASS_BLOCK.parseMaterial()).setLore("", I18n.translate("gui.player_settings.item.option_notify.lore.only_world")))
                 .build();
 
-        String pingSoundDisplayname = I18n.translate("gui.player_settings.item.ping_sound.displayname");
         OptionItemBuilder.of(PlayerOption.PLAY_PING_SOUND, boolean.class)
                 .inventoryContent(content)
                 .slot(5, 6)
                 .optionHolder(player.getOptions())
-                .mapValue(true, new QuickItemStack(XMaterial.BELL.or(XMaterial.JUKEBOX).parseMaterial(), pingSoundDisplayname).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.GRAY_CARPET.parseMaterial(), pingSoundDisplayname).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.BELL.or(XMaterial.JUKEBOX).parseMaterial()).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.GRAY_CARPET.parseMaterial()).addItemFlags())
                 .build();
 
-        String rememberLocation = I18n.translate("gui.player_settings.item.remember_location.displayname");
         OptionItemBuilder.of(PlayerOption.REMEMBER_LOCATION, boolean.class)
                 .inventoryContent(content)
                 .slot(5, 8)
                 .optionHolder(player.getOptions())
-                .mapValue(true, new QuickItemStack(XMaterial.MAP.parseMaterial(), rememberLocation).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.ITEM_FRAME.parseMaterial(), rememberLocation).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.MAP.parseMaterial()).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.ITEM_FRAME.parseMaterial()).addItemFlags())
                 .build();
+
     }
 
 

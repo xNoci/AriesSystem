@@ -38,6 +38,7 @@ public class IntegerOptionItem<OptionType extends Option> extends OptionItem<Opt
             return super.getItem();
         }
         QuickItemStack item = (QuickItemStack) integerItem.clone();
+        item.setDisplayName(I18n.translate("gui.option_item.displayname", option.getName()));
         item.setAmount(currentValue);
         item.setLore("",
                 I18n.translate("gui.option_item.integer_item.current_value", currentValue),

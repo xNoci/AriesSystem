@@ -61,7 +61,12 @@ public abstract class OptionItem<OptionType extends Option, OptionValue> extends
 
     protected QuickItemStack getItem() {
         QuickItemStack item = valueMap.get(this.currentValue);
-        if (item != null) return (QuickItemStack) item.clone();
+        if (item != null) {
+            item = (QuickItemStack) item.clone();
+            item.setDisplayName(I18n.translate("gui.option_item.displayname", option.getName()));
+            return item;
+        }
+
         item = (QuickItemStack) OPTION_VALUE_NOT_SET.clone();
         item.setDisplayName(I18n.translate("gui.option_item.value_mapping_not_found.displayname", this.currentValue));
         return item;

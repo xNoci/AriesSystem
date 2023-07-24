@@ -21,7 +21,7 @@ public enum PlayerOption implements Option {
     @Getter private final Class<?> valueType;
 
     <T> PlayerOption(T defaultValue, Class<T> valueType) {
-        this.name = I18n.translate("option.player." + name().toLowerCase() + ".name");
+        this.name = I18n.tryTranslate("option.player." + name().toLowerCase() + ".name").orElse(name().toLowerCase());
         this.description = I18n.tryTranslate("option.player." + name().toLowerCase() + ".description").orElse("");
         this.defaultValue = defaultValue;
         this.valueType = valueType;

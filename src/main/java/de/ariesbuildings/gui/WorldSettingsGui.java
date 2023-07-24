@@ -52,88 +52,80 @@ public class WorldSettingsGui extends AriesGuiProvider {
                     new EditBuilderGui(world, this).provide(event.getPlayer());
                 }));
 
-        String visibilityDisplayname = I18n.translate("gui.world_settings.item.world_visibility_.displayname");
         OptionItemBuilder.of(WorldOption.WORLD_VISIBILITY, WorldVisibility.class)
                 .slot(3, 2)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_VISIBILITY))
-                .mapValue(WorldVisibility.PUBLIC, new QuickItemStack(XMaterial.WRITTEN_BOOK.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_visibility_.lore.public")).addItemFlags())
-                .mapValue(WorldVisibility.PRIVATE, new QuickItemStack(XMaterial.BOOK.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_visibility_.lore.private")).addItemFlags())
-                .mapValue(WorldVisibility.ARCHIVED, new QuickItemStack(XMaterial.BOOKSHELF.parseMaterial(), visibilityDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_visibility_.lore.archived")).addItemFlags())
+                .mapValue(WorldVisibility.PUBLIC, new QuickItemStack(XMaterial.WRITTEN_BOOK.parseMaterial()).setLore("", I18n.translate("gui.world_settings.item.world_visibility_.lore.public")).addItemFlags())
+                .mapValue(WorldVisibility.PRIVATE, new QuickItemStack(XMaterial.BOOK.parseMaterial()).setLore("", I18n.translate("gui.world_settings.item.world_visibility_.lore.private")).addItemFlags())
+                .mapValue(WorldVisibility.ARCHIVED, new QuickItemStack(XMaterial.BOOKSHELF.parseMaterial()).setLore("", I18n.translate("gui.world_settings.item.world_visibility_.lore.archived")).addItemFlags())
                 .build();
 
-        String statusDisplayname = I18n.translate("gui.world_settings.item.world_status.displayname");
         OptionItemBuilder.of(WorldOption.WORLD_STATUS, WorldStatus.class)
                 .slot(3, 3)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_STATUS))
-                .mapValue(WorldStatus.CREATED, new QuickItemStack(XMaterial.RED_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.CREATED.getColoredName())).addItemFlags())
-                .mapValue(WorldStatus.WAITING, new QuickItemStack(XMaterial.LIGHT_BLUE_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.WAITING.getColoredName())).addItemFlags())
-                .mapValue(WorldStatus.WORK_IN_PROGRESS, new QuickItemStack(XMaterial.YELLOW_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.WORK_IN_PROGRESS.getColoredName())).addItemFlags())
-                .mapValue(WorldStatus.FINISHED, new QuickItemStack(XMaterial.LIME_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.FINISHED.getColoredName())).addItemFlags())
-                .mapValue(WorldStatus.REWORK, new QuickItemStack(XMaterial.PINK_WOOL.parseMaterial(), statusDisplayname).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.REWORK.getColoredName())).addItemFlags())
+                .mapValue(WorldStatus.CREATED, new QuickItemStack(XMaterial.RED_WOOL.parseMaterial()).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.CREATED.getColoredName())).addItemFlags())
+                .mapValue(WorldStatus.WAITING, new QuickItemStack(XMaterial.LIGHT_BLUE_WOOL.parseMaterial()).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.WAITING.getColoredName())).addItemFlags())
+                .mapValue(WorldStatus.WORK_IN_PROGRESS, new QuickItemStack(XMaterial.YELLOW_WOOL.parseMaterial()).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.WORK_IN_PROGRESS.getColoredName())).addItemFlags())
+                .mapValue(WorldStatus.FINISHED, new QuickItemStack(XMaterial.LIME_WOOL.parseMaterial()).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.FINISHED.getColoredName())).addItemFlags())
+                .mapValue(WorldStatus.REWORK, new QuickItemStack(XMaterial.PINK_WOOL.parseMaterial()).setLore("", I18n.translate("gui.world_settings.item.world_status_.lore.status", WorldStatus.REWORK.getColoredName())).addItemFlags())
                 .build();
 
-        String abuDisplayname = I18n.translate("gui.world_settings.item.abu.displayname");
         OptionItemBuilder.of(WorldOption.ANTI_BLOCK_UPDATE, boolean.class)
                 .slot(3, 4)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_ANTI_BLOCK_UPDATE))
-                .mapValue(true, new QuickItemStack(XMaterial.WATER_BUCKET.parseMaterial(), abuDisplayname).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.BUCKET.parseMaterial(), abuDisplayname).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.WATER_BUCKET.parseMaterial()).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.BUCKET.parseMaterial()).addItemFlags())
                 .build();
 
-        String playerDamageDisplayname = I18n.translate("gui.world_settings.item.player_damage.displayname");
         OptionItemBuilder.of(WorldOption.PLAYER_DAMAGE, boolean.class)
                 .slot(3, 5)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_PLAYER_DAMAGE))
-                .mapValue(true, new QuickItemStack(XMaterial.DIAMOND_SWORD.parseMaterial(), playerDamageDisplayname).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.WOODEN_SWORD.parseMaterial(), playerDamageDisplayname).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.DIAMOND_SWORD.parseMaterial()).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.WOODEN_SWORD.parseMaterial()).addItemFlags())
                 .build();
 
-        String etpDisplayname = I18n.translate("gui.world_settings.item.entity_target_player.displayname");
         OptionItemBuilder.of(WorldOption.ENTITY_TARGET_PLAYER, boolean.class)
                 .slot(3, 6)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_ENTITY_TARGET_PLAYER))
-                .mapValue(true, new QuickItemStack(XMaterial.ARROW.parseMaterial(), etpDisplayname).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.ARMOR_STAND.parseMaterial(), etpDisplayname).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.ARROW.parseMaterial()).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.ARMOR_STAND.parseMaterial()).addItemFlags())
                 .build();
 
-        String spawnHostileDisplayname = I18n.translate("gui.world_settings.item.allow_spawn_hostile.displayname");
         OptionItemBuilder.of(WorldOption.ALLOW_HOSTILE_SPAWNING, boolean.class)
                 .slot(3, 7)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_HOSTILE_SPAWN))
-                .mapValue(true, new QuickItemStack(XMaterial.CREEPER_SPAWN_EGG.parseMaterial(), spawnHostileDisplayname).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.SKELETON_SPAWN_EGG.parseMaterial(), spawnHostileDisplayname).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.CREEPER_SPAWN_EGG.parseMaterial()).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.SKELETON_SPAWN_EGG.parseMaterial()).addItemFlags())
                 .build();
 
-        String spawnFriendlyDisplayname = I18n.translate("gui.world_settings.item.allow_spawn_friendly.displayname");
         OptionItemBuilder.of(WorldOption.ALLOW_FRIENDLY_SPAWNING, boolean.class)
                 .slot(3, 8)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_FRIENDLY_SPAWN))
-                .mapValue(true, new QuickItemStack(XMaterial.OCELOT_SPAWN_EGG.parseMaterial(), spawnFriendlyDisplayname).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.WOLF_SPAWN_EGG.parseMaterial(), spawnFriendlyDisplayname).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.OCELOT_SPAWN_EGG.parseMaterial()).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.WOLF_SPAWN_EGG.parseMaterial()).addItemFlags())
                 .build();
-        
-        String weatherCycleDisplayname = I18n.translate("gui.world_settings.item.weather_cycle.displayname");
+
         OptionItemBuilder.of(WorldOption.WEATHER_CYCLE, boolean.class)
                 .slot(4, 2)
                 .inventoryContent(content)
                 .optionHolder(world.getOptions())
                 .clickCondition(event -> world.hasWorldPermission(event.getPlayer(), Permission.WORLD_OPTION_WEATHER_CYCLE))
-                .mapValue(true, new QuickItemStack(XMaterial.LIGHTNING_ROD.or(XMaterial.DAYLIGHT_DETECTOR).parseMaterial(), weatherCycleDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
-                .mapValue(false, new QuickItemStack(XMaterial.DEAD_BUSH.parseMaterial(), weatherCycleDisplayname).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
+                .mapValue(true, new QuickItemStack(XMaterial.LIGHTNING_ROD.or(XMaterial.DAYLIGHT_DETECTOR).parseMaterial()).setLore("", I18n.translate("gui.world_settings.item.option.lore_true")).addItemFlags())
+                .mapValue(false, new QuickItemStack(XMaterial.DEAD_BUSH.parseMaterial()).setLore("", I18n.translate("gui.world_settings.item.option.lore_false")).addItemFlags())
                 .build();
     }
 

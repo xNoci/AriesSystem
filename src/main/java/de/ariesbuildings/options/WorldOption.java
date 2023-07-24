@@ -23,7 +23,7 @@ public enum WorldOption implements Option {
     @Getter private final Class<?> valueType;
 
     <T> WorldOption(T defaultValue, Class<T> valueType) {
-        this.name = I18n.translate("option.world." + name().toLowerCase() + ".name");
+        this.name = I18n.tryTranslate("option.world." + name().toLowerCase() + ".name").orElse(name().toLowerCase());
         this.description = I18n.tryTranslate("option.world." + name().toLowerCase() + ".description").orElse("");
         this.defaultValue = defaultValue;
         this.valueType = valueType;
