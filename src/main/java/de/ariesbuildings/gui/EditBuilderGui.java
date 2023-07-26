@@ -5,6 +5,7 @@ import com.google.common.collect.Lists;
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
+import de.ariesbuildings.gui.guiitem.GuiItemButton;
 import de.ariesbuildings.gui.guiitem.InventoryConstants;
 import de.ariesbuildings.gui.provider.AriesPagedGuiProvider;
 import de.ariesbuildings.gui.provider.AriesProvider;
@@ -29,10 +30,6 @@ import java.util.UUID;
 
 public class EditBuilderGui extends AriesPagedGuiProvider {
 
-    private static final QuickItemStack ADD_BUILDER_ITEM_TEMPLATE = new QuickItemStack(XMaterial.OAK_SIGN.parseMaterial(), I18n.translate("gui.edit_builder.add_builder.displayname"))
-            .addItemFlags()
-            .setLore("", I18n.translate("gui.edit_builder.add_builder.lore"));
-
     private final AriesWorld world;
     private final AriesProvider previousGui;
     private final GuiItem addBuilderInput;
@@ -41,25 +38,27 @@ public class EditBuilderGui extends AriesPagedGuiProvider {
         super(I18n.translate("gui.edit_builder.title", world.getWorldName()), InventoryConstants.FULL_INV_SIZE);
         this.world = world;
         this.previousGui = previousGui;
-        this.addBuilderInput = ADD_BUILDER_ITEM_TEMPLATE.asGuiItem(event -> {
-            if (event.getClick() != ClickType.LEFT) return;
-            if (!world.hasWorldPermission(event.getPlayer(), Permission.WORLD_ADD_BUILD)) return;
-            List<String> signLines = Lists.newArrayList();
-            signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.2"));
-            signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.3"));
-            signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.4"));
+        this.addBuilderInput = GuiItemButton.builder(XMaterial.OAK_SIGN, "gui.edit_builder.add_builder.displayname")
+                .lore("", I18n.translate("gui.edit_builder.add_builder.lore"))
+                .clickType(ClickType.LEFT)
+                .event(event -> {
+                    if (!world.hasWorldPermission(event.getPlayer(), Permission.WORLD_ADD_BUILD)) return;
+                    List<String> signLines = Lists.newArrayList();
+                    signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.2"));
+                    signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.3"));
+                    signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.4"));
 
-            Input.sign(event.getPlayer(), 1, signLines, input -> {
-                Optional<UUID> inputUUID = AriesSystem.getInstance().getPlayerManager().getPlayerUUID(input);
-                inputUUID.ifPresent(uuid -> {
-                    if (world.isBuilder(uuid)) return;
-                    world.getBuilders().add(uuid);
-                });
-                Bukkit.getScheduler().runTaskLater(AriesSystem.getInstance(), () -> new EditBuilderGui(world, previousGui).provide(event.getPlayer()), BukkitUnit.TICKS.toTicks(1));
-            }, canceled -> {
-                Bukkit.getScheduler().runTaskLater(AriesSystem.getInstance(), () -> new EditBuilderGui(world, previousGui).provide(canceled.getPlayer()), BukkitUnit.TICKS.toTicks(1));
-            });
-        });
+                    Input.sign(event.getPlayer(), 1, signLines, input -> {
+                        Optional<UUID> inputUUID = AriesSystem.getInstance().getPlayerManager().getPlayerUUID(input);
+                        inputUUID.ifPresent(uuid -> {
+                            if (world.isBuilder(uuid)) return;
+                            world.getBuilders().add(uuid);
+                        });
+                        Bukkit.getScheduler().runTaskLater(AriesSystem.getInstance(), () -> new EditBuilderGui(world, previousGui).provide(event.getPlayer()), BukkitUnit.TICKS.toTicks(1));
+                    }, canceled -> {
+                        Bukkit.getScheduler().runTaskLater(AriesSystem.getInstance(), () -> new EditBuilderGui(world, previousGui).provide(canceled.getPlayer()), BukkitUnit.TICKS.toTicks(1));
+                    });
+                }).build();
     }
 
     @Override
