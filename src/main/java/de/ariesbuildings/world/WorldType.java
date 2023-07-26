@@ -1,8 +1,8 @@
 package de.ariesbuildings.world;
 
-import com.google.common.collect.Lists;
 import de.ariesbuildings.world.creator.types.*;
 import lombok.Getter;
+import me.noci.quickutilities.utils.EnumUtils;
 
 import java.util.List;
 
@@ -27,12 +27,9 @@ public enum WorldType {
     }
 
     public static List<WorldType> publicTypes() {
-        List<WorldType> types = Lists.newArrayList();
-
-        for (WorldType value : values()) {
-            if (!value.internalType) types.add(value);
-        }
-        return types;
+        return EnumUtils.asList(WorldType.class).stream()
+                .filter(worldType -> !worldType.isInternalType())
+                .toList();
     }
 
 }

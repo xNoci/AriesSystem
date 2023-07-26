@@ -89,14 +89,14 @@ public class AriesSystem extends JavaPlugin {
             scoreboard.updateLine(9, "");
         });
 
-        QuickTabBuilder builder = QuickTab.builder();
-        builder.prefix((player, target) -> RankInfo.getInfo(target).getPrefix());
-        builder.suffix((player, target) -> {
-            String worldName = AriesSystem.getInstance().getWorldManager().getWorld(target).map(AriesWorld::getWorldName).orElse(I18n.translate("tab_list.player_list.suffix.unknown_world"));
-            return I18n.translate("tab_list.player_list.suffix", worldName);
-        });
-        builder.color((player, target) -> RankInfo.getInfo(target).getColor());
-        builder.sortID((player, target) -> RankInfo.getInfo(target).getSortID());
+        QuickTabBuilder builder = QuickTab.builder()
+                .prefix((player, target) -> RankInfo.getInfo(target).getPrefix())
+                .suffix((player, target) -> {
+                    String worldName = AriesSystem.getInstance().getWorldManager().getWorld(target).map(AriesWorld::getWorldName).orElse(I18n.translate("tab_list.player_list.suffix.unknown_world"));
+                    return I18n.translate("tab_list.player_list.suffix", worldName);
+                })
+                .color((player, target) -> RankInfo.getInfo(target).getColor())
+                .sortID((player, target) -> RankInfo.getInfo(target).getSortID());
 
         QuickTab.setUpdatingTabList(builder);
     }

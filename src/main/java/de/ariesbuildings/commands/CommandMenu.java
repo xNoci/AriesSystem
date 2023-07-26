@@ -45,12 +45,9 @@ public class CommandMenu extends AriesCommand {
             case WORLD_LIST_PRIVATE -> new WorldListGui(WorldVisibility.PRIVATE).provide(player);
             case WORLD_LIST_ARCHIVED -> new WorldListGui(WorldVisibility.ARCHIVED).provide(player);
             case PLAYER_SETTINGS -> new PlayerSettingsGui().provide(player);
-            case WORLD_SETTINGS -> {
-                AriesSystem.getInstance().getWorldManager().getWorld(player)
-                        .ifPresentOrElse(world -> new WorldSettingsGui(world).provide(player),
-                                () -> player.sendTranslate("world.not_found.current_world"));
-
-            }
+            case WORLD_SETTINGS -> AriesSystem.getInstance().getWorldManager().getWorld(player)
+                    .ifPresentOrElse(world -> new WorldSettingsGui(world).provide(player),
+                            () -> player.sendTranslate("world.not_found.current_world"));
         }
     }
 
