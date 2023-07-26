@@ -13,6 +13,8 @@ import de.ariesbuildings.permission.Permission;
 import de.ariesbuildings.permission.RankInfo;
 import de.ariesbuildings.utils.Input;
 import de.ariesbuildings.world.AriesWorld;
+import de.ariesbuildings.world.creator.CreatorID;
+import de.ariesbuildings.world.creator.WorldCreator;
 import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.PageContent;
@@ -83,7 +85,9 @@ public class EditBuilderGui extends AriesPagedGuiProvider {
 
     private GuiItem[] builders(AriesPlayer viewer) {
         List<UUID> builders = Lists.newArrayList();
-        world.getWorldCreator().ifPresent(builders::add);
+        world.getWorldCreator()
+                .filter(uuid -> CreatorID.match(uuid).isEmpty()) //If creator isn't a player don't show him
+                .ifPresent(builders::add);
         builders.addAll(world.getBuilders());
         return builders.stream().map(uuid -> builder(viewer, uuid, world.isCreator(uuid))).toArray(GuiItem[]::new);
     }
