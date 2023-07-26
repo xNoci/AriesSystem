@@ -5,8 +5,8 @@ import com.google.common.collect.Lists;
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
-import de.ariesbuildings.gui.guiitem.GuiItemButton;
 import de.ariesbuildings.gui.guiitem.InventoryConstants;
+import de.ariesbuildings.gui.guiitem.button.GuiItemButton;
 import de.ariesbuildings.gui.provider.AriesPagedGuiProvider;
 import de.ariesbuildings.gui.provider.AriesProvider;
 import de.ariesbuildings.permission.Permission;
@@ -14,7 +14,6 @@ import de.ariesbuildings.permission.RankInfo;
 import de.ariesbuildings.utils.Input;
 import de.ariesbuildings.world.AriesWorld;
 import de.ariesbuildings.world.creator.CreatorID;
-import de.ariesbuildings.world.creator.WorldCreator;
 import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.PageContent;
@@ -34,33 +33,12 @@ public class EditBuilderGui extends AriesPagedGuiProvider {
 
     private final AriesWorld world;
     private final AriesProvider previousGui;
-    private final GuiItem addBuilderInput;
+
 
     protected EditBuilderGui(AriesWorld world, AriesProvider previousGui) {
         super(I18n.translate("gui.edit_builder.title", world.getWorldName()), InventoryConstants.FULL_INV_SIZE);
         this.world = world;
         this.previousGui = previousGui;
-        this.addBuilderInput = GuiItemButton.builder(XMaterial.OAK_SIGN, "gui.edit_builder.add_builder.displayname")
-                .lore("", I18n.translate("gui.edit_builder.add_builder.lore"))
-                .clickType(ClickType.LEFT)
-                .event(event -> {
-                    if (!world.hasWorldPermission(event.getPlayer(), Permission.WORLD_ADD_BUILD)) return;
-                    List<String> signLines = Lists.newArrayList();
-                    signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.2"));
-                    signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.3"));
-                    signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.4"));
-
-                    Input.sign(event.getPlayer(), 1, signLines, input -> {
-                        Optional<UUID> inputUUID = AriesSystem.getInstance().getPlayerManager().getPlayerUUID(input);
-                        inputUUID.ifPresent(uuid -> {
-                            if (world.isBuilder(uuid)) return;
-                            world.getBuilders().add(uuid);
-                        });
-                        Bukkit.getScheduler().runTaskLater(AriesSystem.getInstance(), () -> new EditBuilderGui(world, previousGui).provide(event.getPlayer()), BukkitUnit.TICKS.toTicks(1));
-                    }, canceled -> {
-                        Bukkit.getScheduler().runTaskLater(AriesSystem.getInstance(), () -> new EditBuilderGui(world, previousGui).provide(canceled.getPlayer()), BukkitUnit.TICKS.toTicks(1));
-                    });
-                }).build();
     }
 
     @Override
@@ -70,7 +48,11 @@ public class EditBuilderGui extends AriesPagedGuiProvider {
         if (previousGui != null) content.setItem(Slot.getSlot(6, 9), InventoryConstants.openPreviousGui(previousGui));
         content.setItem(Slot.getSlot(1, 5), InventoryConstants.worldDisplayIcon(world).asGuiItem());
         if (world.hasWorldPermission(player, Permission.WORLD_ADD_BUILD)) {
-            content.setItem(Slot.getSlot(2, 5), addBuilderInput);
+            GuiItemButton.builder(XMaterial.OAK_SIGN, "gui.edit_builder.add_builder.displayname")
+                    .lore("", I18n.translate("gui.edit_builder.add_builder.lore"))
+                    .clickType(ClickType.LEFT)
+                    .click((ariesPlayer, button) -> handleAddBuilder(ariesPlayer))
+                    .build(content, Slot.getSlot(2, 5));
         }
     }
 
@@ -116,6 +98,25 @@ public class EditBuilderGui extends AriesPagedGuiProvider {
 
             world.getBuilders().remove(uuid);
             new EditBuilderGui(world, previousGui).provide(viewer);
+        });
+    }
+
+    private void handleAddBuilder(AriesPlayer player) {
+        if (!world.hasWorldPermission(player, Permission.WORLD_ADD_BUILD)) return;
+        List<String> signLines = Lists.newArrayList();
+        signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.2"));
+        signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.3"));
+        signLines.add(I18n.translate("gui.edit_builder.add_builder.input.line.4"));
+
+        Input.sign(player, 1, signLines, input -> {
+            Optional<UUID> inputUUID = AriesSystem.getInstance().getPlayerManager().getPlayerUUID(input);
+            inputUUID.ifPresent(uuid -> {
+                if (world.isBuilder(uuid)) return;
+                world.getBuilders().add(uuid);
+            });
+            Bukkit.getScheduler().runTaskLater(AriesSystem.getInstance(), () -> new EditBuilderGui(world, previousGui).provide(player), BukkitUnit.TICKS.toTicks(1));
+        }, canceled -> {
+            Bukkit.getScheduler().runTaskLater(AriesSystem.getInstance(), () -> new EditBuilderGui(world, previousGui).provide(player), BukkitUnit.TICKS.toTicks(1));
         });
     }
 
