@@ -25,7 +25,7 @@ public class IntegerOptionItem<OptionType extends Option> extends OptionItem<Opt
         if (clickType != ClickType.RIGHT && clickType != ClickType.LEFT) return false;
 
         int newValue = currentValue + (clickType == ClickType.LEFT ? increment : -increment);
-        newValue = MathUtils.clamp(lowerBound, upperBound, newValue);
+        newValue = MathUtils.clamp(newValue, lowerBound, upperBound);
 
         if (newValue == currentValue) return false;
         currentValue = newValue;

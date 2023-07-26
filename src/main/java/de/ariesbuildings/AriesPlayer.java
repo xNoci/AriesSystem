@@ -73,7 +73,7 @@ public class AriesPlayer {
 
     public void setFlySpeed(int speed) {
         if (!base.isOnline()) return;
-        speed = MathUtils.clamp(1, 10, speed);
+        speed = MathUtils.clamp(speed, 1, 10);
         base.setFlySpeed(DEFAULT_FLY_SPEED * speed);
     }
 
