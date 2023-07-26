@@ -31,6 +31,7 @@ public class MainMenuGui extends AriesGuiProvider {
     private final GuiItem customBlockMenu;
     private final GuiItem playerSettings;
     private final GuiItem stopServer;
+    private final GuiItem whiteList;
 
     public MainMenuGui() {
         super(I18n.translate("gui.main_menu.title"), InventoryConstants.FULL_INV_SIZE);
@@ -51,22 +52,37 @@ public class MainMenuGui extends AriesGuiProvider {
                 .glow()
                 .event(MainMenuGui::onClickStopServer)
                 .build();
+
+        String whitelistStatus = Bukkit.hasWhitelist() ? I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_enabled") : I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_disabled");
+        this.whiteList = GuiItemButton.builder(XMaterial.PAPER, "gui.main_menu.item.whitelist_toggle.displayname")
+                .glow()
+                .lore("", I18n.translate("gui.main_menu.item.lore.shift_left"), whitelistStatus)
+                .event(MainMenuGui::onClickWhiteList).build();
     }
 
     @Override
     protected void init(AriesPlayer player, InventoryContent content) {
         content.fill(InventoryConstants.BACKGROUND_BLACK);
-        content.setItem(Slot.getSlot(2, 3), publicWorlds);
-        content.setItem(Slot.getSlot(2, 4), privateWorlds);
-        content.setItem(Slot.getSlot(2, 5), archivedWorlds);
+        content.setItem(Slot.getSlot(2, 3), this.publicWorlds);
+        content.setItem(Slot.getSlot(2, 4), this.privateWorlds);
+        content.setItem(Slot.getSlot(2, 5), this.archivedWorlds);
 
-        content.setItem(Slot.getSlot(4, 3), customBlockMenu);
-        content.setItem(Slot.getSlot(4, 7), playerSettings);
+        content.setItem(Slot.getSlot(4, 3), this.customBlockMenu);
+        content.setItem(Slot.getSlot(4, 7), this.playerSettings);
 
         if (player.hasPermission(Permission.OWNR_GUI_STOP_SERVER)) {
-            content.setItem(Slot.getSlot(6, 1), stopServer);
-            content.setItem(WHITELIST_TOGGLE_SLOT, whitlistItem(content));
+            content.setItem(Slot.getSlot(6, 1), this.stopServer);
+            content.setItem(WHITELIST_TOGGLE_SLOT, this.whiteList);
         }
+    }
+
+    @Override
+    public void update(Player player, InventoryContent content) {
+        Slot whiteListSlot = content.getSlot(WHITELIST_TOGGLE_SLOT);
+        QuickItemStack whiteListItem = (QuickItemStack) whiteListSlot.getItemStack().clone();
+        String whitelistStatus = Bukkit.hasWhitelist() ? I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_enabled") : I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_disabled");
+        whiteListItem.setLore("", I18n.translate("gui.main_menu.item.lore.shift_left"), whitelistStatus);
+        whiteListSlot.setItem(whiteListItem.asGuiItem(MainMenuGui::onClickWhiteList));
     }
 
     private static void openWorldList(SlotClickEvent event, WorldVisibility visibility) {
@@ -74,9 +90,13 @@ public class MainMenuGui extends AriesGuiProvider {
         new WorldListGui(visibility, new MainMenuGui()).provide(player);
     }
 
+    private static void onClickWhiteList(SlotClickEvent event) {
+        if (event.getClick() != ClickType.SHIFT_LEFT) return;
+        Bukkit.setWhitelist(!Bukkit.hasWhitelist());
+    }
+
     private static void onClickStopServer(SlotClickEvent event) {
-        ClickType clickType = event.getClick();
-        if (clickType != ClickType.SHIFT_LEFT) return;
+        if (event.getClick() != ClickType.SHIFT_LEFT) return;
         Bukkit.broadcastMessage(I18n.translate("broadcast.notify.server_shutdown", AriesSystemConfig.SERVER_SHUTDOW_DELAY));
         new BukkitRunnable() {
             @Override
@@ -84,21 +104,6 @@ public class MainMenuGui extends AriesGuiProvider {
                 Bukkit.shutdown();
             }
         }.runTaskLater(AriesSystem.getInstance(), BukkitUnit.SECONDS.toTicks(AriesSystemConfig.SERVER_SHUTDOW_DELAY));
-    }
-
-    private GuiItem whitlistItem(InventoryContent content) {
-        QuickItemStack whitelist = new QuickItemStack(XMaterial.PAPER.parseMaterial())
-                .setDisplayName(I18n.translate("gui.main_menu.item.whitelist_toggle.displayname"))
-                .glow()
-                .addItemFlags();
-        String whitelistStatus = Bukkit.hasWhitelist() ? I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_enabled") : I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_disabled");
-        whitelist.setLore("", I18n.translate("gui.main_menu.item.lore.shift_left"), whitelistStatus);
-        return whitelist.asGuiItem(event -> {
-            if (event.getClick() != ClickType.SHIFT_LEFT) return;
-            Bukkit.setWhitelist(!Bukkit.hasWhitelist());
-            content.setItem(WHITELIST_TOGGLE_SLOT, whitlistItem(content));
-            content.applyContent();
-        });
     }
 
 
