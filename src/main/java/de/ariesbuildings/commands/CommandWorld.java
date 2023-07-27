@@ -43,6 +43,14 @@ public class CommandWorld extends AriesCommand {
         player.performCommand("antiblockupdate");
     }
 
+    @SubCommand(path = "spawn")
+    public void goToWorldSpawn(AriesPlayer player) {
+        worldManager.getWorld(player)
+                .ifPresentOrElse(world -> {
+                    world.teleport(player, true);
+                }, () -> player.sendTranslate("command.world.current.not_imported"));
+    }
+
     @SubCommand(path = "import")
     @CommandPermission(Permission.WORLD_IMPORT)
     public void importWorld(CommandSender sender, String worldName) {
