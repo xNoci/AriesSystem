@@ -2,6 +2,7 @@ package de.ariesbuildings.commands;
 
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.I18n;
+import de.ariesbuildings.gui.WorldCreationGui;
 import de.ariesbuildings.managers.AriesWorldManager;
 import de.ariesbuildings.permission.Permission;
 import de.ariesbuildings.world.AriesWorld;
@@ -75,6 +76,12 @@ public class CommandWorld extends AriesCommand {
         }
 
         sender.sendMessage(I18n.translate("command.world.unimport.failed", worldName, result.name()));
+    }
+
+    @SubCommand(path = "create")
+    @CommandPermission(Permission.WORLD_CREATE)
+    public void createWorld(AriesPlayer sender) {
+        new WorldCreationGui().provide(sender);
     }
 
     @SubCommand(path = "create")

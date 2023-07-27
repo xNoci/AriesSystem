@@ -48,6 +48,7 @@ public class CommandMenu extends AriesCommand {
             case WORLD_SETTINGS -> AriesSystem.getInstance().getWorldManager().getWorld(player)
                     .ifPresentOrElse(world -> new WorldSettingsGui(world).provide(player),
                             () -> player.sendTranslate("world.not_found.current_world"));
+            case CREATE_WORLD -> new WorldCreationGui().provide(player);
         }
     }
 
@@ -77,7 +78,8 @@ public class CommandMenu extends AriesCommand {
         WORLD_LIST_PUBLIC("list_public", "public"),
         WORLD_LIST_PRIVATE("list_private", "private"),
         WORLD_LIST_ARCHIVED("list_archived", "archived"),
-        CUSTOM_BLOCKS("blocks");
+        CUSTOM_BLOCKS("blocks"),
+        CREATE_WORLD("create");
 
         private final List<String> alt;
 

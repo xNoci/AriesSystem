@@ -1,5 +1,6 @@
 package de.ariesbuildings.managers;
 
+import com.cryptomorin.xseries.XMaterial;
 import com.google.common.cache.Cache;
 import com.google.common.cache.CacheBuilder;
 import com.google.common.collect.ImmutableList;
@@ -109,13 +110,34 @@ public class AriesWorldManager {
         Bukkit.getScheduler().runTask(plugin, () -> {
             World bukkitWorld = new WorldCreator(world).createWorld();
             world.setWorld(bukkitWorld);
+            world.getType().getCreator().applyDefaultSettings(world);
         });
-        world.getType().getCreator().applyDefaultSettings(world);
 
         worldData.serialize(worldName, world);
         worlds.add(world);
         return true;
     }
+
+    public boolean createWorld(String worldName, UUID creator, WorldType type, WorldVisibility visibility, XMaterial displayIcon) {
+        if (existsWorld(worldName)) return false;
+
+        AriesWorld world = new AriesWorld(worldName);
+        world.setWorldCreator(creator);
+        world.setType(type);
+        world.setVisibility(visibility);
+        world.setDisplayIcon(displayIcon);
+
+        Bukkit.getScheduler().runTask(plugin, () -> {
+            World bukkitWorld = new WorldCreator(world).createWorld();
+            world.setWorld(bukkitWorld);
+            world.getType().getCreator().applyDefaultSettings(world);
+        });
+
+        worldData.serialize(worldName, world);
+        worlds.add(world);
+        return true;
+    }
+
 
     public WorldImportResult importWorld(String worldName) {
         File worldFile = new File(Bukkit.getWorldContainer(), worldName);
