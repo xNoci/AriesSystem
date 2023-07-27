@@ -2,7 +2,6 @@ package de.ariesbuildings.gui;
 
 import com.cryptomorin.xseries.XMaterial;
 import com.cryptomorin.xseries.XTag;
-import com.google.common.base.CaseFormat;
 import de.ariesbuildings.AriesPlayer;
 import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
@@ -49,7 +48,7 @@ public class DisplayIconChooseGui extends AriesPagedGuiProvider {
     }
 
     private GuiItem toGuiItem(XMaterial material) {
-        return new QuickItemStack(material.parseMaterial(), I18n.translate("gui.select_displayicon.icon.displayname", CaseFormat.UPPER_UNDERSCORE.to(CaseFormat.UPPER_CAMEL, material.name())))
+        return new QuickItemStack(material.parseMaterial(), I18n.translate("gui.select_displayicon.icon.displayname", formatMaterialName(material)))
                 .setLore("", I18n.translate("gui.select_displayicon.icon.description"))
                 .addItemFlags()
                 .asGuiItem(event -> {
@@ -58,7 +57,16 @@ public class DisplayIconChooseGui extends AriesPagedGuiProvider {
                     iconChanger.onIconSelect(material);
                     iconChanger.provide(player);
                 });
+    }
 
+    private String formatMaterialName(XMaterial material) {
+        StringBuilder builder = new StringBuilder();
+        for (String arg : material.name().split("_")) {
+            builder.append(arg.substring(0, 1).toUpperCase());
+            builder.append(arg.substring(1).toLowerCase());
+            builder.append(" ");
+        }
+        return builder.toString();
     }
 
 }
