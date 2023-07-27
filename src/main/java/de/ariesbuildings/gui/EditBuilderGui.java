@@ -22,7 +22,6 @@ import me.noci.quickutilities.utils.BukkitUnit;
 import me.noci.quickutilities.utils.InventoryPattern;
 import me.noci.quickutilities.utils.QuickItemStack;
 import me.noci.quickutilities.utils.SkullItem;
-import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.ClickType;
 
 import java.util.List;
@@ -114,9 +113,9 @@ public class EditBuilderGui extends AriesPagedGuiProvider {
                 if (world.isBuilder(uuid)) return;
                 world.getBuilders().add(uuid);
             });
-            Bukkit.getScheduler().runTaskLater(AriesSystem.getInstance(), () -> new EditBuilderGui(world, previousGui).provide(player), BukkitUnit.TICKS.toTicks(1));
+            new EditBuilderGui(world, previousGui).provide(player, 1, BukkitUnit.TICKS);
         }, canceled -> {
-            Bukkit.getScheduler().runTaskLater(AriesSystem.getInstance(), () -> new EditBuilderGui(world, previousGui).provide(player), BukkitUnit.TICKS.toTicks(1));
+            new EditBuilderGui(world, previousGui).provide(player, 1, BukkitUnit.TICKS);
         });
     }
 
