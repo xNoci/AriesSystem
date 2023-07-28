@@ -27,7 +27,7 @@ public enum WorldType {
     }
 
     public static List<WorldType> publicTypes() {
-        return EnumUtils.asList(WorldType.class).stream()
+        return EnumUtils.asStream(WorldType.class)
                 .filter(worldType -> !worldType.isInternalType())
                 .toList();
     }

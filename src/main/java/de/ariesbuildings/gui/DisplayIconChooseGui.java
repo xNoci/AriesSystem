@@ -39,7 +39,7 @@ public class DisplayIconChooseGui extends AriesPagedGuiProvider {
         content.setPreviousPageItem(Slot.getSlot(6, 1), InventoryConstants.PREVIOUS_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
         content.setNextPageItem(Slot.getSlot(6, 8), InventoryConstants.NEXT_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
 
-        GuiItem[] icons = EnumUtils.asList(XMaterial.class).stream()
+        GuiItem[] icons = EnumUtils.asStream(XMaterial.class)
                 .filter(material -> !XTag.INVENTORY_NOT_DISPLAYABLE.isTagged(material))
                 .filter(material -> material.parseMaterial() != null)
                 .map(this::toGuiItem)
