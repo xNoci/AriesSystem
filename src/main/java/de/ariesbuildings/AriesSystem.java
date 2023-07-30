@@ -64,41 +64,9 @@ public class AriesSystem extends JavaPlugin {
 
         loadTutorialWorld();
 
-        QuickBoard.setUpdatingScoreboard(this, 5, BukkitUnit.SECONDS, (p, scoreboard) -> {
-            AriesPlayer player = playerManager.getPlayer(p);
-            RankInfo rankInfo = player.getRankInfo();
-            Optional<AriesWorld> world = worldManager.getWorld(player);
-            String unknownWorld = I18n.translate("scoreboard.line.world_name_display.unknown");
-            String unknownWorldStatus = I18n.translate("scoreboard.line.world_status_display.unknown");
 
-            String rankName = rankInfo.getColor() + rankInfo.getDisplayname();
-            String worldName = world.map(AriesWorld::getWorldName).orElse(unknownWorld);
-            String worldStatus = world.map(w -> w.getOptions().get(WorldOption.WORLD_STATUS, WorldStatus.class)).map(WorldStatus::getColoredName).orElse(unknownWorldStatus);
-
-            scoreboard.updateTitle(I18n.translate("scoreboard.title"));
-
-            scoreboard.updateLine(0, "");
-            scoreboard.updateLine(1, I18n.translate("scoreboard.line.your_rank"));
-            scoreboard.updateLine(2, I18n.translate("scoreboard.line.your_rank_display", rankName));
-            scoreboard.updateLine(3, "");
-            scoreboard.updateLine(4, I18n.translate("scoreboard.line.world_name"));
-            scoreboard.updateLine(5, I18n.translate("scoreboard.line.world_name_display", worldName));
-            scoreboard.updateLine(6, "");
-            scoreboard.updateLine(7, I18n.translate("scoreboard.line.world_status"));
-            scoreboard.updateLine(8, I18n.translate("scoreboard.line.world_status_display", worldStatus));
-            scoreboard.updateLine(9, "");
-        });
-
-        QuickTabBuilder builder = QuickTab.builder()
-                .prefix((player, target) -> RankInfo.getInfo(target).getPrefix())
-                .suffix((player, target) -> {
-                    String worldName = AriesSystem.getInstance().getWorldManager().getWorld(target).map(AriesWorld::getWorldName).orElse(I18n.translate("tab_list.player_list.suffix.unknown_world"));
-                    return I18n.translate("tab_list.player_list.suffix", worldName);
-                })
-                .color((player, target) -> RankInfo.getInfo(target).getColor())
-                .sortID((player, target) -> RankInfo.getInfo(target).getSortID());
-
-        QuickTab.setUpdatingTabList(builder);
+        createTabList();
+        createScoreboard();
     }
 
     @Override
@@ -173,6 +141,45 @@ public class AriesSystem extends JavaPlugin {
             AriesSystemConfig.debug("Failed to create tutorial world.");
         }
         this.serverData.setTutorialWorldLoaded(true);
+    }
+
+    private void createTabList() {
+        QuickBoard.setUpdatingScoreboard(this, 5, BukkitUnit.SECONDS, (p, scoreboard) -> {
+            AriesPlayer player = playerManager.getPlayer(p);
+            RankInfo rankInfo = player.getRankInfo();
+            Optional<AriesWorld> world = worldManager.getWorld(player);
+            String unknownWorld = I18n.translate("scoreboard.line.world_name_display.unknown");
+            String unknownWorldStatus = I18n.translate("scoreboard.line.world_status_display.unknown");
+
+            String rankName = rankInfo.getColor() + rankInfo.getDisplayname();
+            String worldName = world.map(AriesWorld::getWorldName).orElse(unknownWorld);
+            String worldStatus = world.map(w -> w.getOptions().get(WorldOption.WORLD_STATUS, WorldStatus.class)).map(WorldStatus::getColoredName).orElse(unknownWorldStatus);
+
+            scoreboard.updateTitle(I18n.translate("scoreboard.title"));
+
+            scoreboard.updateLine(0, "");
+            scoreboard.updateLine(1, I18n.translate("scoreboard.line.your_rank"));
+            scoreboard.updateLine(2, I18n.translate("scoreboard.line.your_rank_display", rankName));
+            scoreboard.updateLine(3, "");
+            scoreboard.updateLine(4, I18n.translate("scoreboard.line.world_name"));
+            scoreboard.updateLine(5, I18n.translate("scoreboard.line.world_name_display", worldName));
+            scoreboard.updateLine(6, "");
+            scoreboard.updateLine(7, I18n.translate("scoreboard.line.world_status"));
+            scoreboard.updateLine(8, I18n.translate("scoreboard.line.world_status_display", worldStatus));
+            scoreboard.updateLine(9, "");
+        });
+    }
+
+    private void createScoreboard() {
+        QuickTabBuilder builder = QuickTab.builder()
+                .prefix((player, target) -> RankInfo.getInfo(target).getPrefix())
+                .suffix((player, target) -> {
+                    String worldName = AriesSystem.getInstance().getWorldManager().getWorld(target).map(AriesWorld::getWorldName).orElse(I18n.translate("tab_list.player_list.suffix.unknown_world"));
+                    return I18n.translate("tab_list.player_list.suffix", worldName);
+                })
+                .color((player, target) -> RankInfo.getInfo(target).getColor())
+                .sortID((player, target) -> RankInfo.getInfo(target).getSortID());
+        QuickTab.setUpdatingTabList(builder);
     }
 
     public void teleportToSpawnWorld(AriesPlayer player) {
