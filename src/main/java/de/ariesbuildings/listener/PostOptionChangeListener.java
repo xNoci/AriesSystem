@@ -23,7 +23,6 @@ public class PostOptionChangeListener implements Listener {
     }
 
     private void handleVanish(AriesPlayer player, boolean vanished) {
-        VanishManager.sendActionbar();
         VanishManager.updatePlayerVisibility();
         String message = vanished ? PlayerQuitListener.getQuitMessage(player) : PlayerJoinListener.getJoinMessage(player);
         Bukkit.broadcastMessage(message);

@@ -4,27 +4,19 @@ import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.Permission;
-import org.bukkit.scheduler.BukkitRunnable;
-import org.bukkit.scheduler.BukkitTask;
+import me.noci.quickutilities.utils.BukkitUnit;
+import org.bukkit.Bukkit;
 
 public class VanishManager {
 
-    private BukkitTask vanishRunnable;
-
-    public VanishManager() {
-        this.vanishRunnable = new BukkitRunnable() {
-            @Override
-            public void run() {
-                sendActionbar();
-            }
-        }.runTaskTimerAsynchronously(AriesSystem.getInstance(), 0, 20);
+    static {
+        Bukkit.getScheduler().scheduleSyncRepeatingTask(AriesSystem.getInstance(), VanishManager::updateActionBar, 0, BukkitUnit.SECONDS.toTicks(1) / 2);
     }
 
-    public static void sendActionbar() {
-        AriesSystem.getInstance().getPlayerManager().getPlayers().forEach(player -> {
-            String actionBar = player.getOptions().isEnabled(PlayerOption.VANISH) ? I18n.translate("actionbar.vanish_enabled") : " ";
-            player.sendActionBar(actionBar);
-        });
+    private static void updateActionBar() {
+        AriesSystem.getInstance().getPlayerManager().getPlayers().stream()
+                .filter(player -> player.getOptions().isEnabled(PlayerOption.VANISH))
+                .forEach(player -> player.sendActionBar(I18n.translate("actionbar.vanish_enabled")));
     }
 
     public static void updatePlayerVisibility() {
@@ -41,12 +33,6 @@ public class VanishManager {
                 }
             });
         });
-    }
-
-    public void stopTask() {
-        if (vanishRunnable == null) return;
-        vanishRunnable.cancel();
-        vanishRunnable = null;
     }
 
 }

@@ -8,7 +8,6 @@ import de.ariesbuildings.listener.worldoptions.*;
 import de.ariesbuildings.locales.LanguageLoader;
 import de.ariesbuildings.managers.AriesPlayerManager;
 import de.ariesbuildings.managers.AriesWorldManager;
-import de.ariesbuildings.managers.VanishManager;
 import de.ariesbuildings.options.WorldOption;
 import de.ariesbuildings.permission.RankInfo;
 import de.ariesbuildings.world.AriesWorld;
@@ -38,7 +37,6 @@ public class AriesSystem extends JavaPlugin {
 
     @Getter private AriesWorldManager worldManager;
     @Getter private AriesPlayerManager playerManager;
-    @Getter private VanishManager vanishManager;
     @Getter private ServerData serverData;
 
     @Override
@@ -55,7 +53,6 @@ public class AriesSystem extends JavaPlugin {
         this.serverData.deserialize();
         this.worldManager = new AriesWorldManager(this);
         this.playerManager = new AriesPlayerManager();
-        this.vanishManager = new VanishManager();
 
         this.worldManager.loadSavedWorlds();
 
@@ -75,7 +72,6 @@ public class AriesSystem extends JavaPlugin {
 
         this.serverData.serialize();
         this.worldManager.saveWorlds();
-        this.vanishManager.stopTask();
     }
 
     private void registerCommands() {
