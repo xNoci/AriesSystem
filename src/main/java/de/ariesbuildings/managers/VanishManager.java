@@ -5,12 +5,12 @@ import de.ariesbuildings.I18n;
 import de.ariesbuildings.options.PlayerOption;
 import de.ariesbuildings.permission.Permission;
 import me.noci.quickutilities.utils.BukkitUnit;
-import org.bukkit.Bukkit;
+import me.noci.quickutilities.utils.Scheduler;
 
 public class VanishManager {
 
     static {
-        Bukkit.getScheduler().scheduleSyncRepeatingTask(AriesSystem.getInstance(), VanishManager::updateActionBar, 0, BukkitUnit.SECONDS.toTicks(1) / 2);
+        Scheduler.repeat(BukkitUnit.SECONDS.toTicks(1) / 2, VanishManager::updateActionBar);
     }
 
     private static void updateActionBar() {

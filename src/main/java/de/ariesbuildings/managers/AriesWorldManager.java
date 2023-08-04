@@ -18,6 +18,7 @@ import de.ariesbuildings.world.creator.CreatorID;
 import de.ariesbuildings.world.creator.WorldCreator;
 import lombok.SneakyThrows;
 import me.noci.quickutilities.utils.Require;
+import me.noci.quickutilities.utils.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.World;
 import org.bukkit.entity.Entity;
@@ -107,7 +108,7 @@ public class AriesWorldManager {
             world.setWorldCreator(creator);
         }
         world.setType(type);
-        Bukkit.getScheduler().runTask(plugin, () -> {
+        Scheduler.execute(() -> {
             World bukkitWorld = new WorldCreator(world).createWorld();
             world.setWorld(bukkitWorld);
             world.getType().getCreator().applyDefaultSettings(world);
@@ -127,7 +128,7 @@ public class AriesWorldManager {
         world.setVisibility(visibility);
         world.setDisplayIcon(displayIcon);
 
-        Bukkit.getScheduler().runTask(plugin, () -> {
+        Scheduler.execute(() -> {
             World bukkitWorld = new WorldCreator(world).createWorld();
             world.setWorld(bukkitWorld);
             world.getType().getCreator().applyDefaultSettings(world);

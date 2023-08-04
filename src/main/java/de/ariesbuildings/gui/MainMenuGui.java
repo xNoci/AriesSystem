@@ -2,7 +2,6 @@ package de.ariesbuildings.gui;
 
 import com.cryptomorin.xseries.XMaterial;
 import de.ariesbuildings.AriesPlayer;
-import de.ariesbuildings.AriesSystem;
 import de.ariesbuildings.I18n;
 import de.ariesbuildings.config.AriesSystemConfig;
 import de.ariesbuildings.gui.guiitem.InventoryConstants;
@@ -14,9 +13,9 @@ import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.Slot;
 import me.noci.quickutilities.utils.BukkitUnit;
 import me.noci.quickutilities.utils.QuickItemStack;
+import me.noci.quickutilities.utils.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.ClickType;
-import org.bukkit.scheduler.BukkitRunnable;
 
 public class MainMenuGui extends AriesGuiProvider {
 
@@ -80,12 +79,7 @@ public class MainMenuGui extends AriesGuiProvider {
 
     private static void onClickStopServer(AriesPlayer ariesPlayer, GuiItemButton itemButton) {
         Bukkit.broadcastMessage(I18n.translate("broadcast.notify.server_shutdown", AriesSystemConfig.SERVER_SHUTDOW_DELAY));
-        new BukkitRunnable() {
-            @Override
-            public void run() {
-                Bukkit.shutdown();
-            }
-        }.runTaskLater(AriesSystem.getInstance(), BukkitUnit.SECONDS.toTicks(AriesSystemConfig.SERVER_SHUTDOW_DELAY));
+        Scheduler.delay(AriesSystemConfig.SERVER_SHUTDOW_DELAY, BukkitUnit.SECONDS, Bukkit::shutdown);
     }
 
 
