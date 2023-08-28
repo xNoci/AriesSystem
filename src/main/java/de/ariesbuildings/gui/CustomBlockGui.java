@@ -11,6 +11,7 @@ import me.noci.quickutilities.inventory.GuiItem;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.PageContent;
 import me.noci.quickutilities.inventory.Slot;
+import me.noci.quickutilities.utils.EnumUtils;
 import me.noci.quickutilities.utils.InventoryPattern;
 
 import java.util.Arrays;
@@ -41,7 +42,7 @@ public class CustomBlockGui extends AriesPagedGuiProvider {
         content.setPreviousPageItem(Slot.getSlot(6, 1), InventoryConstants.PREVIOUS_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
         content.setNextPageItem(Slot.getSlot(6, 8), InventoryConstants.NEXT_PAGE, InventoryConstants.ITM_BACKGROUND_BLACK);
 
-        GuiItem[] items = Arrays.stream(CustomBlock.values()).map(CustomBlockItem::new).toArray(GuiItem[]::new);
+        GuiItem[] items = EnumUtils.asStream(CustomBlock.class).map(CustomBlockItem::new).toArray(GuiItem[]::new);
         content.setPageContent(items);
         content.updatePage();
     }

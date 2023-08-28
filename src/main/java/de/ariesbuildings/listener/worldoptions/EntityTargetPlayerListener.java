@@ -15,9 +15,8 @@ public class EntityTargetPlayerListener implements Listener {
 
         AriesSystem.getInstance().getWorldManager()
                 .getWorld(player)
-                .ifPresentOrElse(world -> {
-                    event.setCancelled(!world.getOptions().isEnabled(WorldOption.ENTITY_TARGET_PLAYER));
-                }, () -> event.setCancelled(true));
+                .ifPresentOrElse(world -> event.setCancelled(!world.getOptions().isEnabled(WorldOption.ENTITY_TARGET_PLAYER)),
+                        () -> event.setCancelled(true));
     }
 
 }

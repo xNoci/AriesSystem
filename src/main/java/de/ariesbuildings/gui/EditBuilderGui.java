@@ -114,9 +114,7 @@ public class EditBuilderGui extends AriesPagedGuiProvider {
                 world.getBuilders().add(uuid);
             });
             new EditBuilderGui(world, previousGui).provide(player, 1, BukkitUnit.TICKS);
-        }, canceled -> {
-            new EditBuilderGui(world, previousGui).provide(player, 1, BukkitUnit.TICKS);
-        });
+        }, canceled -> new EditBuilderGui(world, previousGui).provide(player, 1, BukkitUnit.TICKS));
     }
 
 }

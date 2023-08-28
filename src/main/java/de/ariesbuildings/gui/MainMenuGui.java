@@ -12,7 +12,6 @@ import de.ariesbuildings.world.WorldVisibility;
 import me.noci.quickutilities.inventory.InventoryContent;
 import me.noci.quickutilities.inventory.Slot;
 import me.noci.quickutilities.utils.BukkitUnit;
-import me.noci.quickutilities.utils.QuickItemStack;
 import me.noci.quickutilities.utils.Scheduler;
 import org.bukkit.Bukkit;
 import org.bukkit.event.inventory.ClickType;
@@ -70,10 +69,10 @@ public class MainMenuGui extends AriesGuiProvider {
     }
 
     private static void onClickWhiteList(AriesPlayer ariesPlayer, GuiItemButton itemButton) {
-        Bukkit.setWhitelist(!Bukkit.hasWhitelist());
-        QuickItemStack whiteListItem = itemButton.getItemStack();
-        String whitelistStatus = Bukkit.hasWhitelist() ? I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_enabled") : I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_disabled");
-        whiteListItem.setLore("", I18n.translate("gui.main_menu.item.lore.shift_left"), whitelistStatus);
+        boolean whitelist = !Bukkit.hasWhitelist();
+        Bukkit.setWhitelist(whitelist);
+        String whitelistStatus = whitelist ? I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_enabled") : I18n.translate("gui.main_menu.item.whitelist_toggle.lore.wl_disabled");
+        itemButton.getItemStack().setLore("", I18n.translate("gui.main_menu.item.lore.shift_left"), whitelistStatus);
         itemButton.update();
     }
 

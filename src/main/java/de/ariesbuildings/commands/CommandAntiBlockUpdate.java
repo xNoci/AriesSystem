@@ -31,9 +31,7 @@ public class CommandAntiBlockUpdate extends AriesCommand {
 
                     boolean currentValue = world.getOptions().isEnabled(WorldOption.ANTI_BLOCK_UPDATE);
                     world.getOptions().set(WorldOption.ANTI_BLOCK_UPDATE, !currentValue);
-                }, () -> {
-                    player.sendTranslate("world.not_found.current_world");
-                });
+                }, () -> player.sendTranslate("world.not_found.current_world"));
     }
 
     @SubCommand(path = "current")
@@ -42,9 +40,7 @@ public class CommandAntiBlockUpdate extends AriesCommand {
                 .getWorld(player)
                 .ifPresentOrElse(world -> {
                     player.sendTranslate("option.current", WorldOption.ANTI_BLOCK_UPDATE.getName(), world.getOptions().get(WorldOption.ANTI_BLOCK_UPDATE, boolean.class));
-                }, () -> {
-                    player.sendTranslate("world.not_found.current_world");
-                });
+                }, () -> player.sendTranslate("world.not_found.current_world"));
     }
 
     @FallbackCommand

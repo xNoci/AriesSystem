@@ -26,9 +26,7 @@ public class CustomBlockListener implements Listener {
     private void handleBlockPlace(BlockPlaceEvent event) {
         if (event.isCancelled()) return;
         CustomBlock.matchCustomBlock(new QuickItemStack(event.getItemInHand()))
-                .ifPresent(customBlock -> {
-                    placeBlock(customBlock, event.getPlayer(), event.getBlockPlaced());
-                });
+                .ifPresent(customBlock -> placeBlock(customBlock, event.getPlayer(), event.getBlockPlaced()));
     }
 
     @EventHandler
@@ -36,9 +34,7 @@ public class CustomBlockListener implements Listener {
         if (event.isCancelled()) return;
         if (event.getItemStack() == null) return;
         CustomBlock.matchCustomBlock(new QuickItemStack(event.getItemStack()))
-                .ifPresent(customBlock -> {
-                    placeHanging(customBlock, event.getEntity());
-                });
+                .ifPresent(customBlock -> placeHanging(customBlock, event.getEntity()));
     }
 
     private void placeBlock(CustomBlock customBlock, Player player, Block block) {

@@ -34,9 +34,8 @@ public class CommandWorld extends AriesCommand {
     @SubCommand(path = "current")
     private void displayCurrentWorld(AriesPlayer player) {
         worldManager.getWorld(player)
-                .ifPresentOrElse(world -> {
-                    player.sendTranslate("command.world.current.display_name", world.getWorldName());
-                }, () -> player.sendTranslate("command.world.current.not_imported"));
+                .ifPresentOrElse(world -> player.sendTranslate("command.world.current.display_name", world.getWorldName()),
+                        () -> player.sendTranslate("command.world.current.not_imported"));
     }
 
     @SubCommand(path = "physics")
@@ -47,9 +46,8 @@ public class CommandWorld extends AriesCommand {
     @SubCommand(path = "spawn")
     public void goToWorldSpawn(AriesPlayer player) {
         worldManager.getWorld(player)
-                .ifPresentOrElse(world -> {
-                    world.teleport(player, true);
-                }, () -> player.sendTranslate("command.world.current.not_imported"));
+                .ifPresentOrElse(world -> world.teleport(player, true),
+                        () -> player.sendTranslate("command.world.current.not_imported"));
     }
 
     @SubCommand(path = "import")
